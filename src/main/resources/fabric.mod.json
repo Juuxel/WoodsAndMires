@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "id": "avian",
+  "version": "${version}",
+
+  "name": "Avian",
+  "description": "something",
+  "authors": ["Juuz"],
+
+  "license": "LGPL-3.0-only",
+  "contact": {
+    "homepage": "https://github.com/Juuxel/Avian",
+    "sources": "https://github.com/Juuxel/Avian",
+    "issues": "https://github.com/Juuxel/Avian/issues"
+  },
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      {
+        "adapter": "kotlin",
+        "value": "juuxel.avian.Avian::init"
+      }
+    ],
+    "client": [
+      {
+        "adapter": "kotlin",
+        "value": "juuxel.avian.Avian::initClient"
+      }
+    ]
+  },
+  "mixins": [
+    "mixins.avian.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.7.4",
+    "fabric": "*",
+    "fabric-language-kotlin": "^1.3.71",
+    "minecraft": ">=1.16-pre.5"
+  }
+}
