@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
-  "id": "not_avian",
+  "id": "woods_and_mires",
   "version": "${version}",
 
-  "name": "Not Avian",
+  "name": "Woods and Mires",
   "description": "something",
   "authors": ["Juuz"],
 
   "license": "LGPL-3.0-only",
   "contact": {
-    "homepage": "https://github.com/Juuxel/Avian",
-    "sources": "https://github.com/Juuxel/Avian",
-    "issues": "https://github.com/Juuxel/Avian/issues"
+    "homepage": "https://github.com/Juuxel/WoodsAndMires",
+    "sources": "https://github.com/Juuxel/WoodsAndMires",
+    "issues": "https://github.com/Juuxel/WoodsAndMires/issues"
   },
 
   "environment": "*",
@@ -19,18 +19,18 @@
     "main": [
       {
         "adapter": "kotlin",
-        "value": "juuxel.notavian.NotAvian::init"
+        "value": "juuxel.woodsandmires.WoodsAndMires::init"
       }
     ],
     "client": [
       {
         "adapter": "kotlin",
-        "value": "juuxel.notavian.NotAvian::initClient"
+        "value": "juuxel.woodsandmires.WoodsAndMires::initClient"
       }
     ]
   },
   "mixins": [
-    "mixins.avian.json"
+    "mixins.woods_and_mires.json"
   ],
 
   "depends": {
