@@ -9,5 +9,5 @@ import java.util.Random
 
 object PineSaplingGenerator : SaplingGenerator() {
     override fun createTreeFeature(random: Random, flowerRelated: Boolean): ConfiguredFeature<TreeFeatureConfig, *> =
-        TreeFeature(TreeFeatureConfig.CODEC).configure(WamFeatures.PINE_TREE_CONFIG)
+        TreeFeature(TreeFeatureConfig.CODEC).configure(WamFeatures.PINE_SAPLING_TREE_CONFIG)
 }

@@ -1,6 +1,8 @@
 package juuxel.woodsandmires
 
+import juuxel.woodsandmires.biome.WamBiomes
 import juuxel.woodsandmires.block.WamBlocks
+import juuxel.woodsandmires.feature.WamFeatures
 import net.fabricmc.api.EnvType
 import net.fabricmc.api.Environment
 import net.minecraft.util.Identifier
@@ -12,6 +14,8 @@ object WoodsAndMires {
 
     fun init() {
         WamBlocks.init()
+        WamFeatures.init()
+        WamBiomes.init()
     }
 
     @Environment(EnvType.CLIENT)
