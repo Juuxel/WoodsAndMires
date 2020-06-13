@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "id": "avian",
+  "id": "not_avian",
   "version": "${version}",
 
-  "name": "Avian",
+  "name": "Not Avian",
   "description": "something",
   "authors": ["Juuz"],
 
@@ -19,13 +19,13 @@
     "main": [
       {
         "adapter": "kotlin",
-        "value": "juuxel.avian.Avian::init"
+        "value": "juuxel.notavian.NotAvian::init"
       }
     ],
     "client": [
       {
         "adapter": "kotlin",
-        "value": "juuxel.avian.Avian::initClient"
+        "value": "juuxel.notavian.NotAvian::initClient"
       }
     ]
   },
