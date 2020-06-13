@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "woods_and_mires:block/pine_pressure_plate"
+    },
+    "powered=true": {
+      "model": "woods_and_mires:block/pine_pressure_plate_down"
+    }
+  }
+}

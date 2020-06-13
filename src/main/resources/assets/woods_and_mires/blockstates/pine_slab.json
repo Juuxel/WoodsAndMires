@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "woods_and_mires:block/pine_slab"
+    },
+    "type=double": {
+      "model": "woods_and_mires:block/pine_planks"
+    },
+    "type=top": {
+      "model": "woods_and_mires:block/pine_slab_top"
+    }
+  }
+}
