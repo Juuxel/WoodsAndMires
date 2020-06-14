@@ -5,9 +5,11 @@ import juuxel.woodsandmires.block.WamBlocks
 import net.minecraft.block.Blocks
 import net.minecraft.util.registry.Registry
 import net.minecraft.world.gen.decorator.AlterGroundTreeDecorator
+import net.minecraft.world.gen.feature.DefaultFeatureConfig
 import net.minecraft.world.gen.feature.Feature
 import net.minecraft.world.gen.feature.TreeFeatureConfig
 import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize
+import net.minecraft.world.gen.foliage.BlobFoliagePlacer
 import net.minecraft.world.gen.foliage.PineFoliagePlacer
 import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider
 import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider
@@ -45,7 +47,10 @@ object WamFeatures {
             .ignoreVines()
             .build()
 
+    val PINE_SHRUB: Feature<DefaultFeatureConfig> = PineShrubFeature()
+
     fun init() {
+        register("pine_shrub", PINE_SHRUB)
     }
 
     private fun register(id: String, feature: Feature<*>) {
