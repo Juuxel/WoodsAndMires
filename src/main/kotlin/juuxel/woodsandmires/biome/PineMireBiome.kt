@@ -10,6 +10,7 @@ import net.minecraft.sound.BiomeMoodSound
 import net.minecraft.world.biome.Biome
 import net.minecraft.world.biome.BiomeEffects
 import net.minecraft.world.gen.GenerationStep
+import net.minecraft.world.gen.decorator.ChanceDecoratorConfig
 import net.minecraft.world.gen.decorator.CountDecoratorConfig
 import net.minecraft.world.gen.decorator.CountExtraChanceDecoratorConfig
 import net.minecraft.world.gen.decorator.Decorator
@@ -26,8 +27,8 @@ class PineMireBiome(config: Settings.() -> Unit) : Biome(
         .category(Category.SWAMP)
         .effects(
             BiomeEffects.Builder()
-                .waterColor(0x617B64)
-                .waterFogColor(0x232317)
+                .waterColor(0x5C5214)
+                .waterFogColor(0x050533)
                 .fogColor(0xC0D8FF)
                 .moodSound(BiomeMoodSound.CAVE)
                 .build()
@@ -55,7 +56,7 @@ class PineMireBiome(config: Settings.() -> Unit) : Biome(
 
         addFeature(
             GenerationStep.Feature.VEGETAL_DECORATION,
-            WamFeatures.PINE_SHRUB.configure(PineShrubFeatureConfig(1, 1, 0.25f))
+            WamFeatures.PINE_SHRUB.configure(PineShrubFeatureConfig(1, 2, 0.6f))
                 .createDecoratedFeature(
                     Decorator.COUNT_EXTRA_HEIGHTMAP.configure(CountExtraChanceDecoratorConfig(4, 0.3f, 3))
                 )
@@ -89,6 +90,12 @@ class PineMireBiome(config: Settings.() -> Unit) : Biome(
                 .createDecoratedFeature(Decorator.COUNT_HEIGHTMAP_DOUBLE.configure(CountDecoratorConfig(4)))
         )
 
+        addFeature(
+            GenerationStep.Feature.VEGETAL_DECORATION,
+            Feature.TREE.configure(WamFeatures.MIRE_PINE_TREE_CONFIG)
+                .createDecoratedFeature(Decorator.CHANCE_TOP_SOLID_HEIGHTMAP.configure(ChanceDecoratorConfig(10)))
+        )
+
         addSpawn(SpawnGroup.CREATURE, SpawnEntry(EntityType.SHEEP, 12, 4, 4))
         addSpawn(SpawnGroup.CREATURE, SpawnEntry(EntityType.PIG, 10, 4, 4))
         addSpawn(SpawnGroup.CREATURE, SpawnEntry(EntityType.CHICKEN, 10, 4, 4))
@@ -104,4 +111,8 @@ class PineMireBiome(config: Settings.() -> Unit) : Biome(
         addSpawn(SpawnGroup.MONSTER, SpawnEntry(EntityType.WITCH, 5, 1, 1))
         addSpawn(SpawnGroup.MONSTER, SpawnEntry(EntityType.SLIME, 1, 1, 1))
     }
+
+    override fun getFoliageColor() = 0xBFA243
+
+    override fun getGrassColorAt(x: Double, z: Double) = 0xD1C35C
 }

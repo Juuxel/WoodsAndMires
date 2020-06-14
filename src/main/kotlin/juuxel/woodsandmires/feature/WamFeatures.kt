@@ -1,6 +1,5 @@
 package juuxel.woodsandmires.feature
 
-import com.google.common.collect.ImmutableList
 import juuxel.woodsandmires.WoodsAndMires
 import juuxel.woodsandmires.block.WamBlocks
 import net.minecraft.block.Blocks
@@ -10,18 +9,20 @@ import net.minecraft.world.gen.GenerationStep
 import net.minecraft.world.gen.decorator.AlterGroundTreeDecorator
 import net.minecraft.world.gen.decorator.ChanceDecoratorConfig
 import net.minecraft.world.gen.decorator.Decorator
-import net.minecraft.world.gen.feature.ConfiguredFeature
+import net.minecraft.world.gen.decorator.LeaveVineTreeDecorator
 import net.minecraft.world.gen.feature.DefaultFeatureConfig
 import net.minecraft.world.gen.feature.Feature
 import net.minecraft.world.gen.feature.RandomPatchFeatureConfig
 import net.minecraft.world.gen.feature.SimpleRandomFeatureConfig
 import net.minecraft.world.gen.feature.TreeFeatureConfig
 import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize
+import net.minecraft.world.gen.foliage.BlobFoliagePlacer
 import net.minecraft.world.gen.foliage.PineFoliagePlacer
 import net.minecraft.world.gen.placer.DoublePlantPlacer
 import net.minecraft.world.gen.placer.SimpleBlockPlacer
 import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider
 import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider
+import net.minecraft.world.gen.trunk.ForkingTrunkPlacer
 import net.minecraft.world.gen.trunk.StraightTrunkPlacer
 
 object WamFeatures {
@@ -52,9 +53,16 @@ object WamFeatures {
             PineFoliagePlacer(1, 0, 1, 0, 4, 1),
             StraightTrunkPlacer(6, 4, 0),
             TwoLayersFeatureSize(2, 0, 2)
-        )
-            .ignoreVines()
-            .build()
+        ).ignoreVines().build()
+
+    val MIRE_PINE_TREE_CONFIG: TreeFeatureConfig =
+        TreeFeatureConfig.Builder(
+            SimpleBlockStateProvider(WamBlocks.STRIPPED_PINE_LOG.defaultState),
+            SimpleBlockStateProvider(Blocks.AIR.defaultState),
+            BlobFoliagePlacer(0, 0, 0, 0, 0),
+            ForkingTrunkPlacer(3, 4, 0),
+            TwoLayersFeatureSize(2, 0, 2)
+        ).decorators(listOf(LeaveVineTreeDecorator())).build()
 
     val FIREWEED_CONFIG: RandomPatchFeatureConfig =
         RandomPatchFeatureConfig.Builder(
