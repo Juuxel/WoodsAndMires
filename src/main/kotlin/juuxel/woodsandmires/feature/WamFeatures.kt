@@ -9,7 +9,6 @@ import net.minecraft.world.gen.feature.DefaultFeatureConfig
 import net.minecraft.world.gen.feature.Feature
 import net.minecraft.world.gen.feature.TreeFeatureConfig
 import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize
-import net.minecraft.world.gen.foliage.BlobFoliagePlacer
 import net.minecraft.world.gen.foliage.PineFoliagePlacer
 import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider
 import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider
