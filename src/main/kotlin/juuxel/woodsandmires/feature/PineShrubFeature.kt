@@ -1,5 +1,6 @@
 package juuxel.woodsandmires.feature
 
+import com.mojang.serialization.Codec
 import java.util.Random
 import juuxel.woodsandmires.block.WamBlocks
 import net.minecraft.block.LeavesBlock
@@ -11,7 +12,7 @@ import net.minecraft.world.gen.chunk.ChunkGenerator
 import net.minecraft.world.gen.feature.DefaultFeatureConfig
 import net.minecraft.world.gen.feature.Feature
 
-class PineShrubFeature : Feature<DefaultFeatureConfig>(DefaultFeatureConfig.CODEC) {
+class PineShrubFeature(configCodec: Codec<DefaultFeatureConfig>) : Feature<DefaultFeatureConfig>(configCodec) {
     override fun generate(
         world: ServerWorldAccess, structureAccessor: StructureAccessor, generator: ChunkGenerator,
         random: Random, pos: BlockPos, config: DefaultFeatureConfig

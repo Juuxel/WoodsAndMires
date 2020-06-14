@@ -9,6 +9,7 @@ import net.minecraft.world.biome.BiomeEffects
 import net.minecraft.world.gen.GenerationStep
 import net.minecraft.world.gen.decorator.CountExtraChanceDecoratorConfig
 import net.minecraft.world.gen.decorator.Decorator
+import net.minecraft.world.gen.decorator.DecoratorConfig
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures
 import net.minecraft.world.gen.feature.FeatureConfig
 import net.minecraft.world.gen.surfacebuilder.SurfaceBuilder
@@ -51,8 +52,20 @@ class PineMireBiome(config: Settings.() -> Unit) : Biome(
             GenerationStep.Feature.VEGETAL_DECORATION,
             WamFeatures.PINE_SHRUB.configure(FeatureConfig.DEFAULT)
                 .createDecoratedFeature(
-                    Decorator.COUNT_EXTRA_HEIGHTMAP.configure(CountExtraChanceDecoratorConfig(10, 0.1f, 1))
+                    Decorator.COUNT_EXTRA_HEIGHTMAP.configure(CountExtraChanceDecoratorConfig(2, 0.3f, 3))
                 )
+        )
+
+        addFeature(
+            GenerationStep.Feature.LAKES,
+            WamFeatures.MIRE_PONDS.configure(FeatureConfig.DEFAULT)
+                .createDecoratedFeature(Decorator.NOPE.configure(DecoratorConfig.DEFAULT))
+        )
+
+        addFeature(
+            GenerationStep.Feature.TOP_LAYER_MODIFICATION,
+            WamFeatures.MIRE_VEGETATION.configure(FeatureConfig.DEFAULT)
+                .createDecoratedFeature(Decorator.NOPE.configure(DecoratorConfig.DEFAULT))
         )
 
         addSpawn(SpawnGroup.CREATURE, SpawnEntry(EntityType.SHEEP, 12, 4, 4))
