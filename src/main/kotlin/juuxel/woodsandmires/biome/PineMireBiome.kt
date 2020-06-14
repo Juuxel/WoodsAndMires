@@ -1,6 +1,7 @@
 package juuxel.woodsandmires.biome
 
-import juuxel.woodsandmires.feature.MireVegetationFeatureConfig
+import juuxel.woodsandmires.feature.MeadowFeatureConfig
+import juuxel.woodsandmires.feature.PineShrubFeatureConfig
 import juuxel.woodsandmires.feature.WamFeatures
 import net.minecraft.block.Blocks
 import net.minecraft.entity.EntityType
@@ -54,7 +55,7 @@ class PineMireBiome(config: Settings.() -> Unit) : Biome(
 
         addFeature(
             GenerationStep.Feature.VEGETAL_DECORATION,
-            WamFeatures.PINE_SHRUB.configure(FeatureConfig.DEFAULT)
+            WamFeatures.PINE_SHRUB.configure(PineShrubFeatureConfig(1, 1, 0.25f))
                 .createDecoratedFeature(
                     Decorator.COUNT_EXTRA_HEIGHTMAP.configure(CountExtraChanceDecoratorConfig(4, 0.3f, 3))
                 )
@@ -72,7 +73,7 @@ class PineMireBiome(config: Settings.() -> Unit) : Biome(
 
         addFeature(
             GenerationStep.Feature.TOP_LAYER_MODIFICATION,
-            WamFeatures.MIRE_VEGETATION.configure(MireVegetationFeatureConfig(stateProvider))
+            WamFeatures.MEADOW.configure(MeadowFeatureConfig(stateProvider, 0.5f))
                 .createDecoratedFeature(Decorator.NOPE.configure(DecoratorConfig.DEFAULT))
         )
 

@@ -46,14 +46,14 @@ object WamFeatures {
             .ignoreVines()
             .build()
 
-    val PINE_SHRUB: Feature<DefaultFeatureConfig> = PineShrubFeature(DefaultFeatureConfig.CODEC)
+    val PINE_SHRUB: Feature<PineShrubFeatureConfig> = PineShrubFeature(PineShrubFeatureConfig.CODEC)
     val MIRE_PONDS: Feature<DefaultFeatureConfig> = MirePondsFeature(DefaultFeatureConfig.CODEC)
-    val MIRE_VEGETATION: Feature<MireVegetationFeatureConfig> = MireVegetationFeature(MireVegetationFeatureConfig.CODEC)
+    val MEADOW: Feature<MeadowFeatureConfig> = MeadowFeature(MeadowFeatureConfig.CODEC)
 
     fun init() {
         register("pine_shrub", PINE_SHRUB)
         register("mire_ponds", MIRE_PONDS)
-        register("mire_vegetation", MIRE_VEGETATION)
+        register("meadow", MEADOW)
     }
 
     private fun register(id: String, feature: Feature<*>) {

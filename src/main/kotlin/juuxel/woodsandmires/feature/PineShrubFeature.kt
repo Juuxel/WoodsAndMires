@@ -9,13 +9,12 @@ import net.minecraft.util.math.Direction
 import net.minecraft.world.ServerWorldAccess
 import net.minecraft.world.gen.StructureAccessor
 import net.minecraft.world.gen.chunk.ChunkGenerator
-import net.minecraft.world.gen.feature.DefaultFeatureConfig
 import net.minecraft.world.gen.feature.Feature
 
-class PineShrubFeature(configCodec: Codec<DefaultFeatureConfig>) : Feature<DefaultFeatureConfig>(configCodec) {
+class PineShrubFeature(configCodec: Codec<PineShrubFeatureConfig>) : Feature<PineShrubFeatureConfig>(configCodec) {
     override fun generate(
         world: ServerWorldAccess, structureAccessor: StructureAccessor, generator: ChunkGenerator,
-        random: Random, pos: BlockPos, config: DefaultFeatureConfig
+        random: Random, pos: BlockPos, config: PineShrubFeatureConfig
     ): Boolean {
         val below = pos.down()
         if (!world.getBlockState(below).isSideSolidFullSquare(world, below, Direction.UP)) {
@@ -27,21 +26,27 @@ class PineShrubFeature(configCodec: Codec<DefaultFeatureConfig>) : Feature<Defau
 
         val log = WamBlocks.PINE_LOG.defaultState // TODO: Use wood once we have that
         val leaves = WamBlocks.PINE_LEAVES.defaultState.with(LeavesBlock.DISTANCE, 1)
+        val extraHeight =
+            if (random.nextFloat() < config.extraHeightChance) random.nextInt(config.extraHeight + 1)
+            else 0
 
-        world.setBlockState(mut, log, 2)
+        val height = config.baseHeight + extraHeight
 
-        if (random.nextInt(4) == 0) {
-            mut.move(Direction.UP)
+        for (y in 1..height) {
             world.setBlockState(mut, log, 2)
+
+            if (y > 1 || height == 1) {
+                for (direction in Direction.Type.HORIZONTAL) {
+                    mut.move(direction)
+                    world.setBlockState(mut, leaves, 2)
+                    mut.move(direction.opposite)
+                }
+            }
+
+            mut.move(Direction.UP)
         }
 
-        for (direction in Direction.values()) {
-            if (direction != Direction.DOWN) {
-                mut.move(direction)
-                world.setBlockState(mut, leaves, 2)
-                mut.move(direction.opposite)
-            }
-        }
+        world.setBlockState(mut, leaves, 2)
 
         return true
     }

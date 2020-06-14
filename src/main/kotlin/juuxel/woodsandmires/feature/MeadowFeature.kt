@@ -9,19 +9,19 @@ import net.minecraft.world.gen.chunk.ChunkGenerator
 import net.minecraft.world.gen.feature.Feature
 import java.util.Random
 
-class MireVegetationFeature(
-    configCodec: Codec<MireVegetationFeatureConfig>
-) : Feature<MireVegetationFeatureConfig>(configCodec) {
+class MeadowFeature(
+    configCodec: Codec<MeadowFeatureConfig>
+) : Feature<MeadowFeatureConfig>(configCodec) {
     override fun generate(
         world: ServerWorldAccess, structureAccessor: StructureAccessor, generator: ChunkGenerator,
-        random: Random, pos: BlockPos, config: MireVegetationFeatureConfig
+        random: Random, pos: BlockPos, config: MeadowFeatureConfig
     ): Boolean {
         val mut = BlockPos.Mutable()
         var generated = false
 
         for (x in 0..15) {
             for (z in 0..15) {
-                if (random.nextBoolean()) continue
+                if (random.nextFloat() > config.chance) continue
 
                 val xo = pos.x + x
                 val zo = pos.z + z
