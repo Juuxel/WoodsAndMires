@@ -27,7 +27,7 @@ class PineMireBiome(config: Settings.() -> Unit) : Biome(
         .category(Category.SWAMP)
         .effects(
             BiomeEffects.Builder()
-                .waterColor(0x5C5214)
+                .waterColor(0x7B6D1B)
                 .waterFogColor(0x050533)
                 .fogColor(0xC0D8FF)
                 .moodSound(BiomeMoodSound.CAVE)

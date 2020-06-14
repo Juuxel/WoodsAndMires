@@ -10,8 +10,8 @@ object WamBiomes {
     @JvmField val PINE_FOREST: Biome = PineForestBiome { depth(0.1f).scale(0.2f) }
     @JvmField val PINE_FOREST_HILLS: Biome = PineForestBiome { depth(0.45f).scale(0.3f) }
     @JvmField val PINE_FOREST_CLEARING: Biome = PineForestClearingBiome { depth(0.1f).scale(0.2f) }
-    @JvmField val PINE_MIRE: Biome = PineMireBiome { depth(-0.2f).scale(0.1f) }
-    @JvmField val PINE_MIRE_HILLS: Biome = PineMireBiome { depth(-0.1f).scale(0.3f) }
+    @JvmField val PINE_MIRE: Biome = PineMireBiome { depth(-0.1f).scale(0.1f) }
+    @JvmField val PINE_MIRE_HILLS: Biome = PineMireBiome { depth(-0.05f).scale(0.3f) }
 
     fun init() {
         register("pine_forest", PINE_FOREST)
