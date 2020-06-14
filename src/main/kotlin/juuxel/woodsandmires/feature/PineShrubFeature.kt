@@ -25,7 +25,6 @@ class PineShrubFeature(configCodec: Codec<PineShrubFeatureConfig>) : Feature<Pin
         mut.set(pos)
 
         val log = WamBlocks.PINE_LOG.defaultState
-        val wood = WamBlocks.PINE_WOOD.defaultState
         val leaves = WamBlocks.PINE_LEAVES.defaultState.with(LeavesBlock.DISTANCE, 1)
         val extraHeight =
             if (random.nextFloat() < config.extraHeightChance) random.nextInt(config.extraHeight + 1)
@@ -34,7 +33,7 @@ class PineShrubFeature(configCodec: Codec<PineShrubFeatureConfig>) : Feature<Pin
         val height = config.baseHeight + extraHeight
 
         for (y in 1..height) {
-            world.setBlockState(mut, if (y == height) wood else log, 2)
+            world.setBlockState(mut, log, 2)
 
             if (y > 1 || height == 1) {
                 for (direction in Direction.Type.HORIZONTAL) {
