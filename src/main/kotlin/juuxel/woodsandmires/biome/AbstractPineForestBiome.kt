@@ -60,4 +60,6 @@ abstract class AbstractPineForestBiome(config: Settings.() -> Unit) : Biome(
         addSpawn(SpawnGroup.MONSTER, SpawnEntry(EntityType.ENDERMAN, 10, 1, 4))
         addSpawn(SpawnGroup.MONSTER, SpawnEntry(EntityType.WITCH, 5, 1, 1))
     }
+
+    override fun getFoliageColor() = 0x43C44F
 }

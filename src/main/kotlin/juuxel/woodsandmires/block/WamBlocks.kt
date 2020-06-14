@@ -113,14 +113,14 @@ object WamBlocks {
         ColorProviderRegistry.BLOCK.register(BlockColorProvider { _, world, pos, _ ->
             if (world != null && pos != null) BiomeColors.getFoliageColor(world, pos)
             else FoliageColors.getColor(0.5, 1.0)
-        }, FIREWEED, TANSY, POTTED_TANSY)
+        }, FIREWEED, TANSY, POTTED_TANSY, PINE_LEAVES)
 
         ColorProviderRegistry.ITEM.register(ItemColorProvider { stack, tintIndex ->
             if (tintIndex > 0) return@ItemColorProvider -1
 
             val colors = MinecraftClient.getInstance().blockColors
             colors.getColor((stack.item as BlockItem).block.defaultState, null, null, tintIndex)
-        }, FIREWEED, TANSY)
+        }, FIREWEED, TANSY, PINE_LEAVES)
     }
 
     private fun register(id: String, block: Block, itemGroup: ItemGroup = ItemGroup.BUILDING_BLOCKS) =
