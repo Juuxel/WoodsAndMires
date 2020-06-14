@@ -1,0 +1,7 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "woods_and_mires:item/fireweed_base",
+    "layer1": "woods_and_mires:item/fireweed_flowers"
+  }
+}

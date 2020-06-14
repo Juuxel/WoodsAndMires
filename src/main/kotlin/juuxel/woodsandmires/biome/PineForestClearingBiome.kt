@@ -5,6 +5,8 @@ import juuxel.woodsandmires.feature.PineShrubFeatureConfig
 import juuxel.woodsandmires.feature.WamFeatures
 import net.minecraft.block.Blocks
 import net.minecraft.world.gen.GenerationStep
+import net.minecraft.world.gen.decorator.ChanceDecoratorConfig
+import net.minecraft.world.gen.decorator.ChanceTopSolidHeightmapDecorator
 import net.minecraft.world.gen.decorator.CountExtraChanceDecoratorConfig
 import net.minecraft.world.gen.decorator.Decorator
 import net.minecraft.world.gen.decorator.DecoratorConfig
@@ -42,6 +44,12 @@ class PineForestClearingBiome(config: Settings.() -> Unit) : AbstractPineForestB
             GenerationStep.Feature.TOP_LAYER_MODIFICATION,
             WamFeatures.MEADOW.configure(MeadowFeatureConfig(stateProvider, 0.25f))
                 .createDecoratedFeature(Decorator.NOPE.configure(DecoratorConfig.DEFAULT))
+        )
+
+        addFeature(
+            GenerationStep.Feature.VEGETAL_DECORATION,
+            Feature.RANDOM_PATCH.configure(WamFeatures.FIREWEED_CONFIG)
+                .createDecoratedFeature(Decorator.CHANCE_TOP_SOLID_HEIGHTMAP.configure(ChanceDecoratorConfig(5)))
         )
     }
 }

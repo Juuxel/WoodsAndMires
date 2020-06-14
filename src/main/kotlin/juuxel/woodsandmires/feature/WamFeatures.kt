@@ -1,15 +1,25 @@
 package juuxel.woodsandmires.feature
 
+import com.google.common.collect.ImmutableList
 import juuxel.woodsandmires.WoodsAndMires
 import juuxel.woodsandmires.block.WamBlocks
 import net.minecraft.block.Blocks
 import net.minecraft.util.registry.Registry
+import net.minecraft.world.biome.Biome
+import net.minecraft.world.gen.GenerationStep
 import net.minecraft.world.gen.decorator.AlterGroundTreeDecorator
+import net.minecraft.world.gen.decorator.ChanceDecoratorConfig
+import net.minecraft.world.gen.decorator.Decorator
+import net.minecraft.world.gen.feature.ConfiguredFeature
 import net.minecraft.world.gen.feature.DefaultFeatureConfig
 import net.minecraft.world.gen.feature.Feature
+import net.minecraft.world.gen.feature.RandomPatchFeatureConfig
+import net.minecraft.world.gen.feature.SimpleRandomFeatureConfig
 import net.minecraft.world.gen.feature.TreeFeatureConfig
 import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize
 import net.minecraft.world.gen.foliage.PineFoliagePlacer
+import net.minecraft.world.gen.placer.DoublePlantPlacer
+import net.minecraft.world.gen.placer.SimpleBlockPlacer
 import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider
 import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider
 import net.minecraft.world.gen.trunk.StraightTrunkPlacer
@@ -46,6 +56,18 @@ object WamFeatures {
             .ignoreVines()
             .build()
 
+    val FIREWEED_CONFIG: RandomPatchFeatureConfig =
+        RandomPatchFeatureConfig.Builder(
+            SimpleBlockStateProvider(WamBlocks.FIREWEED.defaultState),
+            DoublePlantPlacer()
+        ).tries(64).cannotProject().build()
+
+    val TANSY_CONFIG: RandomPatchFeatureConfig =
+        RandomPatchFeatureConfig.Builder(
+            SimpleBlockStateProvider(WamBlocks.TANSY.defaultState),
+            SimpleBlockPlacer()
+        ).tries(64).cannotProject().build()
+
     val PINE_SHRUB: Feature<PineShrubFeatureConfig> = PineShrubFeature(PineShrubFeatureConfig.CODEC)
     val MIRE_PONDS: Feature<DefaultFeatureConfig> = MirePondsFeature(DefaultFeatureConfig.CODEC)
     val MEADOW: Feature<MeadowFeatureConfig> = MeadowFeature(MeadowFeatureConfig.CODEC)
@@ -58,5 +80,21 @@ object WamFeatures {
 
     private fun register(id: String, feature: Feature<*>) {
         Registry.register(Registry.FEATURE, WoodsAndMires.id(id), feature)
+    }
+
+    fun addFlowers(biome: Biome) {
+        biome.addFeature(
+            GenerationStep.Feature.VEGETAL_DECORATION,
+            Feature.SIMPLE_RANDOM_SELECTOR.configure(
+                SimpleRandomFeatureConfig(
+                    listOf(
+                        Feature.RANDOM_PATCH.configure(FIREWEED_CONFIG),
+                        Feature.FLOWER.configure(TANSY_CONFIG)
+                    )
+                )
+            ).createDecoratedFeature(
+                Decorator.CHANCE_TOP_SOLID_HEIGHTMAP.configure(ChanceDecoratorConfig(20))
+            )
+        )
     }
 }

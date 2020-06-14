@@ -1,0 +1,7 @@
+{
+  "parent": "woods_and_mires:block/templates/layered_mirrored_cross",
+  "textures": {
+    "cross": "woods_and_mires:block/fireweed_bottom_base",
+    "decoration": "woods_and_mires:block/fireweed_bottom_flowers"
+  }
+}

@@ -5,7 +5,9 @@
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "AddSunflowerPlainsLayerMixin",
-    "BlocksAccessor"
+    "BlocksAccessor",
+    "DefaultBiomeFeaturesMixin",
+    "ForestFlowerBlockStateProviderMixin"
   ],
   "client": [
   ],
