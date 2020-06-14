@@ -1,17 +1,22 @@
 package juuxel.woodsandmires.biome
 
+import juuxel.woodsandmires.feature.MireVegetationFeatureConfig
 import juuxel.woodsandmires.feature.WamFeatures
+import net.minecraft.block.Blocks
 import net.minecraft.entity.EntityType
 import net.minecraft.entity.SpawnGroup
 import net.minecraft.sound.BiomeMoodSound
 import net.minecraft.world.biome.Biome
 import net.minecraft.world.biome.BiomeEffects
 import net.minecraft.world.gen.GenerationStep
+import net.minecraft.world.gen.decorator.CountDecoratorConfig
 import net.minecraft.world.gen.decorator.CountExtraChanceDecoratorConfig
 import net.minecraft.world.gen.decorator.Decorator
 import net.minecraft.world.gen.decorator.DecoratorConfig
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures
+import net.minecraft.world.gen.feature.Feature
 import net.minecraft.world.gen.feature.FeatureConfig
+import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider
 import net.minecraft.world.gen.surfacebuilder.SurfaceBuilder
 
 class PineMireBiome(config: Settings.() -> Unit) : Biome(
@@ -34,7 +39,6 @@ class PineMireBiome(config: Settings.() -> Unit) : Biome(
     init {
         DefaultBiomeFeatures.addLandCarvers(this)
         DefaultBiomeFeatures.addFossils(this)
-        DefaultBiomeFeatures.addDefaultLakes(this)
         DefaultBiomeFeatures.addDungeons(this)
         DefaultBiomeFeatures.addMineables(this)
         DefaultBiomeFeatures.addDefaultOres(this)
@@ -52,7 +56,7 @@ class PineMireBiome(config: Settings.() -> Unit) : Biome(
             GenerationStep.Feature.VEGETAL_DECORATION,
             WamFeatures.PINE_SHRUB.configure(FeatureConfig.DEFAULT)
                 .createDecoratedFeature(
-                    Decorator.COUNT_EXTRA_HEIGHTMAP.configure(CountExtraChanceDecoratorConfig(2, 0.3f, 3))
+                    Decorator.COUNT_EXTRA_HEIGHTMAP.configure(CountExtraChanceDecoratorConfig(4, 0.3f, 3))
                 )
         )
 
@@ -62,10 +66,20 @@ class PineMireBiome(config: Settings.() -> Unit) : Biome(
                 .createDecoratedFeature(Decorator.NOPE.configure(DecoratorConfig.DEFAULT))
         )
 
+        val stateProvider = WeightedBlockStateProvider()
+        stateProvider.addState(Blocks.GRASS.defaultState, 5)
+        stateProvider.addState(Blocks.FERN.defaultState, 1)
+
         addFeature(
             GenerationStep.Feature.TOP_LAYER_MODIFICATION,
-            WamFeatures.MIRE_VEGETATION.configure(FeatureConfig.DEFAULT)
+            WamFeatures.MIRE_VEGETATION.configure(MireVegetationFeatureConfig(stateProvider))
                 .createDecoratedFeature(Decorator.NOPE.configure(DecoratorConfig.DEFAULT))
+        )
+
+        addFeature(
+            GenerationStep.Feature.VEGETAL_DECORATION,
+            Feature.FLOWER.configure(DefaultBiomeFeatures.BLUE_ORCHID_CONFIG)
+                .createDecoratedFeature(Decorator.COUNT_HEIGHTMAP_32.configure(CountDecoratorConfig(1)))
         )
 
         addSpawn(SpawnGroup.CREATURE, SpawnEntry(EntityType.SHEEP, 12, 4, 4))

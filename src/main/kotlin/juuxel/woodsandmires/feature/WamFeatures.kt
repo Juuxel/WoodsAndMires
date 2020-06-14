@@ -48,7 +48,7 @@ object WamFeatures {
 
     val PINE_SHRUB: Feature<DefaultFeatureConfig> = PineShrubFeature(DefaultFeatureConfig.CODEC)
     val MIRE_PONDS: Feature<DefaultFeatureConfig> = MirePondsFeature(DefaultFeatureConfig.CODEC)
-    val MIRE_VEGETATION: Feature<DefaultFeatureConfig> = MireVegetationFeature(DefaultFeatureConfig.CODEC)
+    val MIRE_VEGETATION: Feature<MireVegetationFeatureConfig> = MireVegetationFeature(MireVegetationFeatureConfig.CODEC)
 
     fun init() {
         register("pine_shrub", PINE_SHRUB)
