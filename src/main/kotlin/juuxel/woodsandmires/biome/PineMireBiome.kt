@@ -58,7 +58,7 @@ class PineMireBiome(config: Settings.() -> Unit) : Biome(
             GenerationStep.Feature.VEGETAL_DECORATION,
             WamFeatures.PINE_SHRUB.configure(PineShrubFeatureConfig(1, 2, 0.6f))
                 .createDecoratedFeature(
-                    Decorator.COUNT_EXTRA_HEIGHTMAP.configure(CountExtraChanceDecoratorConfig(4, 0.3f, 3))
+                    Decorator.COUNT_EXTRA_HEIGHTMAP.configure(CountExtraChanceDecoratorConfig(3, 0.3f, 3))
                 )
         )
 
@@ -93,7 +93,7 @@ class PineMireBiome(config: Settings.() -> Unit) : Biome(
         addFeature(
             GenerationStep.Feature.VEGETAL_DECORATION,
             Feature.TREE.configure(WamFeatures.MIRE_PINE_TREE_CONFIG)
-                .createDecoratedFeature(Decorator.CHANCE_TOP_SOLID_HEIGHTMAP.configure(ChanceDecoratorConfig(10)))
+                .createDecoratedFeature(Decorator.CHANCE_TOP_SOLID_HEIGHTMAP.configure(ChanceDecoratorConfig(6)))
         )
 
         addSpawn(SpawnGroup.CREATURE, SpawnEntry(EntityType.SHEEP, 12, 4, 4))
@@ -114,5 +114,5 @@ class PineMireBiome(config: Settings.() -> Unit) : Biome(
 
     override fun getFoliageColor() = 0xBFA243
 
-    override fun getGrassColorAt(x: Double, z: Double) = 0xD1C35C
+    override fun getGrassColorAt(x: Double, z: Double) = 0xADA24C
 }

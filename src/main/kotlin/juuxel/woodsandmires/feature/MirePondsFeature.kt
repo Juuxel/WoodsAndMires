@@ -29,7 +29,7 @@ class MirePondsFeature(configCodec: Codec<DefaultFeatureConfig>) : Feature<Defau
                 val zo = pos.z + z
                 mut.set(xo, world.getTopY(Heightmap.Type.MOTION_BLOCKING, xo, zo) - 1, zo)
 
-                if (world.getBlockState(mut).isSolidBlock(world, mut) && isSolidOrWaterAround(world, mut)) {
+                if (method_27368(world, mut) && isSolidOrWaterAround(world, mut)) {
                     world.setBlockState(mut, water, 2)
                     generated = true
                 }
