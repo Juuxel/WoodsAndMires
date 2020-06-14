@@ -9,7 +9,7 @@ import net.minecraft.world.gen.decorator.CountExtraChanceDecoratorConfig
 import net.minecraft.world.gen.decorator.Decorator
 import net.minecraft.world.gen.decorator.DecoratorConfig
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures
-import net.minecraft.world.gen.feature.FeatureConfig
+import net.minecraft.world.gen.feature.Feature
 import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider
 
 class PineForestClearingBiome(config: Settings.() -> Unit) : AbstractPineForestBiome(config) {
@@ -23,6 +23,14 @@ class PineForestClearingBiome(config: Settings.() -> Unit) : AbstractPineForestB
             WamFeatures.PINE_SHRUB.configure(PineShrubFeatureConfig(1, 2, 1f))
                 .createDecoratedFeature(
                     Decorator.COUNT_EXTRA_HEIGHTMAP.configure(CountExtraChanceDecoratorConfig(4, 0.3f, 3))
+                )
+        )
+
+        addFeature(
+            GenerationStep.Feature.VEGETAL_DECORATION,
+            Feature.TREE.configure(DefaultBiomeFeatures.BIRCH_TREE_WITH_RARE_BEEHIVES_CONFIG)
+                .createDecoratedFeature(
+                    Decorator.COUNT_EXTRA_HEIGHTMAP.configure(CountExtraChanceDecoratorConfig(1, 0.2f, 2))
                 )
         )
 
