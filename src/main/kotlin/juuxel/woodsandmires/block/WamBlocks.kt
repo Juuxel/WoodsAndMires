@@ -40,7 +40,7 @@ import net.minecraft.util.registry.Registry
 
 object WamBlocks {
     // TODO:
-    //   - tag leaves, sapling and wood
+    //   - tag leaves, sapling, wood and stripped blocks
     //   - potted sapling
     //   - fuel values
     //   - recipes + advancements for them
@@ -58,6 +58,8 @@ object WamBlocks {
     val PINE_LEAVES: Block = BlocksAccessor.callCreateLeavesBlock()
     val PINE_SAPLING: Block = object : SaplingBlock(PineSaplingGenerator, Settings.copy(Blocks.OAK_SAPLING)) {}
     val PINE_WOOD: Block = PillarBlock(copyWoodSettings(Blocks.OAK_WOOD))
+    val STRIPPED_PINE_LOG: Block = PillarBlock(copyWoodSettings(Blocks.STRIPPED_OAK_LOG))
+    val STRIPPED_PINE_WOOD: Block = PillarBlock(copyWoodSettings(Blocks.STRIPPED_OAK_WOOD))
     val FIREWEED: Block = TallFlowerBlock(createFlowerSettings())
     val TANSY: Block = BigFlowerBlock(StatusEffects.SLOW_FALLING, 10, createFlowerSettings())
     val POTTED_TANSY: Block = FlowerPotBlock(TANSY, Settings.of(PART_MATERIAL).breakInstantly())
@@ -74,6 +76,8 @@ object WamBlocks {
         register("pine_leaves", PINE_LEAVES, ItemGroup.DECORATIONS)
         register("pine_sapling", PINE_SAPLING, ItemGroup.DECORATIONS)
         register("pine_wood", PINE_WOOD)
+        register("stripped_pine_log", STRIPPED_PINE_LOG)
+        register("stripped_pine_wood", STRIPPED_PINE_WOOD)
         register("fireweed", FIREWEED, TallBlockItem(FIREWEED, Item.Settings().group(ItemGroup.DECORATIONS)))
         register("tansy", TANSY, ItemGroup.DECORATIONS)
         register("potted_tansy", POTTED_TANSY, item = null)
@@ -81,6 +85,8 @@ object WamBlocks {
         FlammableBlockRegistry.getDefaultInstance().apply {
             add(PINE_LOG, 5, 5)
             add(PINE_WOOD, 5, 5)
+            add(STRIPPED_PINE_LOG, 5, 5)
+            add(STRIPPED_PINE_WOOD, 5, 5)
             add(PINE_PLANKS, 5, 20)
             add(PINE_SLAB, 5, 20)
             add(PINE_STAIRS, 5, 20)
