@@ -32,6 +32,13 @@ class MirePondsFeature(configCodec: Codec<DefaultFeatureConfig>) : Feature<Defau
                 if (method_27368(world, mut) && isSolidOrWaterAround(world, mut)) {
                     world.setBlockState(mut, water, 2)
                     generated = true
+
+                    if (random.nextInt(3) == 0) {
+                        mut.move(0, -1, 0)
+                        if (method_27368(world, mut) && isSolidOrWaterAround(world, mut)) {
+                            world.setBlockState(mut, water, 2)
+                        }
+                    }
                 }
             }
         }
@@ -40,7 +47,9 @@ class MirePondsFeature(configCodec: Codec<DefaultFeatureConfig>) : Feature<Defau
     }
 
     private fun isSolidOrWaterAround(world: ServerWorldAccess, pos: BlockPos.Mutable): Boolean =
-        Direction.Type.HORIZONTAL.all { direction ->
+        Direction.values().all { direction ->
+            if (direction == Direction.UP) return@all true
+
             pos.move(direction)
             val state = world.getBlockState(pos)
             pos.move(direction.opposite)
