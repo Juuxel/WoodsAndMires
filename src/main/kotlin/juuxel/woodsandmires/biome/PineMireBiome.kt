@@ -80,7 +80,13 @@ class PineMireBiome(config: Settings.() -> Unit) : Biome(
         addFeature(
             GenerationStep.Feature.VEGETAL_DECORATION,
             Feature.FLOWER.configure(DefaultBiomeFeatures.BLUE_ORCHID_CONFIG)
-                .createDecoratedFeature(Decorator.COUNT_HEIGHTMAP_32.configure(CountDecoratorConfig(1)))
+                .createDecoratedFeature(Decorator.COUNT_HEIGHTMAP_32.configure(CountDecoratorConfig(3)))
+        )
+
+        addFeature(
+            GenerationStep.Feature.VEGETAL_DECORATION,
+            Feature.RANDOM_PATCH.configure(DefaultBiomeFeatures.LILY_PAD_CONFIG)
+                .createDecoratedFeature(Decorator.COUNT_HEIGHTMAP_DOUBLE.configure(CountDecoratorConfig(4)))
         )
 
         addSpawn(SpawnGroup.CREATURE, SpawnEntry(EntityType.SHEEP, 12, 4, 4))

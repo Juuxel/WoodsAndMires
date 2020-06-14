@@ -22,7 +22,7 @@ object WamBiomes {
 
         OverworldBiomes.addContinentalBiome(PINE_FOREST, OverworldClimate.COOL, 1.0)
         OverworldBiomes.addHillsBiome(PINE_FOREST, PINE_FOREST_HILLS, 1.0)
-        OverworldBiomes.addContinentalBiome(PINE_MIRE, OverworldClimate.COOL, 1.0)
+        OverworldBiomes.addContinentalBiome(PINE_MIRE, OverworldClimate.TEMPERATE, 1.0)
         OverworldBiomes.addHillsBiome(PINE_MIRE, PINE_MIRE_HILLS, 1.0)
     }
 
