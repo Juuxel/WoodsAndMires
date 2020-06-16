@@ -35,7 +35,7 @@ class MirePondsFeature(configCodec: Codec<DefaultFeatureConfig>) : Feature<Defau
 
                     if (random.nextInt(3) == 0) {
                         mut.move(0, -1, 0)
-                        if (method_27368(world, mut) && isSolidOrWaterAround(world, mut)) {
+                        if (world.getBlockState(mut).isSolidBlock(world, mut) && isSolidOrWaterAround(world, mut)) {
                             world.setBlockState(mut, water, 2)
                         }
                     }
