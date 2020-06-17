@@ -1,5 +1,6 @@
 package juuxel.woodsandmires.biome
 
+import juuxel.woodsandmires.block.WamBlocks
 import juuxel.woodsandmires.feature.MeadowFeatureConfig
 import juuxel.woodsandmires.feature.PineShrubFeatureConfig
 import juuxel.woodsandmires.feature.WamFeatures
@@ -18,6 +19,8 @@ import net.minecraft.world.gen.decorator.DecoratorConfig
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures
 import net.minecraft.world.gen.feature.Feature
 import net.minecraft.world.gen.feature.FeatureConfig
+import net.minecraft.world.gen.feature.RandomPatchFeatureConfig
+import net.minecraft.world.gen.placer.SimpleBlockPlacer
 import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider
 import net.minecraft.world.gen.surfacebuilder.SurfaceBuilder
 
@@ -68,19 +71,28 @@ class PineMireBiome(config: Settings.() -> Unit) : Biome(
                 .createDecoratedFeature(Decorator.NOPE.configure(DecoratorConfig.DEFAULT))
         )
 
-        val stateProvider = WeightedBlockStateProvider()
-        stateProvider.addState(Blocks.GRASS.defaultState, 5)
-        stateProvider.addState(Blocks.FERN.defaultState, 1)
+        val meadowStateProvider = WeightedBlockStateProvider()
+        meadowStateProvider.addState(Blocks.GRASS.defaultState, 5)
+        meadowStateProvider.addState(Blocks.FERN.defaultState, 1)
 
         addFeature(
             GenerationStep.Feature.TOP_LAYER_MODIFICATION,
-            WamFeatures.MEADOW.configure(MeadowFeatureConfig(stateProvider, 0.5f))
+            WamFeatures.MEADOW.configure(MeadowFeatureConfig(meadowStateProvider, 0.5f))
                 .createDecoratedFeature(Decorator.NOPE.configure(DecoratorConfig.DEFAULT))
         )
 
+        val flowerStateProvider = WeightedBlockStateProvider()
+        flowerStateProvider.addState(Blocks.BLUE_ORCHID.defaultState, 1)
+        flowerStateProvider.addState(WamBlocks.TANSY.defaultState, 1)
+
+        val flowerConfig = RandomPatchFeatureConfig.Builder(
+            flowerStateProvider,
+            SimpleBlockPlacer()
+        ).tries(64).cannotProject().build()
+
         addFeature(
             GenerationStep.Feature.VEGETAL_DECORATION,
-            Feature.FLOWER.configure(DefaultBiomeFeatures.BLUE_ORCHID_CONFIG)
+            Feature.FLOWER.configure(flowerConfig)
                 .createDecoratedFeature(Decorator.COUNT_HEIGHTMAP_32.configure(CountDecoratorConfig(3)))
         )
 
