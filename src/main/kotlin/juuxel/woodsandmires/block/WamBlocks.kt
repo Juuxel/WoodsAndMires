@@ -41,7 +41,6 @@ import net.minecraft.util.registry.Registry
 object WamBlocks {
     // TODO:
     //   - tag leaves, sapling, wood and stripped blocks
-    //   - potted sapling
     //   - fuel values
     //   - recipes + advancements for them
 
@@ -57,6 +56,7 @@ object WamBlocks {
     ) {}
     val PINE_LEAVES: Block = BlocksAccessor.callCreateLeavesBlock()
     val PINE_SAPLING: Block = object : SaplingBlock(PineSaplingGenerator, Settings.copy(Blocks.OAK_SAPLING)) {}
+    val POTTED_PINE_SAPLING: Block = FlowerPotBlock(PINE_SAPLING, Settings.of(PART_MATERIAL).breakInstantly())
     val PINE_WOOD: Block = PillarBlock(copyWoodSettings(Blocks.OAK_WOOD))
     val STRIPPED_PINE_LOG: Block = PillarBlock(copyWoodSettings(Blocks.STRIPPED_OAK_LOG))
     val STRIPPED_PINE_WOOD: Block = PillarBlock(copyWoodSettings(Blocks.STRIPPED_OAK_WOOD))
@@ -75,6 +75,7 @@ object WamBlocks {
         register("pine_pressure_plate", PINE_PRESSURE_PLATE, ItemGroup.REDSTONE)
         register("pine_leaves", PINE_LEAVES, ItemGroup.DECORATIONS)
         register("pine_sapling", PINE_SAPLING, ItemGroup.DECORATIONS)
+        register("potted_pine_sapling", POTTED_PINE_SAPLING, item = null)
         register("pine_wood", PINE_WOOD)
         register("stripped_pine_log", STRIPPED_PINE_LOG)
         register("stripped_pine_wood", STRIPPED_PINE_WOOD)
@@ -106,8 +107,10 @@ object WamBlocks {
         BlockRenderLayerMap.INSTANCE.putBlocks(
             RenderLayer.getCutout(),
             PINE_SAPLING,
+            POTTED_PINE_SAPLING,
             FIREWEED,
-            TANSY
+            TANSY,
+            POTTED_TANSY
         )
 
         ColorProviderRegistry.BLOCK.register(BlockColorProvider { _, world, pos, _ ->
