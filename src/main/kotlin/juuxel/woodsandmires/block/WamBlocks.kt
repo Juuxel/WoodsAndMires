@@ -8,6 +8,7 @@ import net.fabricmc.fabric.api.`object`.builder.v1.block.FabricBlockSettings
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry
+import net.fabricmc.fabric.api.registry.FuelRegistry
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags
 import net.minecraft.block.AbstractBlock.Settings
 import net.minecraft.block.Block
@@ -40,9 +41,7 @@ import net.minecraft.util.registry.Registry
 
 object WamBlocks {
     // TODO:
-    //   - tag leaves, sapling, wood and stripped blocks
-    //   - fuel values
-    //   - recipes + advancements for them
+    //   - recipe advancements
 
     val PINE_LOG: Block = PillarBlock(copyWoodSettings(Blocks.OAK_LOG))
     val PINE_PLANKS: Block = Block(copyWoodSettings(Blocks.OAK_PLANKS))
@@ -94,6 +93,11 @@ object WamBlocks {
             add(PINE_FENCE, 5, 20)
             add(PINE_FENCE_GATE, 5, 20)
             add(PINE_LEAVES, 5, 20)
+        }
+
+        FuelRegistry.INSTANCE.apply {
+            add(PINE_FENCE, 300)
+            add(PINE_FENCE_GATE, 300)
         }
     }
 
