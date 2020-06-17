@@ -1,12 +1,18 @@
 @file:Suppress("LeakingThis")
 package juuxel.woodsandmires.biome
 
+import net.minecraft.block.Blocks
 import net.minecraft.entity.EntityType
 import net.minecraft.entity.SpawnGroup
 import net.minecraft.sound.BiomeMoodSound
 import net.minecraft.world.biome.Biome
 import net.minecraft.world.biome.BiomeEffects
+import net.minecraft.world.gen.GenerationStep
+import net.minecraft.world.gen.decorator.ChanceDecoratorConfig
+import net.minecraft.world.gen.decorator.Decorator
+import net.minecraft.world.gen.feature.BoulderFeatureConfig
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures
+import net.minecraft.world.gen.feature.Feature
 import net.minecraft.world.gen.surfacebuilder.SurfaceBuilder
 
 abstract class AbstractPineForestBiome(config: Settings.() -> Unit) : Biome(
@@ -43,6 +49,13 @@ abstract class AbstractPineForestBiome(config: Settings.() -> Unit) : Biome(
         DefaultBiomeFeatures.addFrozenTopLayer(this)
         DefaultBiomeFeatures.addSweetBerryBushes(this)
         DefaultBiomeFeatures.addLargeFerns(this)
+
+        // Stone boulders
+        addFeature(
+            GenerationStep.Feature.LOCAL_MODIFICATIONS,
+            Feature.FOREST_ROCK.configure(BoulderFeatureConfig(Blocks.STONE.defaultState, 1))
+                .createDecoratedFeature(Decorator.CHANCE_TOP_SOLID_HEIGHTMAP.configure(ChanceDecoratorConfig(16)))
+        )
 
         addSpawn(SpawnGroup.CREATURE, SpawnEntry(EntityType.SHEEP, 12, 4, 4))
         addSpawn(SpawnGroup.CREATURE, SpawnEntry(EntityType.PIG, 10, 4, 4))
