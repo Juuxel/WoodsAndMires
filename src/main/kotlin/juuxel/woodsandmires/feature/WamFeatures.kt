@@ -55,9 +55,9 @@ object WamFeatures {
             TwoLayersFeatureSize(2, 0, 2)
         ).ignoreVines().build()
 
-    val MIRE_PINE_TREE_CONFIG: TreeFeatureConfig =
+    val PINE_SNAG_CONFIG: TreeFeatureConfig =
         TreeFeatureConfig.Builder(
-            SimpleBlockStateProvider(WamBlocks.STRIPPED_PINE_LOG.defaultState),
+            SimpleBlockStateProvider(WamBlocks.PINE_SNAG_LOG.defaultState),
             SimpleBlockStateProvider(Blocks.AIR.defaultState),
             BlobFoliagePlacer(0, 0, 0, 0, 0),
             ForkingTrunkPlacer(3, 4, 0),

@@ -104,7 +104,7 @@ class PineMireBiome(config: Settings.() -> Unit) : Biome(
 
         addFeature(
             GenerationStep.Feature.VEGETAL_DECORATION,
-            Feature.TREE.configure(WamFeatures.MIRE_PINE_TREE_CONFIG)
+            Feature.TREE.configure(WamFeatures.PINE_SNAG_CONFIG)
                 .createDecoratedFeature(Decorator.CHANCE_TOP_SOLID_HEIGHTMAP.configure(ChanceDecoratorConfig(6)))
         )
 

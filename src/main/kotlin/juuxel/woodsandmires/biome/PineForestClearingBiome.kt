@@ -30,9 +30,15 @@ class PineForestClearingBiome(config: Settings.() -> Unit) : AbstractPineForestB
 
         addFeature(
             GenerationStep.Feature.VEGETAL_DECORATION,
+            Feature.TREE.configure(WamFeatures.PINE_SNAG_CONFIG)
+                .createDecoratedFeature(Decorator.CHANCE_TOP_SOLID_HEIGHTMAP.configure(ChanceDecoratorConfig(2)))
+        )
+
+        addFeature(
+            GenerationStep.Feature.VEGETAL_DECORATION,
             Feature.TREE.configure(DefaultBiomeFeatures.BIRCH_TREE_WITH_RARE_BEEHIVES_CONFIG)
                 .createDecoratedFeature(
-                    Decorator.COUNT_EXTRA_HEIGHTMAP.configure(CountExtraChanceDecoratorConfig(1, 0.2f, 2))
+                    Decorator.CHANCE_TOP_SOLID_HEIGHTMAP.configure(ChanceDecoratorConfig(3))
                 )
         )
 

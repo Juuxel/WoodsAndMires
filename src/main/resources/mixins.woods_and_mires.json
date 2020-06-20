@@ -4,10 +4,12 @@
   "package": "juuxel.woodsandmires.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "AddEdgeBiomesLayerMixin",
     "AddSunflowerPlainsLayerMixin",
     "AxeItemMixin",
     "BlocksAccessor",
     "DefaultBiomeFeaturesMixin",
+    "EaseBiomeEdgeLayerMixin",
     "ForestFlowerBlockStateProviderMixin"
   ],
   "client": [
