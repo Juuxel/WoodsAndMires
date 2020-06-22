@@ -20,7 +20,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "woods_and_mires:potted_pine_sapling"
+          "name": "woods_and_mires:pine_sapling"
         }
       ],
       "conditions": [
