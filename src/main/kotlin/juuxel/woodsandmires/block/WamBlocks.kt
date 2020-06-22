@@ -40,9 +40,6 @@ import net.minecraft.sound.BlockSoundGroup
 import net.minecraft.util.registry.Registry
 
 object WamBlocks {
-    // TODO:
-    //   - recipe advancements
-
     val PINE_LOG: Block = PillarBlock(copyWoodSettings(Blocks.OAK_LOG))
     val PINE_PLANKS: Block = Block(copyWoodSettings(Blocks.OAK_PLANKS))
     val PINE_SLAB: Block = SlabBlock(copyWoodSettings(Blocks.OAK_SLAB))

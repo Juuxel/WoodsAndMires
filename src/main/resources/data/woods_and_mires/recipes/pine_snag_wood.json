@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "bark",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "woods_and_mires:pine_snag_log"
+    }
+  },
+  "result": {
+    "item": "woods_and_mires:pine_snag_wood",
+    "count": 3
+  }
+}
