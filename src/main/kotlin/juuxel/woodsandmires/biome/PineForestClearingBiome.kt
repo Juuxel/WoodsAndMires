@@ -6,7 +6,6 @@ import juuxel.woodsandmires.feature.WamFeatures
 import net.minecraft.block.Blocks
 import net.minecraft.world.gen.GenerationStep
 import net.minecraft.world.gen.decorator.ChanceDecoratorConfig
-import net.minecraft.world.gen.decorator.ChanceTopSolidHeightmapDecorator
 import net.minecraft.world.gen.decorator.CountExtraChanceDecoratorConfig
 import net.minecraft.world.gen.decorator.Decorator
 import net.minecraft.world.gen.decorator.DecoratorConfig
