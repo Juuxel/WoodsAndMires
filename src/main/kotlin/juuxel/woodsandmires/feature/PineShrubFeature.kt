@@ -1,8 +1,8 @@
 package juuxel.woodsandmires.feature
 
 import com.mojang.serialization.Codec
-import juuxel.woodsandmires.block.ShrubLogBlock
 import java.util.Random
+import juuxel.woodsandmires.block.ShrubLogBlock
 import juuxel.woodsandmires.block.WamBlocks
 import net.minecraft.block.LeavesBlock
 import net.minecraft.util.math.BlockPos
