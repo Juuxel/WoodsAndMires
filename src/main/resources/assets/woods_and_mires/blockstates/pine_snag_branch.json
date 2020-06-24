@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "axis=z,style=thin": { "model": "woods_and_mires:block/pine_snag_branch_thin", "x": 90 },
+    "axis=z,style=thick": { "model": "woods_and_mires:block/pine_snag_branch_thick", "x": 90 },
+    "axis=x,style=thin": { "model": "woods_and_mires:block/pine_snag_branch_thin", "x": 90, "y": 90 },
+    "axis=x,style=thick": { "model": "woods_and_mires:block/pine_snag_branch_thick", "x": 90, "y": 90 }
+  }
+}

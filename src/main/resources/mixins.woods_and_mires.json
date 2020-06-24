@@ -10,7 +10,8 @@
     "BlocksAccessor",
     "DefaultBiomeFeaturesMixin",
     "EaseBiomeEdgeLayerMixin",
-    "ForestFlowerBlockStateProviderMixin"
+    "ForestFlowerBlockStateProviderMixin",
+    "TreeDecoratorTypeAccessor"
   ],
   "client": [
   ],
