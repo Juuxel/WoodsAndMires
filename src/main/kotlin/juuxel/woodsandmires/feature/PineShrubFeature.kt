@@ -1,6 +1,7 @@
 package juuxel.woodsandmires.feature
 
 import com.mojang.serialization.Codec
+import juuxel.woodsandmires.block.ShrubLogBlock
 import java.util.Random
 import juuxel.woodsandmires.block.WamBlocks
 import net.minecraft.block.LeavesBlock
@@ -24,7 +25,8 @@ class PineShrubFeature(configCodec: Codec<PineShrubFeatureConfig>) : Feature<Pin
         val mut = BlockPos.Mutable()
         mut.set(pos)
 
-        val log = WamBlocks.PINE_LOG.defaultState
+        val log = WamBlocks.PINE_SHRUB_LOG.defaultState
+        val logWithLeaves = log.with(ShrubLogBlock.HAS_LEAVES, true)
         val leaves = WamBlocks.PINE_LEAVES.defaultState.with(LeavesBlock.DISTANCE, 1)
         val extraHeight =
             if (random.nextFloat() < config.extraHeightChance) random.nextInt(config.extraHeight + 1)
@@ -33,14 +35,16 @@ class PineShrubFeature(configCodec: Codec<PineShrubFeatureConfig>) : Feature<Pin
         val height = config.baseHeight + extraHeight
 
         for (y in 1..height) {
-            world.setBlockState(mut, log, 2)
-
             if (y > 1 || height == 1) {
+                world.setBlockState(mut, logWithLeaves, 2)
+
                 for (direction in Direction.Type.HORIZONTAL) {
                     mut.move(direction)
                     world.setBlockState(mut, leaves, 2)
                     mut.move(direction.opposite)
                 }
+            } else {
+                world.setBlockState(mut, log, 2)
             }
 
             mut.move(Direction.UP)

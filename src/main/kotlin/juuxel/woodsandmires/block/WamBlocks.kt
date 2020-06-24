@@ -59,6 +59,7 @@ object WamBlocks {
     val PINE_SNAG_LOG: Block = PillarBlock(copyWoodSettings(Blocks.STRIPPED_OAK_LOG))
     val PINE_SNAG_WOOD: Block = PillarBlock(copyWoodSettings(Blocks.STRIPPED_OAK_WOOD))
     val PINE_SNAG_BRANCH: Block = BranchBlock(copyWoodSettings(PINE_SNAG_WOOD))
+    val PINE_SHRUB_LOG: Block = ShrubLogBlock(copyWoodSettings(PINE_LOG).nonOpaque())
     val FIREWEED: Block = TallFlowerBlock(createFlowerSettings())
     val TANSY: Block = BigFlowerBlock(StatusEffects.SLOW_FALLING, 10, createFlowerSettings())
     val POTTED_TANSY: Block = FlowerPotBlock(TANSY, Settings.of(PART_MATERIAL).breakInstantly())
@@ -81,6 +82,7 @@ object WamBlocks {
         register("pine_snag_log", PINE_SNAG_LOG)
         register("pine_snag_wood", PINE_SNAG_WOOD)
         register("pine_snag_branch", PINE_SNAG_BRANCH, item = null)
+        register("pine_shrub_log", PINE_SHRUB_LOG)
         register("fireweed", FIREWEED, TallBlockItem(FIREWEED, Item.Settings().group(ItemGroup.DECORATIONS)))
         register("tansy", TANSY, ItemGroup.DECORATIONS)
         register("potted_tansy", POTTED_TANSY, item = null)
@@ -93,6 +95,7 @@ object WamBlocks {
             add(PINE_SNAG_LOG, 5, 5)
             add(PINE_SNAG_WOOD, 5, 5)
             add(PINE_SNAG_BRANCH, 5, 5)
+            add(PINE_SHRUB_LOG, 5, 5)
             add(PINE_PLANKS, 5, 20)
             add(PINE_SLAB, 5, 20)
             add(PINE_STAIRS, 5, 20)
@@ -111,7 +114,8 @@ object WamBlocks {
     fun initClient() {
         BlockRenderLayerMap.INSTANCE.putBlocks(
             RenderLayer.getCutoutMipped(),
-            PINE_LEAVES
+            PINE_LEAVES,
+            PINE_SHRUB_LOG
         )
 
         BlockRenderLayerMap.INSTANCE.putBlocks(
@@ -126,7 +130,7 @@ object WamBlocks {
         ColorProviderRegistry.BLOCK.register(BlockColorProvider { _, world, pos, _ ->
             if (world != null && pos != null) BiomeColors.getFoliageColor(world, pos)
             else FoliageColors.getColor(0.5, 1.0)
-        }, FIREWEED, TANSY, POTTED_TANSY, PINE_LEAVES)
+        }, FIREWEED, TANSY, POTTED_TANSY, PINE_LEAVES, PINE_SHRUB_LOG)
 
         ColorProviderRegistry.ITEM.register(ItemColorProvider { stack, tintIndex ->
             if (tintIndex > 0) return@ItemColorProvider -1
