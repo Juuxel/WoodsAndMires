@@ -8,6 +8,7 @@
   "authors": ["Juuz"],
 
   "license": "LGPL-3.0-only",
+  "icon": "assets/woods_and_mires/icon.png",
   "contact": {
     "homepage": "https://github.com/Juuxel/WoodsAndMires",
     "sources": "https://github.com/Juuxel/WoodsAndMires",
