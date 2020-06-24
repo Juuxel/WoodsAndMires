@@ -10,9 +10,9 @@ import net.minecraft.world.biome.BiomeEffects
 import net.minecraft.world.gen.GenerationStep
 import net.minecraft.world.gen.decorator.ChanceDecoratorConfig
 import net.minecraft.world.gen.decorator.Decorator
-import net.minecraft.world.gen.feature.BoulderFeatureConfig
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures
 import net.minecraft.world.gen.feature.Feature
+import net.minecraft.world.gen.feature.ForestRockFeatureConfig
 import net.minecraft.world.gen.surfacebuilder.SurfaceBuilder
 
 abstract class AbstractPineForestBiome(config: Settings.() -> Unit) : Biome(
@@ -53,7 +53,7 @@ abstract class AbstractPineForestBiome(config: Settings.() -> Unit) : Biome(
         // Stone boulders
         addFeature(
             GenerationStep.Feature.LOCAL_MODIFICATIONS,
-            Feature.FOREST_ROCK.configure(BoulderFeatureConfig(Blocks.STONE.defaultState, 1))
+            Feature.FOREST_ROCK.configure(ForestRockFeatureConfig(Blocks.STONE.defaultState, 1))
                 .createDecoratedFeature(Decorator.CHANCE_TOP_SOLID_HEIGHTMAP.configure(ChanceDecoratorConfig(16)))
         )
 
