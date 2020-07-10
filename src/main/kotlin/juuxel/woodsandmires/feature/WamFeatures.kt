@@ -2,8 +2,6 @@ package juuxel.woodsandmires.feature
 
 import juuxel.woodsandmires.WoodsAndMires
 import juuxel.woodsandmires.block.WamBlocks
-import juuxel.woodsandmires.decorator.DecoratorTransformer
-import juuxel.woodsandmires.decorator.transform
 import juuxel.woodsandmires.mixin.TreeDecoratorTypeAccessor
 import net.minecraft.block.Blocks
 import net.minecraft.class_5428
@@ -13,6 +11,7 @@ import net.minecraft.world.gen.GenerationStep
 import net.minecraft.world.gen.decorator.AlterGroundTreeDecorator
 import net.minecraft.world.gen.decorator.ChanceDecoratorConfig
 import net.minecraft.world.gen.decorator.Decorator
+import net.minecraft.world.gen.decorator.DecoratorConfig
 import net.minecraft.world.gen.decorator.TreeDecoratorType
 import net.minecraft.world.gen.feature.DefaultFeatureConfig
 import net.minecraft.world.gen.feature.Feature
@@ -103,7 +102,8 @@ object WamFeatures {
             GenerationStep.Feature.VEGETAL_DECORATION,
             WamConfiguredFeatures.PLAINS_FLOWERS.method_30374(
                 Decorator.CHANCE.configure(ChanceDecoratorConfig(20))
-                    .transform(DecoratorTransformer.TOP_SOLID_HEIGHTMAP)
+                    .method_30371()
+                    .method_30374(Decorator.TOP_SOLID_HEIGHTMAP.configure(DecoratorConfig.DEFAULT))
             )
         )
     }

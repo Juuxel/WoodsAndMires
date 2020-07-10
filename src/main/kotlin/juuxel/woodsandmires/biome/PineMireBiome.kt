@@ -1,7 +1,5 @@
 package juuxel.woodsandmires.biome
 
-import juuxel.woodsandmires.decorator.DecoratorTransformer
-import juuxel.woodsandmires.decorator.transform
 import juuxel.woodsandmires.feature.WamConfiguredFeatures
 import net.minecraft.class_5464
 import net.minecraft.class_5471
@@ -56,10 +54,8 @@ class PineMireBiome(config: Settings.() -> Unit) : Biome(
             WamConfiguredFeatures.SHORT_PINE_SHRUB
                 .method_30374(
                     Decorator.COUNT_EXTRA.configure(CountExtraChanceDecoratorConfig(3, 0.3f, 3))
-                        .transform(
-                            DecoratorTransformer.CHUNK_OFFSET,
-                            DecoratorTransformer.MOTION_BLOCKING_HEIGHTMAP
-                        )
+                        .method_30371()
+                        .method_30374(Decorator.HEIGHTMAP.configure(DecoratorConfig.DEFAULT))
                 )
         )
 
@@ -80,10 +76,9 @@ class PineMireBiome(config: Settings.() -> Unit) : Biome(
             WamConfiguredFeatures.MIRE_FLOWERS
                 .method_30374(
                     Decorator.COUNT.configure(SeaPickleFeatureConfig(3))
-                        .transform(
-                            DecoratorTransformer.CHUNK_OFFSET,
-                            DecoratorTransformer.HEIGHT_OFFSET_32
-                        )
+                        .method_30371()
+                        .method_30374(Decorator.HEIGHTMAP.configure(DecoratorConfig.DEFAULT))
+                        .method_30374(Decorator.SPREAD_32_ABOVE.configure(DecoratorConfig.DEFAULT))
                 )
         )
 
@@ -92,10 +87,8 @@ class PineMireBiome(config: Settings.() -> Unit) : Biome(
             class_5464.field_25984
                 .method_30374(
                     Decorator.COUNT.configure(SeaPickleFeatureConfig(4))
-                        .transform(
-                            DecoratorTransformer.CHUNK_OFFSET,
-                            DecoratorTransformer.HEIGHT_SCALE_DOUBLE
-                        )
+                        .method_30371()
+                        .method_30374(Decorator.HEIGHTMAP_SPREAD_DOUBLE.configure(DecoratorConfig.DEFAULT))
                 )
         )
 
@@ -104,10 +97,8 @@ class PineMireBiome(config: Settings.() -> Unit) : Biome(
             WamConfiguredFeatures.PINE_SNAG
                 .method_30374(
                     Decorator.CHANCE.configure(ChanceDecoratorConfig(6))
-                        .transform(
-                            DecoratorTransformer.CHUNK_OFFSET,
-                            DecoratorTransformer.TOP_SOLID_HEIGHTMAP
-                        )
+                        .method_30371()
+                        .method_30374(Decorator.TOP_SOLID_HEIGHTMAP.configure(DecoratorConfig.DEFAULT))
                 )
         )
 

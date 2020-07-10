@@ -2,8 +2,6 @@
 
 package juuxel.woodsandmires.biome
 
-import juuxel.woodsandmires.decorator.DecoratorTransformer
-import juuxel.woodsandmires.decorator.transform
 import net.minecraft.block.Blocks
 import net.minecraft.class_5471
 import net.minecraft.entity.EntityType
@@ -14,6 +12,7 @@ import net.minecraft.world.biome.BiomeEffects
 import net.minecraft.world.gen.GenerationStep
 import net.minecraft.world.gen.decorator.ChanceDecoratorConfig
 import net.minecraft.world.gen.decorator.Decorator
+import net.minecraft.world.gen.decorator.DecoratorConfig
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures
 import net.minecraft.world.gen.feature.Feature
 import net.minecraft.world.gen.feature.SingleStateFeatureConfig
@@ -59,10 +58,8 @@ abstract class AbstractPineForestBiome(config: Settings.() -> Unit) : Biome(
             Feature.FOREST_ROCK.configure(SingleStateFeatureConfig(Blocks.STONE.defaultState))
                 .method_30374(
                     Decorator.CHANCE.configure(ChanceDecoratorConfig(16))
-                        .transform(
-                            DecoratorTransformer.CHUNK_OFFSET,
-                            DecoratorTransformer.TOP_SOLID_HEIGHTMAP
-                        )
+                        .method_30371()
+                        .method_30374(Decorator.TOP_SOLID_HEIGHTMAP.configure(DecoratorConfig.DEFAULT))
                 )
         )
 

@@ -2,8 +2,6 @@ package juuxel.woodsandmires
 
 import juuxel.woodsandmires.biome.WamBiomes
 import juuxel.woodsandmires.block.WamBlocks
-import juuxel.woodsandmires.decorator.DecoratorTransformer
-import juuxel.woodsandmires.decorator.WamDecorators
 import juuxel.woodsandmires.feature.WamConfiguredFeatures
 import juuxel.woodsandmires.feature.WamFeatures
 import net.fabricmc.api.EnvType
@@ -17,8 +15,6 @@ object WoodsAndMires {
 
     fun init() {
         WamBlocks.init()
-        DecoratorTransformer.init()
-        WamDecorators.init()
         WamFeatures.init()
         WamConfiguredFeatures.init()
         WamBiomes.init()
