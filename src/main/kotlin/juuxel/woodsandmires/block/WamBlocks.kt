@@ -17,7 +17,6 @@ import net.minecraft.block.FenceBlock
 import net.minecraft.block.FenceGateBlock
 import net.minecraft.block.FlowerPotBlock
 import net.minecraft.block.Material
-import net.minecraft.block.Material.SUPPORTED as PART_MATERIAL // Let's not use incorrect names...
 import net.minecraft.block.PillarBlock
 import net.minecraft.block.PressurePlateBlock
 import net.minecraft.block.SaplingBlock
@@ -38,6 +37,7 @@ import net.minecraft.item.ItemGroup
 import net.minecraft.item.TallBlockItem
 import net.minecraft.sound.BlockSoundGroup
 import net.minecraft.util.registry.Registry
+import net.minecraft.block.Material.SUPPORTED as PART_MATERIAL // Let's not use incorrect names...
 
 object WamBlocks {
     val PINE_LOG: Block = PillarBlock(copyWoodSettings(Blocks.OAK_LOG))
@@ -127,17 +127,23 @@ object WamBlocks {
             POTTED_TANSY
         )
 
-        ColorProviderRegistry.BLOCK.register(BlockColorProvider { _, world, pos, _ ->
-            if (world != null && pos != null) BiomeColors.getFoliageColor(world, pos)
-            else FoliageColors.getColor(0.5, 1.0)
-        }, FIREWEED, TANSY, POTTED_TANSY, PINE_LEAVES, PINE_SHRUB_LOG)
+        ColorProviderRegistry.BLOCK.register(
+            BlockColorProvider { _, world, pos, _ ->
+                if (world != null && pos != null) BiomeColors.getFoliageColor(world, pos)
+                else FoliageColors.getColor(0.5, 1.0)
+            },
+            FIREWEED, TANSY, POTTED_TANSY, PINE_LEAVES, PINE_SHRUB_LOG
+        )
 
-        ColorProviderRegistry.ITEM.register(ItemColorProvider { stack, tintIndex ->
-            if (tintIndex > 0) return@ItemColorProvider -1
+        ColorProviderRegistry.ITEM.register(
+            ItemColorProvider { stack, tintIndex ->
+                if (tintIndex > 0) return@ItemColorProvider -1
 
-            val colors = MinecraftClient.getInstance().blockColors
-            colors.getColor((stack.item as BlockItem).block.defaultState, null, null, tintIndex)
-        }, FIREWEED, TANSY, PINE_LEAVES)
+                val colors = MinecraftClient.getInstance().blockColors
+                colors.getColor((stack.item as BlockItem).block.defaultState, null, null, tintIndex)
+            },
+            FIREWEED, TANSY, PINE_LEAVES
+        )
     }
 
     private fun register(id: String, block: Block, itemGroup: ItemGroup = ItemGroup.BUILDING_BLOCKS) =

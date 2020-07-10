@@ -1,6 +1,5 @@
 package juuxel.woodsandmires.feature
 
-import java.util.function.Supplier
 import juuxel.woodsandmires.WoodsAndMires
 import juuxel.woodsandmires.block.WamBlocks
 import net.minecraft.block.Blocks
@@ -23,6 +22,7 @@ import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider
 import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider
 import net.minecraft.world.gen.trunk.ForkingTrunkPlacer
 import net.minecraft.world.gen.trunk.StraightTrunkPlacer
+import java.util.function.Supplier
 
 object WamConfiguredFeatures {
     // Flowers

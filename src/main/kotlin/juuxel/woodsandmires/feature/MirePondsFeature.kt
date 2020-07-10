@@ -1,7 +1,6 @@
 package juuxel.woodsandmires.feature
 
 import com.mojang.serialization.Codec
-import java.util.Random
 import net.minecraft.block.Blocks
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Direction
@@ -10,6 +9,7 @@ import net.minecraft.world.ServerWorldAccess
 import net.minecraft.world.gen.chunk.ChunkGenerator
 import net.minecraft.world.gen.feature.DefaultFeatureConfig
 import net.minecraft.world.gen.feature.Feature
+import java.util.Random
 
 class MirePondsFeature(configCodec: Codec<DefaultFeatureConfig>) : Feature<DefaultFeatureConfig>(configCodec) {
     override fun generate(

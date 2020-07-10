@@ -2,7 +2,6 @@ package juuxel.woodsandmires.feature
 
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
-import java.util.Random
 import juuxel.woodsandmires.block.BranchBlock
 import net.minecraft.block.Block
 import net.minecraft.block.BlockState
@@ -13,6 +12,7 @@ import net.minecraft.util.registry.Registry
 import net.minecraft.world.ServerWorldAccess
 import net.minecraft.world.WorldAccess
 import net.minecraft.world.gen.decorator.TreeDecorator
+import java.util.Random
 
 class BranchTreeDecorator(private val block: Block, private val chance: Float) : TreeDecorator() {
     override fun getType() = WamFeatures.BRANCH_TREE_DECORATOR

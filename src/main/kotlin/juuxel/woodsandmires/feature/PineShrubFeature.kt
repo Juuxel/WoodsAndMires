@@ -1,7 +1,6 @@
 package juuxel.woodsandmires.feature
 
 import com.mojang.serialization.Codec
-import java.util.Random
 import juuxel.woodsandmires.block.ShrubLogBlock
 import juuxel.woodsandmires.block.WamBlocks
 import net.minecraft.block.LeavesBlock
@@ -10,6 +9,7 @@ import net.minecraft.util.math.Direction
 import net.minecraft.world.ServerWorldAccess
 import net.minecraft.world.gen.chunk.ChunkGenerator
 import net.minecraft.world.gen.feature.Feature
+import java.util.Random
 
 class PineShrubFeature(configCodec: Codec<PineShrubFeatureConfig>) : Feature<PineShrubFeatureConfig>(configCodec) {
     override fun generate(
