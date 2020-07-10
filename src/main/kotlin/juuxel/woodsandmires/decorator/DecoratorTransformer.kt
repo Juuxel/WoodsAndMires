@@ -22,10 +22,12 @@ interface DecoratorTransformer {
     fun transform(context: class_5444, random: Random, positions: Stream<BlockPos>): Stream<BlockPos>
 
     companion object {
+        private val REGISTRY_KEY: RegistryKey<Registry<DecoratorTransformer>> =
+            RegistryKey.ofRegistry(WoodsAndMires.id("decorator_transformers"))
+
         /** The decorator transformer registry. */
-        val REGISTRY: Registry<DecoratorTransformer> = SimpleRegistry(
-            RegistryKey.ofRegistry(WoodsAndMires.id("decorator_transformers")), Lifecycle.stable()
-        )
+        val REGISTRY: Registry<DecoratorTransformer> = SimpleRegistry(REGISTRY_KEY, Lifecycle.stable())
+
         /** The codec for decorator transformers. */
         val CODEC: Codec<DecoratorTransformer> = REGISTRY
 
@@ -37,6 +39,9 @@ interface DecoratorTransformer {
         val HEIGHT_SCALE_DOUBLE: DecoratorTransformer = HeightTransformer(scale = 2)
 
         fun init() {
+            @Suppress("UNCHECKED_CAST") // lol what
+            Registry.register(Registry.REGISTRIES as Registry<Registry<*>>, REGISTRY_KEY.value, REGISTRY)
+
             register("chunk_offset", CHUNK_OFFSET)
             register("world_surface_heightmap", WORLD_SURFACE_HEIGHTMAP)
             register("top_solid_heightmap", TOP_SOLID_HEIGHTMAP)
