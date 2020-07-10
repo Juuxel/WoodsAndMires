@@ -15,8 +15,8 @@ import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider
 import java.util.function.Supplier
 
 object WamConfiguredFeatures {
-    // @formatter:off
     val FIREWEED = register("fireweed", Feature.RANDOM_PATCH, WamFeatures.FIREWEED_CONFIG)
+    val TANSY = register("tansy", Feature.FLOWER, WamFeatures.TANSY_CONFIG)
     val SHORT_PINE_SHRUB = register("short_pine_shrub", WamFeatures.PINE_SHRUB, PineShrubFeatureConfig(1, 2, 0.6f))
     val TALL_PINE_SHRUB = register("tall_pine_shrub", WamFeatures.PINE_SHRUB, PineShrubFeatureConfig(1, 2, 1f))
     val PINE = register("pine", Feature.TREE, WamFeatures.PINE_TREE_CONFIG)
@@ -52,14 +52,8 @@ object WamConfiguredFeatures {
     )
     val PLAINS_FLOWERS = register(
         "plains_flowers", Feature.SIMPLE_RANDOM_SELECTOR,
-        SimpleRandomFeatureConfig(
-            listOf(
-                FIREWEED.supply(),
-                Supplier<ConfiguredFeature<*, *>> { Feature.FLOWER.configure(WamFeatures.TANSY_CONFIG) }
-            )
-        )
+        SimpleRandomFeatureConfig(listOf(FIREWEED.supply(), TANSY.supply()))
     )
-    // @formatter:on
 
     fun init() {
         // NO-OP

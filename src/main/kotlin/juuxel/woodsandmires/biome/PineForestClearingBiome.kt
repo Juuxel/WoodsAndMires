@@ -64,9 +64,9 @@ class PineForestClearingBiome(config: Settings.() -> Unit) : AbstractPineForestB
 
         addFeature(
             GenerationStep.Feature.VEGETAL_DECORATION,
-            WamConfiguredFeatures.FIREWEED
+            WamConfiguredFeatures.PLAINS_FLOWERS
                 .method_30374(
-                    Decorator.CHANCE.configure(ChanceDecoratorConfig(5))
+                    Decorator.CHANCE.configure(ChanceDecoratorConfig(4))
                         .transform(
                             DecoratorTransformer.CHUNK_OFFSET,
                             DecoratorTransformer.TOP_SOLID_HEIGHTMAP
