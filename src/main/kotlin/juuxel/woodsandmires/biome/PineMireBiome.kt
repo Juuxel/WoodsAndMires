@@ -1,10 +1,10 @@
 package juuxel.woodsandmires.biome
 
-import juuxel.woodsandmires.block.WamBlocks
-import juuxel.woodsandmires.feature.MeadowFeatureConfig
-import juuxel.woodsandmires.feature.PineShrubFeatureConfig
-import juuxel.woodsandmires.feature.WamFeatures
-import net.minecraft.block.Blocks
+import juuxel.woodsandmires.decorator.DecoratorTransformer
+import juuxel.woodsandmires.decorator.transform
+import juuxel.woodsandmires.feature.WamConfiguredFeatures
+import net.minecraft.class_5464
+import net.minecraft.class_5471
 import net.minecraft.entity.EntityType
 import net.minecraft.entity.SpawnGroup
 import net.minecraft.sound.BiomeMoodSound
@@ -12,21 +12,15 @@ import net.minecraft.world.biome.Biome
 import net.minecraft.world.biome.BiomeEffects
 import net.minecraft.world.gen.GenerationStep
 import net.minecraft.world.gen.decorator.ChanceDecoratorConfig
-import net.minecraft.world.gen.decorator.CountDecoratorConfig
 import net.minecraft.world.gen.decorator.CountExtraChanceDecoratorConfig
 import net.minecraft.world.gen.decorator.Decorator
 import net.minecraft.world.gen.decorator.DecoratorConfig
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures
-import net.minecraft.world.gen.feature.Feature
-import net.minecraft.world.gen.feature.FeatureConfig
-import net.minecraft.world.gen.feature.RandomPatchFeatureConfig
-import net.minecraft.world.gen.placer.SimpleBlockPlacer
-import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider
-import net.minecraft.world.gen.surfacebuilder.SurfaceBuilder
+import net.minecraft.world.gen.feature.SeaPickleFeatureConfig
 
 class PineMireBiome(config: Settings.() -> Unit) : Biome(
     Settings()
-        .configureSurfaceBuilder(SurfaceBuilder.SWAMP, SurfaceBuilder.GRASS_CONFIG)
+        .configureSurfaceBuilder(class_5471.field_26338)
         .category(Category.SWAMP)
         .effects(
             BiomeEffects.Builder()
@@ -59,53 +53,62 @@ class PineMireBiome(config: Settings.() -> Unit) : Biome(
 
         addFeature(
             GenerationStep.Feature.VEGETAL_DECORATION,
-            WamFeatures.PINE_SHRUB.configure(PineShrubFeatureConfig(1, 2, 0.6f))
-                .createDecoratedFeature(
-                    Decorator.COUNT_EXTRA_HEIGHTMAP.configure(CountExtraChanceDecoratorConfig(3, 0.3f, 3))
+            WamConfiguredFeatures.SHORT_PINE_SHRUB
+                .method_30374(
+                    Decorator.COUNT_EXTRA.configure(CountExtraChanceDecoratorConfig(3, 0.3f, 3))
+                        .transform(
+                            DecoratorTransformer.CHUNK_OFFSET,
+                            DecoratorTransformer.MOTION_BLOCKING_HEIGHTMAP
+                        )
                 )
         )
 
         addFeature(
             GenerationStep.Feature.LAKES,
-            WamFeatures.MIRE_PONDS.configure(FeatureConfig.DEFAULT)
-                .createDecoratedFeature(Decorator.NOPE.configure(DecoratorConfig.DEFAULT))
+            WamConfiguredFeatures.MIRE_PONDS
+                .method_30374(Decorator.NOPE.configure(DecoratorConfig.DEFAULT))
         )
-
-        val meadowStateProvider = WeightedBlockStateProvider()
-        meadowStateProvider.addState(Blocks.GRASS.defaultState, 5)
-        meadowStateProvider.addState(Blocks.FERN.defaultState, 1)
 
         addFeature(
             GenerationStep.Feature.TOP_LAYER_MODIFICATION,
-            WamFeatures.MEADOW.configure(MeadowFeatureConfig(meadowStateProvider, 0.5f))
-                .createDecoratedFeature(Decorator.NOPE.configure(DecoratorConfig.DEFAULT))
-        )
-
-        val flowerStateProvider = WeightedBlockStateProvider()
-        flowerStateProvider.addState(Blocks.BLUE_ORCHID.defaultState, 1)
-        flowerStateProvider.addState(WamBlocks.TANSY.defaultState, 1)
-
-        val flowerConfig = RandomPatchFeatureConfig.Builder(
-            flowerStateProvider,
-            SimpleBlockPlacer()
-        ).tries(64).cannotProject().build()
-
-        addFeature(
-            GenerationStep.Feature.VEGETAL_DECORATION,
-            Feature.FLOWER.configure(flowerConfig)
-                .createDecoratedFeature(Decorator.COUNT_HEIGHTMAP_32.configure(CountDecoratorConfig(3)))
+            WamConfiguredFeatures.MIRE_MEADOW
+                .method_30374(Decorator.NOPE.configure(DecoratorConfig.DEFAULT))
         )
 
         addFeature(
             GenerationStep.Feature.VEGETAL_DECORATION,
-            Feature.RANDOM_PATCH.configure(DefaultBiomeFeatures.LILY_PAD_CONFIG)
-                .createDecoratedFeature(Decorator.COUNT_HEIGHTMAP_DOUBLE.configure(CountDecoratorConfig(4)))
+            WamConfiguredFeatures.MIRE_FLOWERS
+                .method_30374(
+                    Decorator.COUNT.configure(SeaPickleFeatureConfig(3))
+                        .transform(
+                            DecoratorTransformer.CHUNK_OFFSET,
+                            DecoratorTransformer.HEIGHT_OFFSET_32
+                        )
+                )
         )
 
         addFeature(
             GenerationStep.Feature.VEGETAL_DECORATION,
-            Feature.TREE.configure(WamFeatures.PINE_SNAG_CONFIG)
-                .createDecoratedFeature(Decorator.CHANCE_TOP_SOLID_HEIGHTMAP.configure(ChanceDecoratorConfig(6)))
+            class_5464.field_25984
+                .method_30374(
+                    Decorator.COUNT.configure(SeaPickleFeatureConfig(4))
+                        .transform(
+                            DecoratorTransformer.CHUNK_OFFSET,
+                            DecoratorTransformer.HEIGHT_SCALE_DOUBLE
+                        )
+                )
+        )
+
+        addFeature(
+            GenerationStep.Feature.VEGETAL_DECORATION,
+            WamConfiguredFeatures.PINE_SNAG
+                .method_30374(
+                    Decorator.CHANCE.configure(ChanceDecoratorConfig(6))
+                        .transform(
+                            DecoratorTransformer.CHUNK_OFFSET,
+                            DecoratorTransformer.TOP_SOLID_HEIGHTMAP
+                        )
+                )
         )
 
         addSpawn(SpawnGroup.CREATURE, SpawnEntry(EntityType.SHEEP, 12, 4, 4))

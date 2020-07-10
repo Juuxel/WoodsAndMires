@@ -3,6 +3,7 @@ package juuxel.woodsandmires.biome
 import net.minecraft.world.biome.Biome
 import net.minecraft.world.biome.layer.util.LayerRandomnessSource
 
+// TODO: Move to raw IDs
 object BiomeTransformations {
     fun transformMediumSubBiome(random: LayerRandomnessSource, biome: Biome): Biome =
         when {

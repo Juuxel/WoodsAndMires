@@ -1,7 +1,11 @@
 @file:Suppress("LeakingThis")
+
 package juuxel.woodsandmires.biome
 
+import juuxel.woodsandmires.decorator.DecoratorTransformer
+import juuxel.woodsandmires.decorator.transform
 import net.minecraft.block.Blocks
+import net.minecraft.class_5471
 import net.minecraft.entity.EntityType
 import net.minecraft.entity.SpawnGroup
 import net.minecraft.sound.BiomeMoodSound
@@ -12,12 +16,11 @@ import net.minecraft.world.gen.decorator.ChanceDecoratorConfig
 import net.minecraft.world.gen.decorator.Decorator
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures
 import net.minecraft.world.gen.feature.Feature
-import net.minecraft.world.gen.feature.ForestRockFeatureConfig
-import net.minecraft.world.gen.surfacebuilder.SurfaceBuilder
+import net.minecraft.world.gen.feature.SingleStateFeatureConfig
 
 abstract class AbstractPineForestBiome(config: Settings.() -> Unit) : Biome(
     Settings()
-        .configureSurfaceBuilder(SurfaceBuilder.DEFAULT, SurfaceBuilder.GRASS_CONFIG)
+        .configureSurfaceBuilder(class_5471.field_26327)
         .category(Category.FOREST)
         .effects(
             BiomeEffects.Builder()
@@ -33,7 +36,7 @@ abstract class AbstractPineForestBiome(config: Settings.() -> Unit) : Biome(
         .apply(config)
 ) {
     init {
-        DefaultBiomeFeatures.method_28440(this)
+        DefaultBiomeFeatures.addDefaultUndergroundStructures(this)
         DefaultBiomeFeatures.addLandCarvers(this)
         DefaultBiomeFeatures.addDefaultLakes(this)
         DefaultBiomeFeatures.addDungeons(this)
@@ -53,8 +56,14 @@ abstract class AbstractPineForestBiome(config: Settings.() -> Unit) : Biome(
         // Stone boulders
         addFeature(
             GenerationStep.Feature.LOCAL_MODIFICATIONS,
-            Feature.FOREST_ROCK.configure(ForestRockFeatureConfig(Blocks.STONE.defaultState, 1))
-                .createDecoratedFeature(Decorator.CHANCE_TOP_SOLID_HEIGHTMAP.configure(ChanceDecoratorConfig(16)))
+            Feature.FOREST_ROCK.configure(SingleStateFeatureConfig(Blocks.STONE.defaultState))
+                .method_30374(
+                    Decorator.CHANCE.configure(ChanceDecoratorConfig(16))
+                        .transform(
+                            DecoratorTransformer.CHUNK_OFFSET,
+                            DecoratorTransformer.TOP_SOLID_HEIGHTMAP
+                        )
+                )
         )
 
         addSpawn(SpawnGroup.CREATURE, SpawnEntry(EntityType.SHEEP, 12, 4, 4))

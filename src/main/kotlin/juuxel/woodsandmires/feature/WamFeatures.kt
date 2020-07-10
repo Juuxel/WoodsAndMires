@@ -2,8 +2,11 @@ package juuxel.woodsandmires.feature
 
 import juuxel.woodsandmires.WoodsAndMires
 import juuxel.woodsandmires.block.WamBlocks
+import juuxel.woodsandmires.decorator.DecoratorTransformer
+import juuxel.woodsandmires.decorator.transform
 import juuxel.woodsandmires.mixin.TreeDecoratorTypeAccessor
 import net.minecraft.block.Blocks
+import net.minecraft.class_5428
 import net.minecraft.util.registry.Registry
 import net.minecraft.world.biome.Biome
 import net.minecraft.world.gen.GenerationStep
@@ -14,7 +17,6 @@ import net.minecraft.world.gen.decorator.TreeDecoratorType
 import net.minecraft.world.gen.feature.DefaultFeatureConfig
 import net.minecraft.world.gen.feature.Feature
 import net.minecraft.world.gen.feature.RandomPatchFeatureConfig
-import net.minecraft.world.gen.feature.SimpleRandomFeatureConfig
 import net.minecraft.world.gen.feature.TreeFeatureConfig
 import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize
 import net.minecraft.world.gen.foliage.BlobFoliagePlacer
@@ -34,7 +36,7 @@ object WamFeatures {
         TreeFeatureConfig.Builder(
             SimpleBlockStateProvider(WamBlocks.PINE_LOG.defaultState),
             SimpleBlockStateProvider(WamBlocks.PINE_LEAVES.defaultState),
-            PineFoliagePlacer(1, 0, 1, 0, 4, 1),
+            PineFoliagePlacer(class_5428.method_30314(1), class_5428.method_30314(1), class_5428.method_30315(4, 1)),
             StraightTrunkPlacer(6, 4, 0),
             TwoLayersFeatureSize(2, 0, 2)
         )
@@ -54,7 +56,7 @@ object WamFeatures {
         TreeFeatureConfig.Builder(
             SimpleBlockStateProvider(WamBlocks.PINE_LOG.defaultState),
             SimpleBlockStateProvider(WamBlocks.PINE_LEAVES.defaultState),
-            PineFoliagePlacer(1, 0, 1, 0, 4, 1),
+            PineFoliagePlacer(class_5428.method_30314(1), class_5428.method_30314(1), class_5428.method_30315(4, 1)),
             StraightTrunkPlacer(6, 4, 0),
             TwoLayersFeatureSize(2, 0, 2)
         ).ignoreVines().build()
@@ -63,7 +65,7 @@ object WamFeatures {
         TreeFeatureConfig.Builder(
             SimpleBlockStateProvider(WamBlocks.PINE_SNAG_LOG.defaultState),
             SimpleBlockStateProvider(Blocks.AIR.defaultState),
-            BlobFoliagePlacer(0, 0, 0, 0, 0),
+            BlobFoliagePlacer(class_5428.method_30314(0), class_5428.method_30314(0), 0),
             ForkingTrunkPlacer(4, 4, 0),
             TwoLayersFeatureSize(2, 0, 2)
         ).ignoreVines().decorators(listOf(BranchTreeDecorator(WamBlocks.PINE_SNAG_BRANCH, 0.2f))).build()
@@ -99,15 +101,9 @@ object WamFeatures {
     fun addFlowers(biome: Biome) {
         biome.addFeature(
             GenerationStep.Feature.VEGETAL_DECORATION,
-            Feature.SIMPLE_RANDOM_SELECTOR.configure(
-                SimpleRandomFeatureConfig(
-                    listOf(
-                        Feature.RANDOM_PATCH.configure(FIREWEED_CONFIG),
-                        Feature.FLOWER.configure(TANSY_CONFIG)
-                    )
-                )
-            ).createDecoratedFeature(
-                Decorator.CHANCE_TOP_SOLID_HEIGHTMAP.configure(ChanceDecoratorConfig(20))
+            WamConfiguredFeatures.PLAINS_FLOWERS.method_30374(
+                Decorator.CHANCE.configure(ChanceDecoratorConfig(20))
+                    .transform(DecoratorTransformer.TOP_SOLID_HEIGHTMAP)
             )
         )
     }

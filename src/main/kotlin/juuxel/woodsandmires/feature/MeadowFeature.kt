@@ -5,7 +5,6 @@ import java.util.Random
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.Heightmap
 import net.minecraft.world.ServerWorldAccess
-import net.minecraft.world.gen.StructureAccessor
 import net.minecraft.world.gen.chunk.ChunkGenerator
 import net.minecraft.world.gen.feature.Feature
 
@@ -13,7 +12,7 @@ class MeadowFeature(
     configCodec: Codec<MeadowFeatureConfig>
 ) : Feature<MeadowFeatureConfig>(configCodec) {
     override fun generate(
-        world: ServerWorldAccess, structureAccessor: StructureAccessor, generator: ChunkGenerator,
+        world: ServerWorldAccess, generator: ChunkGenerator,
         random: Random, pos: BlockPos, config: MeadowFeatureConfig
     ): Boolean {
         val mut = BlockPos.Mutable()

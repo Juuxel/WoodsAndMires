@@ -1,8 +1,10 @@
 @file:Suppress("LeakingThis")
 package juuxel.woodsandmires.biome
 
-import juuxel.woodsandmires.feature.PineShrubFeatureConfig
-import juuxel.woodsandmires.feature.WamFeatures
+import juuxel.woodsandmires.decorator.DecoratorTransformer
+import juuxel.woodsandmires.decorator.transform
+import juuxel.woodsandmires.feature.WamConfiguredFeatures
+import net.minecraft.class_5471
 import net.minecraft.entity.EntityType
 import net.minecraft.entity.SpawnGroup
 import net.minecraft.sound.BiomeMoodSound
@@ -12,11 +14,10 @@ import net.minecraft.world.gen.GenerationStep
 import net.minecraft.world.gen.decorator.CountExtraChanceDecoratorConfig
 import net.minecraft.world.gen.decorator.Decorator
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures
-import net.minecraft.world.gen.surfacebuilder.SurfaceBuilder
 
 class KettlePondBiome(config: Settings.() -> Unit) : Biome(
     Settings()
-        .configureSurfaceBuilder(SurfaceBuilder.DEFAULT, SurfaceBuilder.GRASS_CONFIG)
+        .configureSurfaceBuilder(class_5471.field_26327)
         .category(Category.RIVER)
         .effects(
             BiomeEffects.Builder()
@@ -47,9 +48,13 @@ class KettlePondBiome(config: Settings.() -> Unit) : Biome(
 
         addFeature(
             GenerationStep.Feature.VEGETAL_DECORATION,
-            WamFeatures.PINE_SHRUB.configure(PineShrubFeatureConfig(1, 2, 0.6f))
-                .createDecoratedFeature(
-                    Decorator.COUNT_EXTRA_HEIGHTMAP.configure(CountExtraChanceDecoratorConfig(3, 0.3f, 3))
+            WamConfiguredFeatures.SHORT_PINE_SHRUB
+                .method_30374(
+                    Decorator.COUNT_EXTRA.configure(CountExtraChanceDecoratorConfig(3, 0.3f, 3))
+                        .transform(
+                            DecoratorTransformer.CHUNK_OFFSET,
+                            DecoratorTransformer.MOTION_BLOCKING_HEIGHTMAP
+                        )
                 )
         )
 

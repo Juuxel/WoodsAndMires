@@ -1,7 +1,7 @@
 package juuxel.woodsandmires.mixin;
 
 import juuxel.woodsandmires.biome.BiomeTransformations;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.layer.AddEdgeBiomesLayer;
 import net.minecraft.world.biome.layer.util.LayerRandomnessSource;
@@ -21,12 +21,12 @@ abstract class AddEdgeBiomesLayerMixin {
         if (center == w) matching++;
 
         if (matching >= 3) {
-            Biome input = Registry.BIOME.get(center);
+            Biome input = BuiltinRegistries.BIOME.get(center);
             if (input == null) return;
             Biome transformed = BiomeTransformations.INSTANCE.transformSmallSubBiome(context, input);
 
             if (input != transformed) {
-                info.setReturnValue(Registry.BIOME.getRawId(transformed));
+                info.setReturnValue(BuiltinRegistries.BIOME.getRawId(transformed));
             }
         }
     }

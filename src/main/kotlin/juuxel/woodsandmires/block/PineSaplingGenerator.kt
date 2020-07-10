@@ -1,5 +1,6 @@
 package juuxel.woodsandmires.block
 
+import juuxel.woodsandmires.feature.WamConfiguredFeatures
 import java.util.Random
 import juuxel.woodsandmires.feature.WamFeatures
 import net.minecraft.block.sapling.SaplingGenerator
@@ -9,5 +10,5 @@ import net.minecraft.world.gen.feature.TreeFeatureConfig
 
 object PineSaplingGenerator : SaplingGenerator() {
     override fun createTreeFeature(random: Random, flowerRelated: Boolean): ConfiguredFeature<TreeFeatureConfig, *> =
-        TreeFeature(TreeFeatureConfig.CODEC).configure(WamFeatures.PINE_SAPLING_TREE_CONFIG)
+        WamConfiguredFeatures.PINE_SAPLING
 }

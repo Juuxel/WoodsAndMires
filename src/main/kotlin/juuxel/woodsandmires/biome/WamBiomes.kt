@@ -3,6 +3,7 @@ package juuxel.woodsandmires.biome
 import juuxel.woodsandmires.WoodsAndMires
 import net.fabricmc.fabric.api.biomes.v1.OverworldBiomes
 import net.fabricmc.fabric.api.biomes.v1.OverworldClimate
+import net.minecraft.util.registry.BuiltinRegistries
 import net.minecraft.util.registry.Registry
 import net.minecraft.world.biome.Biome
 
@@ -27,6 +28,6 @@ object WamBiomes {
     }
 
     private fun register(id: String, biome: Biome) {
-        Registry.register(Registry.BIOME, WoodsAndMires.id(id), biome)
+        Registry.register(BuiltinRegistries.BIOME, WoodsAndMires.id(id), biome)
     }
 }
