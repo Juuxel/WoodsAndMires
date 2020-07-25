@@ -8,9 +8,9 @@ import net.minecraft.world.gen.GenerationStep
 import net.minecraft.world.gen.decorator.ChanceDecoratorConfig
 import net.minecraft.world.gen.decorator.Decorator
 import net.minecraft.world.gen.decorator.DecoratorConfig
-import net.minecraft.world.gen.decorator.TreeDecoratorType
 import net.minecraft.world.gen.feature.DefaultFeatureConfig
 import net.minecraft.world.gen.feature.Feature
+import net.minecraft.world.gen.tree.TreeDecoratorType
 
 object WamFeatures {
     val BRANCH_TREE_DECORATOR: TreeDecoratorType<BranchTreeDecorator> =
@@ -35,10 +35,10 @@ object WamFeatures {
     fun addFlowers(biome: Biome) {
         biome.addFeature(
             GenerationStep.Feature.VEGETAL_DECORATION,
-            WamConfiguredFeatures.PLAINS_FLOWERS.method_30374(
+            WamConfiguredFeatures.PLAINS_FLOWERS.decorate(
                 Decorator.CHANCE.configure(ChanceDecoratorConfig(20))
-                    .method_30371()
-                    .method_30374(Decorator.TOP_SOLID_HEIGHTMAP.configure(DecoratorConfig.DEFAULT))
+                    .spreadHorizontally()
+                    .decorate(Decorator.TOP_SOLID_HEIGHTMAP.configure(DecoratorConfig.DEFAULT))
             )
         )
     }

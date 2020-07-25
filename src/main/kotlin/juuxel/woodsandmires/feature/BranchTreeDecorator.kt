@@ -11,7 +11,7 @@ import net.minecraft.util.math.Direction
 import net.minecraft.util.registry.Registry
 import net.minecraft.world.ServerWorldAccess
 import net.minecraft.world.WorldAccess
-import net.minecraft.world.gen.decorator.TreeDecorator
+import net.minecraft.world.gen.tree.TreeDecorator
 import java.util.Random
 
 class BranchTreeDecorator(private val block: Block, private val chance: Float) : TreeDecorator() {

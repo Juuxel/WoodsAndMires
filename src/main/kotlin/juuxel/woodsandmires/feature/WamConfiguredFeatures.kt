@@ -3,10 +3,9 @@ package juuxel.woodsandmires.feature
 import juuxel.woodsandmires.WoodsAndMires
 import juuxel.woodsandmires.block.WamBlocks
 import net.minecraft.block.Blocks
-import net.minecraft.class_5428
 import net.minecraft.util.registry.BuiltinRegistries
 import net.minecraft.util.registry.Registry
-import net.minecraft.world.gen.decorator.AlterGroundTreeDecorator
+import net.minecraft.world.gen.UniformIntDistribution
 import net.minecraft.world.gen.feature.ConfiguredFeature
 import net.minecraft.world.gen.feature.Feature
 import net.minecraft.world.gen.feature.FeatureConfig
@@ -20,6 +19,7 @@ import net.minecraft.world.gen.placer.DoublePlantPlacer
 import net.minecraft.world.gen.placer.SimpleBlockPlacer
 import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider
 import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider
+import net.minecraft.world.gen.tree.AlterGroundTreeDecorator
 import net.minecraft.world.gen.trunk.ForkingTrunkPlacer
 import net.minecraft.world.gen.trunk.StraightTrunkPlacer
 import java.util.function.Supplier
@@ -48,7 +48,7 @@ object WamConfiguredFeatures {
         TreeFeatureConfig.Builder(
             SimpleBlockStateProvider(WamBlocks.PINE_LOG.defaultState),
             SimpleBlockStateProvider(WamBlocks.PINE_LEAVES.defaultState),
-            PineFoliagePlacer(class_5428.method_30314(1), class_5428.method_30314(1), class_5428.method_30315(4, 1)),
+            PineFoliagePlacer(UniformIntDistribution.of(1), UniformIntDistribution.of(1), UniformIntDistribution.of(4, 1)),
             StraightTrunkPlacer(6, 4, 0),
             TwoLayersFeatureSize(2, 0, 2)
         )
@@ -68,7 +68,7 @@ object WamConfiguredFeatures {
         TreeFeatureConfig.Builder(
             SimpleBlockStateProvider(WamBlocks.PINE_SNAG_LOG.defaultState),
             SimpleBlockStateProvider(Blocks.AIR.defaultState),
-            BlobFoliagePlacer(class_5428.method_30314(0), class_5428.method_30314(0), 0),
+            BlobFoliagePlacer(UniformIntDistribution.of(0), UniformIntDistribution.of(0), 0),
             ForkingTrunkPlacer(4, 4, 0),
             TwoLayersFeatureSize(2, 0, 2)
         ).ignoreVines().decorators(listOf(BranchTreeDecorator(WamBlocks.PINE_SNAG_BRANCH, 0.2f))).build()
@@ -77,7 +77,7 @@ object WamConfiguredFeatures {
         TreeFeatureConfig.Builder(
             SimpleBlockStateProvider(WamBlocks.PINE_LOG.defaultState),
             SimpleBlockStateProvider(WamBlocks.PINE_LEAVES.defaultState),
-            PineFoliagePlacer(class_5428.method_30314(1), class_5428.method_30314(1), class_5428.method_30315(4, 1)),
+            PineFoliagePlacer(UniformIntDistribution.of(1), UniformIntDistribution.of(1), UniformIntDistribution.of(4, 1)),
             StraightTrunkPlacer(6, 4, 0),
             TwoLayersFeatureSize(2, 0, 2)
         ).ignoreVines().build()
