@@ -6,14 +6,14 @@ import juuxel.woodsandmires.block.WamBlocks
 import net.minecraft.block.LeavesBlock
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Direction
-import net.minecraft.world.ServerWorldAccess
+import net.minecraft.world.StructureWorldAccess
 import net.minecraft.world.gen.chunk.ChunkGenerator
 import net.minecraft.world.gen.feature.Feature
 import java.util.Random
 
 class PineShrubFeature(configCodec: Codec<PineShrubFeatureConfig>) : Feature<PineShrubFeatureConfig>(configCodec) {
     override fun generate(
-        world: ServerWorldAccess, generator: ChunkGenerator,
+        world: StructureWorldAccess, generator: ChunkGenerator,
         random: Random, pos: BlockPos, config: PineShrubFeatureConfig
     ): Boolean {
         val below = pos.down()

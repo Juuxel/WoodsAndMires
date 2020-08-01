@@ -3,7 +3,7 @@ package juuxel.woodsandmires.feature
 import juuxel.woodsandmires.WoodsAndMires
 import juuxel.woodsandmires.mixin.TreeDecoratorTypeAccessor
 import net.minecraft.util.registry.Registry
-import net.minecraft.world.biome.Biome
+import net.minecraft.world.biome.GenerationSettings
 import net.minecraft.world.gen.GenerationStep
 import net.minecraft.world.gen.feature.ConfiguredFeatures
 import net.minecraft.world.gen.feature.DefaultFeatureConfig
@@ -30,11 +30,11 @@ object WamFeatures {
         Registry.register(Registry.FEATURE, WoodsAndMires.id(id), feature)
     }
 
-    fun addFlowers(biome: Biome) {
-        biome.addFeature(
+    fun addFlowers(builder: GenerationSettings.Builder) {
+        builder.feature(
             GenerationStep.Feature.VEGETAL_DECORATION,
             WamConfiguredFeatures.PLAINS_FLOWERS
-                .decorate(ConfiguredFeatures.Decorators.field_26167.applyChance(20))
+                .decorate(ConfiguredFeatures.Decorators.SQUARE_TOP_SOLID_HEIGHTMAP.applyChance(20))
         )
     }
 }

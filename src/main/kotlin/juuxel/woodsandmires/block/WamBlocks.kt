@@ -23,7 +23,7 @@ import net.minecraft.block.SaplingBlock
 import net.minecraft.block.SlabBlock
 import net.minecraft.block.StairsBlock
 import net.minecraft.block.TallFlowerBlock
-import net.minecraft.block.WoodButtonBlock
+import net.minecraft.block.WoodenButtonBlock
 import net.minecraft.client.MinecraftClient
 import net.minecraft.client.color.block.BlockColorProvider
 import net.minecraft.client.color.item.ItemColorProvider
@@ -46,7 +46,7 @@ object WamBlocks {
     val PINE_STAIRS: Block = object : StairsBlock(PINE_PLANKS.defaultState, copyWoodSettings(Blocks.OAK_SLAB)) {}
     val PINE_FENCE: Block = FenceBlock(copyWoodSettings(Blocks.OAK_FENCE))
     val PINE_FENCE_GATE: Block = FenceGateBlock(copyWoodSettings(Blocks.OAK_FENCE_GATE))
-    val PINE_BUTTON: Block = object : WoodButtonBlock(copyWoodSettings(Blocks.OAK_BUTTON)) {}
+    val PINE_BUTTON: Block = object : WoodenButtonBlock(copyWoodSettings(Blocks.OAK_BUTTON)) {}
     val PINE_PRESSURE_PLATE: Block = object : PressurePlateBlock(
         ActivationRule.EVERYTHING, copyWoodSettings(Blocks.OAK_PRESSURE_PLATE)
     ) {}

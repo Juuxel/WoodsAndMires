@@ -5,7 +5,7 @@ import net.minecraft.block.Blocks
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Direction
 import net.minecraft.world.Heightmap
-import net.minecraft.world.ServerWorldAccess
+import net.minecraft.world.StructureWorldAccess
 import net.minecraft.world.gen.chunk.ChunkGenerator
 import net.minecraft.world.gen.feature.DefaultFeatureConfig
 import net.minecraft.world.gen.feature.Feature
@@ -13,7 +13,7 @@ import java.util.Random
 
 class MirePondsFeature(configCodec: Codec<DefaultFeatureConfig>) : Feature<DefaultFeatureConfig>(configCodec) {
     override fun generate(
-        world: ServerWorldAccess, generator: ChunkGenerator,
+        world: StructureWorldAccess, generator: ChunkGenerator,
         random: Random, pos: BlockPos, config: DefaultFeatureConfig
     ): Boolean {
         val water = Blocks.WATER.defaultState
@@ -45,7 +45,7 @@ class MirePondsFeature(configCodec: Codec<DefaultFeatureConfig>) : Feature<Defau
         return generated
     }
 
-    private fun isSolidOrWaterAround(world: ServerWorldAccess, pos: BlockPos.Mutable): Boolean =
+    private fun isSolidOrWaterAround(world: StructureWorldAccess, pos: BlockPos.Mutable): Boolean =
         Direction.values().all { direction ->
             if (direction == Direction.UP) return@all true
 

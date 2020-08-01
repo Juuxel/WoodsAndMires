@@ -15,6 +15,8 @@ import net.minecraft.util.registry.BuiltinRegistries
 import net.minecraft.util.registry.Registry
 import net.minecraft.world.biome.Biome
 import net.minecraft.world.biome.BiomeEffects
+import net.minecraft.world.biome.GenerationSettings
+import net.minecraft.world.biome.SpawnSettings
 import net.minecraft.world.gen.GenerationStep
 import net.minecraft.world.gen.decorator.CountExtraDecoratorConfig
 import net.minecraft.world.gen.decorator.Decorator
@@ -53,29 +55,10 @@ object WamBiomes {
 
     private fun getSkyColor(temperature: Float): Int = DefaultBiomeCreatorAccessor.callGetSkyColor(temperature)
 
-    private fun basePineForest(depth: Float, scale: Float): Biome {
-        val biome = Biome(
-            Biome.Settings()
-                .surfaceBuilder(ConfiguredSurfaceBuilders.GRASS)
-                .category(Biome.Category.FOREST)
-                .effects(
-                    BiomeEffects.Builder()
-                        .waterColor(0x3F76E4)
-                        .waterFogColor(0x050533)
-                        .fogColor(0xC0D8FF)
-                        .foliageColor(0x43C44F)
-                        .skyColor(getSkyColor(0.4f))
-                        .moodSound(BiomeMoodSound.CAVE)
-                        .build()
-                )
-                .precipitation(Biome.Precipitation.RAIN)
-                .downfall(0.6f)
-                .temperature(0.4f)
-                .depth(depth)
-                .scale(scale)
-        )
+    private fun pineForest(depth: Float, scale: Float, generationSettingsConfig: GenerationSettings.Builder.() -> Unit): Biome {
+        val generationSettings = generationSettings {
+            surfaceBuilder(ConfiguredSurfaceBuilders.GRASS)
 
-        biome.apply {
             DefaultBiomeFeatures.addDefaultUndergroundStructures(this)
             DefaultBiomeFeatures.addLandCarvers(this)
             DefaultBiomeFeatures.addDefaultLakes(this)
@@ -94,188 +77,172 @@ object WamBiomes {
             DefaultBiomeFeatures.addLargeFerns(this)
 
             // Stone boulders
-            addFeature(
+            feature(
                 GenerationStep.Feature.LOCAL_MODIFICATIONS,
                 Feature.FOREST_ROCK.configure(SingleStateFeatureConfig(Blocks.STONE.defaultState))
-                    .decorate(ConfiguredFeatures.Decorators.field_26167.applyChance(16))
+                    .decorate(ConfiguredFeatures.Decorators.SQUARE_TOP_SOLID_HEIGHTMAP.applyChance(16))
             )
 
-            addSpawn(SpawnGroup.CREATURE, Biome.SpawnEntry(EntityType.SHEEP, 12, 4, 4))
-            addSpawn(SpawnGroup.CREATURE, Biome.SpawnEntry(EntityType.PIG, 10, 4, 4))
-            addSpawn(SpawnGroup.CREATURE, Biome.SpawnEntry(EntityType.CHICKEN, 10, 4, 4))
-            addSpawn(SpawnGroup.CREATURE, Biome.SpawnEntry(EntityType.COW, 8, 4, 4))
-            addSpawn(SpawnGroup.AMBIENT, Biome.SpawnEntry(EntityType.BAT, 10, 8, 8))
-            addSpawn(SpawnGroup.CREATURE, Biome.SpawnEntry(EntityType.WOLF, 5, 4, 4))
-            addSpawn(SpawnGroup.CREATURE, Biome.SpawnEntry(EntityType.FOX, 4, 2, 4))
-            addSpawn(SpawnGroup.MONSTER, Biome.SpawnEntry(EntityType.SPIDER, 100, 4, 4))
-            addSpawn(SpawnGroup.MONSTER, Biome.SpawnEntry(EntityType.ZOMBIE, 95, 4, 4))
-            addSpawn(SpawnGroup.MONSTER, Biome.SpawnEntry(EntityType.ZOMBIE_VILLAGER, 5, 1, 1))
-            addSpawn(SpawnGroup.MONSTER, Biome.SpawnEntry(EntityType.SKELETON, 100, 4, 4))
-            addSpawn(SpawnGroup.MONSTER, Biome.SpawnEntry(EntityType.CREEPER, 100, 4, 4))
-            addSpawn(SpawnGroup.MONSTER, Biome.SpawnEntry(EntityType.SLIME, 100, 4, 4))
-            addSpawn(SpawnGroup.MONSTER, Biome.SpawnEntry(EntityType.ENDERMAN, 10, 1, 4))
-            addSpawn(SpawnGroup.MONSTER, Biome.SpawnEntry(EntityType.WITCH, 5, 1, 1))
+            generationSettingsConfig()
         }
 
-        return biome
+        val spawnSettings = spawnSettings {
+            DefaultBiomeFeatures.addFarmAnimals(this)
+            DefaultBiomeFeatures.addBatsAndMonsters(this)
+
+            spawners(SpawnGroup.CREATURE, SpawnSettings.SpawnEntry(EntityType.WOLF, 5, 4, 4))
+            spawners(SpawnGroup.CREATURE, SpawnSettings.SpawnEntry(EntityType.FOX, 4, 2, 4))
+        }
+
+        return Biome.Settings()
+            .category(Biome.Category.FOREST)
+            .effects(
+                BiomeEffects.Builder()
+                    .waterColor(0x3F76E4)
+                    .waterFogColor(0x050533)
+                    .fogColor(0xC0D8FF)
+                    .foliageColor(0x43C44F)
+                    .skyColor(getSkyColor(0.4f))
+                    .moodSound(BiomeMoodSound.CAVE)
+                    .build()
+            )
+            .precipitation(Biome.Precipitation.RAIN)
+            .downfall(0.6f)
+            .temperature(0.4f)
+            .depth(depth)
+            .scale(scale)
+            .generationSettings(generationSettings)
+            .spawnSettings(spawnSettings)
+            .build()
     }
 
-    private fun pineForest(depth: Float, scale: Float): Biome = basePineForest(depth, scale).apply {
-        addFeature(
+    private fun pineForest(depth: Float, scale: Float): Biome = pineForest(depth, scale) {
+        feature(
             GenerationStep.Feature.VEGETAL_DECORATION,
             WamConfiguredFeatures.PINE
-                .decorate(ConfiguredFeatures.Decorators.field_26165.repeat(10))
+                .decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP.repeat(10))
         )
     }
 
-    private fun pineForestClearing(depth: Float, scale: Float): Biome = basePineForest(depth, scale).apply {
+    private fun pineForestClearing(depth: Float, scale: Float): Biome = pineForest(depth, scale) {
         DefaultBiomeFeatures.addMossyRocks(this)
         DefaultBiomeFeatures.addPlainsFeatures(this)
         DefaultBiomeFeatures.addExtraDefaultFlowers(this)
 
-        addFeature(
+        feature(
             GenerationStep.Feature.VEGETAL_DECORATION,
             WamConfiguredFeatures.TALL_PINE_SHRUB
                 .decorate(
-                    ConfiguredFeatures.Decorators.field_26165
+                    ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP
                         .decorate(Decorator.COUNT_EXTRA.configure(CountExtraDecoratorConfig(4, 0.3f, 3)))
                 )
         )
 
-        addFeature(
+        feature(
             GenerationStep.Feature.VEGETAL_DECORATION,
             WamConfiguredFeatures.PINE_SNAG
-                .decorate(ConfiguredFeatures.Decorators.field_26167.applyChance(2))
+                .decorate(ConfiguredFeatures.Decorators.SQUARE_TOP_SOLID_HEIGHTMAP.applyChance(2))
         )
 
-        addFeature(
+        feature(
             GenerationStep.Feature.VEGETAL_DECORATION,
             ConfiguredFeatures.BIRCH_BEES_005
-                .decorate(ConfiguredFeatures.Decorators.field_26167.applyChance(3))
+                .decorate(ConfiguredFeatures.Decorators.SQUARE_TOP_SOLID_HEIGHTMAP.applyChance(3))
         )
 
-        addFeature(
+        feature(
             GenerationStep.Feature.TOP_LAYER_MODIFICATION,
             WamConfiguredFeatures.CLEARING_MEADOW
                 .decorate(Decorator.NOPE.configure(DecoratorConfig.DEFAULT))
         )
 
-        addFeature(
+        feature(
             GenerationStep.Feature.VEGETAL_DECORATION,
             WamConfiguredFeatures.PLAINS_FLOWERS
-                .decorate(ConfiguredFeatures.Decorators.field_26167.applyChance(4))
+                .decorate(ConfiguredFeatures.Decorators.SQUARE_TOP_SOLID_HEIGHTMAP.applyChance(4))
         )
     }
 
     private fun pineMire(depth: Float, scale: Float): Biome {
-        val biome = Biome(
-            Biome.Settings()
-                .surfaceBuilder(ConfiguredSurfaceBuilders.SWAMP)
-                .category(Biome.Category.SWAMP)
-                .effects(
-                    BiomeEffects.Builder()
-                        .waterColor(0x7B6D1B)
-                        .waterFogColor(0x050533)
-                        .fogColor(0xC0D8FF)
-                        .moodSound(BiomeMoodSound.CAVE)
-                        .foliageColor(0xBFA243)
-                        .grassColor(0xADA24C)
-                        .skyColor(getSkyColor(0.6f))
-                        .build()
-                )
-                .precipitation(Biome.Precipitation.RAIN)
-                .downfall(0.9f)
-                .temperature(0.6f)
-                .depth(depth)
-                .scale(scale)
-        )
+        val generationSettings = generationSettings {
+            surfaceBuilder(ConfiguredSurfaceBuilders.SWAMP)
 
-        biome.apply {
-            addFeature(
+            feature(
                 GenerationStep.Feature.VEGETAL_DECORATION,
                 WamConfiguredFeatures.SHORT_PINE_SHRUB
                     .decorate(
-                        ConfiguredFeatures.Decorators.field_26165
+                        ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP
                             .decorate(Decorator.COUNT_EXTRA.configure(CountExtraDecoratorConfig(3, 0.3f, 3)))
                     )
             )
 
-            addFeature(
+            feature(
                 GenerationStep.Feature.LAKES,
                 WamConfiguredFeatures.MIRE_PONDS
                     .decorate(Decorator.NOPE.configure(DecoratorConfig.DEFAULT))
             )
 
-            addFeature(
+            feature(
                 GenerationStep.Feature.TOP_LAYER_MODIFICATION,
                 WamConfiguredFeatures.MIRE_MEADOW
                     .decorate(Decorator.NOPE.configure(DecoratorConfig.DEFAULT))
             )
 
-            addFeature(
+            feature(
                 GenerationStep.Feature.VEGETAL_DECORATION,
                 WamConfiguredFeatures.MIRE_FLOWERS
                     .decorate(
                         ConfiguredFeatures.Decorators.SPREAD_32_ABOVE
-                            .decorate(ConfiguredFeatures.Decorators.field_26165)
+                            .decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP)
                             .repeat(3)
                     )
             )
 
-            addFeature(
+            feature(
                 GenerationStep.Feature.VEGETAL_DECORATION,
                 ConfiguredFeatures.PATCH_WATERLILLY
-                    .decorate(ConfiguredFeatures.Decorators.field_26166.repeat(4))
+                    .decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE.repeat(4))
             )
 
-            addFeature(
+            feature(
                 GenerationStep.Feature.VEGETAL_DECORATION,
                 WamConfiguredFeatures.PINE_SNAG
-                    .decorate(ConfiguredFeatures.Decorators.field_26167.applyChance(6))
+                    .decorate(ConfiguredFeatures.Decorators.SQUARE_TOP_SOLID_HEIGHTMAP.applyChance(6))
             )
-
-            addSpawn(SpawnGroup.CREATURE, Biome.SpawnEntry(EntityType.SHEEP, 12, 4, 4))
-            addSpawn(SpawnGroup.CREATURE, Biome.SpawnEntry(EntityType.PIG, 10, 4, 4))
-            addSpawn(SpawnGroup.CREATURE, Biome.SpawnEntry(EntityType.CHICKEN, 10, 4, 4))
-            addSpawn(SpawnGroup.CREATURE, Biome.SpawnEntry(EntityType.COW, 8, 4, 4))
-            addSpawn(SpawnGroup.AMBIENT, Biome.SpawnEntry(EntityType.BAT, 10, 8, 8))
-            addSpawn(SpawnGroup.MONSTER, Biome.SpawnEntry(EntityType.SPIDER, 100, 4, 4))
-            addSpawn(SpawnGroup.MONSTER, Biome.SpawnEntry(EntityType.ZOMBIE, 95, 4, 4))
-            addSpawn(SpawnGroup.MONSTER, Biome.SpawnEntry(EntityType.ZOMBIE_VILLAGER, 5, 1, 1))
-            addSpawn(SpawnGroup.MONSTER, Biome.SpawnEntry(EntityType.SKELETON, 100, 4, 4))
-            addSpawn(SpawnGroup.MONSTER, Biome.SpawnEntry(EntityType.CREEPER, 100, 4, 4))
-            addSpawn(SpawnGroup.MONSTER, Biome.SpawnEntry(EntityType.SLIME, 100, 4, 4))
-            addSpawn(SpawnGroup.MONSTER, Biome.SpawnEntry(EntityType.ENDERMAN, 10, 1, 4))
-            addSpawn(SpawnGroup.MONSTER, Biome.SpawnEntry(EntityType.WITCH, 5, 1, 1))
-            addSpawn(SpawnGroup.MONSTER, Biome.SpawnEntry(EntityType.SLIME, 1, 1, 1))
         }
 
-        return biome
+        val spawnSettings = spawnSettings {
+            DefaultBiomeFeatures.addFarmAnimals(this)
+            DefaultBiomeFeatures.addBatsAndMonsters(this)
+        }
+
+        return Biome.Settings()
+            .category(Biome.Category.SWAMP)
+            .effects(
+                BiomeEffects.Builder()
+                    .waterColor(0x7B6D1B)
+                    .waterFogColor(0x050533)
+                    .fogColor(0xC0D8FF)
+                    .moodSound(BiomeMoodSound.CAVE)
+                    .foliageColor(0xBFA243)
+                    .grassColor(0xADA24C)
+                    .skyColor(getSkyColor(0.6f))
+                    .build()
+            )
+            .precipitation(Biome.Precipitation.RAIN)
+            .downfall(0.9f)
+            .temperature(0.6f)
+            .depth(depth)
+            .scale(scale)
+            .generationSettings(generationSettings)
+            .spawnSettings(spawnSettings)
+            .build()
     }
 
     private fun kettlePond(depth: Float, scale: Float): Biome {
-        val biome = Biome(
-            Biome.Settings()
-                .surfaceBuilder(ConfiguredSurfaceBuilders.GRASS)
-                .category(Biome.Category.RIVER)
-                .effects(
-                    BiomeEffects.Builder()
-                        .waterColor(0x3F7699)
-                        .waterFogColor(0x050533)
-                        .fogColor(0xC0D8FF)
-                        .foliageColor(0x43C44F)
-                        .skyColor(getSkyColor(0.4f))
-                        .moodSound(BiomeMoodSound.CAVE)
-                        .build()
-                )
-                .precipitation(Biome.Precipitation.RAIN)
-                .downfall(0.8f)
-                .temperature(0.4f)
-                .depth(depth)
-                .scale(scale)
-        )
+        val generationSettings = generationSettings {
+            surfaceBuilder(ConfiguredSurfaceBuilders.GRASS)
 
-        biome.apply {
             DefaultBiomeFeatures.addLandCarvers(this)
             DefaultBiomeFeatures.addDefaultLakes(this)
             DefaultBiomeFeatures.addDungeons(this)
@@ -289,33 +256,48 @@ object WamBiomes {
             DefaultBiomeFeatures.addSprings(this)
             DefaultBiomeFeatures.addFrozenTopLayer(this)
 
-            addFeature(
+            feature(
                 GenerationStep.Feature.VEGETAL_DECORATION,
                 WamConfiguredFeatures.SHORT_PINE_SHRUB
                     .decorate(
-                        ConfiguredFeatures.Decorators.field_26165
+                        ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP
                             .decorate(Decorator.COUNT_EXTRA.configure(CountExtraDecoratorConfig(3, 0.3f, 3)))
                     )
             )
-
-            addSpawn(SpawnGroup.CREATURE, Biome.SpawnEntry(EntityType.SHEEP, 12, 4, 4))
-            addSpawn(SpawnGroup.CREATURE, Biome.SpawnEntry(EntityType.PIG, 10, 4, 4))
-            addSpawn(SpawnGroup.CREATURE, Biome.SpawnEntry(EntityType.CHICKEN, 10, 4, 4))
-            addSpawn(SpawnGroup.CREATURE, Biome.SpawnEntry(EntityType.COW, 8, 4, 4))
-            addSpawn(SpawnGroup.WATER_CREATURE, Biome.SpawnEntry(EntityType.SQUID, 2, 1, 4))
-            addSpawn(SpawnGroup.WATER_CREATURE, Biome.SpawnEntry(EntityType.SALMON, 5, 1, 5))
-            addSpawn(SpawnGroup.AMBIENT, Biome.SpawnEntry(EntityType.BAT, 10, 8, 8))
-            addSpawn(SpawnGroup.MONSTER, Biome.SpawnEntry(EntityType.SPIDER, 100, 4, 4))
-            addSpawn(SpawnGroup.MONSTER, Biome.SpawnEntry(EntityType.ZOMBIE, 95, 4, 4))
-            addSpawn(SpawnGroup.MONSTER, Biome.SpawnEntry(EntityType.ZOMBIE_VILLAGER, 5, 1, 1))
-            addSpawn(SpawnGroup.MONSTER, Biome.SpawnEntry(EntityType.SKELETON, 100, 4, 4))
-            addSpawn(SpawnGroup.MONSTER, Biome.SpawnEntry(EntityType.CREEPER, 100, 4, 4))
-            addSpawn(SpawnGroup.MONSTER, Biome.SpawnEntry(EntityType.SLIME, 100, 4, 4))
-            addSpawn(SpawnGroup.MONSTER, Biome.SpawnEntry(EntityType.ENDERMAN, 10, 1, 4))
-            addSpawn(SpawnGroup.MONSTER, Biome.SpawnEntry(EntityType.WITCH, 5, 1, 1))
-            addSpawn(SpawnGroup.MONSTER, Biome.SpawnEntry(EntityType.DROWNED, 100, 1, 1))
         }
 
-        return biome
+        val spawnSettings = spawnSettings {
+            DefaultBiomeFeatures.addFarmAnimals(this)
+            DefaultBiomeFeatures.addBatsAndMonsters(this)
+            spawners(SpawnGroup.WATER_CREATURE, SpawnSettings.SpawnEntry(EntityType.SQUID, 2, 1, 4))
+            spawners(SpawnGroup.WATER_CREATURE, SpawnSettings.SpawnEntry(EntityType.SALMON, 5, 1, 5))
+        }
+
+        return Biome.Settings()
+            .category(Biome.Category.RIVER)
+            .effects(
+                BiomeEffects.Builder()
+                    .waterColor(0x3F7699)
+                    .waterFogColor(0x050533)
+                    .fogColor(0xC0D8FF)
+                    .foliageColor(0x43C44F)
+                    .skyColor(getSkyColor(0.4f))
+                    .moodSound(BiomeMoodSound.CAVE)
+                    .build()
+            )
+            .precipitation(Biome.Precipitation.RAIN)
+            .downfall(0.8f)
+            .temperature(0.4f)
+            .depth(depth)
+            .scale(scale)
+            .generationSettings(generationSettings)
+            .spawnSettings(spawnSettings)
+            .build()
     }
+
+    private inline fun generationSettings(fn: GenerationSettings.Builder.() -> Unit): GenerationSettings =
+        GenerationSettings.Builder().apply(fn).build()
+
+    private inline fun spawnSettings(fn: SpawnSettings.Builder.() -> Unit): SpawnSettings =
+        SpawnSettings.Builder().apply(fn).build()
 }

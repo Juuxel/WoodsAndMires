@@ -9,7 +9,7 @@ import net.minecraft.util.math.BlockBox
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Direction
 import net.minecraft.util.registry.Registry
-import net.minecraft.world.ServerWorldAccess
+import net.minecraft.world.StructureWorldAccess
 import net.minecraft.world.WorldAccess
 import net.minecraft.world.gen.tree.TreeDecorator
 import java.util.Random
@@ -18,7 +18,7 @@ class BranchTreeDecorator(private val block: Block, private val chance: Float) :
     override fun getType() = WamFeatures.BRANCH_TREE_DECORATOR
 
     override fun generate(
-        world: ServerWorldAccess,
+        world: StructureWorldAccess,
         random: Random,
         logPositions: List<BlockPos>,
         leavesPositions: List<BlockPos>,
