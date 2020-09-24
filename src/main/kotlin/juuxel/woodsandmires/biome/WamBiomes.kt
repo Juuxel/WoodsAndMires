@@ -1,18 +1,22 @@
-@file:Suppress("SameParameterValue")
+@file:Suppress("SameParameterValue", "deprecation")
 
 package juuxel.woodsandmires.biome
 
+import com.mojang.serialization.Lifecycle
 import juuxel.woodsandmires.WoodsAndMires
 import juuxel.woodsandmires.feature.WamConfiguredFeatures
 import juuxel.woodsandmires.mixin.DefaultBiomeCreatorAccessor
-import net.fabricmc.fabric.api.biomes.v1.OverworldBiomes
-import net.fabricmc.fabric.api.biomes.v1.OverworldClimate
+import net.fabricmc.fabric.api.biome.v1.OverworldBiomes
+import net.fabricmc.fabric.api.biome.v1.OverworldClimate
+import net.fabricmc.fabric.impl.biome.InternalBiomeUtils
 import net.minecraft.block.Blocks
 import net.minecraft.entity.EntityType
 import net.minecraft.entity.SpawnGroup
 import net.minecraft.sound.BiomeMoodSound
 import net.minecraft.util.registry.BuiltinRegistries
+import net.minecraft.util.registry.MutableRegistry
 import net.minecraft.util.registry.Registry
+import net.minecraft.util.registry.RegistryKey
 import net.minecraft.world.biome.Biome
 import net.minecraft.world.biome.BiomeEffects
 import net.minecraft.world.biome.GenerationSettings
@@ -28,20 +32,18 @@ import net.minecraft.world.gen.feature.SingleStateFeatureConfig
 import net.minecraft.world.gen.surfacebuilder.ConfiguredSurfaceBuilders
 
 object WamBiomes {
-    // @formatter:off
-    @JvmField val PINE_FOREST: Biome = pineForest(depth = 0.1f, scale = 0.2f)
-    @JvmField val PINE_FOREST_HILLS: Biome = pineForest(depth = 0.45f, scale = 0.3f)
-    @JvmField val PINE_FOREST_CLEARING: Biome = pineForestClearing(depth = 0.1f, scale = 0.2f)
-    @JvmField val PINE_MIRE: Biome = pineMire(depth = 0f, scale = -0.1f)
-    @JvmField val KETTLE_POND: Biome = kettlePond(depth = -0.3f, scale = 0f)
-    // @formatter:on
+    val PINE_FOREST = key("pine_forest")
+    val PINE_FOREST_HILLS = key("pine_forest_hills")
+    val PINE_FOREST_CLEARING = key("pine_forest_clearing")
+    val PINE_MIRE = key("pine_mire")
+    val KETTLE_POND = key("kettle_pond")
 
     fun init() {
-        register("pine_forest", PINE_FOREST)
-        register("pine_forest_hills", PINE_FOREST_HILLS)
-        register("pine_forest_clearing", PINE_FOREST_CLEARING)
-        register("pine_mire", PINE_MIRE)
-        register("kettle_pond", KETTLE_POND)
+        register(PINE_FOREST, pineForest(depth = 0.1f, scale = 0.2f))
+        register(PINE_FOREST_HILLS, pineForest(depth = 0.45f, scale = 0.3f))
+        register(PINE_FOREST_CLEARING, pineForestClearing(depth = 0.1f, scale = 0.2f))
+        register(PINE_MIRE, pineMire(depth = 0f, scale = -0.1f))
+        register(KETTLE_POND, kettlePond(depth = -0.3f, scale = 0f))
 
         OverworldBiomes.addContinentalBiome(PINE_FOREST, OverworldClimate.COOL, 1.0)
         OverworldBiomes.addHillsBiome(PINE_FOREST, PINE_FOREST_HILLS, 1.0)
@@ -49,8 +51,15 @@ object WamBiomes {
         OverworldBiomes.addContinentalBiome(PINE_MIRE, OverworldClimate.TEMPERATE, 1.0)
     }
 
-    private fun register(id: String, biome: Biome) {
-        Registry.register(BuiltinRegistries.BIOME, WoodsAndMires.id(id), biome)
+    private fun key(id: String): RegistryKey<Biome> = RegistryKey.of(Registry.BIOME_KEY, WoodsAndMires.id(id))
+
+    private fun register(key: RegistryKey<Biome>, biome: Biome) {
+        (BuiltinRegistries.BIOME as MutableRegistry<Biome>).add(key, biome, Lifecycle.stable())
+
+        // Ensures that the biome is stored in the internal raw ID map of BuiltinBiomes.
+        // This wouldn't usually be needed, but some of my biomes don't go through OverworldBiomes at all,
+        // which means this won't get called.
+        InternalBiomeUtils.ensureIdMapping(key)
     }
 
     private fun getSkyColor(temperature: Float): Int = DefaultBiomeCreatorAccessor.callGetSkyColor(temperature)
@@ -90,11 +99,11 @@ object WamBiomes {
             DefaultBiomeFeatures.addFarmAnimals(this)
             DefaultBiomeFeatures.addBatsAndMonsters(this)
 
-            spawners(SpawnGroup.CREATURE, SpawnSettings.SpawnEntry(EntityType.WOLF, 5, 4, 4))
-            spawners(SpawnGroup.CREATURE, SpawnSettings.SpawnEntry(EntityType.FOX, 4, 2, 4))
+            spawn(SpawnGroup.CREATURE, SpawnSettings.SpawnEntry(EntityType.WOLF, 5, 4, 4))
+            spawn(SpawnGroup.CREATURE, SpawnSettings.SpawnEntry(EntityType.FOX, 4, 2, 4))
         }
 
-        return Biome.Settings()
+        return Biome.Builder()
             .category(Biome.Category.FOREST)
             .effects(
                 BiomeEffects.Builder()
@@ -216,7 +225,7 @@ object WamBiomes {
             DefaultBiomeFeatures.addBatsAndMonsters(this)
         }
 
-        return Biome.Settings()
+        return Biome.Builder()
             .category(Biome.Category.SWAMP)
             .effects(
                 BiomeEffects.Builder()
@@ -269,11 +278,11 @@ object WamBiomes {
         val spawnSettings = spawnSettings {
             DefaultBiomeFeatures.addFarmAnimals(this)
             DefaultBiomeFeatures.addBatsAndMonsters(this)
-            spawners(SpawnGroup.WATER_CREATURE, SpawnSettings.SpawnEntry(EntityType.SQUID, 2, 1, 4))
-            spawners(SpawnGroup.WATER_CREATURE, SpawnSettings.SpawnEntry(EntityType.SALMON, 5, 1, 5))
+            spawn(SpawnGroup.WATER_CREATURE, SpawnSettings.SpawnEntry(EntityType.SQUID, 2, 1, 4))
+            spawn(SpawnGroup.WATER_CREATURE, SpawnSettings.SpawnEntry(EntityType.SALMON, 5, 1, 5))
         }
 
-        return Biome.Settings()
+        return Biome.Builder()
             .category(Biome.Category.RIVER)
             .effects(
                 BiomeEffects.Builder()

@@ -1,8 +1,6 @@
 package juuxel.woodsandmires.mixin;
 
 import juuxel.woodsandmires.biome.BiomeTransformations;
-import net.minecraft.util.registry.BuiltinRegistries;
-import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.layer.EaseBiomeEdgeLayer;
 import net.minecraft.world.biome.layer.util.LayerRandomnessSource;
 import org.spongepowered.asm.mixin.Mixin;
@@ -21,12 +19,10 @@ abstract class EaseBiomeEdgeLayerMixin {
         if (center == w) matching++;
 
         if (matching >= 3) {
-            Biome input = BuiltinRegistries.BIOME.get(center);
-            if (input == null) return;
-            Biome transformed = BiomeTransformations.INSTANCE.transformLargeSubBiome(context, input);
+            int transformed = BiomeTransformations.INSTANCE.transformLargeSubBiome(context, center);
 
-            if (input != transformed) {
-                info.setReturnValue(BuiltinRegistries.BIOME.getRawId(transformed));
+            if (center != transformed) {
+                info.setReturnValue(transformed);
             }
         }
     }

@@ -12,7 +12,7 @@ data class MeadowFeatureConfig(
     companion object {
         val CODEC: Codec<MeadowFeatureConfig> = RecordCodecBuilder.create { instance ->
             instance.group(
-                BlockStateProvider.CODEC.fieldOf("state_provider").forGetter { it.stateProvider },
+                BlockStateProvider.TYPE_CODEC.fieldOf("state_provider").forGetter { it.stateProvider },
                 Codec.FLOAT.fieldOf("chance").forGetter { it.chance }
             ).apply(instance, ::MeadowFeatureConfig)
         }
