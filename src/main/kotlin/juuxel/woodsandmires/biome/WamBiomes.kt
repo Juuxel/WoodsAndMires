@@ -9,7 +9,6 @@ import juuxel.woodsandmires.mixin.DefaultBiomeCreatorAccessor
 import net.fabricmc.fabric.api.biome.v1.OverworldBiomes
 import net.fabricmc.fabric.api.biome.v1.OverworldClimate
 import net.fabricmc.fabric.impl.biome.InternalBiomeUtils
-import net.minecraft.block.Blocks
 import net.minecraft.entity.EntityType
 import net.minecraft.entity.SpawnGroup
 import net.minecraft.sound.BiomeMoodSound
@@ -22,13 +21,8 @@ import net.minecraft.world.biome.BiomeEffects
 import net.minecraft.world.biome.GenerationSettings
 import net.minecraft.world.biome.SpawnSettings
 import net.minecraft.world.gen.GenerationStep
-import net.minecraft.world.gen.decorator.CountExtraDecoratorConfig
-import net.minecraft.world.gen.decorator.Decorator
-import net.minecraft.world.gen.decorator.DecoratorConfig
 import net.minecraft.world.gen.feature.ConfiguredFeatures
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures
-import net.minecraft.world.gen.feature.Feature
-import net.minecraft.world.gen.feature.SingleStateFeatureConfig
 import net.minecraft.world.gen.surfacebuilder.ConfiguredSurfaceBuilders
 
 object WamBiomes {
@@ -86,11 +80,7 @@ object WamBiomes {
             DefaultBiomeFeatures.addLargeFerns(this)
 
             // Stone boulders
-            feature(
-                GenerationStep.Feature.LOCAL_MODIFICATIONS,
-                Feature.FOREST_ROCK.configure(SingleStateFeatureConfig(Blocks.STONE.defaultState))
-                    .decorate(ConfiguredFeatures.Decorators.SQUARE_TOP_SOLID_HEIGHTMAP.applyChance(16))
-            )
+            feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, WamConfiguredFeatures.PINE_FOREST_BOULDER)
 
             generationSettingsConfig()
         }
@@ -126,11 +116,7 @@ object WamBiomes {
     }
 
     private fun pineForest(depth: Float, scale: Float): Biome = pineForest(depth, scale) {
-        feature(
-            GenerationStep.Feature.VEGETAL_DECORATION,
-            WamConfiguredFeatures.PINE
-                .decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP.repeat(10))
-        )
+        feature(GenerationStep.Feature.VEGETAL_DECORATION, WamConfiguredFeatures.FOREST_PINE)
     }
 
     private fun pineForestClearing(depth: Float, scale: Float): Biome = pineForest(depth, scale) {
@@ -138,86 +124,23 @@ object WamBiomes {
         DefaultBiomeFeatures.addPlainsFeatures(this)
         DefaultBiomeFeatures.addExtraDefaultFlowers(this)
 
-        feature(
-            GenerationStep.Feature.VEGETAL_DECORATION,
-            WamConfiguredFeatures.TALL_PINE_SHRUB
-                .decorate(
-                    ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP
-                        .decorate(Decorator.COUNT_EXTRA.configure(CountExtraDecoratorConfig(4, 0.3f, 3)))
-                )
-        )
-
-        feature(
-            GenerationStep.Feature.VEGETAL_DECORATION,
-            WamConfiguredFeatures.PINE_SNAG
-                .decorate(ConfiguredFeatures.Decorators.SQUARE_TOP_SOLID_HEIGHTMAP.applyChance(2))
-        )
-
-        feature(
-            GenerationStep.Feature.VEGETAL_DECORATION,
-            ConfiguredFeatures.BIRCH_BEES_005
-                .decorate(ConfiguredFeatures.Decorators.SQUARE_TOP_SOLID_HEIGHTMAP.applyChance(3))
-        )
-
-        feature(
-            GenerationStep.Feature.TOP_LAYER_MODIFICATION,
-            WamConfiguredFeatures.CLEARING_MEADOW
-                .decorate(Decorator.NOPE.configure(DecoratorConfig.DEFAULT))
-        )
-
-        feature(
-            GenerationStep.Feature.VEGETAL_DECORATION,
-            WamConfiguredFeatures.PLAINS_FLOWERS
-                .decorate(ConfiguredFeatures.Decorators.SQUARE_TOP_SOLID_HEIGHTMAP.applyChance(4))
-        )
+        feature(GenerationStep.Feature.VEGETAL_DECORATION, WamConfiguredFeatures.CLEARING_PINE_SHRUB)
+        feature(GenerationStep.Feature.VEGETAL_DECORATION, WamConfiguredFeatures.CLEARING_SNAG)
+        feature(GenerationStep.Feature.VEGETAL_DECORATION, WamConfiguredFeatures.CLEARING_BIRCH)
+        feature(GenerationStep.Feature.TOP_LAYER_MODIFICATION, WamConfiguredFeatures.CLEARING_MEADOW)
+        feature(GenerationStep.Feature.VEGETAL_DECORATION, WamConfiguredFeatures.CLEARING_FLOWERS)
     }
 
     private fun pineMire(depth: Float, scale: Float): Biome {
         val generationSettings = generationSettings {
             surfaceBuilder(ConfiguredSurfaceBuilders.SWAMP)
 
-            feature(
-                GenerationStep.Feature.VEGETAL_DECORATION,
-                WamConfiguredFeatures.SHORT_PINE_SHRUB
-                    .decorate(
-                        ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP
-                            .decorate(Decorator.COUNT_EXTRA.configure(CountExtraDecoratorConfig(3, 0.3f, 3)))
-                    )
-            )
-
-            feature(
-                GenerationStep.Feature.LAKES,
-                WamConfiguredFeatures.MIRE_PONDS
-                    .decorate(Decorator.NOPE.configure(DecoratorConfig.DEFAULT))
-            )
-
-            feature(
-                GenerationStep.Feature.TOP_LAYER_MODIFICATION,
-                WamConfiguredFeatures.MIRE_MEADOW
-                    .decorate(Decorator.NOPE.configure(DecoratorConfig.DEFAULT))
-            )
-
-            feature(
-                GenerationStep.Feature.VEGETAL_DECORATION,
-                WamConfiguredFeatures.MIRE_FLOWERS
-                    .decorate(
-                        ConfiguredFeatures.Decorators.SPREAD_32_ABOVE
-                            .decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP)
-                            .repeat(3)
-                    )
-            )
-
-            feature(
-                GenerationStep.Feature.VEGETAL_DECORATION,
-                ConfiguredFeatures.PATCH_WATERLILLY
-                    .decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE.repeat(4))
-            )
-
-            feature(
-                GenerationStep.Feature.VEGETAL_DECORATION,
-                WamConfiguredFeatures.PINE_SNAG
-                    .decorate(ConfiguredFeatures.Decorators.SQUARE_TOP_SOLID_HEIGHTMAP.applyChance(6))
-            )
+            feature(GenerationStep.Feature.VEGETAL_DECORATION, WamConfiguredFeatures.MIRE_PINE_SHRUB)
+            feature(GenerationStep.Feature.LAKES, WamConfiguredFeatures.MIRE_PONDS)
+            feature(GenerationStep.Feature.TOP_LAYER_MODIFICATION, WamConfiguredFeatures.MIRE_MEADOW)
+            feature(GenerationStep.Feature.VEGETAL_DECORATION, WamConfiguredFeatures.MIRE_FLOWERS)
+            feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.PATCH_WATERLILLY)
+            feature(GenerationStep.Feature.VEGETAL_DECORATION, WamConfiguredFeatures.MIRE_PINE_SNAG)
         }
 
         val spawnSettings = spawnSettings {
@@ -265,14 +188,7 @@ object WamBiomes {
             DefaultBiomeFeatures.addSprings(this)
             DefaultBiomeFeatures.addFrozenTopLayer(this)
 
-            feature(
-                GenerationStep.Feature.VEGETAL_DECORATION,
-                WamConfiguredFeatures.SHORT_PINE_SHRUB
-                    .decorate(
-                        ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP
-                            .decorate(Decorator.COUNT_EXTRA.configure(CountExtraDecoratorConfig(3, 0.3f, 3)))
-                    )
-            )
+            feature(GenerationStep.Feature.VEGETAL_DECORATION, WamConfiguredFeatures.KETTLE_POND_PINE_SHRUB)
         }
 
         val spawnSettings = spawnSettings {

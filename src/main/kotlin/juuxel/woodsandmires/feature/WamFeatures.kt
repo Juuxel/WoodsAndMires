@@ -5,7 +5,6 @@ import juuxel.woodsandmires.mixin.TreeDecoratorTypeAccessor
 import net.minecraft.util.registry.Registry
 import net.minecraft.world.biome.GenerationSettings
 import net.minecraft.world.gen.GenerationStep
-import net.minecraft.world.gen.feature.ConfiguredFeatures
 import net.minecraft.world.gen.feature.DefaultFeatureConfig
 import net.minecraft.world.gen.feature.Feature
 import net.minecraft.world.gen.tree.TreeDecoratorType
@@ -31,10 +30,6 @@ object WamFeatures {
     }
 
     fun addFlowers(builder: GenerationSettings.Builder) {
-        builder.feature(
-            GenerationStep.Feature.VEGETAL_DECORATION,
-            WamConfiguredFeatures.PLAINS_FLOWERS
-                .decorate(ConfiguredFeatures.Decorators.SQUARE_TOP_SOLID_HEIGHTMAP.applyChance(20))
-        )
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamConfiguredFeatures.PLAINS_FLOWERS)
     }
 }
