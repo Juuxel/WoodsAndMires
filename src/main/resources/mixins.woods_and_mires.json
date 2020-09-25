@@ -8,6 +8,7 @@
     "AddSunflowerPlainsLayerMixin",
     "AxeItemMixin",
     "BlocksAccessor",
+    "BuiltinBiomesAccessor",
     "DefaultBiomeCreatorAccessor",
     "DefaultBiomeFeaturesMixin",
     "EaseBiomeEdgeLayerMixin",

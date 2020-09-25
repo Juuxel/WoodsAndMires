@@ -5,10 +5,10 @@ package juuxel.woodsandmires.biome
 import com.mojang.serialization.Lifecycle
 import juuxel.woodsandmires.WoodsAndMires
 import juuxel.woodsandmires.feature.WamConfiguredFeatures
+import juuxel.woodsandmires.mixin.BuiltinBiomesAccessor
 import juuxel.woodsandmires.mixin.DefaultBiomeCreatorAccessor
 import net.fabricmc.fabric.api.biome.v1.OverworldBiomes
 import net.fabricmc.fabric.api.biome.v1.OverworldClimate
-import net.fabricmc.fabric.impl.biome.InternalBiomeUtils
 import net.minecraft.entity.EntityType
 import net.minecraft.entity.SpawnGroup
 import net.minecraft.sound.BiomeMoodSound
@@ -51,9 +51,10 @@ object WamBiomes {
         (BuiltinRegistries.BIOME as MutableRegistry<Biome>).add(key, biome, Lifecycle.stable())
 
         // Ensures that the biome is stored in the internal raw ID map of BuiltinBiomes.
-        // This wouldn't usually be needed, but some of my biomes don't go through OverworldBiomes at all,
-        // which means this won't get called.
-        InternalBiomeUtils.ensureIdMapping(key)
+        // Fabric API usually does this, but some of my biomes don't go through OverworldBiomes at all,
+        // which means that won't always get done.
+        val byRawId = BuiltinBiomesAccessor.getBY_RAW_ID()
+        byRawId[BuiltinRegistries.BIOME.getRawId(biome)] = key
     }
 
     private fun getSkyColor(temperature: Float): Int = DefaultBiomeCreatorAccessor.callGetSkyColor(temperature)
