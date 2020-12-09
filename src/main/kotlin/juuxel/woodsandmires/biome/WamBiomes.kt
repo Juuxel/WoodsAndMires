@@ -18,6 +18,7 @@ import net.minecraft.util.registry.Registry
 import net.minecraft.util.registry.RegistryKey
 import net.minecraft.world.biome.Biome
 import net.minecraft.world.biome.BiomeEffects
+import net.minecraft.world.biome.BiomeKeys
 import net.minecraft.world.biome.GenerationSettings
 import net.minecraft.world.biome.SpawnSettings
 import net.minecraft.world.gen.GenerationStep
@@ -31,6 +32,8 @@ object WamBiomes {
     val PINE_FOREST_CLEARING = key("pine_forest_clearing")
     val PINE_MIRE = key("pine_mire")
     val KETTLE_POND = key("kettle_pond")
+    val FELL = key("fell")
+    val FELL_EDGE = key("fell_edge")
 
     fun init() {
         register(PINE_FOREST, pineForest(depth = 0.1f, scale = 0.2f))
@@ -38,11 +41,16 @@ object WamBiomes {
         register(PINE_FOREST_CLEARING, pineForestClearing(depth = 0.1f, scale = 0.2f))
         register(PINE_MIRE, pineMire(depth = 0f, scale = -0.1f))
         register(KETTLE_POND, kettlePond(depth = -0.3f, scale = 0f))
+        register(FELL, fell(depth = 0.7f, scale = 0.3f))
+        register(FELL_EDGE, fellEdge(depth = 0.5f, scale = 0.3f))
 
         OverworldBiomes.addContinentalBiome(PINE_FOREST, OverworldClimate.COOL, 1.0)
         OverworldBiomes.addHillsBiome(PINE_FOREST, PINE_FOREST_HILLS, 1.0)
         OverworldBiomes.addBiomeVariant(PINE_FOREST, PINE_FOREST_HILLS, 0.3)
         OverworldBiomes.addContinentalBiome(PINE_MIRE, OverworldClimate.TEMPERATE, 1.0)
+        OverworldBiomes.addContinentalBiome(FELL, OverworldClimate.COOL, 1.0)
+        OverworldBiomes.addHillsBiome(FELL, BiomeKeys.SNOWY_MOUNTAINS, 1.0)
+        OverworldBiomes.addEdgeBiome(FELL, FELL_EDGE, 1.0)
     }
 
     private fun key(id: String): RegistryKey<Biome> = RegistryKey.of(Registry.BIOME_KEY, WoodsAndMires.id(id))
@@ -59,7 +67,11 @@ object WamBiomes {
 
     private fun getSkyColor(temperature: Float): Int = DefaultBiomeCreatorAccessor.callGetSkyColor(temperature)
 
-    private fun pineForest(depth: Float, scale: Float, generationSettingsConfig: GenerationSettings.Builder.() -> Unit): Biome {
+    private fun pineForest(
+        depth: Float,
+        scale: Float,
+        generationSettingsConfig: GenerationSettings.Builder.() -> Unit
+    ): Biome {
         val generationSettings = generationSettings {
             surfaceBuilder(ConfiguredSurfaceBuilders.GRASS)
 
@@ -220,6 +232,84 @@ object WamBiomes {
             .spawnSettings(spawnSettings)
             .build()
     }
+
+    private fun fell(depth: Float, scale: Float, generationSettings: GenerationSettings): Biome {
+        val spawnSettings = spawnSettings {
+            DefaultBiomeFeatures.addBatsAndMonsters(this)
+
+            spawn(SpawnGroup.CREATURE, SpawnSettings.SpawnEntry(EntityType.WOLF, 5, 4, 4))
+            spawn(SpawnGroup.CREATURE, SpawnSettings.SpawnEntry(EntityType.FOX, 4, 2, 4))
+        }
+
+        return Biome.Builder()
+            .category(Biome.Category.EXTREME_HILLS)
+            .effects(
+                BiomeEffects.Builder()
+                    .waterColor(0x3F76E4)
+                    .waterFogColor(0x050533)
+                    .fogColor(0xC0D8FF)
+                    .skyColor(getSkyColor(0.25f))
+                    .moodSound(BiomeMoodSound.CAVE)
+                    .build()
+            )
+            .precipitation(Biome.Precipitation.RAIN)
+            .downfall(0.7f)
+            .temperature(0.25f)
+            .depth(depth)
+            .scale(scale)
+            .generationSettings(generationSettings)
+            .spawnSettings(spawnSettings)
+            .build()
+    }
+
+    private fun fell(depth: Float, scale: Float): Biome =
+        fell(
+            depth, scale,
+            generationSettings {
+                surfaceBuilder(ConfiguredSurfaceBuilders.SHATTERED_SAVANNA)
+
+                DefaultBiomeFeatures.addLandCarvers(this)
+                DefaultBiomeFeatures.addDungeons(this)
+                DefaultBiomeFeatures.addMineables(this)
+                DefaultBiomeFeatures.addDefaultOres(this)
+                DefaultBiomeFeatures.addDefaultDisks(this)
+                DefaultBiomeFeatures.addDefaultFlowers(this)
+                DefaultBiomeFeatures.addDefaultMushrooms(this)
+                DefaultBiomeFeatures.addDefaultVegetation(this)
+                DefaultBiomeFeatures.addSprings(this)
+                DefaultBiomeFeatures.addFrozenTopLayer(this)
+
+                feature(GenerationStep.Feature.VEGETAL_DECORATION, WamConfiguredFeatures.FELL_VEGETATION)
+                feature(GenerationStep.Feature.VEGETAL_DECORATION, WamConfiguredFeatures.FELL_BIRCH_SHRUB)
+                feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, WamConfiguredFeatures.FELL_BOULDER)
+                feature(GenerationStep.Feature.LAKES, WamConfiguredFeatures.FELL_LAKE)
+                feature(GenerationStep.Feature.LAKES, ConfiguredFeatures.LAKE_LAVA)
+            }
+        )
+
+    private fun fellEdge(depth: Float, scale: Float): Biome =
+        fell(
+            depth, scale,
+            generationSettings {
+                surfaceBuilder(ConfiguredSurfaceBuilders.GRASS)
+
+                DefaultBiomeFeatures.addLandCarvers(this)
+                DefaultBiomeFeatures.addDefaultLakes(this)
+                DefaultBiomeFeatures.addDungeons(this)
+                DefaultBiomeFeatures.addMineables(this)
+                DefaultBiomeFeatures.addDefaultOres(this)
+                DefaultBiomeFeatures.addDefaultDisks(this)
+                DefaultBiomeFeatures.addDefaultFlowers(this)
+                DefaultBiomeFeatures.addForestGrass(this)
+                DefaultBiomeFeatures.addDefaultMushrooms(this)
+                DefaultBiomeFeatures.addDefaultVegetation(this)
+                DefaultBiomeFeatures.addSprings(this)
+                DefaultBiomeFeatures.addFrozenTopLayer(this)
+
+                feature(GenerationStep.Feature.VEGETAL_DECORATION, WamConfiguredFeatures.FELL_VEGETATION)
+                feature(GenerationStep.Feature.VEGETAL_DECORATION, WamConfiguredFeatures.CLEARING_PINE_SHRUB)
+            }
+        )
 
     private inline fun generationSettings(fn: GenerationSettings.Builder.() -> Unit): GenerationSettings =
         GenerationSettings.Builder().apply(fn).build()

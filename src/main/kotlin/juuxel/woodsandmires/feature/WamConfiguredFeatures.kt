@@ -6,6 +6,7 @@ import net.minecraft.block.Blocks
 import net.minecraft.util.registry.BuiltinRegistries
 import net.minecraft.util.registry.Registry
 import net.minecraft.world.gen.UniformIntDistribution
+import net.minecraft.world.gen.decorator.ChanceDecoratorConfig
 import net.minecraft.world.gen.decorator.CountExtraDecoratorConfig
 import net.minecraft.world.gen.decorator.Decorator
 import net.minecraft.world.gen.decorator.DecoratorConfig
@@ -47,7 +48,13 @@ object WamConfiguredFeatures {
 
         // Pine shrubs
         val SHORT_PINE_SHRUB: ConfiguredFeature<*, *> =
-            WamFeatures.PINE_SHRUB.configure(PineShrubFeatureConfig(1, 2, 0.6f))
+            WamFeatures.SHRUB.configure(
+                ShrubFeatureConfig(
+                    WamBlocks.PINE_LOG.defaultState,
+                    WamBlocks.PINE_LEAVES.defaultState,
+                    1, 2, 0.6f
+                )
+            )
 
         // Pine trees
         val PINE: ConfiguredFeature<TreeFeatureConfig, *> = Feature.TREE.configure(
@@ -154,12 +161,42 @@ object WamConfiguredFeatures {
     val CLEARING_BIRCH: ConfiguredFeature<*, *> = ConfiguredFeatures.BIRCH_BEES_005.decorate(ConfiguredFeatures.Decorators.SQUARE_TOP_SOLID_HEIGHTMAP.applyChance(3))
     val CLEARING_FLOWERS: ConfiguredFeature<*, *> = Undecorated.PLAINS_FLOWERS.decorate(ConfiguredFeatures.Decorators.SQUARE_TOP_SOLID_HEIGHTMAP.applyChance(4))
     val CLEARING_SNAG: ConfiguredFeature<*, *> = Undecorated.PINE_SNAG.decorate(ConfiguredFeatures.Decorators.SQUARE_TOP_SOLID_HEIGHTMAP.applyChance(2))
-    val CLEARING_PINE_SHRUB: ConfiguredFeature<*, *> = WamFeatures.PINE_SHRUB.configure(PineShrubFeatureConfig(1, 2, 1f))
-        .decorate(
-            ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP
-                .decorate(Decorator.COUNT_EXTRA.configure(CountExtraDecoratorConfig(4, 0.3f, 3)))
+    val CLEARING_PINE_SHRUB: ConfiguredFeature<*, *> = WamFeatures.SHRUB.configure(
+        ShrubFeatureConfig(
+            WamBlocks.PINE_LOG.defaultState,
+            WamBlocks.PINE_LEAVES.defaultState,
+            1, 2, 1f
         )
+    ).decorate(
+        ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP
+            .decorate(Decorator.COUNT_EXTRA.configure(CountExtraDecoratorConfig(4, 0.3f, 3)))
+    )
     val PLAINS_FLOWERS: ConfiguredFeature<*, *> = Undecorated.PLAINS_FLOWERS.decorate(ConfiguredFeatures.Decorators.SQUARE_TOP_SOLID_HEIGHTMAP.applyChance(20))
+
+    // Fell
+    val FELL_VEGETATION: ConfiguredFeature<*, *> = WamFeatures.MEADOW.configure(
+        MeadowFeatureConfig(
+            WeightedBlockStateProvider()
+                .addState(Blocks.GRASS.defaultState, 1),
+            0.3f
+        )
+    ).decorate(Decorator.NOPE.configure(DecoratorConfig.DEFAULT))
+    val FELL_BOULDER: ConfiguredFeature<*, *> = Feature.FOREST_ROCK.configure(
+        SingleStateFeatureConfig(Blocks.COBBLESTONE.defaultState)
+    ).decorate(ConfiguredFeatures.Decorators.SQUARE_TOP_SOLID_HEIGHTMAP.applyChance(16))
+    val FELL_LAKE: ConfiguredFeature<*, *> = WamFeatures.FELL_LAKE.configure(
+        SingleStateFeatureConfig(Blocks.WATER.defaultState)
+    ).decorate(Decorator.WATER_LAKE.configure(ChanceDecoratorConfig(4)))
+    val FELL_BIRCH_SHRUB: ConfiguredFeature<*, *> = WamFeatures.SHRUB.configure(
+        ShrubFeatureConfig(
+            Blocks.BIRCH_LOG.defaultState,
+            Blocks.BIRCH_LEAVES.defaultState,
+            1, 1, 0.7f
+        )
+    ).decorate(
+        ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP
+            .decorate(Decorator.COUNT_EXTRA.configure(CountExtraDecoratorConfig(1, 0.3f, 2)).applyChance(3))
+    )
 
     // @formatter:on
 
@@ -179,6 +216,10 @@ object WamConfiguredFeatures {
         register("clearing_snag", CLEARING_SNAG)
         register("clearing_pine_shrub", CLEARING_PINE_SHRUB)
         register("plains_flowers", PLAINS_FLOWERS)
+        register("fell_vegetation", FELL_VEGETATION)
+        register("fell_boulder", FELL_BOULDER)
+        register("fell_lake", FELL_LAKE)
+        register("fell_birch_shrub", FELL_BIRCH_SHRUB)
     }
 
     private fun register(id: String, feature: ConfiguredFeature<*, *>) {

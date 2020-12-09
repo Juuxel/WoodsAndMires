@@ -2,7 +2,6 @@ package juuxel.woodsandmires.feature
 
 import com.mojang.serialization.Codec
 import juuxel.woodsandmires.block.ShrubLogBlock
-import juuxel.woodsandmires.block.WamBlocks
 import net.minecraft.block.LeavesBlock
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Direction
@@ -11,10 +10,10 @@ import net.minecraft.world.gen.chunk.ChunkGenerator
 import net.minecraft.world.gen.feature.Feature
 import java.util.Random
 
-class PineShrubFeature(configCodec: Codec<PineShrubFeatureConfig>) : Feature<PineShrubFeatureConfig>(configCodec) {
+class ShrubFeature(configCodec: Codec<ShrubFeatureConfig>) : Feature<ShrubFeatureConfig>(configCodec) {
     override fun generate(
         world: StructureWorldAccess, generator: ChunkGenerator,
-        random: Random, pos: BlockPos, config: PineShrubFeatureConfig
+        random: Random, pos: BlockPos, config: ShrubFeatureConfig
     ): Boolean {
         val below = pos.down()
         if (!isSoil(world, below) || !world.getBlockState(below).isSideSolidFullSquare(world, below, Direction.UP)) {
@@ -24,9 +23,11 @@ class PineShrubFeature(configCodec: Codec<PineShrubFeatureConfig>) : Feature<Pin
         val mut = BlockPos.Mutable()
         mut.set(pos)
 
-        val log = WamBlocks.PINE_SHRUB_LOG.defaultState
-        val logWithLeaves = log.with(ShrubLogBlock.HAS_LEAVES, true)
-        val leaves = WamBlocks.PINE_LEAVES.defaultState.with(LeavesBlock.DISTANCE, 1)
+        val log = config.log
+        val logWithLeaves =
+            if (log.block is ShrubLogBlock) log.with(ShrubLogBlock.HAS_LEAVES, true)
+            else log
+        val leaves = config.leaves.with(LeavesBlock.DISTANCE, 1)
         val extraHeight =
             if (random.nextFloat() < config.extraHeightChance) random.nextInt(config.extraHeight + 1)
             else 0

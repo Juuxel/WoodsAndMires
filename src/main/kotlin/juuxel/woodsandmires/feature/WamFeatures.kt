@@ -7,20 +7,23 @@ import net.minecraft.world.biome.GenerationSettings
 import net.minecraft.world.gen.GenerationStep
 import net.minecraft.world.gen.feature.DefaultFeatureConfig
 import net.minecraft.world.gen.feature.Feature
+import net.minecraft.world.gen.feature.SingleStateFeatureConfig
 import net.minecraft.world.gen.tree.TreeDecoratorType
 
 object WamFeatures {
     val BRANCH_TREE_DECORATOR: TreeDecoratorType<BranchTreeDecorator> =
         TreeDecoratorTypeAccessor.construct(BranchTreeDecorator.CODEC)
 
-    val PINE_SHRUB: Feature<PineShrubFeatureConfig> = PineShrubFeature(PineShrubFeatureConfig.CODEC)
+    val SHRUB: Feature<ShrubFeatureConfig> = ShrubFeature(ShrubFeatureConfig.CODEC)
     val MIRE_PONDS: Feature<DefaultFeatureConfig> = MirePondsFeature(DefaultFeatureConfig.CODEC)
     val MEADOW: Feature<MeadowFeatureConfig> = MeadowFeature(MeadowFeatureConfig.CODEC)
+    val FELL_LAKE: Feature<SingleStateFeatureConfig> = FellLakeFeature(SingleStateFeatureConfig.CODEC)
 
     fun init() {
-        register("pine_shrub", PINE_SHRUB)
+        register("shrub", SHRUB)
         register("mire_ponds", MIRE_PONDS)
         register("meadow", MEADOW)
+        register("fell_lake", FELL_LAKE)
 
         Registry.register(Registry.TREE_DECORATOR_TYPE, WoodsAndMires.id("branch"), BRANCH_TREE_DECORATOR)
     }

@@ -13,6 +13,7 @@
     "DefaultBiomeFeaturesMixin",
     "EaseBiomeEdgeLayerMixin",
     "ForestFlowerBlockStateProviderMixin",
+    "LakeFeatureMixin",
     "TreeDecoratorTypeAccessor"
   ],
   "client": [
