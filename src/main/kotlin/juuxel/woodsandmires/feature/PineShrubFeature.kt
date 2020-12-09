@@ -17,7 +17,7 @@ class PineShrubFeature(configCodec: Codec<PineShrubFeatureConfig>) : Feature<Pin
         random: Random, pos: BlockPos, config: PineShrubFeatureConfig
     ): Boolean {
         val below = pos.down()
-        if (!world.getBlockState(below).isSideSolidFullSquare(world, below, Direction.UP)) {
+        if (!isSoil(world, below) || !world.getBlockState(below).isSideSolidFullSquare(world, below, Direction.UP)) {
             return false
         }
 
