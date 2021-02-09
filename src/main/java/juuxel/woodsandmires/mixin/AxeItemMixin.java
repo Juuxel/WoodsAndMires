@@ -20,7 +20,7 @@ abstract class AxeItemMixin {
 
     static {
         STRIPPED_BLOCKS = new HashMap<>(STRIPPED_BLOCKS);
-        STRIPPED_BLOCKS.put(WamBlocks.INSTANCE.getPINE_LOG(), WamBlocks.INSTANCE.getSTRIPPED_PINE_LOG());
-        STRIPPED_BLOCKS.put(WamBlocks.INSTANCE.getPINE_WOOD(), WamBlocks.INSTANCE.getSTRIPPED_PINE_WOOD());
+        STRIPPED_BLOCKS.put(WamBlocks.PINE_LOG, WamBlocks.STRIPPED_PINE_LOG);
+        STRIPPED_BLOCKS.put(WamBlocks.PINE_WOOD, WamBlocks.STRIPPED_PINE_WOOD);
     }
 }

@@ -17,6 +17,6 @@ abstract class ForestFlowerBlockStateProviderMixin {
     private static BlockState[] FLOWERS;
 
     static {
-        FLOWERS = ArrayUtils.add(FLOWERS, WamBlocks.INSTANCE.getTANSY().getDefaultState());
+        FLOWERS = ArrayUtils.add(FLOWERS, WamBlocks.TANSY.getDefaultState());
     }
 }

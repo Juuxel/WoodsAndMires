@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 abstract class AddSunflowerPlainsLayerMixin {
     @Inject(method = "sample", at = @At("RETURN"), cancellable = true)
     private void wam_onSample(LayerRandomnessSource context, int se, CallbackInfoReturnable<Integer> info) {
-        int transformed = BiomeTransformations.INSTANCE.transformMediumSubBiome(context, se);
+        int transformed = BiomeTransformations.transformMediumSubBiome(context, se);
 
         if (se != transformed) {
             info.setReturnValue(transformed);

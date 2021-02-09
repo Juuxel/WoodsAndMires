@@ -19,7 +19,7 @@ abstract class EaseBiomeEdgeLayerMixin {
         if (center == w) matching++;
 
         if (matching >= 3) {
-            int transformed = BiomeTransformations.INSTANCE.transformLargeSubBiome(context, center);
+            int transformed = BiomeTransformations.transformLargeSubBiome(context, center);
 
             if (center != transformed) {
                 info.setReturnValue(transformed);

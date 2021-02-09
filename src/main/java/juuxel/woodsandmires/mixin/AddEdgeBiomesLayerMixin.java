@@ -19,7 +19,7 @@ abstract class AddEdgeBiomesLayerMixin {
         if (center == w) matching++;
 
         if (matching >= 3) {
-            int transformed = BiomeTransformations.INSTANCE.transformSmallSubBiome(context, center);
+            int transformed = BiomeTransformations.transformSmallSubBiome(context, center);
 
             if (center != transformed) {
                 info.setReturnValue(transformed);
