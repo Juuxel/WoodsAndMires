@@ -45,7 +45,7 @@ public final class WamBiomes {
         register(PINE_FOREST_CLEARING, pineForestClearing(0.1f, 0.2f));
         register(PINE_MIRE, pineMire(0f, -0.1f));
         register(KETTLE_POND, kettlePond(-0.3f, 0f));
-        register(FELL, fell(0.7f, 0.3f));
+        register(FELL, fell(0.85f, 0.3f));
         register(FELL_EDGE, fellEdge(0.5f, 0.3f));
 
         OverworldBiomes.addContinentalBiome(PINE_FOREST, OverworldClimate.COOL, 1.0);
