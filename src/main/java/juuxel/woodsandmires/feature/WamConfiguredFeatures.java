@@ -3,9 +3,13 @@ package juuxel.woodsandmires.feature;
 import com.google.common.collect.ImmutableList;
 import juuxel.woodsandmires.WoodsAndMires;
 import juuxel.woodsandmires.block.WamBlocks;
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.world.biome.BiomeKeys;
+import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.UniformIntDistribution;
 import net.minecraft.world.gen.decorator.ChanceDecoratorConfig;
 import net.minecraft.world.gen.decorator.CountExtraDecoratorConfig;
@@ -31,6 +35,7 @@ import net.minecraft.world.gen.trunk.ForkingTrunkPlacer;
 import net.minecraft.world.gen.trunk.StraightTrunkPlacer;
 
 import java.util.Collections;
+import java.util.NoSuchElementException;
 
 public final class WamConfiguredFeatures {
     // Pine forest
@@ -160,6 +165,7 @@ public final class WamConfiguredFeatures {
     private WamConfiguredFeatures() {
     }
 
+    @SuppressWarnings("deprecation") // bad fabric api
     public static void init() {
         register("pine_from_sapling", Undecorated.PINE_FROM_SAPLING);
         register("forest_pine", FOREST_PINE);
@@ -180,10 +186,20 @@ public final class WamConfiguredFeatures {
         register("fell_boulder", FELL_BOULDER);
         register("fell_lake", FELL_LAKE);
         register("fell_birch_shrub", FELL_BIRCH_SHRUB);
+
+        BiomeModifications.addFeature(
+            context -> context.getBiomeKey() == BiomeKeys.PLAINS,
+            GenerationStep.Feature.VEGETAL_DECORATION,
+            keyOf(WamConfiguredFeatures.PLAINS_FLOWERS)
+        );
     }
 
     private static void register(String id, ConfiguredFeature<?, ?> feature) {
         Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, WoodsAndMires.id(id), feature);
+    }
+
+    private static RegistryKey<ConfiguredFeature<?, ?>> keyOf(ConfiguredFeature<?, ?> feature) {
+        return BuiltinRegistries.CONFIGURED_FEATURE.getKey(feature).orElseThrow(() -> new NoSuchElementException("Key not found for feature " + feature));
     }
 
     public static final class Undecorated {

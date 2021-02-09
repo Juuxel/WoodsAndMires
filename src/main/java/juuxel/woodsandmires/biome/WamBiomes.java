@@ -38,7 +38,7 @@ public final class WamBiomes {
     private WamBiomes() {
     }
 
-    @SuppressWarnings("deprecation")
+    @SuppressWarnings("deprecation") // bad fabric api
     public static void init() {
         register(PINE_FOREST, pineForest(0.1f, 0.2f));
         register(PINE_FOREST_HILLS, pineForest(0.45f, 0.3f));

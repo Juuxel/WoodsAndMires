@@ -10,7 +10,6 @@
     "BlocksAccessor",
     "BuiltinBiomesAccessor",
     "DefaultBiomeCreatorAccessor",
-    "DefaultBiomeFeaturesMixin",
     "EaseBiomeEdgeLayerMixin",
     "ForestFlowerBlockStateProviderMixin",
     "LakeFeatureMixin",

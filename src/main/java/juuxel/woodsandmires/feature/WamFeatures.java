@@ -3,8 +3,6 @@ package juuxel.woodsandmires.feature;
 import juuxel.woodsandmires.WoodsAndMires;
 import juuxel.woodsandmires.mixin.TreeDecoratorTypeAccessor;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.biome.GenerationSettings;
-import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.SingleStateFeatureConfig;
@@ -32,9 +30,5 @@ public final class WamFeatures {
 
     private static void register(String id, Feature<?> feature) {
         Registry.register(Registry.FEATURE, WoodsAndMires.id(id), feature);
-    }
-
-    public static void addFlowers(GenerationSettings.Builder builder) {
-        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamConfiguredFeatures.PLAINS_FLOWERS);
     }
 }
