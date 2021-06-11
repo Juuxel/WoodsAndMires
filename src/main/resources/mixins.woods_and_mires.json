@@ -7,13 +7,9 @@
     "AddEdgeBiomesLayerMixin",
     "AddSunflowerPlainsLayerMixin",
     "AxeItemMixin",
-    "BlocksAccessor",
-    "BuiltinBiomesAccessor",
-    "DefaultBiomeCreatorAccessor",
     "EaseBiomeEdgeLayerMixin",
     "ForestFlowerBlockStateProviderMixin",
-    "LakeFeatureMixin",
-    "TreeDecoratorTypeAccessor"
+    "LakeFeatureMixin"
   ],
   "client": [
   ],

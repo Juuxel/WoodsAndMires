@@ -3,8 +3,6 @@ package juuxel.woodsandmires.biome;
 import com.mojang.serialization.Lifecycle;
 import juuxel.woodsandmires.WoodsAndMires;
 import juuxel.woodsandmires.feature.WamConfiguredFeatures;
-import juuxel.woodsandmires.mixin.BuiltinBiomesAccessor;
-import juuxel.woodsandmires.mixin.DefaultBiomeCreatorAccessor;
 import net.fabricmc.fabric.api.biome.v1.OverworldBiomes;
 import net.fabricmc.fabric.api.biome.v1.OverworldClimate;
 import net.minecraft.entity.EntityType;
@@ -17,6 +15,8 @@ import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeEffects;
 import net.minecraft.world.biome.BiomeKeys;
+import net.minecraft.world.biome.BuiltinBiomes;
+import net.minecraft.world.biome.DefaultBiomeCreator;
 import net.minecraft.world.biome.GenerationSettings;
 import net.minecraft.world.biome.SpawnSettings;
 import net.minecraft.world.gen.GenerationStep;
@@ -67,11 +67,11 @@ public final class WamBiomes {
         // Ensures that the biome is stored in the internal raw ID map of BuiltinBiomes.
         // Fabric API usually does this, but some of my biomes don't go through OverworldBiomes at all,
         // which means that won't always get done.
-        BuiltinBiomesAccessor.getBY_RAW_ID().put(BuiltinRegistries.BIOME.getRawId(biome), key);
+        BuiltinBiomes.BY_RAW_ID.put(BuiltinRegistries.BIOME.getRawId(biome), key);
     }
 
     private static int getSkyColor(float temperature) {
-        return DefaultBiomeCreatorAccessor.callGetSkyColor(temperature);
+        return DefaultBiomeCreator.getSkyColor(temperature);
     }
 
     private static Biome pineForest(float depth, float scale, Consumer<GenerationSettings.Builder> generationSettingsConfigurator) {

@@ -1,7 +1,6 @@
 package juuxel.woodsandmires.feature;
 
 import juuxel.woodsandmires.WoodsAndMires;
-import juuxel.woodsandmires.mixin.TreeDecoratorTypeAccessor;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
@@ -9,7 +8,7 @@ import net.minecraft.world.gen.feature.SingleStateFeatureConfig;
 import net.minecraft.world.gen.treedecorator.TreeDecoratorType;
 
 public final class WamFeatures {
-    public static final TreeDecoratorType<BranchTreeDecorator> BRANCH_TREE_DECORATOR = TreeDecoratorTypeAccessor.construct(BranchTreeDecorator.CODEC);
+    public static final TreeDecoratorType<BranchTreeDecorator> BRANCH_TREE_DECORATOR = new TreeDecoratorType<>(BranchTreeDecorator.CODEC);
 
     public static final Feature<ShrubFeatureConfig> SHRUB = new ShrubFeature(ShrubFeatureConfig.CODEC);
     public static final Feature<DefaultFeatureConfig> MIRE_PONDS = new MirePondsFeature(DefaultFeatureConfig.CODEC);

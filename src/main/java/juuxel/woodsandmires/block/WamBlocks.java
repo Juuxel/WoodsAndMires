@@ -1,7 +1,6 @@
 package juuxel.woodsandmires.block;
 
 import juuxel.woodsandmires.WoodsAndMires;
-import juuxel.woodsandmires.mixin.BlocksAccessor;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
@@ -47,7 +46,7 @@ public final class WamBlocks {
     public static final Block PINE_FENCE_GATE = new FenceGateBlock(copyWoodSettings(Blocks.OAK_FENCE_GATE));
     public static final Block PINE_BUTTON = new WoodenButtonBlock(copyWoodSettings(Blocks.OAK_BUTTON)) {};
     public static final Block PINE_PRESSURE_PLATE = new PressurePlateBlock(PressurePlateBlock.ActivationRule.EVERYTHING, copyWoodSettings(Blocks.OAK_PRESSURE_PLATE)) {};
-    public static final Block PINE_LEAVES = BlocksAccessor.callCreateLeavesBlock(BlockSoundGroup.GRASS);
+    public static final Block PINE_LEAVES = Blocks.createLeavesBlock(BlockSoundGroup.GRASS);
     public static final Block PINE_SAPLING = new SaplingBlock(new PineSaplingGenerator(), AbstractBlock.Settings.copy(Blocks.OAK_SAPLING)) {};
     public static final Block POTTED_PINE_SAPLING = new FlowerPotBlock(PINE_SAPLING, AbstractBlock.Settings.of(Material.DECORATION).breakInstantly());
     public static final Block PINE_WOOD = new PillarBlock(copyWoodSettings(Blocks.OAK_WOOD));
