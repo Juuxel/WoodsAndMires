@@ -5,18 +5,17 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import juuxel.woodsandmires.block.BranchBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.StructureWorldAccess;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.gen.tree.TreeDecorator;
-import net.minecraft.world.gen.tree.TreeDecoratorType;
+import net.minecraft.world.TestableWorld;
+import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.treedecorator.TreeDecorator;
+import net.minecraft.world.gen.treedecorator.TreeDecoratorType;
 
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
+import java.util.function.BiConsumer;
 
 public final class BranchTreeDecorator extends TreeDecorator {
     public static final Codec<BranchTreeDecorator> CODEC = RecordCodecBuilder.create(
@@ -48,7 +47,7 @@ public final class BranchTreeDecorator extends TreeDecorator {
     }
 
     @Override
-    public void generate(StructureWorldAccess world, Random random, List<BlockPos> logPositions, List<BlockPos> leavesPositions, Set<BlockPos> positions, BlockBox box) {
+    public void generate(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, List<BlockPos> logPositions, List<BlockPos> leavesPositions) {
         BlockPos.Mutable mut = new BlockPos.Mutable();
 
         for (BlockPos pos : logPositions) {
@@ -61,16 +60,12 @@ public final class BranchTreeDecorator extends TreeDecorator {
                         .with(BranchBlock.STYLE, random.nextBoolean() ? BranchBlock.Style.THICK : BranchBlock.Style.THIN);
 
                     mut.move(side);
-                    setIfAir(world, mut, state, positions, box);
+                    if (Feature.isAir(world, mut)) {
+                        replacer.accept(mut, state);
+                    }
                     mut.move(side.getOpposite());
                 }
             }
-        }
-    }
-
-    private void setIfAir(WorldAccess world, BlockPos pos, BlockState state, Set<BlockPos> positions, BlockBox box) {
-        if (world.isAir(pos)) {
-            setBlockStateAndEncompassPosition(world, pos, state, positions, box);
         }
     }
 }

@@ -7,11 +7,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.StructureWorldAccess;
-import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
-
-import java.util.Random;
+import net.minecraft.world.gen.feature.util.FeatureContext;
 
 public class MirePondsFeature extends Feature<DefaultFeatureConfig> {
     private static final Direction[] NON_UP_DIRECTIONS = new Direction[] {
@@ -27,7 +25,12 @@ public class MirePondsFeature extends Feature<DefaultFeatureConfig> {
     }
 
     @Override
-    public boolean generate(StructureWorldAccess world, ChunkGenerator chunkGenerator, Random random, BlockPos pos, DefaultFeatureConfig config) {
+    public boolean generate(FeatureContext<DefaultFeatureConfig> context) {
+        var world = context.getWorld();
+        var pos = context.getOrigin();
+        var config = context.getConfig();
+        var random = context.getRandom();
+
         BlockState water = Blocks.WATER.getDefaultState();
         BlockPos.Mutable mut = new BlockPos.Mutable();
         boolean generated = false;

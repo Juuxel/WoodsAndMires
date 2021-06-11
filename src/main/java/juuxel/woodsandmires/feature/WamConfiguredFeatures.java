@@ -4,13 +4,16 @@ import com.google.common.collect.ImmutableList;
 import juuxel.woodsandmires.WoodsAndMires;
 import juuxel.woodsandmires.block.WamBlocks;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.util.collection.DataPool;
+import net.minecraft.util.math.intprovider.ConstantIntProvider;
+import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.UniformIntDistribution;
 import net.minecraft.world.gen.decorator.ChanceDecoratorConfig;
 import net.minecraft.world.gen.decorator.CountExtraDecoratorConfig;
 import net.minecraft.world.gen.decorator.Decorator;
@@ -30,7 +33,7 @@ import net.minecraft.world.gen.placer.DoublePlantPlacer;
 import net.minecraft.world.gen.placer.SimpleBlockPlacer;
 import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider;
-import net.minecraft.world.gen.tree.AlterGroundTreeDecorator;
+import net.minecraft.world.gen.treedecorator.AlterGroundTreeDecorator;
 import net.minecraft.world.gen.trunk.ForkingTrunkPlacer;
 import net.minecraft.world.gen.trunk.StraightTrunkPlacer;
 
@@ -61,9 +64,11 @@ public final class WamConfiguredFeatures {
 
         MIRE_FLOWERS = Feature.FLOWER.configure(
             new RandomPatchFeatureConfig.Builder(
-                new WeightedBlockStateProvider()
-                    .addState(Blocks.BLUE_ORCHID.getDefaultState(), 1)
-                    .addState(WamBlocks.TANSY.getDefaultState(), 1),
+                new WeightedBlockStateProvider(
+                    DataPool.<BlockState>builder()
+                        .add(Blocks.BLUE_ORCHID.getDefaultState(), 1)
+                        .add(WamBlocks.TANSY.getDefaultState(), 1)
+                ),
                 new SimpleBlockPlacer()
             ).tries(64).cannotProject().build()
         ).decorate(
@@ -74,9 +79,11 @@ public final class WamConfiguredFeatures {
 
         MIRE_MEADOW = WamFeatures.MEADOW.configure(
             new MeadowFeatureConfig(
-                new WeightedBlockStateProvider()
-                    .addState(Blocks.GRASS.getDefaultState(), 5)
-                    .addState(Blocks.FERN.getDefaultState(), 1),
+                new WeightedBlockStateProvider(
+                    DataPool.<BlockState>builder()
+                        .add(Blocks.GRASS.getDefaultState(), 5)
+                        .add(Blocks.FERN.getDefaultState(), 1)
+                ),
                 0.5f
             )
         ).decorate(Decorator.NOPE.configure(DecoratorConfig.DEFAULT));
@@ -108,9 +115,11 @@ public final class WamConfiguredFeatures {
     static {
         CLEARING_MEADOW = WamFeatures.MEADOW.configure(
             new MeadowFeatureConfig(
-                new WeightedBlockStateProvider()
-                    .addState(Blocks.GRASS.getDefaultState(), 5)
-                    .addState(Blocks.FERN.getDefaultState(), 1),
+                new WeightedBlockStateProvider(
+                    DataPool.<BlockState>builder()
+                        .add(Blocks.GRASS.getDefaultState(), 5)
+                        .add(Blocks.FERN.getDefaultState(), 1)
+                ),
                 0.25f
             )
         ).decorate(Decorator.NOPE.configure(DecoratorConfig.DEFAULT));
@@ -139,7 +148,7 @@ public final class WamConfiguredFeatures {
     static {
         FELL_VEGETATION = WamFeatures.MEADOW.configure(
             new MeadowFeatureConfig(
-                new WeightedBlockStateProvider().addState(Blocks.GRASS.getDefaultState(), 1),
+                new WeightedBlockStateProvider(DataPool.<BlockState>builder().add(Blocks.GRASS.getDefaultState(), 1)),
                 0.3f
             )
         ).decorate(Decorator.NOPE.configure(DecoratorConfig.DEFAULT));
@@ -148,7 +157,9 @@ public final class WamConfiguredFeatures {
             .decorate(ConfiguredFeatures.Decorators.SQUARE_TOP_SOLID_HEIGHTMAP.applyChance(16));
 
         FELL_LAKE = WamFeatures.FELL_LAKE.configure(new SingleStateFeatureConfig(Blocks.WATER.getDefaultState()))
-            .decorate(Decorator.WATER_LAKE.configure(new ChanceDecoratorConfig(4)));
+            .range(ConfiguredFeatures.Decorators.BOTTOM_TO_TOP)
+            .spreadHorizontally()
+            .applyChance(4);
 
         FELL_BIRCH_SHRUB = WamFeatures.SHRUB.configure(
             new ShrubFeatureConfig(
@@ -206,13 +217,14 @@ public final class WamConfiguredFeatures {
         public static final ConfiguredFeature<TreeFeatureConfig, ?> PINE_FROM_SAPLING = Feature.TREE.configure(
             new TreeFeatureConfig.Builder(
                 new SimpleBlockStateProvider(WamBlocks.PINE_LOG.getDefaultState()),
-                new SimpleBlockStateProvider(WamBlocks.PINE_LEAVES.getDefaultState()),
-                new PineFoliagePlacer(
-                    UniformIntDistribution.of(1),
-                    UniformIntDistribution.of(1),
-                    UniformIntDistribution.of(4, 1)
-                ),
                 new StraightTrunkPlacer(6, 4, 0),
+                new SimpleBlockStateProvider(WamBlocks.PINE_LEAVES.getDefaultState()),
+                new SimpleBlockStateProvider(WamBlocks.PINE_SAPLING.getDefaultState()),
+                new PineFoliagePlacer(
+                    ConstantIntProvider.create(1),
+                    ConstantIntProvider.create(1),
+                    UniformIntProvider.create(3, 5)
+                ),
                 new TwoLayersFeatureSize(2, 0, 2)
             ).ignoreVines().build()
         );
@@ -248,22 +260,25 @@ public final class WamConfiguredFeatures {
         static final ConfiguredFeature<TreeFeatureConfig, ?> PINE = Feature.TREE.configure(
             new TreeFeatureConfig.Builder(
                 new SimpleBlockStateProvider(WamBlocks.PINE_LOG.getDefaultState()),
-                new SimpleBlockStateProvider(WamBlocks.PINE_LEAVES.getDefaultState()),
-                new PineFoliagePlacer(
-                    UniformIntDistribution.of(1),
-                    UniformIntDistribution.of(1),
-                    UniformIntDistribution.of(4, 1)
-                ),
                 new StraightTrunkPlacer(6, 4, 0),
+                new SimpleBlockStateProvider(WamBlocks.PINE_LEAVES.getDefaultState()),
+                new SimpleBlockStateProvider(WamBlocks.PINE_SAPLING.getDefaultState()),
+                new PineFoliagePlacer(
+                    ConstantIntProvider.create(1),
+                    ConstantIntProvider.create(1),
+                    UniformIntProvider.create(3, 5)
+                ),
                 new TwoLayersFeatureSize(2, 0, 2)
             )
                 .ignoreVines()
                 .decorators(
                     Collections.singletonList(
                         new AlterGroundTreeDecorator(
-                            new WeightedBlockStateProvider()
-                                .addState(Blocks.GRASS_BLOCK.getDefaultState(), 1)
-                                .addState(Blocks.PODZOL.getDefaultState(), 1)
+                            new WeightedBlockStateProvider(
+                                DataPool.<BlockState>builder()
+                                    .add(Blocks.GRASS_BLOCK.getDefaultState(), 1)
+                                    .add(Blocks.PODZOL.getDefaultState(), 1)
+                            )
                         )
                     )
                 )
@@ -273,9 +288,10 @@ public final class WamConfiguredFeatures {
         static final ConfiguredFeature<TreeFeatureConfig, ?> PINE_SNAG = Feature.TREE.configure(
             new TreeFeatureConfig.Builder(
                 new SimpleBlockStateProvider(WamBlocks.PINE_SNAG_LOG.getDefaultState()),
-                new SimpleBlockStateProvider(Blocks.AIR.getDefaultState()),
-                new BlobFoliagePlacer(UniformIntDistribution.of(0), UniformIntDistribution.of(0), 0),
                 new ForkingTrunkPlacer(4, 4, 0),
+                new SimpleBlockStateProvider(Blocks.AIR.getDefaultState()),
+                new SimpleBlockStateProvider(WamBlocks.PINE_SAPLING.getDefaultState()),
+                new BlobFoliagePlacer(ConstantIntProvider.create(0), ConstantIntProvider.create(0), 0),
                 new TwoLayersFeatureSize(2, 0, 2)
             )
                 .ignoreVines()

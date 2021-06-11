@@ -4,11 +4,8 @@ import com.mojang.serialization.Codec;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Heightmap;
-import net.minecraft.world.StructureWorldAccess;
-import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
-
-import java.util.Random;
+import net.minecraft.world.gen.feature.util.FeatureContext;
 
 public class MeadowFeature extends Feature<MeadowFeatureConfig> {
     public MeadowFeature(Codec<MeadowFeatureConfig> configCodec) {
@@ -16,7 +13,12 @@ public class MeadowFeature extends Feature<MeadowFeatureConfig> {
     }
 
     @Override
-    public boolean generate(StructureWorldAccess world, ChunkGenerator chunkGenerator, Random random, BlockPos pos, MeadowFeatureConfig config) {
+    public boolean generate(FeatureContext<MeadowFeatureConfig> context) {
+        var world = context.getWorld();
+        var pos = context.getOrigin();
+        var config = context.getConfig();
+        var random = context.getRandom();
+
         BlockPos.Mutable mut = new BlockPos.Mutable();
         boolean generated = false;
 

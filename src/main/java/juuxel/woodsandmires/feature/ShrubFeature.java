@@ -6,11 +6,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.LeavesBlock;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.world.StructureWorldAccess;
-import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
-
-import java.util.Random;
+import net.minecraft.world.gen.feature.util.FeatureContext;
 
 public class ShrubFeature extends Feature<ShrubFeatureConfig> {
     public ShrubFeature(Codec<ShrubFeatureConfig> configCodec) {
@@ -18,7 +15,12 @@ public class ShrubFeature extends Feature<ShrubFeatureConfig> {
     }
 
     @Override
-    public boolean generate(StructureWorldAccess world, ChunkGenerator chunkGenerator, Random random, BlockPos pos, ShrubFeatureConfig config) {
+    public boolean generate(FeatureContext<ShrubFeatureConfig> context) {
+        var world = context.getWorld();
+        var pos = context.getOrigin();
+        var config = context.getConfig();
+        var random = context.getRandom();
+
         BlockPos below = pos.down();
         if (!isSoil(world, below) || !world.getBlockState(below).isSideSolidFullSquare(world, below, Direction.UP)) {
             return false;

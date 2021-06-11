@@ -47,9 +47,9 @@ public final class WamBlocks {
     public static final Block PINE_FENCE_GATE = new FenceGateBlock(copyWoodSettings(Blocks.OAK_FENCE_GATE));
     public static final Block PINE_BUTTON = new WoodenButtonBlock(copyWoodSettings(Blocks.OAK_BUTTON)) {};
     public static final Block PINE_PRESSURE_PLATE = new PressurePlateBlock(PressurePlateBlock.ActivationRule.EVERYTHING, copyWoodSettings(Blocks.OAK_PRESSURE_PLATE)) {};
-    public static final Block PINE_LEAVES = BlocksAccessor.callCreateLeavesBlock();
+    public static final Block PINE_LEAVES = BlocksAccessor.callCreateLeavesBlock(BlockSoundGroup.GRASS);
     public static final Block PINE_SAPLING = new SaplingBlock(new PineSaplingGenerator(), AbstractBlock.Settings.copy(Blocks.OAK_SAPLING)) {};
-    public static final Block POTTED_PINE_SAPLING = new FlowerPotBlock(PINE_SAPLING, AbstractBlock.Settings.of(Material.SUPPORTED).breakInstantly());
+    public static final Block POTTED_PINE_SAPLING = new FlowerPotBlock(PINE_SAPLING, AbstractBlock.Settings.of(Material.DECORATION).breakInstantly());
     public static final Block PINE_WOOD = new PillarBlock(copyWoodSettings(Blocks.OAK_WOOD));
     public static final Block STRIPPED_PINE_LOG = new PillarBlock(copyWoodSettings(Blocks.STRIPPED_OAK_LOG));
     public static final Block STRIPPED_PINE_WOOD = new PillarBlock(copyWoodSettings(Blocks.STRIPPED_OAK_WOOD));
@@ -59,7 +59,7 @@ public final class WamBlocks {
     public static final Block PINE_SHRUB_LOG = new ShrubLogBlock(copyWoodSettings(PINE_LOG).nonOpaque());
     public static final Block FIREWEED = new TallFlowerBlock(createFlowerSettings());
     public static final Block TANSY = new BigFlowerBlock(StatusEffects.SLOW_FALLING, 10, createFlowerSettings());
-    public static final Block POTTED_TANSY = new FlowerPotBlock(TANSY, AbstractBlock.Settings.of(Material.SUPPORTED).breakInstantly());
+    public static final Block POTTED_TANSY = new FlowerPotBlock(TANSY, AbstractBlock.Settings.of(Material.DECORATION).breakInstantly());
 
     private WamBlocks() {
     }

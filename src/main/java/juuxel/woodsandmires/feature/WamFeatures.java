@@ -6,7 +6,7 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.SingleStateFeatureConfig;
-import net.minecraft.world.gen.tree.TreeDecoratorType;
+import net.minecraft.world.gen.treedecorator.TreeDecoratorType;
 
 public final class WamFeatures {
     public static final TreeDecoratorType<BranchTreeDecorator> BRANCH_TREE_DECORATOR = TreeDecoratorTypeAccessor.construct(BranchTreeDecorator.CODEC);

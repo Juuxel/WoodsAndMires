@@ -3,11 +3,9 @@ package juuxel.woodsandmires.mixin;
 import juuxel.woodsandmires.feature.LakeFeatureExtensions;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.StructureWorldAccess;
-import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.LakeFeature;
 import net.minecraft.world.gen.feature.SingleStateFeatureConfig;
+import net.minecraft.world.gen.feature.util.FeatureContext;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -27,12 +25,12 @@ abstract class LakeFeatureMixin implements LakeFeatureExtensions {
     private Random random;
 
     @Inject(method = "generate", at = @At("HEAD"))
-    private void wam_onGenerate_head(StructureWorldAccess world, ChunkGenerator chunkGenerator, Random random, BlockPos pos, SingleStateFeatureConfig config, CallbackInfoReturnable<Boolean> info) {
-        this.random = random;
+    private void wam_onGenerate_head(FeatureContext<SingleStateFeatureConfig> context, CallbackInfoReturnable<Boolean> info) {
+        this.random = context.getRandom();
     }
 
     @Inject(method = "generate", at = @At("RETURN"))
-    private void wam_onGenerate_return(StructureWorldAccess world, ChunkGenerator chunkGenerator, Random random, BlockPos pos, SingleStateFeatureConfig config, CallbackInfoReturnable<Boolean> info) {
+    private void wam_onGenerate_return(FeatureContext<SingleStateFeatureConfig> context, CallbackInfoReturnable<Boolean> info) {
         this.random = null;
     }
 
