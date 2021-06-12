@@ -29,6 +29,11 @@ public class BranchBlock extends Block implements Waterloggable {
 
     public BranchBlock(Settings settings) {
         super(settings);
+        setDefaultState(
+            getDefaultState()
+                .with(STYLE, Style.THIN)
+                .with(WATERLOGGED, false)
+        );
     }
 
     @SuppressWarnings("deprecation")
