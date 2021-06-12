@@ -33,7 +33,7 @@ public class MeadowFeature extends Feature<MeadowFeatureConfig> {
 
                 BlockState vegetation = config.stateProvider.getBlockState(random, mut);
                 if (world.isAir(mut) && vegetation.canPlaceAt(world, mut)) {
-                    world.setBlockState(mut, vegetation, 2);
+                    setBlockState(world, mut, vegetation);
                     generated = true;
                 }
             }

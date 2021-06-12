@@ -46,14 +46,14 @@ public class MirePondsFeature extends Feature<DefaultFeatureConfig> {
                 mut.set(xo, y, zo);
 
                 if (isSoil(world, mut) && isSolidOrWaterAround(world, mut)) {
-                    world.setBlockState(mut, water, 2);
+                    setBlockState(world, mut, water);
                     generated = true;
 
                     if (random.nextInt(3) == 0) {
                         mut.move(Direction.DOWN);
 
                         if (world.getBlockState(mut).isSolidBlock(world, mut) & isSolidOrWaterAround(world, mut)) {
-                            world.setBlockState(mut, water, 2);
+                            setBlockState(world, mut, water);
                         }
                     }
                 }

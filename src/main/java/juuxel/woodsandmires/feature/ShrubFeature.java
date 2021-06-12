@@ -37,21 +37,21 @@ public class ShrubFeature extends Feature<ShrubFeatureConfig> {
 
         for (int y = 1; y <= height; y++) {
             if (y > 1 || height == 1) {
-                world.setBlockState(mut, logWithLeaves, 2);
+                setBlockState(world, mut, logWithLeaves);
 
                 for (Direction direction : Direction.Type.HORIZONTAL) {
                     mut.move(direction);
-                    world.setBlockState(mut, leaves, 2);
+                    setBlockState(world, mut, leaves);
                     mut.move(direction.getOpposite());
                 }
             } else {
-                world.setBlockState(mut, log, 2);
+                setBlockState(world, mut, log);
             }
 
             mut.move(Direction.UP);
         }
 
-        world.setBlockState(mut, leaves, 2);
+        setBlockState(world, mut, leaves);
         return false;
     }
 }
