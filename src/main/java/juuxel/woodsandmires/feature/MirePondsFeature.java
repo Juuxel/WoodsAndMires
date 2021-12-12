@@ -28,7 +28,6 @@ public class MirePondsFeature extends Feature<DefaultFeatureConfig> {
     public boolean generate(FeatureContext<DefaultFeatureConfig> context) {
         var world = context.getWorld();
         var pos = context.getOrigin();
-        var config = context.getConfig();
         var random = context.getRandom();
 
         BlockState water = Blocks.WATER.getDefaultState();

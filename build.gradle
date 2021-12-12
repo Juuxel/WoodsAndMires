@@ -1,5 +1,6 @@
 plugins {
-    id 'fabric-loom' version '0.8-SNAPSHOT'
+    id 'fabric-loom' version '0.10-SNAPSHOT'
+    id 'io.github.juuxel.loom-quiltflower-mini' version '1.2.1'
     id 'maven-publish'
 }
 
@@ -8,7 +9,7 @@ version = "$project.mod_version+$project.minecraft_version"
 group = project.maven_group
 
 loom {
-    accessWidener = file('src/main/resources/woods_and_mires.accesswidener')
+    accessWidenerPath = file('src/main/resources/woods_and_mires.accesswidener')
 }
 
 dependencies {
@@ -35,8 +36,8 @@ processResources {
 java {
     withSourcesJar()
 
-    sourceCompatibility = JavaVersion.VERSION_16
-    targetCompatibility = JavaVersion.VERSION_16
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 // ensure that the encoding is set to UTF-8, no matter what the system default is
@@ -44,7 +45,7 @@ java {
 // see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
 tasks.withType(JavaCompile) {
     options.encoding = "UTF-8"
-    options.release = 16
+    options.release = 17
 }
 
 jar {
@@ -55,13 +56,7 @@ jar {
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            // add all the jars that should be included when publishing to maven
-            artifact(remapJar) {
-                builtBy remapJar
-            }
-            artifact(sourcesJar) {
-                builtBy remapSourcesJar
-            }
+            from components.java
         }
     }
 

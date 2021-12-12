@@ -4,7 +4,6 @@ import juuxel.woodsandmires.WoodsAndMires;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.SingleStateFeatureConfig;
 import net.minecraft.world.gen.treedecorator.TreeDecoratorType;
 
 public final class WamFeatures {
@@ -13,7 +12,6 @@ public final class WamFeatures {
     public static final Feature<ShrubFeatureConfig> SHRUB = new ShrubFeature(ShrubFeatureConfig.CODEC);
     public static final Feature<DefaultFeatureConfig> MIRE_PONDS = new MirePondsFeature(DefaultFeatureConfig.CODEC);
     public static final Feature<MeadowFeatureConfig> MEADOW = new MeadowFeature(MeadowFeatureConfig.CODEC);
-    public static final Feature<SingleStateFeatureConfig> FELL_LAKE = new FellLakeFeature(SingleStateFeatureConfig.CODEC);
 
     private WamFeatures() {
     }
@@ -22,7 +20,6 @@ public final class WamFeatures {
         register("shrub", SHRUB);
         register("mire_ponds", MIRE_PONDS);
         register("meadow", MEADOW);
-        register("fell_lake", FELL_LAKE);
 
         Registry.register(Registry.TREE_DECORATOR_TYPE, WoodsAndMires.id("branch"), BRANCH_TREE_DECORATOR);
     }

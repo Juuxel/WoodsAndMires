@@ -5,10 +5,9 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
-import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -105,6 +104,9 @@ public final class WamBlocks {
         FuelRegistry fr = FuelRegistry.INSTANCE;
         fr.add(PINE_FENCE, 300);
         fr.add(PINE_FENCE_GATE, 300);
+
+        StrippableBlockRegistry.register(PINE_LOG, STRIPPED_PINE_LOG);
+        StrippableBlockRegistry.register(PINE_WOOD, STRIPPED_PINE_WOOD);
     }
 
     @Environment(EnvType.CLIENT)
@@ -163,7 +165,7 @@ public final class WamBlocks {
     }
 
     private static AbstractBlock.Settings copyWoodSettings(Block block) {
-        return FabricBlockSettings.copyOf(block).breakByTool(FabricToolTags.AXES);
+        return AbstractBlock.Settings.copy(block);
     }
 
     private static AbstractBlock.Settings createFlowerSettings() {

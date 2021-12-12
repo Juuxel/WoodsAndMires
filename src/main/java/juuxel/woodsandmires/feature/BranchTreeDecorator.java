@@ -20,7 +20,7 @@ import java.util.function.BiConsumer;
 public final class BranchTreeDecorator extends TreeDecorator {
     public static final Codec<BranchTreeDecorator> CODEC = RecordCodecBuilder.create(
         instance -> instance.group(
-            Registry.BLOCK.fieldOf("block").forGetter(BranchTreeDecorator::getBlock),
+            Registry.BLOCK.getCodec().fieldOf("block").forGetter(BranchTreeDecorator::getBlock),
             Codec.FLOAT.fieldOf("chance").forGetter(BranchTreeDecorator::getChance)
         ).apply(instance, BranchTreeDecorator::new)
     );

@@ -2,7 +2,7 @@ package juuxel.woodsandmires.biome;
 
 import com.mojang.serialization.Lifecycle;
 import juuxel.woodsandmires.WoodsAndMires;
-import juuxel.woodsandmires.feature.WamConfiguredFeatures;
+import juuxel.woodsandmires.feature.WamPlacedFeatures;
 import net.fabricmc.fabric.api.biome.v1.OverworldBiomes;
 import net.fabricmc.fabric.api.biome.v1.OverworldClimate;
 import net.minecraft.entity.EntityType;
@@ -96,7 +96,7 @@ public final class WamBiomes {
             DefaultBiomeFeatures.addLargeFerns(builder);
 
             // Stone boulders
-            builder.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, WamConfiguredFeatures.PINE_FOREST_BOULDER);
+            builder.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, WamPlacedFeatures.PINE_FOREST_BOULDER);
 
             generationSettingsConfigurator.accept(builder);
         });
@@ -134,7 +134,7 @@ public final class WamBiomes {
     private static Biome pineForest(float depth, float scale) {
         // noinspection CodeBlock2Expr
         return pineForest(depth, scale, builder -> {
-            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamConfiguredFeatures.FOREST_PINE);
+            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.FOREST_PINE);
         });
     }
 
@@ -144,11 +144,11 @@ public final class WamBiomes {
             DefaultBiomeFeatures.addPlainsFeatures(builder);
             DefaultBiomeFeatures.addExtraDefaultFlowers(builder);
 
-            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamConfiguredFeatures.CLEARING_PINE_SHRUB);
-            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamConfiguredFeatures.CLEARING_SNAG);
-            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamConfiguredFeatures.CLEARING_BIRCH);
-            builder.feature(GenerationStep.Feature.TOP_LAYER_MODIFICATION, WamConfiguredFeatures.CLEARING_MEADOW);
-            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamConfiguredFeatures.CLEARING_FLOWERS);
+            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.CLEARING_PINE_SHRUB);
+            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.CLEARING_SNAG);
+            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.CLEARING_BIRCH);
+            builder.feature(GenerationStep.Feature.TOP_LAYER_MODIFICATION, WamPlacedFeatures.CLEARING_MEADOW);
+            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.CLEARING_FLOWERS);
         });
     }
 
@@ -156,12 +156,12 @@ public final class WamBiomes {
         GenerationSettings generationSettings = generationSettings(builder -> {
             builder.surfaceBuilder(ConfiguredSurfaceBuilders.SWAMP);
 
-            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamConfiguredFeatures.MIRE_PINE_SHRUB);
-            builder.feature(GenerationStep.Feature.LAKES, WamConfiguredFeatures.MIRE_PONDS);
-            builder.feature(GenerationStep.Feature.TOP_LAYER_MODIFICATION, WamConfiguredFeatures.MIRE_MEADOW);
-            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamConfiguredFeatures.MIRE_FLOWERS);
+            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.MIRE_PINE_SHRUB);
+            builder.feature(GenerationStep.Feature.LAKES, WamPlacedFeatures.MIRE_PONDS);
+            builder.feature(GenerationStep.Feature.TOP_LAYER_MODIFICATION, WamPlacedFeatures.MIRE_MEADOW);
+            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.MIRE_FLOWERS);
             builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.PATCH_WATERLILLY);
-            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamConfiguredFeatures.MIRE_PINE_SNAG);
+            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.MIRE_PINE_SNAG);
         });
 
         SpawnSettings spawnSettings = spawnSettings(builder -> {
@@ -209,7 +209,7 @@ public final class WamBiomes {
             DefaultBiomeFeatures.addSprings(builder);
             DefaultBiomeFeatures.addFrozenTopLayer(builder);
 
-            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamConfiguredFeatures.KETTLE_POND_PINE_SHRUB);
+            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.KETTLE_POND_PINE_SHRUB);
         });
 
         SpawnSettings spawnSettings = spawnSettings(builder -> {
@@ -285,10 +285,10 @@ public final class WamBiomes {
             DefaultBiomeFeatures.addSprings(builder);
             DefaultBiomeFeatures.addFrozenTopLayer(builder);
 
-            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamConfiguredFeatures.FELL_VEGETATION);
-            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamConfiguredFeatures.FELL_BIRCH_SHRUB);
-            builder.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, WamConfiguredFeatures.FELL_BOULDER);
-            builder.feature(GenerationStep.Feature.LAKES, WamConfiguredFeatures.FELL_LAKE);
+            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.FELL_VEGETATION);
+            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.FELL_BIRCH_SHRUB);
+            builder.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, WamPlacedFeatures.FELL_BOULDER);
+            builder.feature(GenerationStep.Feature.LAKES, WamPlacedFeatures.FELL_LAKE);
             builder.feature(GenerationStep.Feature.LAKES, ConfiguredFeatures.LAKE_LAVA);
         }));
     }
@@ -310,8 +310,8 @@ public final class WamBiomes {
             DefaultBiomeFeatures.addSprings(builder);
             DefaultBiomeFeatures.addFrozenTopLayer(builder);
 
-            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamConfiguredFeatures.FELL_VEGETATION);
-            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamConfiguredFeatures.CLEARING_PINE_SHRUB);
+            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.FELL_VEGETATION);
+            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.CLEARING_PINE_SHRUB);
         }));
     }
 
