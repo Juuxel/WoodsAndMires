@@ -32,154 +32,174 @@ import java.util.Collections;
 import java.util.List;
 
 public final class WamConfiguredFeatures {
-    public static final ConfiguredFeature<?, ?> SHORT_PINE_SHRUB =
-        WamFeatures.SHRUB.configure(
+    // General
+    public static final ConfiguredFeature<?, ?> SHORT_PINE_SHRUB;
+    public static final ConfiguredFeature<TreeFeatureConfig, ?> PINE;
+    public static final ConfiguredFeature<TreeFeatureConfig, ?> PINE_SNAG;
+    public static final ConfiguredFeature<?, ?> PLAINS_FLOWERS;
+    public static final ConfiguredFeature<TreeFeatureConfig, ?> PINE_FROM_SAPLING;
+    public static final ConfiguredFeature<?, ?> PINE_FOREST_BOULDER;
+
+    static {
+        SHORT_PINE_SHRUB = WamFeatures.SHRUB.configure(
             new ShrubFeatureConfig(
                 WamBlocks.PINE_LOG.getDefaultState(),
                 WamBlocks.PINE_LEAVES.getDefaultState(),
                 1, 2, 0.6f
             )
         );
-
-    public static final ConfiguredFeature<TreeFeatureConfig, ?> PINE = Feature.TREE.configure(
-        new TreeFeatureConfig.Builder(
-            BlockStateProvider.of(WamBlocks.PINE_LOG.getDefaultState()),
-            new StraightTrunkPlacer(6, 4, 0),
-            BlockStateProvider.of(WamBlocks.PINE_LEAVES.getDefaultState()),
-            new PineFoliagePlacer(
-                ConstantIntProvider.create(1),
-                ConstantIntProvider.create(1),
-                UniformIntProvider.create(3, 5)
-            ),
-            new TwoLayersFeatureSize(2, 0, 2)
-        )
-            .ignoreVines()
-            .decorators(
-                Collections.singletonList(
-                    new AlterGroundTreeDecorator(
-                        new WeightedBlockStateProvider(
-                            DataPool.<BlockState>builder()
-                                .add(Blocks.GRASS_BLOCK.getDefaultState(), 1)
-                                .add(Blocks.PODZOL.getDefaultState(), 1)
+        PINE = Feature.TREE.configure(
+            new TreeFeatureConfig.Builder(
+                BlockStateProvider.of(WamBlocks.PINE_LOG.getDefaultState()),
+                new StraightTrunkPlacer(6, 4, 0),
+                BlockStateProvider.of(WamBlocks.PINE_LEAVES.getDefaultState()),
+                new PineFoliagePlacer(
+                    ConstantIntProvider.create(1),
+                    ConstantIntProvider.create(1),
+                    UniformIntProvider.create(3, 5)
+                ),
+                new TwoLayersFeatureSize(2, 0, 2)
+            )
+                .ignoreVines()
+                .decorators(
+                    Collections.singletonList(
+                        new AlterGroundTreeDecorator(
+                            new WeightedBlockStateProvider(
+                                DataPool.<BlockState>builder()
+                                    .add(Blocks.GRASS_BLOCK.getDefaultState(), 1)
+                                    .add(Blocks.PODZOL.getDefaultState(), 1)
+                            )
                         )
                     )
                 )
+                .build()
+        );
+        PINE_SNAG = Feature.TREE.configure(
+            new TreeFeatureConfig.Builder(
+                BlockStateProvider.of(WamBlocks.PINE_SNAG_LOG.getDefaultState()),
+                new ForkingTrunkPlacer(4, 4, 0),
+                BlockStateProvider.of(Blocks.AIR.getDefaultState()),
+                new BlobFoliagePlacer(ConstantIntProvider.create(0), ConstantIntProvider.create(0), 0),
+                new TwoLayersFeatureSize(2, 0, 2)
             )
-            .build()
-    );
-
-    public static final ConfiguredFeature<TreeFeatureConfig, ?> PINE_SNAG = Feature.TREE.configure(
-        new TreeFeatureConfig.Builder(
-            BlockStateProvider.of(WamBlocks.PINE_SNAG_LOG.getDefaultState()),
-            new ForkingTrunkPlacer(4, 4, 0),
-            BlockStateProvider.of(Blocks.AIR.getDefaultState()),
-            new BlobFoliagePlacer(ConstantIntProvider.create(0), ConstantIntProvider.create(0), 0),
-            new TwoLayersFeatureSize(2, 0, 2)
-        )
-            .ignoreVines()
-            .decorators(Collections.singletonList(new BranchTreeDecorator(WamBlocks.PINE_SNAG_BRANCH, 0.2f)))
-            .build()
-    );
-
-    public static final ConfiguredFeature<?, ?> PLAINS_FLOWERS = Feature.SIMPLE_RANDOM_SELECTOR.configure(
-        new SimpleRandomFeatureConfig(
-            List.of(
-                () -> createFlowerPatchFeature(WamBlocks.FIREWEED),
-                () -> createFlowerPatchFeature(WamBlocks.TANSY)
+                .ignoreVines()
+                .decorators(Collections.singletonList(new BranchTreeDecorator(WamBlocks.PINE_SNAG_BRANCH, 0.2f)))
+                .build()
+        );
+        PLAINS_FLOWERS = Feature.SIMPLE_RANDOM_SELECTOR.configure(
+            new SimpleRandomFeatureConfig(
+                List.of(
+                    () -> createFlowerPatchFeature(WamBlocks.FIREWEED),
+                    () -> createFlowerPatchFeature(WamBlocks.TANSY)
+                )
             )
-        )
-    );
+        );
+        PINE_FROM_SAPLING = Feature.TREE.configure(
+            new TreeFeatureConfig.Builder(
+                BlockStateProvider.of(WamBlocks.PINE_LOG.getDefaultState()),
+                new StraightTrunkPlacer(6, 4, 0),
+                BlockStateProvider.of(WamBlocks.PINE_LEAVES.getDefaultState()),
+                new PineFoliagePlacer(
+                    ConstantIntProvider.create(1),
+                    ConstantIntProvider.create(1),
+                    UniformIntProvider.create(3, 5)
+                ),
+                new TwoLayersFeatureSize(2, 0, 2)
+            ).ignoreVines().build()
+        );
+        PINE_FOREST_BOULDER = Feature.FOREST_ROCK.configure(
+            new SingleStateFeatureConfig(Blocks.STONE.getDefaultState())
+        );
+    }
 
-    public static final ConfiguredFeature<TreeFeatureConfig, ?> PINE_FROM_SAPLING = Feature.TREE.configure(
-        new TreeFeatureConfig.Builder(
-            BlockStateProvider.of(WamBlocks.PINE_LOG.getDefaultState()),
-            new StraightTrunkPlacer(6, 4, 0),
-            BlockStateProvider.of(WamBlocks.PINE_LEAVES.getDefaultState()),
-            new PineFoliagePlacer(
-                ConstantIntProvider.create(1),
-                ConstantIntProvider.create(1),
-                UniformIntProvider.create(3, 5)
-            ),
-            new TwoLayersFeatureSize(2, 0, 2)
-        ).ignoreVines().build()
-    );
+    // Mire
+    public static final ConfiguredFeature<?, ?> MIRE_PONDS;
+    public static final ConfiguredFeature<?, ?> MIRE_FLOWERS;
+    public static final ConfiguredFeature<?, ?> MIRE_MEADOW;
 
-    public static final ConfiguredFeature<?, ?> PINE_FOREST_BOULDER = Feature.FOREST_ROCK
-        .configure(new SingleStateFeatureConfig(Blocks.STONE.getDefaultState()));
-
-    public static final ConfiguredFeature<?, ?> MIRE_PONDS = WamFeatures.MIRE_PONDS.configure(FeatureConfig.DEFAULT);
-
-    public static final ConfiguredFeature<?, ?> MIRE_FLOWERS = Feature.FLOWER.configure(
-        VegetationConfiguredFeatures.createRandomPatchFeatureConfig(
-            new WeightedBlockStateProvider(
-                DataPool.<BlockState>builder()
-                    .add(Blocks.BLUE_ORCHID.getDefaultState(), 1)
-                    .add(WamBlocks.TANSY.getDefaultState(), 1)
-            ),
-            64
-        )
-    );
-
-    public static final ConfiguredFeature<?, ?> MIRE_MEADOW = WamFeatures.MEADOW.configure(
-        new MeadowFeatureConfig(
-            new WeightedBlockStateProvider(
-                DataPool.<BlockState>builder()
-                    .add(Blocks.GRASS.getDefaultState(), 5)
-                    .add(Blocks.FERN.getDefaultState(), 1)
-            ),
-            0.5f
-        )
-    );
-
-    public static final ConfiguredFeature<?, ?> CLEARING_MEADOW = WamFeatures.MEADOW.configure(
-        new MeadowFeatureConfig(
-            new WeightedBlockStateProvider(
-                DataPool.<BlockState>builder()
-                    .add(Blocks.GRASS.getDefaultState(), 5)
-                    .add(Blocks.FERN.getDefaultState(), 1)
-            ),
-            0.25f
-        )
-    );
-
-    public static final ConfiguredFeature<?, ?> CLEARING_PINE_SHRUB = WamFeatures.SHRUB.configure(
-        new ShrubFeatureConfig(
-            WamBlocks.PINE_LOG.getDefaultState(),
-            WamBlocks.PINE_LEAVES.getDefaultState(),
-            1, 2, 1f
-        )
-    );
-
-    public static final ConfiguredFeature<?, ?> FELL_VEGETATION = WamFeatures.MEADOW.configure(
-        new MeadowFeatureConfig(
-            new WeightedBlockStateProvider(DataPool.<BlockState>builder().add(Blocks.GRASS.getDefaultState(), 1)),
-            0.3f
-        )
-    );
-
-    public static final ConfiguredFeature<?, ?> FELL_BOULDER = Feature.FOREST_ROCK.configure(
-        new SingleStateFeatureConfig(Blocks.COBBLESTONE.getDefaultState())
-    );
-
-    public static final ConfiguredFeature<?, ?> FELL_LAKE = Feature.LAKE.configure(
-        new LakeFeature.Config(
-            BlockStateProvider.of(Blocks.WATER),
-            new WeightedBlockStateProvider(
-                DataPool.<BlockState>builder()
-                    .add(Blocks.STONE.getDefaultState(), 58)
-                    .add(Blocks.EMERALD_ORE.getDefaultState(), 1)
-                    .add(Blocks.GOLD_ORE.getDefaultState(), 1)
+    static {
+        MIRE_PONDS = WamFeatures.MIRE_PONDS.configure(FeatureConfig.DEFAULT);
+        MIRE_FLOWERS = Feature.FLOWER.configure(
+            VegetationConfiguredFeatures.createRandomPatchFeatureConfig(
+                new WeightedBlockStateProvider(
+                    DataPool.<BlockState>builder()
+                        .add(Blocks.BLUE_ORCHID.getDefaultState(), 1)
+                        .add(WamBlocks.TANSY.getDefaultState(), 1)
+                ),
+                64
             )
-        )
-    );
+        );
+        MIRE_MEADOW = WamFeatures.MEADOW.configure(
+            new MeadowFeatureConfig(
+                new WeightedBlockStateProvider(
+                    DataPool.<BlockState>builder()
+                        .add(Blocks.GRASS.getDefaultState(), 5)
+                        .add(Blocks.FERN.getDefaultState(), 1)
+                ),
+                0.5f
+            )
+        );
+    }
 
-    public static final ConfiguredFeature<?, ?> FELL_BIRCH_SHRUB = WamFeatures.SHRUB.configure(
-        new ShrubFeatureConfig(
-            Blocks.BIRCH_LOG.getDefaultState(),
-            Blocks.BIRCH_LEAVES.getDefaultState(),
-            1, 1, 0.7f
-        )
-    );
+    // Clearings
+    public static final ConfiguredFeature<?, ?> CLEARING_MEADOW;
+    public static final ConfiguredFeature<?, ?> CLEARING_PINE_SHRUB;
+
+    static {
+        CLEARING_MEADOW = WamFeatures.MEADOW.configure(
+            new MeadowFeatureConfig(
+                new WeightedBlockStateProvider(
+                    DataPool.<BlockState>builder()
+                        .add(Blocks.GRASS.getDefaultState(), 5)
+                        .add(Blocks.FERN.getDefaultState(), 1)
+                ),
+                0.25f
+            )
+        );
+        CLEARING_PINE_SHRUB = WamFeatures.SHRUB.configure(
+            new ShrubFeatureConfig(
+                WamBlocks.PINE_LOG.getDefaultState(),
+                WamBlocks.PINE_LEAVES.getDefaultState(),
+                1, 2, 1f
+            )
+        );
+    }
+
+    // Fells
+    public static final ConfiguredFeature<?, ?> FELL_VEGETATION;
+    public static final ConfiguredFeature<?, ?> FELL_BOULDER;
+    public static final ConfiguredFeature<?, ?> FELL_LAKE;
+    public static final ConfiguredFeature<?, ?> FELL_BIRCH_SHRUB;
+
+    static {
+        FELL_VEGETATION = WamFeatures.MEADOW.configure(
+            new MeadowFeatureConfig(
+                new WeightedBlockStateProvider(DataPool.<BlockState>builder().add(Blocks.GRASS.getDefaultState(), 1)),
+                0.3f
+            )
+        );
+        FELL_BOULDER = Feature.FOREST_ROCK.configure(
+            new SingleStateFeatureConfig(Blocks.COBBLESTONE.getDefaultState())
+        );
+        FELL_LAKE = Feature.LAKE.configure(
+            new LakeFeature.Config(
+                BlockStateProvider.of(Blocks.WATER),
+                new WeightedBlockStateProvider(
+                    DataPool.<BlockState>builder()
+                        .add(Blocks.STONE.getDefaultState(), 58)
+                        .add(Blocks.EMERALD_ORE.getDefaultState(), 1)
+                        .add(Blocks.GOLD_ORE.getDefaultState(), 1)
+                )
+            )
+        );
+        FELL_BIRCH_SHRUB = WamFeatures.SHRUB.configure(
+            new ShrubFeatureConfig(
+                Blocks.BIRCH_LOG.getDefaultState(),
+                Blocks.BIRCH_LEAVES.getDefaultState(),
+                1, 1, 0.7f
+            )
+        );
+    }
 
     public static void register() {
         register("short_pine_shrub", SHORT_PINE_SHRUB);
