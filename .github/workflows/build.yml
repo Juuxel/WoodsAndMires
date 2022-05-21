@@ -5,7 +5,7 @@ jobs:
     strategy:
       matrix:
         java: [
-            16 # Target
+            17 # Target
         ]
     runs-on: ubuntu-latest
     steps:
