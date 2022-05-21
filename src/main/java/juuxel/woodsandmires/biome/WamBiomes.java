@@ -21,24 +21,20 @@ import java.util.function.Consumer;
 
 public final class WamBiomes {
     public static final RegistryKey<Biome> PINE_FOREST = key("pine_forest");
-    public static final RegistryKey<Biome> PINE_FOREST_HILLS = key("pine_forest_hills");
+    public static final RegistryKey<Biome> SNOWY_PINE_FOREST = key("snowy_pine_forest");
     public static final RegistryKey<Biome> PINE_FOREST_CLEARING = key("pine_forest_clearing");
     public static final RegistryKey<Biome> PINE_MIRE = key("pine_mire");
-    public static final RegistryKey<Biome> KETTLE_POND = key("kettle_pond");
     public static final RegistryKey<Biome> FELL = key("fell");
-    public static final RegistryKey<Biome> FELL_EDGE = key("fell_edge");
 
     private WamBiomes() {
     }
 
     public static void init() {
-        register(PINE_FOREST, pineForest(0.1f, 0.2f));
-        register(PINE_FOREST_HILLS, pineForest(0.45f, 0.3f));
-        register(PINE_FOREST_CLEARING, pineForestClearing(0.1f, 0.2f));
-        register(PINE_MIRE, pineMire(0f, -0.1f));
-        register(KETTLE_POND, kettlePond(-0.3f, 0f));
-        register(FELL, fell(0.85f, 0.3f));
-        register(FELL_EDGE, fellEdge(0.5f, 0.3f));
+        register(PINE_FOREST, pineForest());
+        register(SNOWY_PINE_FOREST, snowyPineForest());
+        register(PINE_FOREST_CLEARING, pineForestClearing());
+        register(PINE_MIRE, pineMire());
+        register(FELL, fell());
     }
 
     private static RegistryKey<Biome> key(String id) {
@@ -53,7 +49,7 @@ public final class WamBiomes {
         return OverworldBiomeCreator.getSkyColor(temperature);
     }
 
-    private static Biome pineForest(float depth, float scale, Consumer<GenerationSettings.Builder> generationSettingsConfigurator) {
+    private static Biome pineForest(Biome.Category category, Biome.Precipitation precipitation, float temperature, Consumer<GenerationSettings.Builder> generationSettingsConfigurator) {
         GenerationSettings generationSettings = generationSettings(builder -> {
             OverworldBiomeCreator.addBasicFeatures(builder);
             DefaultBiomeFeatures.addForestFlowers(builder);
@@ -82,35 +78,41 @@ public final class WamBiomes {
         });
 
         return new Biome.Builder()
-            .category(Biome.Category.FOREST)
+            .category(category)
             .effects(
                 new BiomeEffects.Builder()
                     .waterColor(0x3F76E4)
                     .waterFogColor(0x050533)
                     .fogColor(0xC0D8FF)
                     .foliageColor(0x43C44F)
-                    .skyColor(getSkyColor(0.4f))
+                    .skyColor(getSkyColor(temperature))
                     .moodSound(BiomeMoodSound.CAVE)
                     .build()
             )
-            .precipitation(Biome.Precipitation.RAIN)
+            .precipitation(precipitation)
             .downfall(0.6f)
-            .temperature(0.4f)
-            //.depth(depth)
-            //.scale(scale)
+            .temperature(temperature)
             .generationSettings(generationSettings)
             .spawnSettings(spawnSettings)
             .build();
     }
 
-    private static Biome pineForest(float depth, float scale) {
-        return pineForest(depth, scale, builder -> {
+    private static Biome pineForest() {
+        // noinspection CodeBlock2Expr
+        return pineForest(Biome.Category.FOREST, Biome.Precipitation.RAIN, 0.4f, builder -> {
             builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.FOREST_PINE);
         });
     }
 
-    private static Biome pineForestClearing(float depth, float scale) {
-        return pineForest(depth, scale, builder -> {
+    private static Biome snowyPineForest() {
+        // noinspection CodeBlock2Expr
+        return pineForest(Biome.Category.FOREST, Biome.Precipitation.SNOW, 0f, builder -> {
+            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.SNOWY_FOREST_PINE);
+        });
+    }
+
+    private static Biome pineForestClearing() {
+        return pineForest(Biome.Category.PLAINS, Biome.Precipitation.RAIN, 0.4f, builder -> {
             DefaultBiomeFeatures.addMossyRocks(builder);
             DefaultBiomeFeatures.addPlainsFeatures(builder);
             DefaultBiomeFeatures.addExtraDefaultFlowers(builder);
@@ -123,7 +125,7 @@ public final class WamBiomes {
         });
     }
 
-    private static Biome pineMire(float depth, float scale) {
+    private static Biome pineMire() {
         GenerationSettings generationSettings = generationSettings(builder -> {
             OverworldBiomeCreator.addBasicFeatures(builder);
             builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.MIRE_PINE_SHRUB);
@@ -155,56 +157,12 @@ public final class WamBiomes {
             .precipitation(Biome.Precipitation.RAIN)
             .downfall(0.9f)
             .temperature(0.6f)
-            //.depth(depth)
-            //.scale(scale)
             .generationSettings(generationSettings)
             .spawnSettings(spawnSettings)
             .build();
     }
 
-    private static Biome kettlePond(float depth, float scale) {
-        GenerationSettings generationSettings = generationSettings(builder -> {
-            OverworldBiomeCreator.addBasicFeatures(builder);
-            DefaultBiomeFeatures.addDefaultOres(builder);
-            DefaultBiomeFeatures.addDefaultDisks(builder);
-            DefaultBiomeFeatures.addDefaultFlowers(builder);
-            DefaultBiomeFeatures.addForestGrass(builder);
-            DefaultBiomeFeatures.addDefaultMushrooms(builder);
-            DefaultBiomeFeatures.addDefaultVegetation(builder);
-
-            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.KETTLE_POND_PINE_SHRUB);
-        });
-
-        SpawnSettings spawnSettings = spawnSettings(builder -> {
-            DefaultBiomeFeatures.addFarmAnimals(builder);
-            DefaultBiomeFeatures.addBatsAndMonsters(builder);
-            builder.spawn(SpawnGroup.WATER_CREATURE, new SpawnSettings.SpawnEntry(EntityType.SQUID, 2, 1, 4));
-            builder.spawn(SpawnGroup.WATER_CREATURE, new SpawnSettings.SpawnEntry(EntityType.SALMON, 5, 1, 5));
-        });
-
-        return new Biome.Builder()
-            .category(Biome.Category.RIVER)
-            .effects(
-                new BiomeEffects.Builder()
-                    .waterColor(0x3F7699)
-                    .waterFogColor(0x050533)
-                    .fogColor(0xC0D8FF)
-                    .foliageColor(0x43C44F)
-                    .skyColor(getSkyColor(0.4f))
-                    .moodSound(BiomeMoodSound.CAVE)
-                    .build()
-            )
-            .precipitation(Biome.Precipitation.RAIN)
-            .downfall(0.8f)
-            .temperature(0.4f)
-            //.depth(depth)
-            //.scale(scale)
-            .generationSettings(generationSettings)
-            .spawnSettings(spawnSettings)
-            .build();
-    }
-
-    private static Biome fell(float depth, float scale, GenerationSettings generationSettings) {
+    private static Biome fell(GenerationSettings generationSettings) {
         SpawnSettings spawnSettings = spawnSettings(builder -> {
             DefaultBiomeFeatures.addBatsAndMonsters(builder);
 
@@ -226,15 +184,13 @@ public final class WamBiomes {
             .precipitation(Biome.Precipitation.RAIN)
             .downfall(0.7f)
             .temperature(0.25f)
-            //.depth(depth)
-            //.scale(scale)
             .generationSettings(generationSettings)
             .spawnSettings(spawnSettings)
             .build();
     }
 
-    private static Biome fell(float depth, float scale) {
-        return fell(depth, scale, generationSettings(builder -> {
+    private static Biome fell() {
+        return fell(generationSettings(builder -> {
             OverworldBiomeCreator.addBasicFeatures(builder);
             DefaultBiomeFeatures.addDefaultOres(builder);
             DefaultBiomeFeatures.addDefaultDisks(builder);
@@ -246,21 +202,6 @@ public final class WamBiomes {
             builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.FELL_BIRCH_SHRUB);
             builder.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, WamPlacedFeatures.FELL_BOULDER);
             builder.feature(GenerationStep.Feature.LAKES, WamPlacedFeatures.FELL_LAKE);
-        }));
-    }
-
-    private static Biome fellEdge(float depth, float scale) {
-        return fell(depth, scale, generationSettings(builder -> {
-            OverworldBiomeCreator.addBasicFeatures(builder);
-            DefaultBiomeFeatures.addDefaultOres(builder);
-            DefaultBiomeFeatures.addDefaultDisks(builder);
-            DefaultBiomeFeatures.addDefaultFlowers(builder);
-            DefaultBiomeFeatures.addForestGrass(builder);
-            DefaultBiomeFeatures.addDefaultMushrooms(builder);
-            DefaultBiomeFeatures.addDefaultVegetation(builder);
-
-            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.FELL_VEGETATION);
-            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.CLEARING_PINE_SHRUB);
         }));
     }
 

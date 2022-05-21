@@ -33,7 +33,6 @@ public final class WoodsAndMires implements ModInitializer {
         WamPlacedFeatures.init();
         WamBiomes.init();
 
-        /*// TODO 1.18: Relocate into another place
         SimpleRandomFeatureConfig config = VegetationConfiguredFeatures.FOREST_FLOWERS.config;
         ImmutableList.Builder<Supplier<PlacedFeature>> builder = ImmutableList.builder();
         builder.addAll(config.features);
@@ -42,6 +41,6 @@ public final class WoodsAndMires implements ModInitializer {
                     Feature.SIMPLE_BLOCK.configure(new SimpleBlockFeatureConfig(BlockStateProvider.of(WamBlocks.TANSY)))
                 )
             ).withPlacement());
-        config.features = builder.build();*/
+        config.features = builder.build();
     }
 }

@@ -12,6 +12,7 @@ import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.decorator.BiomePlacementModifier;
+import net.minecraft.world.gen.decorator.CountPlacementModifier;
 import net.minecraft.world.gen.decorator.PlacementModifier;
 import net.minecraft.world.gen.decorator.RarityFilterPlacementModifier;
 import net.minecraft.world.gen.decorator.SquarePlacementModifier;
@@ -46,10 +47,12 @@ public final class WamPlacedFeatures {
 
     // Pine forest
     public static final PlacedFeature FOREST_PINE;
+    public static final PlacedFeature SNOWY_FOREST_PINE;
     public static final PlacedFeature PINE_FOREST_BOULDER;
 
     static {
-        FOREST_PINE = WamConfiguredFeatures.PINE.withPlacement(countModifiers(10));
+        FOREST_PINE = WamConfiguredFeatures.PINE.withPlacement(treeModifiers(CountPlacementModifier.of(10)));
+        SNOWY_FOREST_PINE = WamConfiguredFeatures.PINE.withPlacement(treeModifiers(CountPlacementModifier.of(2)));
         PINE_FOREST_BOULDER = WamConfiguredFeatures.PINE_FOREST_BOULDER.withPlacement(chanceModifiers(16));
     }
 
@@ -62,7 +65,7 @@ public final class WamPlacedFeatures {
 
     static {
         MIRE_PONDS = WamConfiguredFeatures.MIRE_PONDS.withPlacement();
-        MIRE_FLOWERS = WamConfiguredFeatures.MIRE_FLOWERS.withPlacement(countModifiers(3));
+        MIRE_FLOWERS = WamConfiguredFeatures.MIRE_FLOWERS.withPlacement(chanceModifiers(2));
         MIRE_MEADOW = WamConfiguredFeatures.MIRE_MEADOW.withPlacement();
         MIRE_PINE_SNAG = WamConfiguredFeatures.PINE_SNAG.withPlacement(treeModifiers(RarityFilterPlacementModifier.of(6)));
         MIRE_PINE_SHRUB = WamConfiguredFeatures.SHORT_PINE_SHRUB.withPlacement(
@@ -135,6 +138,7 @@ public final class WamPlacedFeatures {
 
     public static void init() {
         register("forest_pine", FOREST_PINE);
+        register("snowy_forest_pine", SNOWY_FOREST_PINE);
         register("pine_forest_boulder", PINE_FOREST_BOULDER);
         register("mire_ponds", MIRE_PONDS);
         register("mire_flowers", MIRE_FLOWERS);
