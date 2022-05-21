@@ -4,9 +4,6 @@
   "package": "juuxel.woodsandmires.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "AddEdgeBiomesLayerMixin",
-    "AddSunflowerPlainsLayerMixin",
-    "EaseBiomeEdgeLayerMixin"
   ],
   "client": [
   ],

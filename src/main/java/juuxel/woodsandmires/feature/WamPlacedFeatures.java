@@ -12,11 +12,9 @@ import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.decorator.BiomePlacementModifier;
-import net.minecraft.world.gen.decorator.CountPlacementModifier;
 import net.minecraft.world.gen.decorator.PlacementModifier;
 import net.minecraft.world.gen.decorator.RarityFilterPlacementModifier;
 import net.minecraft.world.gen.decorator.SquarePlacementModifier;
-import net.minecraft.world.gen.feature.ConfiguredFeatures;
 import net.minecraft.world.gen.feature.PlacedFeature;
 import net.minecraft.world.gen.feature.PlacedFeatures;
 import net.minecraft.world.gen.feature.TreeConfiguredFeatures;
@@ -69,7 +67,7 @@ public final class WamPlacedFeatures {
         MIRE_PINE_SNAG = WamConfiguredFeatures.PINE_SNAG.withPlacement(treeModifiers(RarityFilterPlacementModifier.of(6)));
         MIRE_PINE_SHRUB = WamConfiguredFeatures.SHORT_PINE_SHRUB.withPlacement(
             treeModifiersWithWouldSurvive(
-                PlacedFeatures.createCountExtraModifier(3, 0.3f, 3),
+                PlacedFeatures.createCountExtraModifier(3, 1/3f, 3),
                 WamBlocks.PINE_SAPLING
             )
         );
@@ -81,7 +79,7 @@ public final class WamPlacedFeatures {
     static {
         KETTLE_POND_PINE_SHRUB = WamConfiguredFeatures.SHORT_PINE_SHRUB.withPlacement(
             treeModifiersWithWouldSurvive(
-                PlacedFeatures.createCountExtraModifier(3, 0.3f, 3),
+                PlacedFeatures.createCountExtraModifier(3, 1/3f, 3),
                 WamBlocks.PINE_SAPLING
             )
         );
@@ -104,7 +102,7 @@ public final class WamPlacedFeatures {
         CLEARING_SNAG = WamConfiguredFeatures.PINE_SNAG.withPlacement(treeModifiers(RarityFilterPlacementModifier.of(2)));
         CLEARING_PINE_SHRUB = WamConfiguredFeatures.CLEARING_PINE_SHRUB.withPlacement(
             treeModifiersWithWouldSurvive(
-                PlacedFeatures.createCountExtraModifier(4, 0.3f, 3),
+                PlacedFeatures.createCountExtraModifier(4, 1/3f, 3),
                 WamBlocks.PINE_SAPLING
             )
         );
@@ -125,7 +123,7 @@ public final class WamPlacedFeatures {
             cons(
                 RarityFilterPlacementModifier.of(3),
                 treeModifiersWithWouldSurvive(
-                    PlacedFeatures.createCountExtraModifier(1, 0.3f, 2),
+                    PlacedFeatures.createCountExtraModifier(1, 1/3f, 2),
                     Blocks.BIRCH_SAPLING
                 )
             )

@@ -5,6 +5,9 @@ accessible method net/minecraft/block/Blocks createLeavesBlock (Lnet/minecraft/s
 
 # World gen
 accessible method net/minecraft/world/biome/OverworldBiomeCreator getSkyColor (F)I
+accessible method net/minecraft/world/biome/OverworldBiomeCreator addBasicFeatures (Lnet/minecraft/world/biome/GenerationSettings$Builder;)V
+accessible method net/minecraft/world/gen/surfacebuilder/VanillaSurfaceRules surfaceNoiseThreshold (D)Lnet/minecraft/world/gen/surfacebuilder/MaterialRules$MaterialCondition;
+accessible method net/minecraft/world/gen/surfacebuilder/VanillaSurfaceRules block (Lnet/minecraft/block/Block;)Lnet/minecraft/world/gen/surfacebuilder/MaterialRules$MaterialRule;
 accessible method net/minecraft/world/gen/treedecorator/TreeDecoratorType <init> (Lcom/mojang/serialization/Codec;)V
 mutable field net/minecraft/world/gen/feature/SimpleRandomFeatureConfig features Ljava/util/List;
 accessible method net/minecraft/world/gen/feature/VegetationConfiguredFeatures createRandomPatchFeatureConfig (Lnet/minecraft/world/gen/stateprovider/BlockStateProvider;I)Lnet/minecraft/world/gen/feature/RandomPatchFeatureConfig;

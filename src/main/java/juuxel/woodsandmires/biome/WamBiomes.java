@@ -1,28 +1,21 @@
 package juuxel.woodsandmires.biome;
 
-import com.mojang.serialization.Lifecycle;
 import juuxel.woodsandmires.WoodsAndMires;
 import juuxel.woodsandmires.feature.WamPlacedFeatures;
-import net.fabricmc.fabric.api.biome.v1.OverworldBiomes;
-import net.fabricmc.fabric.api.biome.v1.OverworldClimate;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.sound.BiomeMoodSound;
 import net.minecraft.util.registry.BuiltinRegistries;
-import net.minecraft.util.registry.MutableRegistry;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeEffects;
-import net.minecraft.world.biome.BiomeKeys;
-import net.minecraft.world.biome.BuiltinBiomes;
-import net.minecraft.world.biome.DefaultBiomeCreator;
 import net.minecraft.world.biome.GenerationSettings;
+import net.minecraft.world.biome.OverworldBiomeCreator;
 import net.minecraft.world.biome.SpawnSettings;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.feature.ConfiguredFeatures;
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
-import net.minecraft.world.gen.surfacebuilder.ConfiguredSurfaceBuilders;
+import net.minecraft.world.gen.feature.VegetationPlacedFeatures;
 
 import java.util.function.Consumer;
 
@@ -38,7 +31,6 @@ public final class WamBiomes {
     private WamBiomes() {
     }
 
-    @SuppressWarnings("deprecation") // bad fabric api
     public static void init() {
         register(PINE_FOREST, pineForest(0.1f, 0.2f));
         register(PINE_FOREST_HILLS, pineForest(0.45f, 0.3f));
@@ -47,14 +39,6 @@ public final class WamBiomes {
         register(KETTLE_POND, kettlePond(-0.3f, 0f));
         register(FELL, fell(0.85f, 0.3f));
         register(FELL_EDGE, fellEdge(0.5f, 0.3f));
-
-        OverworldBiomes.addContinentalBiome(PINE_FOREST, OverworldClimate.COOL, 1.0);
-        OverworldBiomes.addHillsBiome(PINE_FOREST, PINE_FOREST_HILLS, 1.0);
-        OverworldBiomes.addBiomeVariant(PINE_FOREST, PINE_FOREST_HILLS, 0.3);
-        OverworldBiomes.addContinentalBiome(PINE_MIRE, OverworldClimate.TEMPERATE, 1.0);
-        OverworldBiomes.addContinentalBiome(FELL, OverworldClimate.COOL, 1.0);
-        OverworldBiomes.addHillsBiome(FELL, BiomeKeys.SNOWY_MOUNTAINS, 1.0);
-        OverworldBiomes.addEdgeBiome(FELL, FELL_EDGE, 1.0);
     }
 
     private static RegistryKey<Biome> key(String id) {
@@ -62,43 +46,31 @@ public final class WamBiomes {
     }
 
     private static void register(RegistryKey<Biome> key, Biome biome) {
-        ((MutableRegistry<Biome>) BuiltinRegistries.BIOME).add(key, biome, Lifecycle.stable());
-
-        // Ensures that the biome is stored in the internal raw ID map of BuiltinBiomes.
-        // Fabric API usually does this, but some of my biomes don't go through OverworldBiomes at all,
-        // which means that won't always get done.
-        BuiltinBiomes.BY_RAW_ID.put(BuiltinRegistries.BIOME.getRawId(biome), key);
+        BuiltinRegistries.set(BuiltinRegistries.BIOME, key, biome);
     }
 
     private static int getSkyColor(float temperature) {
-        return DefaultBiomeCreator.getSkyColor(temperature);
+        return OverworldBiomeCreator.getSkyColor(temperature);
     }
 
     private static Biome pineForest(float depth, float scale, Consumer<GenerationSettings.Builder> generationSettingsConfigurator) {
         GenerationSettings generationSettings = generationSettings(builder -> {
-            builder.surfaceBuilder(ConfiguredSurfaceBuilders.GRASS);
-
-            DefaultBiomeFeatures.addDefaultUndergroundStructures(builder);
-            DefaultBiomeFeatures.addLandCarvers(builder);
-            DefaultBiomeFeatures.addDefaultLakes(builder);
-            DefaultBiomeFeatures.addDungeons(builder);
+            OverworldBiomeCreator.addBasicFeatures(builder);
             DefaultBiomeFeatures.addForestFlowers(builder);
-            DefaultBiomeFeatures.addMineables(builder);
+            DefaultBiomeFeatures.addLargeFerns(builder);
             DefaultBiomeFeatures.addDefaultOres(builder);
             DefaultBiomeFeatures.addDefaultDisks(builder);
             DefaultBiomeFeatures.addDefaultFlowers(builder);
             DefaultBiomeFeatures.addForestGrass(builder);
-            DefaultBiomeFeatures.addDefaultMushrooms(builder);
-            DefaultBiomeFeatures.addDefaultVegetation(builder);
-            DefaultBiomeFeatures.addSprings(builder);
-            DefaultBiomeFeatures.addFrozenTopLayer(builder);
-            DefaultBiomeFeatures.addSweetBerryBushes(builder);
-            DefaultBiomeFeatures.addLargeFerns(builder);
 
             // Stone boulders
             builder.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, WamPlacedFeatures.PINE_FOREST_BOULDER);
 
             generationSettingsConfigurator.accept(builder);
+
+            DefaultBiomeFeatures.addDefaultMushrooms(builder);
+            DefaultBiomeFeatures.addDefaultVegetation(builder);
+            DefaultBiomeFeatures.addSweetBerryBushes(builder);
         });
 
         SpawnSettings spawnSettings = spawnSettings(builder -> {
@@ -124,15 +96,14 @@ public final class WamBiomes {
             .precipitation(Biome.Precipitation.RAIN)
             .downfall(0.6f)
             .temperature(0.4f)
-            .depth(depth)
-            .scale(scale)
+            //.depth(depth)
+            //.scale(scale)
             .generationSettings(generationSettings)
             .spawnSettings(spawnSettings)
             .build();
     }
 
     private static Biome pineForest(float depth, float scale) {
-        // noinspection CodeBlock2Expr
         return pineForest(depth, scale, builder -> {
             builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.FOREST_PINE);
         });
@@ -154,13 +125,12 @@ public final class WamBiomes {
 
     private static Biome pineMire(float depth, float scale) {
         GenerationSettings generationSettings = generationSettings(builder -> {
-            builder.surfaceBuilder(ConfiguredSurfaceBuilders.SWAMP);
-
+            OverworldBiomeCreator.addBasicFeatures(builder);
             builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.MIRE_PINE_SHRUB);
             builder.feature(GenerationStep.Feature.LAKES, WamPlacedFeatures.MIRE_PONDS);
             builder.feature(GenerationStep.Feature.TOP_LAYER_MODIFICATION, WamPlacedFeatures.MIRE_MEADOW);
             builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.MIRE_FLOWERS);
-            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.PATCH_WATERLILLY);
+            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.PATCH_WATERLILY);
             builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.MIRE_PINE_SNAG);
         });
 
@@ -185,8 +155,8 @@ public final class WamBiomes {
             .precipitation(Biome.Precipitation.RAIN)
             .downfall(0.9f)
             .temperature(0.6f)
-            .depth(depth)
-            .scale(scale)
+            //.depth(depth)
+            //.scale(scale)
             .generationSettings(generationSettings)
             .spawnSettings(spawnSettings)
             .build();
@@ -194,20 +164,13 @@ public final class WamBiomes {
 
     private static Biome kettlePond(float depth, float scale) {
         GenerationSettings generationSettings = generationSettings(builder -> {
-            builder.surfaceBuilder(ConfiguredSurfaceBuilders.GRASS);
-
-            DefaultBiomeFeatures.addLandCarvers(builder);
-            DefaultBiomeFeatures.addDefaultLakes(builder);
-            DefaultBiomeFeatures.addDungeons(builder);
-            DefaultBiomeFeatures.addMineables(builder);
+            OverworldBiomeCreator.addBasicFeatures(builder);
             DefaultBiomeFeatures.addDefaultOres(builder);
             DefaultBiomeFeatures.addDefaultDisks(builder);
             DefaultBiomeFeatures.addDefaultFlowers(builder);
             DefaultBiomeFeatures.addForestGrass(builder);
             DefaultBiomeFeatures.addDefaultMushrooms(builder);
             DefaultBiomeFeatures.addDefaultVegetation(builder);
-            DefaultBiomeFeatures.addSprings(builder);
-            DefaultBiomeFeatures.addFrozenTopLayer(builder);
 
             builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.KETTLE_POND_PINE_SHRUB);
         });
@@ -234,8 +197,8 @@ public final class WamBiomes {
             .precipitation(Biome.Precipitation.RAIN)
             .downfall(0.8f)
             .temperature(0.4f)
-            .depth(depth)
-            .scale(scale)
+            //.depth(depth)
+            //.scale(scale)
             .generationSettings(generationSettings)
             .spawnSettings(spawnSettings)
             .build();
@@ -263,8 +226,8 @@ public final class WamBiomes {
             .precipitation(Biome.Precipitation.RAIN)
             .downfall(0.7f)
             .temperature(0.25f)
-            .depth(depth)
-            .scale(scale)
+            //.depth(depth)
+            //.scale(scale)
             .generationSettings(generationSettings)
             .spawnSettings(spawnSettings)
             .build();
@@ -272,43 +235,29 @@ public final class WamBiomes {
 
     private static Biome fell(float depth, float scale) {
         return fell(depth, scale, generationSettings(builder -> {
-            builder.surfaceBuilder(ConfiguredSurfaceBuilders.SHATTERED_SAVANNA);
-
-            DefaultBiomeFeatures.addLandCarvers(builder);
-            DefaultBiomeFeatures.addDungeons(builder);
-            DefaultBiomeFeatures.addMineables(builder);
+            OverworldBiomeCreator.addBasicFeatures(builder);
             DefaultBiomeFeatures.addDefaultOres(builder);
             DefaultBiomeFeatures.addDefaultDisks(builder);
             DefaultBiomeFeatures.addDefaultFlowers(builder);
             DefaultBiomeFeatures.addDefaultMushrooms(builder);
             DefaultBiomeFeatures.addDefaultVegetation(builder);
-            DefaultBiomeFeatures.addSprings(builder);
-            DefaultBiomeFeatures.addFrozenTopLayer(builder);
 
             builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.FELL_VEGETATION);
             builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.FELL_BIRCH_SHRUB);
             builder.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, WamPlacedFeatures.FELL_BOULDER);
             builder.feature(GenerationStep.Feature.LAKES, WamPlacedFeatures.FELL_LAKE);
-            builder.feature(GenerationStep.Feature.LAKES, ConfiguredFeatures.LAKE_LAVA);
         }));
     }
 
     private static Biome fellEdge(float depth, float scale) {
         return fell(depth, scale, generationSettings(builder -> {
-            builder.surfaceBuilder(ConfiguredSurfaceBuilders.GRASS);
-
-            DefaultBiomeFeatures.addLandCarvers(builder);
-            DefaultBiomeFeatures.addDefaultLakes(builder);
-            DefaultBiomeFeatures.addDungeons(builder);
-            DefaultBiomeFeatures.addMineables(builder);
+            OverworldBiomeCreator.addBasicFeatures(builder);
             DefaultBiomeFeatures.addDefaultOres(builder);
             DefaultBiomeFeatures.addDefaultDisks(builder);
             DefaultBiomeFeatures.addDefaultFlowers(builder);
             DefaultBiomeFeatures.addForestGrass(builder);
             DefaultBiomeFeatures.addDefaultMushrooms(builder);
             DefaultBiomeFeatures.addDefaultVegetation(builder);
-            DefaultBiomeFeatures.addSprings(builder);
-            DefaultBiomeFeatures.addFrozenTopLayer(builder);
 
             builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.FELL_VEGETATION);
             builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.CLEARING_PINE_SHRUB);
