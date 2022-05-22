@@ -2,6 +2,7 @@ package juuxel.woodsandmires.feature;
 
 import com.google.common.collect.ImmutableList;
 import juuxel.woodsandmires.WoodsAndMires;
+import juuxel.woodsandmires.biome.WamBiomes;
 import juuxel.woodsandmires.block.WamBlocks;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBiomeTags;
@@ -55,7 +56,7 @@ public final class WamPlacedFeatures {
 
     static {
         FOREST_PINE = register("forest_pine", WamConfiguredFeatures.PINE, treeModifiersWithWouldSurvive(CountPlacementModifier.of(10), WamBlocks.PINE_SAPLING));
-        SNOWY_FOREST_PINE = register("snowy_forest_pine", WamConfiguredFeatures.PINE, treeModifiers(CountPlacementModifier.of(2)));
+        SNOWY_FOREST_PINE = register("snowy_forest_pine", WamConfiguredFeatures.PINE, treeModifiersWithWouldSurvive(CountPlacementModifier.of(2), WamBlocks.PINE_SAPLING));
         OLD_GROWTH_FOREST_PINE = register("old_growth_forest_pine", WamConfiguredFeatures.PINE, treeModifiersWithWouldSurvive(CountPlacementModifier.of(4), WamBlocks.PINE_SAPLING));
         GIANT_PINE = register("giant_pine", WamConfiguredFeatures.GIANT_PINE, treeModifiersWithWouldSurvive(CountPlacementModifier.of(2), WamBlocks.PINE_SAPLING));
         PINE_FOREST_BOULDER = register("pine_forest_boulder", WamConfiguredFeatures.PINE_FOREST_BOULDER, chanceModifiers(16));
@@ -72,7 +73,7 @@ public final class WamPlacedFeatures {
         MIRE_PONDS = register("mire_ponds", WamConfiguredFeatures.MIRE_PONDS, List.of());
         MIRE_FLOWERS = register("mire_flowers", WamConfiguredFeatures.MIRE_FLOWERS, chanceModifiers(2));
         MIRE_MEADOW = register("mire_meadow", WamConfiguredFeatures.MIRE_MEADOW, List.of());
-        MIRE_PINE_SNAG = register("mire_pine_snag", WamConfiguredFeatures.PINE_SNAG, treeModifiers(RarityFilterPlacementModifier.of(6)));
+        MIRE_PINE_SNAG = register("mire_pine_snag", WamConfiguredFeatures.PINE_SNAG, treeModifiersWithWouldSurvive(RarityFilterPlacementModifier.of(6), WamBlocks.PINE_SAPLING));
         MIRE_PINE_SHRUB = register("mire_pine_shrub", WamConfiguredFeatures.SHORT_PINE_SHRUB,
             treeModifiersWithWouldSurvive(
                 PlacedFeatures.createCountExtraModifier(3, 1/3f, 3),
@@ -95,7 +96,7 @@ public final class WamPlacedFeatures {
             treeModifiersWithWouldSurvive(RarityFilterPlacementModifier.of(3), Blocks.BIRCH_SAPLING)
         );
         CLEARING_FLOWERS = register("clearing_flowers", WamConfiguredFeatures.PLAINS_FLOWERS, chanceModifiers(4));
-        CLEARING_SNAG = register("clearing_snag", WamConfiguredFeatures.PINE_SNAG, treeModifiers(RarityFilterPlacementModifier.of(2)));
+        CLEARING_SNAG = register("clearing_snag", WamConfiguredFeatures.PINE_SNAG, treeModifiersWithWouldSurvive(RarityFilterPlacementModifier.of(2), WamBlocks.PINE_SAPLING));
         CLEARING_PINE_SHRUB = register("clearing_pine_shrub", WamConfiguredFeatures.CLEARING_PINE_SHRUB,
             treeModifiersWithWouldSurvive(
                 PlacedFeatures.createCountExtraModifier(4, 1/3f, 3),
