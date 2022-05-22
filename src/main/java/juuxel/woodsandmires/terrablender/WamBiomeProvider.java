@@ -29,9 +29,9 @@ public class WamBiomeProvider extends BiomeProvider {
             builder.replaceBiome(BiomeKeys.FOREST, WamBiomes.PINE_FOREST_CLEARING);
             builder.replaceBiome(BiomeKeys.SNOWY_TAIGA, WamBiomes.SNOWY_PINE_FOREST);
             builder.replaceBiome(BiomeKeys.WINDSWEPT_FOREST, WamBiomes.SNOWY_PINE_FOREST);
-            builder.replaceBiome(BiomeKeys.WINDSWEPT_GRAVELLY_HILLS, WamBiomes.SNOWY_PINE_FOREST);
+            builder.replaceBiome(BiomeKeys.WINDSWEPT_GRAVELLY_HILLS, WamBiomes.FELL);
             builder.replaceBiome(BiomeKeys.WINDSWEPT_HILLS, WamBiomes.FELL);
-            builder.replaceBiome(BiomeKeys.SNOWY_SLOPES, WamBiomes.FELL);
+            builder.replaceBiome(BiomeKeys.SNOWY_SLOPES, WamBiomes.SNOWY_PINE_FOREST);
             builder.replaceBiome(BiomeKeys.FROZEN_PEAKS, WamBiomes.FELL);
         });
     }
