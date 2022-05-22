@@ -187,6 +187,7 @@ public final class WamConfiguredFeatures {
     // Clearings
     public static final RegistryEntry<ConfiguredFeature<MeadowFeatureConfig, ?>> CLEARING_MEADOW;
     public static final RegistryEntry<ConfiguredFeature<ShrubFeatureConfig, ?>> CLEARING_PINE_SHRUB;
+    public static final RegistryEntry<ConfiguredFeature<FallenLogFeatureConfig, ?>> CLEARING_FALLEN_PINE;
 
     static {
         CLEARING_MEADOW = register("clearing_meadow", WamFeatures.MEADOW,
@@ -204,6 +205,13 @@ public final class WamConfiguredFeatures {
                 WamBlocks.PINE_LOG.getDefaultState(),
                 WamBlocks.PINE_LEAVES.getDefaultState(),
                 1, 2, 1f
+            )
+        );
+        CLEARING_FALLEN_PINE = register("clearing_fallen_pine", WamFeatures.FALLEN_LOG,
+            new FallenLogFeatureConfig(
+                WamBlocks.PINE_LOG,
+                WamBlocks.GROUND_PINE_LOG,
+                UniformIntProvider.create(2, 6)
             )
         );
     }

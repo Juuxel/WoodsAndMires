@@ -51,9 +51,12 @@ public final class WamBiomes {
         return OverworldBiomeCreator.getSkyColor(temperature);
     }
 
-    private static Biome pineForest(Biome.Category category, Biome.Precipitation precipitation, float temperature, Consumer<GenerationSettings.Builder> generationSettingsConfigurator) {
+    private static Biome pineForest(Biome.Category category, Biome.Precipitation precipitation, float temperature,
+                                    Consumer<GenerationSettings.Builder> earlyGenerationSettingsConfigurator,
+                                    Consumer<GenerationSettings.Builder> generationSettingsConfigurator) {
         GenerationSettings generationSettings = generationSettings(builder -> {
             OverworldBiomeCreator.addBasicFeatures(builder);
+            earlyGenerationSettingsConfigurator.accept(builder);
             DefaultBiomeFeatures.addForestFlowers(builder);
             DefaultBiomeFeatures.addLargeFerns(builder);
             DefaultBiomeFeatures.addDefaultOres(builder);
@@ -103,31 +106,34 @@ public final class WamBiomes {
 
     private static Biome pineForest() {
         // noinspection CodeBlock2Expr
-        return pineForest(Biome.Category.FOREST, Biome.Precipitation.RAIN, 0.4f, builder -> {
+        return pineForest(Biome.Category.FOREST, Biome.Precipitation.RAIN, 0.6f, builder -> {}, builder -> {
             builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.FOREST_PINE);
         });
     }
 
     private static Biome snowyPineForest() {
         // noinspection CodeBlock2Expr
-        return pineForest(Biome.Category.FOREST, Biome.Precipitation.SNOW, 0f, builder -> {
+        return pineForest(Biome.Category.FOREST, Biome.Precipitation.SNOW, 0f, builder -> {}, builder -> {
             builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.SNOWY_FOREST_PINE);
         });
     }
 
     private static Biome oldGrowthPineForest() {
-        return pineForest(Biome.Category.FOREST, Biome.Precipitation.RAIN, 0.4f, builder -> {
+        return pineForest(Biome.Category.FOREST, Biome.Precipitation.RAIN, 0.4f, builder -> {}, builder -> {
             builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.GIANT_PINE);
             builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.OLD_GROWTH_FOREST_PINE);
         });
     }
 
     private static Biome pineForestClearing() {
-        return pineForest(Biome.Category.PLAINS, Biome.Precipitation.RAIN, 0.4f, builder -> {
+        return pineForest(Biome.Category.PLAINS, Biome.Precipitation.RAIN, 0.6f, builder -> {
+            DefaultBiomeFeatures.addSavannaTallGrass(builder);
+        }, builder -> {
             DefaultBiomeFeatures.addMossyRocks(builder);
             DefaultBiomeFeatures.addPlainsFeatures(builder);
             DefaultBiomeFeatures.addExtraDefaultFlowers(builder);
 
+            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.CLEARING_FALLEN_PINE);
             builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.CLEARING_PINE_SHRUB);
             builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.CLEARING_SNAG);
             builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.CLEARING_BIRCH);

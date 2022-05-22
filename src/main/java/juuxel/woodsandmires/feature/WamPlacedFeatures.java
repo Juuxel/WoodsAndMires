@@ -82,20 +82,20 @@ public final class WamPlacedFeatures {
         );
     }
 
-    // Clearings and plains
+    // Clearings
     public static final RegistryEntry<PlacedFeature> CLEARING_MEADOW;
     public static final RegistryEntry<PlacedFeature> CLEARING_BIRCH;
     public static final RegistryEntry<PlacedFeature> CLEARING_FLOWERS;
     public static final RegistryEntry<PlacedFeature> CLEARING_SNAG;
     public static final RegistryEntry<PlacedFeature> CLEARING_PINE_SHRUB;
-    public static final RegistryEntry<PlacedFeature> PLAINS_FLOWERS;
+    public static final RegistryEntry<PlacedFeature> CLEARING_FALLEN_PINE;
 
     static {
         CLEARING_MEADOW = register("clearing_meadow", WamConfiguredFeatures.CLEARING_MEADOW, List.of());
         CLEARING_BIRCH = register("clearing_birch", TreeConfiguredFeatures.BIRCH_BEES_005,
             treeModifiersWithWouldSurvive(RarityFilterPlacementModifier.of(3), Blocks.BIRCH_SAPLING)
         );
-        CLEARING_FLOWERS = register("clearing_flowers", WamConfiguredFeatures.PLAINS_FLOWERS, chanceModifiers(4));
+        CLEARING_FLOWERS = register("clearing_flowers", WamConfiguredFeatures.PLAINS_FLOWERS, chanceModifiers(2));
         CLEARING_SNAG = register("clearing_snag", WamConfiguredFeatures.PINE_SNAG, treeModifiersWithWouldSurvive(RarityFilterPlacementModifier.of(2), WamBlocks.PINE_SAPLING));
         CLEARING_PINE_SHRUB = register("clearing_pine_shrub", WamConfiguredFeatures.CLEARING_PINE_SHRUB,
             treeModifiersWithWouldSurvive(
@@ -103,7 +103,7 @@ public final class WamPlacedFeatures {
                 WamBlocks.PINE_SAPLING
             )
         );
-        PLAINS_FLOWERS = register("plains_flowers", WamConfiguredFeatures.PLAINS_FLOWERS, chanceModifiers(20));
+        CLEARING_FALLEN_PINE = register("clearing_fallen_pine", WamConfiguredFeatures.CLEARING_FALLEN_PINE, chanceModifiers(3));
     }
 
     // Fells
@@ -128,9 +128,11 @@ public final class WamPlacedFeatures {
     }
 
     // Vanilla biomes
+    public static final RegistryEntry<PlacedFeature> PLAINS_FLOWERS;
     public static final RegistryEntry<PlacedFeature> FOREST_TANSY;
 
     static {
+        PLAINS_FLOWERS = register("plains_flowers", WamConfiguredFeatures.PLAINS_FLOWERS, chanceModifiers(20));
         FOREST_TANSY = register("forest_tansy", WamConfiguredFeatures.FOREST_TANSY,
             cons(
                 CountPlacementModifier.of(ClampedIntProvider.create(UniformIntProvider.create(-4, 1), 0, 1)),
