@@ -20,6 +20,7 @@ import net.minecraft.world.gen.feature.FeatureConfig;
 import net.minecraft.world.gen.feature.PlacedFeature;
 import net.minecraft.world.gen.feature.PlacedFeatures;
 import net.minecraft.world.gen.feature.RandomPatchFeatureConfig;
+import net.minecraft.world.gen.feature.SimpleBlockFeatureConfig;
 import net.minecraft.world.gen.feature.SimpleRandomFeatureConfig;
 import net.minecraft.world.gen.feature.SingleStateFeatureConfig;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
@@ -43,6 +44,7 @@ public final class WamConfiguredFeatures {
     public static final RegistryEntry<ConfiguredFeature<SimpleRandomFeatureConfig, ?>> PLAINS_FLOWERS;
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> PINE_FROM_SAPLING;
     public static final RegistryEntry<ConfiguredFeature<SingleStateFeatureConfig, ?>> PINE_FOREST_BOULDER;
+    public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> FOREST_TANSY;
 
     static {
         SHORT_PINE_SHRUB = register("short_pine_shrub", WamFeatures.SHRUB,
@@ -113,6 +115,11 @@ public final class WamConfiguredFeatures {
         );
         PINE_FOREST_BOULDER = register("pine_forest_boulder", Feature.FOREST_ROCK,
             new SingleStateFeatureConfig(Blocks.STONE.getDefaultState())
+        );
+        FOREST_TANSY = register("forest_tansy", Feature.RANDOM_PATCH,
+            ConfiguredFeatures.createRandomPatchFeatureConfig(
+                Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(BlockStateProvider.of(WamBlocks.TANSY))
+            )
         );
     }
 

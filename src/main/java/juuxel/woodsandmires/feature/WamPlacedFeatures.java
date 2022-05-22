@@ -4,12 +4,12 @@ import com.google.common.collect.ImmutableList;
 import juuxel.woodsandmires.WoodsAndMires;
 import juuxel.woodsandmires.block.WamBlocks;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBiomeTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.util.registry.BuiltinRegistries;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.util.math.intprovider.ClampedIntProvider;
+import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.util.registry.RegistryEntry;
-import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
@@ -24,7 +24,6 @@ import net.minecraft.world.gen.placementmodifier.RarityFilterPlacementModifier;
 import net.minecraft.world.gen.placementmodifier.SquarePlacementModifier;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 public final class WamPlacedFeatures {
     private static List<PlacementModifier> cons(PlacementModifier head, List<PlacementModifier> tail) {
@@ -123,6 +122,18 @@ public final class WamPlacedFeatures {
         );
     }
 
+    // Vanilla biomes
+    public static final RegistryEntry<PlacedFeature> FOREST_TANSY;
+
+    static {
+        FOREST_TANSY = register("forest_tansy", WamConfiguredFeatures.FOREST_TANSY,
+            cons(
+                CountPlacementModifier.of(ClampedIntProvider.create(UniformIntProvider.create(-4, 1), 0, 1)),
+                chanceModifiers(7)
+            )
+        );
+    }
+
     private WamPlacedFeatures() {
     }
 
@@ -131,6 +142,12 @@ public final class WamPlacedFeatures {
             context -> context.getBiomeKey() == BiomeKeys.PLAINS,
             GenerationStep.Feature.VEGETAL_DECORATION,
             PLAINS_FLOWERS.getKey().get()
+        );
+
+        BiomeModifications.addFeature(
+            context -> context.hasTag(ConventionalBiomeTags.FOREST) && !WoodsAndMires.ID.equals(context.getBiomeKey().getValue().getNamespace()),
+            GenerationStep.Feature.VEGETAL_DECORATION,
+            FOREST_TANSY.getKey().get()
         );
     }
 
