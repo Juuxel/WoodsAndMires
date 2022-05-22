@@ -13,7 +13,6 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.FeatureConfig;
-import net.minecraft.world.gen.feature.LakeFeature;
 import net.minecraft.world.gen.feature.PlacedFeature;
 import net.minecraft.world.gen.feature.SimpleRandomFeatureConfig;
 import net.minecraft.world.gen.feature.SingleStateFeatureConfig;
@@ -168,7 +167,7 @@ public final class WamConfiguredFeatures {
     // Fells
     public static final ConfiguredFeature<?, ?> FELL_VEGETATION;
     public static final ConfiguredFeature<?, ?> FELL_BOULDER;
-    public static final ConfiguredFeature<?, ?> FELL_LAKE;
+    public static final ConfiguredFeature<?, ?> FELL_POND;
     public static final ConfiguredFeature<?, ?> FELL_BIRCH_SHRUB;
 
     static {
@@ -181,16 +180,21 @@ public final class WamConfiguredFeatures {
         FELL_BOULDER = Feature.FOREST_ROCK.configure(
             new SingleStateFeatureConfig(Blocks.COBBLESTONE.getDefaultState())
         );
-        FELL_LAKE = Feature.LAKE.configure(
-            new LakeFeature.Config(
-                BlockStateProvider.of(Blocks.WATER),
-                new WeightedBlockStateProvider(
-                    DataPool.<BlockState>builder()
-                        .add(Blocks.STONE.getDefaultState(), 58)
-                        .add(Blocks.EMERALD_ORE.getDefaultState(), 1)
-                        .add(Blocks.GOLD_ORE.getDefaultState(), 1)
+        FELL_POND = WamFeatures.FELL_POND.configure(
+            new FellPondFeatureConfig.Builder()
+                .radius(UniformIntProvider.create(2, 5))
+                .depth(UniformIntProvider.create(1, 4))
+                .fillWith(BlockStateProvider.of(Blocks.WATER))
+                .border(BlockStateProvider.of(Blocks.STONE))
+                .bottomBlock(
+                    new WeightedBlockStateProvider(
+                        DataPool.<BlockState>builder()
+                            .add(Blocks.EMERALD_ORE.getDefaultState(), 1)
+                            .add(Blocks.GOLD_ORE.getDefaultState(), 1)
+                    ),
+                    0.08f
                 )
-            )
+                .build()
         );
         FELL_BIRCH_SHRUB = WamFeatures.SHRUB.configure(
             new ShrubFeatureConfig(
@@ -215,7 +219,7 @@ public final class WamConfiguredFeatures {
         register("clearing_pine_shrub", CLEARING_PINE_SHRUB);
         register("fell_vegetation", FELL_VEGETATION);
         register("fell_boulder", FELL_BOULDER);
-        register("fell_lake", FELL_LAKE);
+        register("fell_pond", FELL_POND);
         register("fell_birch_shrub", FELL_BIRCH_SHRUB);
     }
 

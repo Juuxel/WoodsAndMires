@@ -201,7 +201,7 @@ public final class WamBiomes {
             builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.FELL_VEGETATION);
             builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.FELL_BIRCH_SHRUB);
             builder.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, WamPlacedFeatures.FELL_BOULDER);
-            builder.feature(GenerationStep.Feature.LAKES, WamPlacedFeatures.FELL_LAKE);
+            builder.feature(GenerationStep.Feature.LAKES, WamPlacedFeatures.FELL_POND);
         }));
     }
 

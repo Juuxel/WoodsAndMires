@@ -115,13 +115,13 @@ public final class WamPlacedFeatures {
     // Fells
     public static final PlacedFeature FELL_VEGETATION;
     public static final PlacedFeature FELL_BOULDER;
-    public static final PlacedFeature FELL_LAKE;
+    public static final PlacedFeature FELL_POND;
     public static final PlacedFeature FELL_BIRCH_SHRUB;
 
     static {
         FELL_VEGETATION = WamConfiguredFeatures.FELL_VEGETATION.withPlacement();
         FELL_BOULDER = WamConfiguredFeatures.FELL_BOULDER.withPlacement(chanceModifiers(16));
-        FELL_LAKE = WamConfiguredFeatures.FELL_LAKE.withPlacement(chanceModifiers(4));
+        FELL_POND = WamConfiguredFeatures.FELL_POND.withPlacement(chanceModifiers(3));
         FELL_BIRCH_SHRUB = WamConfiguredFeatures.FELL_BIRCH_SHRUB.withPlacement(
             cons(
                 RarityFilterPlacementModifier.of(3),
@@ -154,7 +154,7 @@ public final class WamPlacedFeatures {
         register("plains_flowers", PLAINS_FLOWERS);
         register("fell_vegetation", FELL_VEGETATION);
         register("fell_boulder", FELL_BOULDER);
-        register("fell_lake", FELL_LAKE);
+        register("fell_pond", FELL_POND);
         register("fell_birch_shrub", FELL_BIRCH_SHRUB);
 
         BiomeModifications.addFeature(
