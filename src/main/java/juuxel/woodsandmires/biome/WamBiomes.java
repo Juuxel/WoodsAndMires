@@ -22,6 +22,7 @@ import java.util.function.Consumer;
 public final class WamBiomes {
     public static final RegistryKey<Biome> PINE_FOREST = key("pine_forest");
     public static final RegistryKey<Biome> SNOWY_PINE_FOREST = key("snowy_pine_forest");
+    public static final RegistryKey<Biome> OLD_GROWTH_PINE_FOREST = key("old_growth_pine_forest");
     public static final RegistryKey<Biome> PINE_FOREST_CLEARING = key("pine_forest_clearing");
     public static final RegistryKey<Biome> PINE_MIRE = key("pine_mire");
     public static final RegistryKey<Biome> FELL = key("fell");
@@ -32,6 +33,7 @@ public final class WamBiomes {
     public static void init() {
         register(PINE_FOREST, pineForest());
         register(SNOWY_PINE_FOREST, snowyPineForest());
+        register(OLD_GROWTH_PINE_FOREST, oldGrowthPineForest());
         register(PINE_FOREST_CLEARING, pineForestClearing());
         register(PINE_MIRE, pineMire());
         register(FELL, fell());
@@ -108,6 +110,13 @@ public final class WamBiomes {
         // noinspection CodeBlock2Expr
         return pineForest(Biome.Category.FOREST, Biome.Precipitation.SNOW, 0f, builder -> {
             builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.SNOWY_FOREST_PINE);
+        });
+    }
+
+    private static Biome oldGrowthPineForest() {
+        return pineForest(Biome.Category.FOREST, Biome.Precipitation.RAIN, 0.4f, builder -> {
+            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.GIANT_PINE);
+            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.OLD_GROWTH_FOREST_PINE);
         });
     }
 

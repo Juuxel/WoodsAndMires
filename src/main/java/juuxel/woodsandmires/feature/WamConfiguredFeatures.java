@@ -34,6 +34,7 @@ import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider;
 import net.minecraft.world.gen.treedecorator.AlterGroundTreeDecorator;
 import net.minecraft.world.gen.trunk.ForkingTrunkPlacer;
+import net.minecraft.world.gen.trunk.GiantTrunkPlacer;
 import net.minecraft.world.gen.trunk.StraightTrunkPlacer;
 
 import java.util.List;
@@ -42,6 +43,7 @@ public final class WamConfiguredFeatures {
     // General
     public static final RegistryEntry<ConfiguredFeature<ShrubFeatureConfig, ?>> SHORT_PINE_SHRUB;
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> PINE;
+    public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> GIANT_PINE;
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> PINE_SNAG;
     public static final RegistryEntry<ConfiguredFeature<SimpleRandomFeatureConfig, ?>> PLAINS_FLOWERS;
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> PINE_FROM_SAPLING;
@@ -60,6 +62,33 @@ public final class WamConfiguredFeatures {
             new TreeFeatureConfig.Builder(
                 BlockStateProvider.of(WamBlocks.PINE_LOG.getDefaultState()),
                 new StraightTrunkPlacer(6, 4, 0),
+                BlockStateProvider.of(WamBlocks.PINE_LEAVES.getDefaultState()),
+                new PineFoliagePlacer(
+                    ConstantIntProvider.create(1),
+                    ConstantIntProvider.create(1),
+                    UniformIntProvider.create(3, 5)
+                ),
+                new TwoLayersFeatureSize(2, 0, 2)
+            )
+                .ignoreVines()
+                .decorators(
+                    List.of(
+                        new PineTrunkTreeDecorator(WamBlocks.GROUND_PINE_LOG),
+                        new AlterGroundTreeDecorator(
+                            new WeightedBlockStateProvider(
+                                DataPool.<BlockState>builder()
+                                    .add(Blocks.GRASS_BLOCK.getDefaultState(), 1)
+                                    .add(Blocks.PODZOL.getDefaultState(), 1)
+                            )
+                        )
+                    )
+                )
+                .build()
+        );
+        GIANT_PINE = register("giant_pine", Feature.TREE,
+            new TreeFeatureConfig.Builder(
+                BlockStateProvider.of(WamBlocks.PINE_LOG.getDefaultState()),
+                new GiantTrunkPlacer(10, 4, 2),
                 BlockStateProvider.of(WamBlocks.PINE_LEAVES.getDefaultState()),
                 new PineFoliagePlacer(
                     ConstantIntProvider.create(1),

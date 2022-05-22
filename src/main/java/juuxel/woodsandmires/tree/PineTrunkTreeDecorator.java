@@ -55,14 +55,12 @@ public final class PineTrunkTreeDecorator extends TreeDecorator {
         int midY = (int) MathHelper.lerp(getRandomHeightPoint(random), heights.firstInt(), heights.lastInt());
 
         for (BlockPos pos : sortedLogPositions) {
-            if (pos.getY() == midY) {
-                BlockState state = log.getDefaultState().with(GroundLogBlock.MID, true);
-                replacer.accept(pos, state);
+            if (pos.getY() > midY) {
                 break;
-            } else {
-                BlockState state = log.getDefaultState().with(GroundLogBlock.MID, false);
-                replacer.accept(pos, state);
             }
+
+            BlockState state = log.getDefaultState().with(GroundLogBlock.MID, pos.getY() == midY);
+            replacer.accept(pos, state);
         }
     }
 
