@@ -212,6 +212,7 @@ public final class WamBiomes {
             DefaultBiomeFeatures.addDefaultOres(builder);
             DefaultBiomeFeatures.addDefaultDisks(builder);
             DefaultBiomeFeatures.addDefaultFlowers(builder);
+            DefaultBiomeFeatures.addForestGrass(builder);
             DefaultBiomeFeatures.addDefaultMushrooms(builder);
             DefaultBiomeFeatures.addDefaultVegetation(builder);
 

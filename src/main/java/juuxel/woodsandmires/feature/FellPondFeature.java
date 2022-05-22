@@ -13,6 +13,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 public final class FellPondFeature extends Feature<FellPondFeatureConfig> {
+    private static final int MAX_HEIGHT_TO_DIG = 2;
+
     public FellPondFeature(Codec<FellPondFeatureConfig> configCodec) {
         super(configCodec);
     }
@@ -28,6 +30,7 @@ public final class FellPondFeature extends Feature<FellPondFeatureConfig> {
         BlockPos.Mutable mut = new BlockPos.Mutable();
         Set<BlockPos> filledPositions = new HashSet<>();
 
+        int dugHeight = 0;
         // Check for air layers
         boolean foundAir;
         do {
@@ -54,6 +57,11 @@ public final class FellPondFeature extends Feature<FellPondFeatureConfig> {
                 }
 
                 origin.move(0, -1, 0);
+                dugHeight++;
+
+                if (dugHeight >= MAX_HEIGHT_TO_DIG) {
+                    break;
+                }
             }
         } while (foundAir);
 

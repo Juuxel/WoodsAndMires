@@ -115,7 +115,7 @@ public final class WamPlacedFeatures {
     static {
         FELL_VEGETATION = register("fell_vegetation", WamConfiguredFeatures.FELL_VEGETATION, List.of());
         FELL_BOULDER = register("fell_boulder", WamConfiguredFeatures.FELL_BOULDER, chanceModifiers(16));
-        FELL_POND = register("fell_pond", WamConfiguredFeatures.FELL_POND, chanceModifiers(3));
+        FELL_POND = register("fell_pond", WamConfiguredFeatures.FELL_POND, chanceModifiers(7));
         FELL_BIRCH_SHRUB = register("fell_birch_shrub", WamConfiguredFeatures.FELL_BIRCH_SHRUB,
             cons(
                 RarityFilterPlacementModifier.of(3),
