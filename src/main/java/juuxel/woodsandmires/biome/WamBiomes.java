@@ -58,7 +58,9 @@ public final class WamBiomes {
             DefaultBiomeFeatures.addLargeFerns(builder);
             DefaultBiomeFeatures.addDefaultOres(builder);
             DefaultBiomeFeatures.addDefaultDisks(builder);
-            DefaultBiomeFeatures.addDefaultFlowers(builder);
+            if (precipitation != Biome.Precipitation.SNOW) {
+                DefaultBiomeFeatures.addDefaultFlowers(builder);
+            }
             DefaultBiomeFeatures.addForestGrass(builder);
 
             // Stone boulders
