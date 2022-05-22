@@ -10,10 +10,16 @@ import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryEntry;
+import net.minecraft.util.registry.RegistryEntryList;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.ConfiguredFeatures;
+import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.FeatureConfig;
 import net.minecraft.world.gen.feature.PlacedFeature;
+import net.minecraft.world.gen.feature.PlacedFeatures;
+import net.minecraft.world.gen.feature.RandomPatchFeatureConfig;
 import net.minecraft.world.gen.feature.SimpleRandomFeatureConfig;
 import net.minecraft.world.gen.feature.SingleStateFeatureConfig;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
@@ -28,26 +34,25 @@ import net.minecraft.world.gen.trunk.ForkingTrunkPlacer;
 import net.minecraft.world.gen.trunk.StraightTrunkPlacer;
 
 import java.util.Collections;
-import java.util.List;
 
 public final class WamConfiguredFeatures {
     // General
-    public static final ConfiguredFeature<?, ?> SHORT_PINE_SHRUB;
-    public static final ConfiguredFeature<TreeFeatureConfig, ?> PINE;
-    public static final ConfiguredFeature<TreeFeatureConfig, ?> PINE_SNAG;
-    public static final ConfiguredFeature<?, ?> PLAINS_FLOWERS;
-    public static final ConfiguredFeature<TreeFeatureConfig, ?> PINE_FROM_SAPLING;
-    public static final ConfiguredFeature<?, ?> PINE_FOREST_BOULDER;
+    public static final RegistryEntry<ConfiguredFeature<ShrubFeatureConfig, ?>> SHORT_PINE_SHRUB;
+    public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> PINE;
+    public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> PINE_SNAG;
+    public static final RegistryEntry<ConfiguredFeature<SimpleRandomFeatureConfig, ?>> PLAINS_FLOWERS;
+    public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> PINE_FROM_SAPLING;
+    public static final RegistryEntry<ConfiguredFeature<SingleStateFeatureConfig, ?>> PINE_FOREST_BOULDER;
 
     static {
-        SHORT_PINE_SHRUB = WamFeatures.SHRUB.configure(
+        SHORT_PINE_SHRUB = register("short_pine_shrub", WamFeatures.SHRUB,
             new ShrubFeatureConfig(
                 WamBlocks.PINE_LOG.getDefaultState(),
                 WamBlocks.PINE_LEAVES.getDefaultState(),
                 1, 2, 0.6f
             )
         );
-        PINE = Feature.TREE.configure(
+        PINE = register("pine", Feature.TREE,
             new TreeFeatureConfig.Builder(
                 BlockStateProvider.of(WamBlocks.PINE_LOG.getDefaultState()),
                 new StraightTrunkPlacer(6, 4, 0),
@@ -73,7 +78,7 @@ public final class WamConfiguredFeatures {
                 )
                 .build()
         );
-        PINE_SNAG = Feature.TREE.configure(
+        PINE_SNAG = register("pine_snag", Feature.TREE,
             new TreeFeatureConfig.Builder(
                 BlockStateProvider.of(WamBlocks.PINE_SNAG_LOG.getDefaultState()),
                 new ForkingTrunkPlacer(4, 4, 0),
@@ -85,15 +90,15 @@ public final class WamConfiguredFeatures {
                 .decorators(Collections.singletonList(new BranchTreeDecorator(WamBlocks.PINE_SNAG_BRANCH, 0.2f)))
                 .build()
         );
-        PLAINS_FLOWERS = Feature.SIMPLE_RANDOM_SELECTOR.configure(
+        PLAINS_FLOWERS = register("plains_flowers", Feature.SIMPLE_RANDOM_SELECTOR,
             new SimpleRandomFeatureConfig(
-                List.of(
-                    () -> createFlowerPatchFeature(WamBlocks.FIREWEED),
-                    () -> createFlowerPatchFeature(WamBlocks.TANSY)
+                RegistryEntryList.of(
+                    createFlowerPatchFeature(WamBlocks.FIREWEED),
+                    createFlowerPatchFeature(WamBlocks.TANSY)
                 )
             )
         );
-        PINE_FROM_SAPLING = Feature.TREE.configure(
+        PINE_FROM_SAPLING = register("pine_from_sapling", Feature.TREE,
             new TreeFeatureConfig.Builder(
                 BlockStateProvider.of(WamBlocks.PINE_LOG.getDefaultState()),
                 new StraightTrunkPlacer(6, 4, 0),
@@ -106,19 +111,19 @@ public final class WamConfiguredFeatures {
                 new TwoLayersFeatureSize(2, 0, 2)
             ).ignoreVines().build()
         );
-        PINE_FOREST_BOULDER = Feature.FOREST_ROCK.configure(
+        PINE_FOREST_BOULDER = register("pine_forest_boulder", Feature.FOREST_ROCK,
             new SingleStateFeatureConfig(Blocks.STONE.getDefaultState())
         );
     }
 
     // Mire
-    public static final ConfiguredFeature<?, ?> MIRE_PONDS;
-    public static final ConfiguredFeature<?, ?> MIRE_FLOWERS;
-    public static final ConfiguredFeature<?, ?> MIRE_MEADOW;
+    public static final RegistryEntry<ConfiguredFeature<DefaultFeatureConfig, ?>> MIRE_PONDS;
+    public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> MIRE_FLOWERS;
+    public static final RegistryEntry<ConfiguredFeature<MeadowFeatureConfig, ?>> MIRE_MEADOW;
 
     static {
-        MIRE_PONDS = WamFeatures.MIRE_PONDS.configure(FeatureConfig.DEFAULT);
-        MIRE_FLOWERS = Feature.FLOWER.configure(
+        MIRE_PONDS = register("mire_ponds", WamFeatures.MIRE_PONDS);
+        MIRE_FLOWERS = register("mire_flowers", Feature.FLOWER,
             VegetationConfiguredFeatures.createRandomPatchFeatureConfig(
                 new WeightedBlockStateProvider(
                     DataPool.<BlockState>builder()
@@ -128,7 +133,7 @@ public final class WamConfiguredFeatures {
                 64
             )
         );
-        MIRE_MEADOW = WamFeatures.MEADOW.configure(
+        MIRE_MEADOW = register("mire_meadow", WamFeatures.MEADOW,
             new MeadowFeatureConfig(
                 new WeightedBlockStateProvider(
                     DataPool.<BlockState>builder()
@@ -141,11 +146,11 @@ public final class WamConfiguredFeatures {
     }
 
     // Clearings
-    public static final ConfiguredFeature<?, ?> CLEARING_MEADOW;
-    public static final ConfiguredFeature<?, ?> CLEARING_PINE_SHRUB;
+    public static final RegistryEntry<ConfiguredFeature<MeadowFeatureConfig, ?>> CLEARING_MEADOW;
+    public static final RegistryEntry<ConfiguredFeature<ShrubFeatureConfig, ?>> CLEARING_PINE_SHRUB;
 
     static {
-        CLEARING_MEADOW = WamFeatures.MEADOW.configure(
+        CLEARING_MEADOW = register("clearing_meadow", WamFeatures.MEADOW,
             new MeadowFeatureConfig(
                 new WeightedBlockStateProvider(
                     DataPool.<BlockState>builder()
@@ -155,7 +160,7 @@ public final class WamConfiguredFeatures {
                 0.25f
             )
         );
-        CLEARING_PINE_SHRUB = WamFeatures.SHRUB.configure(
+        CLEARING_PINE_SHRUB = register("clearing_pine_shrub", WamFeatures.SHRUB,
             new ShrubFeatureConfig(
                 WamBlocks.PINE_LOG.getDefaultState(),
                 WamBlocks.PINE_LEAVES.getDefaultState(),
@@ -165,22 +170,22 @@ public final class WamConfiguredFeatures {
     }
 
     // Fells
-    public static final ConfiguredFeature<?, ?> FELL_VEGETATION;
-    public static final ConfiguredFeature<?, ?> FELL_BOULDER;
-    public static final ConfiguredFeature<?, ?> FELL_POND;
-    public static final ConfiguredFeature<?, ?> FELL_BIRCH_SHRUB;
+    public static final RegistryEntry<ConfiguredFeature<MeadowFeatureConfig, ?>> FELL_VEGETATION;
+    public static final RegistryEntry<ConfiguredFeature<SingleStateFeatureConfig, ?>> FELL_BOULDER;
+    public static final RegistryEntry<ConfiguredFeature<FellPondFeatureConfig, ?>> FELL_POND;
+    public static final RegistryEntry<ConfiguredFeature<ShrubFeatureConfig, ?>> FELL_BIRCH_SHRUB;
 
     static {
-        FELL_VEGETATION = WamFeatures.MEADOW.configure(
+        FELL_VEGETATION = register("fell_vegetation", WamFeatures.MEADOW,
             new MeadowFeatureConfig(
                 new WeightedBlockStateProvider(DataPool.<BlockState>builder().add(Blocks.GRASS.getDefaultState(), 1)),
                 0.3f
             )
         );
-        FELL_BOULDER = Feature.FOREST_ROCK.configure(
+        FELL_BOULDER = register("fell_boulder", Feature.FOREST_ROCK,
             new SingleStateFeatureConfig(Blocks.COBBLESTONE.getDefaultState())
         );
-        FELL_POND = WamFeatures.FELL_POND.configure(
+        FELL_POND = register("fell_pond", WamFeatures.FELL_POND,
             new FellPondFeatureConfig.Builder()
                 .radius(UniformIntProvider.create(2, 5))
                 .depth(UniformIntProvider.create(1, 4))
@@ -196,7 +201,7 @@ public final class WamConfiguredFeatures {
                 )
                 .build()
         );
-        FELL_BIRCH_SHRUB = WamFeatures.SHRUB.configure(
+        FELL_BIRCH_SHRUB = register("fell_birch_shrub", WamFeatures.SHRUB,
             new ShrubFeatureConfig(
                 Blocks.BIRCH_LOG.getDefaultState(),
                 Blocks.BIRCH_LEAVES.getDefaultState(),
@@ -206,30 +211,21 @@ public final class WamConfiguredFeatures {
     }
 
     public static void register() {
-        register("short_pine_shrub", SHORT_PINE_SHRUB);
-        register("pine", PINE);
-        register("pine_snag", PINE_SNAG);
-        register("plains_flowers", PLAINS_FLOWERS);
-        register("pine_from_sapling", PINE_FROM_SAPLING);
-        register("pine_forest_boulder", PINE_FOREST_BOULDER);
-        register("mire_ponds", MIRE_PONDS);
-        register("mire_flowers", MIRE_FLOWERS);
-        register("mire_meadow", MIRE_MEADOW);
-        register("clearing_meadow", CLEARING_MEADOW);
-        register("clearing_pine_shrub", CLEARING_PINE_SHRUB);
-        register("fell_vegetation", FELL_VEGETATION);
-        register("fell_boulder", FELL_BOULDER);
-        register("fell_pond", FELL_POND);
-        register("fell_birch_shrub", FELL_BIRCH_SHRUB);
     }
 
     private static void register(String id, ConfiguredFeature<?, ?> feature) {
         Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, WoodsAndMires.id(id), feature);
     }
 
-    private static PlacedFeature createFlowerPatchFeature(Block block) {
-        return Feature.RANDOM_PATCH.configure(
-            VegetationConfiguredFeatures.createRandomPatchFeatureConfig(BlockStateProvider.of(block), 64)
-        ).withPlacement();
+    private static <FC extends FeatureConfig, F extends Feature<FC>> RegistryEntry<ConfiguredFeature<FC, ?>> register(String id, F feature, FC config) {
+        return ConfiguredFeatures.register(WoodsAndMires.ID + ':' + id, feature, config);
+    }
+
+    private static RegistryEntry<ConfiguredFeature<DefaultFeatureConfig, ?>> register(String id, Feature<DefaultFeatureConfig> feature) {
+        return ConfiguredFeatures.register(WoodsAndMires.ID + ':' + id, feature);
+    }
+
+    private static RegistryEntry<PlacedFeature> createFlowerPatchFeature(Block block) {
+        return PlacedFeatures.createEntry(Feature.RANDOM_PATCH, VegetationConfiguredFeatures.createRandomPatchFeatureConfig(BlockStateProvider.of(block), 64));
     }
 }

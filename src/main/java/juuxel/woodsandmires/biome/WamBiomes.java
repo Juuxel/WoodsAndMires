@@ -42,7 +42,7 @@ public final class WamBiomes {
     }
 
     private static void register(RegistryKey<Biome> key, Biome biome) {
-        BuiltinRegistries.set(BuiltinRegistries.BIOME, key, biome);
+        BuiltinRegistries.add(BuiltinRegistries.BIOME, key, biome);
     }
 
     private static int getSkyColor(float temperature) {
