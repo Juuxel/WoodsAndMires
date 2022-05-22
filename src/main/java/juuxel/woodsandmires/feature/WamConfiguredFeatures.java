@@ -2,6 +2,8 @@ package juuxel.woodsandmires.feature;
 
 import juuxel.woodsandmires.WoodsAndMires;
 import juuxel.woodsandmires.block.WamBlocks;
+import juuxel.woodsandmires.tree.BranchTreeDecorator;
+import juuxel.woodsandmires.tree.PineTrunkTreeDecorator;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -34,7 +36,7 @@ import net.minecraft.world.gen.treedecorator.AlterGroundTreeDecorator;
 import net.minecraft.world.gen.trunk.ForkingTrunkPlacer;
 import net.minecraft.world.gen.trunk.StraightTrunkPlacer;
 
-import java.util.Collections;
+import java.util.List;
 
 public final class WamConfiguredFeatures {
     // General
@@ -68,7 +70,8 @@ public final class WamConfiguredFeatures {
             )
                 .ignoreVines()
                 .decorators(
-                    Collections.singletonList(
+                    List.of(
+                        new PineTrunkTreeDecorator(WamBlocks.GROUND_PINE_LOG),
                         new AlterGroundTreeDecorator(
                             new WeightedBlockStateProvider(
                                 DataPool.<BlockState>builder()
@@ -89,7 +92,7 @@ public final class WamConfiguredFeatures {
                 new TwoLayersFeatureSize(2, 0, 2)
             )
                 .ignoreVines()
-                .decorators(Collections.singletonList(new BranchTreeDecorator(WamBlocks.PINE_SNAG_BRANCH, 0.2f)))
+                .decorators(List.of(new BranchTreeDecorator(WamBlocks.PINE_SNAG_BRANCH, 0.2f)))
                 .build()
         );
         PLAINS_FLOWERS = register("plains_flowers", Feature.SIMPLE_RANDOM_SELECTOR,

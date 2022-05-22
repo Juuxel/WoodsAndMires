@@ -2,7 +2,9 @@
   "replace": false,
   "values": [
     "woods_and_mires:pine_log",
+    "woods_and_mires:ground_pine_log",
     "woods_and_mires:pine_wood",
+    "woods_and_mires:ground_pine_wood",
     "woods_and_mires:stripped_pine_log",
     "woods_and_mires:stripped_pine_wood",
     "woods_and_mires:pine_snag_log",

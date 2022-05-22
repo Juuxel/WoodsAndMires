@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=z": {
+      "model": "woods_and_mires:block/ground_pine_wood",
+      "x": 90
+    },
+    "axis=x": {
+      "model": "woods_and_mires:block/ground_pine_wood",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "woods_and_mires:block/ground_pine_wood"
+    }
+  }
+}

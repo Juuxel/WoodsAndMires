@@ -52,7 +52,7 @@ public final class WamPlacedFeatures {
     public static final RegistryEntry<PlacedFeature> PINE_FOREST_BOULDER;
 
     static {
-        FOREST_PINE = register("forest_pine", WamConfiguredFeatures.PINE, treeModifiers(CountPlacementModifier.of(10)));
+        FOREST_PINE = register("forest_pine", WamConfiguredFeatures.PINE, treeModifiersWithWouldSurvive(CountPlacementModifier.of(10), WamBlocks.PINE_SAPLING));
         SNOWY_FOREST_PINE = register("snowy_forest_pine", WamConfiguredFeatures.PINE, treeModifiers(CountPlacementModifier.of(2)));
         PINE_FOREST_BOULDER = register("pine_forest_boulder", WamConfiguredFeatures.PINE_FOREST_BOULDER, chanceModifiers(16));
     }

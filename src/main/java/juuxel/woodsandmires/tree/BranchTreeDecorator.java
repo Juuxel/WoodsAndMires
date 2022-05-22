@@ -1,4 +1,4 @@
-package juuxel.woodsandmires.feature;
+package juuxel.woodsandmires.tree;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -35,7 +35,7 @@ public final class BranchTreeDecorator extends TreeDecorator {
 
     @Override
     protected TreeDecoratorType<?> getType() {
-        return WamFeatures.BRANCH_TREE_DECORATOR;
+        return WamTreeDecorators.BRANCH;
     }
 
     public Block getBlock() {
