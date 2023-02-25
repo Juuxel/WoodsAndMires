@@ -4,6 +4,7 @@ import juuxel.woodsandmires.WoodsAndMires;
 import juuxel.woodsandmires.block.WamBlocks;
 import juuxel.woodsandmires.feature.FallenLogFeatureConfig;
 import juuxel.woodsandmires.feature.FellPondFeatureConfig;
+import juuxel.woodsandmires.feature.FrozenTreasureFeatureConfig;
 import juuxel.woodsandmires.feature.MeadowFeatureConfig;
 import juuxel.woodsandmires.feature.ShrubFeatureConfig;
 import juuxel.woodsandmires.feature.WamFeatures;
@@ -13,6 +14,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.tag.BlockTags;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DataPool;
 import net.minecraft.util.math.VerticalSurfaceType;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
@@ -232,6 +234,8 @@ public final class WamConfiguredFeatures {
     public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> FELL_LICHEN;
     public static final RegistryEntry<ConfiguredFeature<SimpleBlockFeatureConfig, ?>> FELL_MOSS_PATCH_VEGETATION;
     public static final RegistryEntry<ConfiguredFeature<VegetationPatchFeatureConfig, ?>> FELL_MOSS_PATCH;
+    public static final Identifier FROZEN_TREASURE_LOOT_TABLE = WoodsAndMires.id("chests/frozen_treasure");
+    public static final RegistryEntry<ConfiguredFeature<FrozenTreasureFeatureConfig, ?>> FROZEN_TREASURE;
 
     static {
         FELL_VEGETATION = register("fell_vegetation", WamFeatures.MEADOW,
@@ -294,6 +298,18 @@ public final class WamConfiguredFeatures {
                 0.75f,
                 UniformIntProvider.create(2, 4),
                 0.3f
+            )
+        );
+        FROZEN_TREASURE = register("frozen_treasure", WamFeatures.FROZEN_TREASURE,
+            new FrozenTreasureFeatureConfig(
+                new WeightedBlockStateProvider(
+                    DataPool.<BlockState>builder()
+                        .add(Blocks.PACKED_ICE.getDefaultState(), 3)
+                        .add(Blocks.BLUE_ICE.getDefaultState(), 1)
+                ),
+                UniformIntProvider.create(5, 7),
+                ConstantIntProvider.create(2),
+                FROZEN_TREASURE_LOOT_TABLE
             )
         );
     }

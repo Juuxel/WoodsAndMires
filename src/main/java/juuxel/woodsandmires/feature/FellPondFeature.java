@@ -112,7 +112,7 @@ public final class FellPondFeature extends Feature<FellPondFeatureConfig> {
         return true;
     }
 
-    private static boolean isInsideEllipse(int x, int y, float semiMajorSq, float semiMinorSq, float theta) {
+    static boolean isInsideEllipse(int x, int y, float semiMajorSq, float semiMinorSq, float theta) {
         float sin = MathHelper.sin(theta);
         float cos = MathHelper.cos(theta);
         float sinSq = sin * sin;

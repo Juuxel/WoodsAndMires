@@ -11,6 +11,7 @@ public final class WamFeatures {
     public static final Feature<MeadowFeatureConfig> MEADOW = new MeadowFeature(MeadowFeatureConfig.CODEC);
     public static final Feature<FellPondFeatureConfig> FELL_POND = new FellPondFeature(FellPondFeatureConfig.CODEC);
     public static final Feature<FallenLogFeatureConfig> FALLEN_LOG = new FallenLogFeature(FallenLogFeatureConfig.CODEC);
+    public static final Feature<FrozenTreasureFeatureConfig> FROZEN_TREASURE = new FrozenTreasureFeature(FrozenTreasureFeatureConfig.CODEC);
 
     private WamFeatures() {
     }
@@ -21,6 +22,7 @@ public final class WamFeatures {
         register("meadow", MEADOW);
         register("fell_pond", FELL_POND);
         register("fallen_log", FALLEN_LOG);
+        register("frozen_treasure", FROZEN_TREASURE);
     }
 
     private static void register(String id, Feature<?> feature) {

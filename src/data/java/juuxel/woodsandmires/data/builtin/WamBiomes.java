@@ -30,6 +30,7 @@ public final class WamBiomes {
         register(WamBiomeKeys.PINE_FOREST_CLEARING, pineForestClearing());
         register(WamBiomeKeys.PINE_MIRE, pineMire());
         register(WamBiomeKeys.FELL, fell());
+        register(WamBiomeKeys.SNOWY_FELL, snowyFell());
     }
 
     private static void register(RegistryKey<Biome> key, Biome biome) {
@@ -169,12 +170,18 @@ public final class WamBiomes {
             .build();
     }
 
-    private static Biome fell(GenerationSettings generationSettings) {
+    private static Biome fell(Biome.Precipitation precipitation, float temperature, Consumer<GenerationSettings.Builder> generationSettingsConfigurator) {
         SpawnSettings spawnSettings = spawnSettings(builder -> {
             DefaultBiomeFeatures.addBatsAndMonsters(builder);
 
             builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.WOLF, 5, 4, 4));
             builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.FOX, 4, 2, 4));
+        });
+        GenerationSettings generationSettings = generationSettings(builder -> {
+            OverworldBiomeCreator.addBasicFeatures(builder);
+            DefaultBiomeFeatures.addDefaultOres(builder);
+            DefaultBiomeFeatures.addDefaultDisks(builder);
+            generationSettingsConfigurator.accept(builder);
         });
 
         return new Biome.Builder()
@@ -184,23 +191,20 @@ public final class WamBiomes {
                     .waterColor(0x3F76E4)
                     .waterFogColor(0x050533)
                     .fogColor(0xC0D8FF)
-                    .skyColor(getSkyColor(0.25f))
+                    .skyColor(getSkyColor(temperature))
                     .moodSound(BiomeMoodSound.CAVE)
                     .build()
             )
-            .precipitation(Biome.Precipitation.RAIN)
+            .precipitation(precipitation)
             .downfall(0.7f)
-            .temperature(0.25f)
+            .temperature(temperature)
             .generationSettings(generationSettings)
             .spawnSettings(spawnSettings)
             .build();
     }
 
     private static Biome fell() {
-        return fell(generationSettings(builder -> {
-            OverworldBiomeCreator.addBasicFeatures(builder);
-            DefaultBiomeFeatures.addDefaultOres(builder);
-            DefaultBiomeFeatures.addDefaultDisks(builder);
+        return fell(Biome.Precipitation.RAIN, 0.25f, builder -> {
             DefaultBiomeFeatures.addDefaultFlowers(builder);
             DefaultBiomeFeatures.addForestGrass(builder);
             DefaultBiomeFeatures.addDefaultMushrooms(builder);
@@ -212,7 +216,15 @@ public final class WamBiomes {
             builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.FELL_BIRCH_SHRUB);
             builder.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, WamPlacedFeatures.FELL_BOULDER);
             builder.feature(GenerationStep.Feature.LAKES, WamPlacedFeatures.FELL_POND);
-        }));
+        });
+    }
+
+    private static Biome snowyFell() {
+        return fell(Biome.Precipitation.SNOW, 0f, builder -> {
+            builder.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, WamPlacedFeatures.FELL_BOULDER);
+            builder.feature(GenerationStep.Feature.LAKES, WamPlacedFeatures.FELL_POND);
+            builder.feature(GenerationStep.Feature.SURFACE_STRUCTURES, WamPlacedFeatures.FROZEN_TREASURE);
+        });
     }
 
     private static GenerationSettings generationSettings(Consumer<GenerationSettings.Builder> configurator) {

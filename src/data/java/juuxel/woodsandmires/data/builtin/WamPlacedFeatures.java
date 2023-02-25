@@ -110,6 +110,7 @@ public final class WamPlacedFeatures {
     public static final RegistryEntry<PlacedFeature> FELL_BIRCH_SHRUB;
     public static final RegistryEntry<PlacedFeature> FELL_LICHEN;
     public static final RegistryEntry<PlacedFeature> FELL_MOSS_PATCH;
+    public static final RegistryEntry<PlacedFeature> FROZEN_TREASURE;
 
     static {
         FELL_VEGETATION = register("fell_vegetation", WamConfiguredFeatures.FELL_VEGETATION, List.of());
@@ -126,6 +127,7 @@ public final class WamPlacedFeatures {
         );
         FELL_LICHEN = register("fell_lichen", WamConfiguredFeatures.FELL_LICHEN, chanceModifiers(2));
         FELL_MOSS_PATCH = register("fell_moss_patch", WamConfiguredFeatures.FELL_MOSS_PATCH, chanceModifiers(5));
+        FROZEN_TREASURE = register("frozen_treasure", WamConfiguredFeatures.FROZEN_TREASURE, chanceModifiers(3));
     }
 
     // Vanilla biomes
