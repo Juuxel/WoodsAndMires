@@ -1,0 +1,52 @@
+{
+  "config": {
+    "border": {
+      "state": {
+        "Name": "minecraft:stone"
+      },
+      "type": "minecraft:simple_state_provider"
+    },
+    "bottom_block": {
+      "entries": [
+        {
+          "data": {
+            "Name": "minecraft:emerald_ore"
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "Name": "minecraft:gold_ore"
+          },
+          "weight": 1
+        }
+      ],
+      "type": "minecraft:weighted_state_provider"
+    },
+    "bottom_replace_chance": 0.08,
+    "radius": {
+      "type": "minecraft:uniform",
+      "value": {
+        "min_inclusive": 2,
+        "max_inclusive": 5
+      }
+    },
+    "depth": {
+      "type": "minecraft:uniform",
+      "value": {
+        "min_inclusive": 1,
+        "max_inclusive": 4
+      }
+    },
+    "fill_block": {
+      "state": {
+        "Properties": {
+          "level": "0"
+        },
+        "Name": "minecraft:water"
+      },
+      "type": "minecraft:simple_state_provider"
+    }
+  },
+  "type": "woods_and_mires:fell_pond"
+}

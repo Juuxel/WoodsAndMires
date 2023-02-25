@@ -8,8 +8,40 @@ archivesBaseName = project.archives_base_name
 version = "$project.mod_version+$project.minecraft_version"
 group = project.maven_group
 
+sourceSets {
+    data {
+        compileClasspath += main.compileClasspath
+        runtimeClasspath += main.runtimeClasspath
+    }
+
+    main {
+        resources.srcDir 'src/generated/resources'
+    }
+}
+
 loom {
     accessWidenerPath = file('src/main/resources/woods_and_mires.accesswidener')
+
+    mods {
+        woods_and_mires {
+            sourceSet 'main'
+        }
+
+        woods_and_mires_data {
+            sourceSet 'data'
+        }
+    }
+
+    runs {
+        data {
+            inherit server
+            source 'data'
+            name = 'Data Generator'
+            vmArg '-Dfabric-api.datagen'
+            vmArg "-Dfabric-api.datagen.output-dir=${file("src/generated/resources")}"
+            runDir 'build/dataGenerator'
+        }
+    }
 }
 
 repositories {
@@ -28,6 +60,8 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
     modImplementation "com.github.glitchfiend:TerraBlender-fabric:$project.terrablender_version"
+
+    dataImplementation sourceSets.main.output
 }
 
 processResources {

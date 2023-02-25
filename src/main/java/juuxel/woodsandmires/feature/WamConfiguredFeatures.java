@@ -260,10 +260,6 @@ public final class WamConfiguredFeatures {
     public static void register() {
     }
 
-    private static void register(String id, ConfiguredFeature<?, ?> feature) {
-        Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, WoodsAndMires.id(id), feature);
-    }
-
     private static <FC extends FeatureConfig, F extends Feature<FC>> RegistryEntry<ConfiguredFeature<FC, ?>> register(String id, F feature, FC config) {
         return ConfiguredFeatures.register(WoodsAndMires.ID + ':' + id, feature, config);
     }

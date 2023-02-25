@@ -1,0 +1,53 @@
+{
+  "config": {
+    "decorators": [
+      {
+        "block": "woods_and_mires:pine_snag_branch",
+        "chance": 0.2,
+        "type": "woods_and_mires:branch"
+      }
+    ],
+    "ignore_vines": true,
+    "force_dirt": false,
+    "dirt_provider": {
+      "state": {
+        "Name": "minecraft:dirt"
+      },
+      "type": "minecraft:simple_state_provider"
+    },
+    "minimum_size": {
+      "limit": 2,
+      "lower_size": 0,
+      "upper_size": 2,
+      "type": "minecraft:two_layers_feature_size"
+    },
+    "trunk_provider": {
+      "state": {
+        "Properties": {
+          "axis": "y"
+        },
+        "Name": "woods_and_mires:pine_snag_log"
+      },
+      "type": "minecraft:simple_state_provider"
+    },
+    "trunk_placer": {
+      "base_height": 4,
+      "height_rand_a": 4,
+      "height_rand_b": 0,
+      "type": "minecraft:forking_trunk_placer"
+    },
+    "foliage_provider": {
+      "state": {
+        "Name": "minecraft:air"
+      },
+      "type": "minecraft:simple_state_provider"
+    },
+    "foliage_placer": {
+      "radius": 0,
+      "offset": 0,
+      "height": 0,
+      "type": "minecraft:blob_foliage_placer"
+    }
+  },
+  "type": "minecraft:tree"
+}

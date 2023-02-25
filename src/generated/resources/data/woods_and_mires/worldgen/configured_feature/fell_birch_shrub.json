@@ -1,0 +1,21 @@
+{
+  "config": {
+    "base_height": 1,
+    "extra_height": 1,
+    "extra_height_chance": 0.7,
+    "log": {
+      "Properties": {
+        "axis": "y"
+      },
+      "Name": "minecraft:birch_log"
+    },
+    "leaves": {
+      "Properties": {
+        "persistent": "false",
+        "distance": "7"
+      },
+      "Name": "minecraft:birch_leaves"
+    }
+  },
+  "type": "woods_and_mires:shrub"
+}

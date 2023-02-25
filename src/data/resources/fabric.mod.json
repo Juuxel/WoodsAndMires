@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "id": "woods_and_mires_data",
+  "version": "1",
+
+  "entrypoints": {
+    "main": ["juuxel.woodsandmires.data.WamDataGenerator"],
+    "fabric-datagen": ["juuxel.woodsandmires.data.WamDataGenerator"]
+  }
+}

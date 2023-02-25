@@ -1,0 +1,14 @@
+{
+  "config": {
+    "main_log": "woods_and_mires:pine_log",
+    "ground_log": "woods_and_mires:ground_pine_log",
+    "length": {
+      "type": "minecraft:uniform",
+      "value": {
+        "min_inclusive": 2,
+        "max_inclusive": 6
+      }
+    }
+  },
+  "type": "woods_and_mires:fallen_log"
+}
