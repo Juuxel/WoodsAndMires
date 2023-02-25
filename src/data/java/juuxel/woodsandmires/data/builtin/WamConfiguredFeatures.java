@@ -14,12 +14,11 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.util.collection.DataPool;
-import net.minecraft.util.math.Vec3i;
+import net.minecraft.util.math.VerticalSurfaceType;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.util.registry.RegistryEntryList;
-import net.minecraft.world.gen.blockpredicate.BlockPredicate;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.ConfiguredFeatures;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
@@ -33,6 +32,7 @@ import net.minecraft.world.gen.feature.SimpleRandomFeatureConfig;
 import net.minecraft.world.gen.feature.SingleStateFeatureConfig;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.feature.VegetationConfiguredFeatures;
+import net.minecraft.world.gen.feature.VegetationPatchFeatureConfig;
 import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
 import net.minecraft.world.gen.foliage.BlobFoliagePlacer;
 import net.minecraft.world.gen.foliage.PineFoliagePlacer;
@@ -230,17 +230,14 @@ public final class WamConfiguredFeatures {
     public static final RegistryEntry<ConfiguredFeature<FellPondFeatureConfig, ?>> FELL_POND;
     public static final RegistryEntry<ConfiguredFeature<ShrubFeatureConfig, ?>> FELL_BIRCH_SHRUB;
     public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> FELL_LICHEN;
+    public static final RegistryEntry<ConfiguredFeature<SimpleBlockFeatureConfig, ?>> FELL_MOSS_PATCH_VEGETATION;
+    public static final RegistryEntry<ConfiguredFeature<VegetationPatchFeatureConfig, ?>> FELL_MOSS_PATCH;
 
     static {
         FELL_VEGETATION = register("fell_vegetation", WamFeatures.MEADOW,
             new MeadowFeatureConfig(
-                new WeightedBlockStateProvider(
-                    DataPool.<BlockState>builder()
-                        .add(Blocks.GRASS.getDefaultState(), 3)
-                        .add(Blocks.MOSS_CARPET.getDefaultState(), 1)
-                ),
-                0.4f,
-                BlockPredicate.matchingBlockTag(BlockTags.DIRT, new Vec3i(0, -1, 0))
+                BlockStateProvider.of(Blocks.GRASS),
+                0.3f
             )
         );
         FELL_BOULDER = register("fell_boulder", Feature.FOREST_ROCK,
@@ -274,6 +271,29 @@ public final class WamConfiguredFeatures {
                 Feature.SIMPLE_BLOCK,
                 new SimpleBlockFeatureConfig(BlockStateProvider.of(WamBlocks.FELL_LICHEN)),
                 List.of(Blocks.STONE)
+            )
+        );
+        FELL_MOSS_PATCH_VEGETATION = register("fell_moss_patch_vegetation", Feature.SIMPLE_BLOCK,
+            new SimpleBlockFeatureConfig(
+                new WeightedBlockStateProvider(
+                    new DataPool.Builder<BlockState>()
+                        .add(Blocks.MOSS_CARPET.getDefaultState(), 3)
+                        .add(WamBlocks.FELL_LICHEN.getDefaultState(), 1)
+                )
+            )
+        );
+        FELL_MOSS_PATCH = register("fell_moss_patch", Feature.VEGETATION_PATCH,
+            new VegetationPatchFeatureConfig(
+                BlockTags.MOSS_REPLACEABLE,
+                BlockStateProvider.of(Blocks.MOSS_BLOCK),
+                PlacedFeatures.createEntry(FELL_MOSS_PATCH_VEGETATION),
+                VerticalSurfaceType.FLOOR,
+                ConstantIntProvider.create(1),
+                0f,
+                5,
+                0.75f,
+                UniformIntProvider.create(2, 4),
+                0.3f
             )
         );
     }
