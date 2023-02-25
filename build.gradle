@@ -88,7 +88,9 @@ tasks.withType(JavaCompile) {
 }
 
 jar {
-    from "COPYING", "COPYING.LESSER"
+    from(["COPYING", "COPYING.LESSER"]) {
+        into 'META-INF'
+    }
     exclude '.cache'
 }
 
