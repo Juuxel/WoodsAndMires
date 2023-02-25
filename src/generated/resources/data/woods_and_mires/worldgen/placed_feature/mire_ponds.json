@@ -1,4 +1,8 @@
 {
   "feature": "woods_and_mires:mire_ponds",
-  "placement": []
+  "placement": [
+    {
+      "type": "minecraft:biome"
+    }
+  ]
 }

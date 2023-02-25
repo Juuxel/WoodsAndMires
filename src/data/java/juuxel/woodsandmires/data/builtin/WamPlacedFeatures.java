@@ -67,7 +67,7 @@ public final class WamPlacedFeatures {
     public static final RegistryEntry<PlacedFeature> MIRE_PINE_SHRUB;
 
     static {
-        MIRE_PONDS = register("mire_ponds", WamConfiguredFeatures.MIRE_PONDS, List.of());
+        MIRE_PONDS = register("mire_ponds", WamConfiguredFeatures.MIRE_PONDS, List.of(BiomePlacementModifier.of()));
         MIRE_FLOWERS = register("mire_flowers", WamConfiguredFeatures.MIRE_FLOWERS, chanceModifiers(2));
         MIRE_MEADOW = register("mire_meadow", WamConfiguredFeatures.MIRE_MEADOW, List.of());
         MIRE_PINE_SNAG = register("mire_pine_snag", WamConfiguredFeatures.PINE_SNAG, treeModifiersWithWouldSurvive(RarityFilterPlacementModifier.of(6), WamBlocks.PINE_SAPLING));
