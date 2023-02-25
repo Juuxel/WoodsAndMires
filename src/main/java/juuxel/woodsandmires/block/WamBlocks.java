@@ -14,6 +14,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.FenceBlock;
 import net.minecraft.block.FenceGateBlock;
 import net.minecraft.block.FlowerPotBlock;
+import net.minecraft.block.MapColor;
 import net.minecraft.block.Material;
 import net.minecraft.block.PillarBlock;
 import net.minecraft.block.PressurePlateBlock;
@@ -57,9 +58,10 @@ public final class WamBlocks {
     public static final Block PINE_SNAG_WOOD = new PillarBlock(copyWoodSettings(Blocks.STRIPPED_OAK_WOOD));
     public static final Block PINE_SNAG_BRANCH = new BranchBlock(copyWoodSettings(PINE_SNAG_WOOD));
     public static final Block PINE_SHRUB_LOG = new ShrubLogBlock(copyWoodSettings(PINE_LOG).nonOpaque());
-    public static final Block FIREWEED = new TallFlowerBlock(createFlowerSettings());
-    public static final Block TANSY = new BigFlowerBlock(StatusEffects.SLOW_FALLING, 10, createFlowerSettings());
+    public static final Block FIREWEED = new TallFlowerBlock(createFlowerSettings(true));
+    public static final Block TANSY = new BigFlowerBlock(StatusEffects.SLOW_FALLING, 10, createFlowerSettings(false));
     public static final Block POTTED_TANSY = new FlowerPotBlock(TANSY, AbstractBlock.Settings.of(Material.DECORATION).breakInstantly());
+    public static final Block FELL_LICHEN = new LichenBlock(createFlowerSettings(false).mapColor(MapColor.OFF_WHITE));
 
     private WamBlocks() {
     }
@@ -88,6 +90,7 @@ public final class WamBlocks {
         register("fireweed", FIREWEED, new TallBlockItem(FIREWEED, new Item.Settings().group(ItemGroup.DECORATIONS)));
         register("tansy", TANSY, ItemGroup.DECORATIONS);
         register("potted_tansy", POTTED_TANSY, (Item) null);
+        register("fell_lichen", FELL_LICHEN, ItemGroup.DECORATIONS);
 
         FlammableBlockRegistry fbr = FlammableBlockRegistry.getDefaultInstance();
         fbr.add(PINE_LOG, 5, 5);
@@ -131,7 +134,8 @@ public final class WamBlocks {
             POTTED_PINE_SAPLING,
             FIREWEED,
             TANSY,
-            POTTED_TANSY
+            POTTED_TANSY,
+            FELL_LICHEN
         );
 
         ColorProviderRegistry.BLOCK.register(
@@ -176,8 +180,8 @@ public final class WamBlocks {
         return AbstractBlock.Settings.copy(block);
     }
 
-    private static AbstractBlock.Settings createFlowerSettings() {
-        return AbstractBlock.Settings.of(Material.REPLACEABLE_PLANT)
+    private static AbstractBlock.Settings createFlowerSettings(boolean tall) {
+        return AbstractBlock.Settings.of(tall ? Material.REPLACEABLE_PLANT : Material.PLANT)
             .noCollision()
             .breakInstantly()
             .sounds(BlockSoundGroup.GRASS);

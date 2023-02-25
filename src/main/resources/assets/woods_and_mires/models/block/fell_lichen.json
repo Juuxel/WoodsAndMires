@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "woods_and_mires:block/fell_lichen"
+  }
+}
