@@ -12,6 +12,8 @@ import com.mojang.serialization.JsonOps;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.text.LiteralText;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 
 import java.io.IOException;
@@ -50,6 +52,7 @@ public final class WamDev {
             JsonElement json = BlockPos.CODEC.encodeStart(JsonOps.INSTANCE, pos)
                 .getOrThrow(false, error -> {});
             Files.writeString(marked, GSON.toJson(json));
+            context.getSource().sendFeedback(new LiteralText("Marked " + pos.toShortString()).formatted(Formatting.GREEN), false);
         } catch (Exception e) {
             throw EXCEPTION_COMMAND.create(e);
         }
@@ -67,6 +70,7 @@ public final class WamDev {
             BlockPos pos = BlockPos.CODEC.decode(JsonOps.INSTANCE, json)
                 .getOrThrow(false, error -> {})
                 .getFirst();
+            context.getSource().sendFeedback(new LiteralText("Recalling " + pos.toShortString()).formatted(Formatting.GREEN), false);
             context.getSource().getPlayer().teleport(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
         } catch (CommandSyntaxException e) {
             throw e;
