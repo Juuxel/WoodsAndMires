@@ -89,6 +89,7 @@ tasks.withType(JavaCompile) {
 
 jar {
     from "COPYING", "COPYING.LESSER"
+    exclude '.cache'
 }
 
 // configure the maven publication
