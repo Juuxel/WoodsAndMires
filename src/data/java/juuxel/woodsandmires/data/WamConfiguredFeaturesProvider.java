@@ -33,7 +33,8 @@ public final class WamConfiguredFeaturesProvider extends EncoderBasedDataProvide
             WamConfiguredFeatures.FELL_VEGETATION,
             WamConfiguredFeatures.FELL_BOULDER,
             WamConfiguredFeatures.FELL_POND,
-            WamConfiguredFeatures.FELL_BIRCH_SHRUB
+            WamConfiguredFeatures.FELL_BIRCH_SHRUB,
+            WamConfiguredFeatures.FELL_LICHEN
         ).map(RegistryEntry::value);
     }
 

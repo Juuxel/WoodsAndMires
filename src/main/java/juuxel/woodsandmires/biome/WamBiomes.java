@@ -216,6 +216,7 @@ public final class WamBiomes {
             DefaultBiomeFeatures.addDefaultMushrooms(builder);
             DefaultBiomeFeatures.addDefaultVegetation(builder);
 
+            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.FELL_LICHEN);
             builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.FELL_VEGETATION);
             builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.FELL_BIRCH_SHRUB);
             builder.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, WamPlacedFeatures.FELL_BOULDER);

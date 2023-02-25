@@ -2,7 +2,6 @@ package juuxel.woodsandmires.feature;
 
 import com.google.common.collect.ImmutableList;
 import juuxel.woodsandmires.WoodsAndMires;
-import juuxel.woodsandmires.biome.WamBiomes;
 import juuxel.woodsandmires.block.WamBlocks;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBiomeTags;
@@ -111,6 +110,7 @@ public final class WamPlacedFeatures {
     public static final RegistryEntry<PlacedFeature> FELL_BOULDER;
     public static final RegistryEntry<PlacedFeature> FELL_POND;
     public static final RegistryEntry<PlacedFeature> FELL_BIRCH_SHRUB;
+    public static final RegistryEntry<PlacedFeature> FELL_LICHEN;
 
     static {
         FELL_VEGETATION = register("fell_vegetation", WamConfiguredFeatures.FELL_VEGETATION, List.of());
@@ -125,6 +125,7 @@ public final class WamPlacedFeatures {
                 )
             )
         );
+        FELL_LICHEN = register("fell_lichen", WamConfiguredFeatures.FELL_LICHEN, chanceModifiers(2));
     }
 
     // Vanilla biomes

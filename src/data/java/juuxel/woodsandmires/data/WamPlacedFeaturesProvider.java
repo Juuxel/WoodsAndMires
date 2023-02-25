@@ -36,6 +36,7 @@ public final class WamPlacedFeaturesProvider extends EncoderBasedDataProvider<Pl
             WamPlacedFeatures.FELL_BOULDER,
             WamPlacedFeatures.FELL_POND,
             WamPlacedFeatures.FELL_BIRCH_SHRUB,
+            WamPlacedFeatures.FELL_LICHEN,
             WamPlacedFeatures.PLAINS_FLOWERS,
             WamPlacedFeatures.FOREST_TANSY
         ).map(RegistryEntry::value);

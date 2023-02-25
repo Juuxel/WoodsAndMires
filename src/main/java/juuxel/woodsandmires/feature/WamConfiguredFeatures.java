@@ -221,6 +221,7 @@ public final class WamConfiguredFeatures {
     public static final RegistryEntry<ConfiguredFeature<SingleStateFeatureConfig, ?>> FELL_BOULDER;
     public static final RegistryEntry<ConfiguredFeature<FellPondFeatureConfig, ?>> FELL_POND;
     public static final RegistryEntry<ConfiguredFeature<ShrubFeatureConfig, ?>> FELL_BIRCH_SHRUB;
+    public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> FELL_LICHEN;
 
     static {
         FELL_VEGETATION = register("fell_vegetation", WamFeatures.MEADOW,
@@ -253,6 +254,13 @@ public final class WamConfiguredFeatures {
                 Blocks.BIRCH_LOG.getDefaultState(),
                 Blocks.BIRCH_LEAVES.getDefaultState(),
                 1, 1, 0.7f
+            )
+        );
+        FELL_LICHEN = register("fell_lichen", Feature.RANDOM_PATCH,
+            ConfiguredFeatures.createRandomPatchFeatureConfig(
+                Feature.SIMPLE_BLOCK,
+                new SimpleBlockFeatureConfig(BlockStateProvider.of(WamBlocks.FELL_LICHEN)),
+                List.of(Blocks.STONE)
             )
         );
     }
