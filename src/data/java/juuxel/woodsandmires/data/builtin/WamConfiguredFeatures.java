@@ -1,7 +1,12 @@
-package juuxel.woodsandmires.feature;
+package juuxel.woodsandmires.data.builtin;
 
 import juuxel.woodsandmires.WoodsAndMires;
 import juuxel.woodsandmires.block.WamBlocks;
+import juuxel.woodsandmires.feature.FallenLogFeatureConfig;
+import juuxel.woodsandmires.feature.FellPondFeatureConfig;
+import juuxel.woodsandmires.feature.MeadowFeatureConfig;
+import juuxel.woodsandmires.feature.ShrubFeatureConfig;
+import juuxel.woodsandmires.feature.WamFeatures;
 import juuxel.woodsandmires.tree.BranchTreeDecorator;
 import juuxel.woodsandmires.tree.PineTrunkTreeDecorator;
 import net.minecraft.block.Block;
@@ -10,8 +15,6 @@ import net.minecraft.block.Blocks;
 import net.minecraft.util.collection.DataPool;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
-import net.minecraft.util.registry.BuiltinRegistries;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.util.registry.RegistryEntryList;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
@@ -40,6 +43,8 @@ import net.minecraft.world.gen.trunk.StraightTrunkPlacer;
 import java.util.List;
 
 public final class WamConfiguredFeatures {
+    public static final RegistryCollector<RegistryEntry<? extends ConfiguredFeature<?, ?>>> CONFIGURED_FEATURES = new RegistryCollector<>();
+
     // General
     public static final RegistryEntry<ConfiguredFeature<ShrubFeatureConfig, ?>> SHORT_PINE_SHRUB;
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> PINE;
@@ -269,11 +274,11 @@ public final class WamConfiguredFeatures {
     }
 
     private static <FC extends FeatureConfig, F extends Feature<FC>> RegistryEntry<ConfiguredFeature<FC, ?>> register(String id, F feature, FC config) {
-        return ConfiguredFeatures.register(WoodsAndMires.ID + ':' + id, feature, config);
+        return CONFIGURED_FEATURES.add(ConfiguredFeatures.register(WoodsAndMires.ID + ':' + id, feature, config));
     }
 
     private static RegistryEntry<ConfiguredFeature<DefaultFeatureConfig, ?>> register(String id, Feature<DefaultFeatureConfig> feature) {
-        return ConfiguredFeatures.register(WoodsAndMires.ID + ':' + id, feature);
+        return CONFIGURED_FEATURES.add(ConfiguredFeatures.register(WoodsAndMires.ID + ':' + id, feature));
     }
 
     private static RegistryEntry<PlacedFeature> createFlowerPatchFeature(Block block) {

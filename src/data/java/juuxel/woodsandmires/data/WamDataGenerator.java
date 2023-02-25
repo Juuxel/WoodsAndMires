@@ -1,8 +1,8 @@
 package juuxel.woodsandmires.data;
 
-import juuxel.woodsandmires.biome.WamBiomes;
-import juuxel.woodsandmires.feature.WamConfiguredFeatures;
-import juuxel.woodsandmires.feature.WamPlacedFeatures;
+import juuxel.woodsandmires.data.builtin.WamBiomes;
+import juuxel.woodsandmires.data.builtin.WamConfiguredFeatures;
+import juuxel.woodsandmires.data.builtin.WamPlacedFeatures;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;

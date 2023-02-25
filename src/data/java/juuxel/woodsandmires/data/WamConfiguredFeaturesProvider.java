@@ -1,6 +1,6 @@
 package juuxel.woodsandmires.data;
 
-import juuxel.woodsandmires.feature.WamConfiguredFeatures;
+import juuxel.woodsandmires.data.builtin.WamConfiguredFeatures;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.RegistryEntry;
@@ -15,27 +15,7 @@ public final class WamConfiguredFeaturesProvider extends EncoderBasedDataProvide
 
     @Override
     protected Stream<ConfiguredFeature<?, ?>> getEntries() {
-        return Stream.of(
-            WamConfiguredFeatures.SHORT_PINE_SHRUB,
-            WamConfiguredFeatures.PINE,
-            WamConfiguredFeatures.GIANT_PINE,
-            WamConfiguredFeatures.PINE_SNAG,
-            WamConfiguredFeatures.PLAINS_FLOWERS,
-            WamConfiguredFeatures.PINE_FROM_SAPLING,
-            WamConfiguredFeatures.PINE_FOREST_BOULDER,
-            WamConfiguredFeatures.FOREST_TANSY,
-            WamConfiguredFeatures.MIRE_PONDS,
-            WamConfiguredFeatures.MIRE_FLOWERS,
-            WamConfiguredFeatures.MIRE_MEADOW,
-            WamConfiguredFeatures.CLEARING_MEADOW,
-            WamConfiguredFeatures.CLEARING_PINE_SHRUB,
-            WamConfiguredFeatures.CLEARING_FALLEN_PINE,
-            WamConfiguredFeatures.FELL_VEGETATION,
-            WamConfiguredFeatures.FELL_BOULDER,
-            WamConfiguredFeatures.FELL_POND,
-            WamConfiguredFeatures.FELL_BIRCH_SHRUB,
-            WamConfiguredFeatures.FELL_LICHEN
-        ).map(RegistryEntry::value);
+        return WamConfiguredFeatures.CONFIGURED_FEATURES.stream().map(RegistryEntry::value);
     }
 
     @Override

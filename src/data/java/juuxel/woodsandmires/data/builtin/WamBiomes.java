@@ -1,12 +1,10 @@
-package juuxel.woodsandmires.biome;
+package juuxel.woodsandmires.data.builtin;
 
-import juuxel.woodsandmires.WoodsAndMires;
-import juuxel.woodsandmires.feature.WamPlacedFeatures;
+import juuxel.woodsandmires.biome.WamBiomeKeys;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.sound.BiomeMoodSound;
 import net.minecraft.util.registry.BuiltinRegistries;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeEffects;
@@ -20,31 +18,23 @@ import net.minecraft.world.gen.feature.VegetationPlacedFeatures;
 import java.util.function.Consumer;
 
 public final class WamBiomes {
-    public static final RegistryKey<Biome> PINE_FOREST = key("pine_forest");
-    public static final RegistryKey<Biome> SNOWY_PINE_FOREST = key("snowy_pine_forest");
-    public static final RegistryKey<Biome> OLD_GROWTH_PINE_FOREST = key("old_growth_pine_forest");
-    public static final RegistryKey<Biome> PINE_FOREST_CLEARING = key("pine_forest_clearing");
-    public static final RegistryKey<Biome> PINE_MIRE = key("pine_mire");
-    public static final RegistryKey<Biome> FELL = key("fell");
+    public static final RegistryCollector<Biome> BIOMES = new RegistryCollector<>();
 
     private WamBiomes() {
     }
 
     public static void register() {
-        register(PINE_FOREST, pineForest());
-        register(SNOWY_PINE_FOREST, snowyPineForest());
-        register(OLD_GROWTH_PINE_FOREST, oldGrowthPineForest());
-        register(PINE_FOREST_CLEARING, pineForestClearing());
-        register(PINE_MIRE, pineMire());
-        register(FELL, fell());
-    }
-
-    private static RegistryKey<Biome> key(String id) {
-        return RegistryKey.of(Registry.BIOME_KEY, WoodsAndMires.id(id));
+        register(WamBiomeKeys.PINE_FOREST, pineForest());
+        register(WamBiomeKeys.SNOWY_PINE_FOREST, snowyPineForest());
+        register(WamBiomeKeys.OLD_GROWTH_PINE_FOREST, oldGrowthPineForest());
+        register(WamBiomeKeys.PINE_FOREST_CLEARING, pineForestClearing());
+        register(WamBiomeKeys.PINE_MIRE, pineMire());
+        register(WamBiomeKeys.FELL, fell());
     }
 
     private static void register(RegistryKey<Biome> key, Biome biome) {
         BuiltinRegistries.add(BuiltinRegistries.BIOME, key, biome);
+        BIOMES.add(biome);
     }
 
     private static int getSkyColor(float temperature) {

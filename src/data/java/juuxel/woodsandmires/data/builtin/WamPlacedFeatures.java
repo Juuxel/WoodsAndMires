@@ -1,17 +1,13 @@
-package juuxel.woodsandmires.feature;
+package juuxel.woodsandmires.data.builtin;
 
 import com.google.common.collect.ImmutableList;
 import juuxel.woodsandmires.WoodsAndMires;
 import juuxel.woodsandmires.block.WamBlocks;
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBiomeTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.intprovider.ClampedIntProvider;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.util.registry.RegistryEntry;
-import net.minecraft.world.biome.BiomeKeys;
-import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.PlacedFeature;
 import net.minecraft.world.gen.feature.PlacedFeatures;
@@ -26,6 +22,8 @@ import net.minecraft.world.gen.placementmodifier.SquarePlacementModifier;
 import java.util.List;
 
 public final class WamPlacedFeatures {
+    public static final RegistryCollector<RegistryEntry<PlacedFeature>> PLACED_FEATURES = new RegistryCollector<>();
+
     private static List<PlacementModifier> cons(PlacementModifier head, List<PlacementModifier> tail) {
         return ImmutableList.<PlacementModifier>builder().add(head).addAll(tail).build();
     }
@@ -149,6 +147,6 @@ public final class WamPlacedFeatures {
     }
 
     private static RegistryEntry<PlacedFeature> register(String id, RegistryEntry<? extends ConfiguredFeature<?, ?>> feature, List<PlacementModifier> modifiers) {
-        return PlacedFeatures.register(WoodsAndMires.ID + ':' + id, feature, modifiers);
+        return PLACED_FEATURES.add(PlacedFeatures.register(WoodsAndMires.ID + ':' + id, feature, modifiers));
     }
 }

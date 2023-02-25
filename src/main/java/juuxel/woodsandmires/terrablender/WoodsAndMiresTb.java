@@ -1,7 +1,7 @@
 package juuxel.woodsandmires.terrablender;
 
 import juuxel.woodsandmires.WoodsAndMires;
-import juuxel.woodsandmires.biome.WamBiomes;
+import juuxel.woodsandmires.biome.WamBiomeKeys;
 import net.minecraft.block.Blocks;
 import net.minecraft.world.gen.surfacebuilder.MaterialRules;
 import net.minecraft.world.gen.surfacebuilder.VanillaSurfaceRules;
@@ -19,7 +19,7 @@ public final class WoodsAndMiresTb implements TerraBlenderApi {
     private static MaterialRules.MaterialRule createSurfaceRule() {
         return MaterialRules.sequence(
             MaterialRules.condition(
-                MaterialRules.biome(WamBiomes.FELL),
+                MaterialRules.biome(WamBiomeKeys.FELL),
                 MaterialRules.condition(VanillaSurfaceRules.surfaceNoiseThreshold(1.75), VanillaSurfaceRules.block(Blocks.STONE))
             )
         );
