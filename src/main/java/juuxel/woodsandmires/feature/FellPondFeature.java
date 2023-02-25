@@ -11,9 +11,11 @@ import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.util.FeatureContext;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public final class FellPondFeature extends Feature<FellPondFeatureConfig> {
+    private static final List<Direction> BORDER_DIRECTIONS = List.of(Direction.DOWN, Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST);
     private static final int MAX_HEIGHT_TO_DIG = 2;
 
     public FellPondFeature(Codec<FellPondFeatureConfig> configCodec) {
@@ -85,7 +87,7 @@ public final class FellPondFeature extends Feature<FellPondFeatureConfig> {
                         setBlockState(context.getWorld(), mut, config.fillBlock().getBlockState(random, mut));
                         filledPositions.add(new BlockPos(mut));
 
-                        for (Direction d : Direction.Type.HORIZONTAL) {
+                        for (Direction d : BORDER_DIRECTIONS) {
                             mut.move(d);
 
                             if (!filledPositions.contains(mut) && shouldPlaceBorder(context.getWorld(), mut)) {
