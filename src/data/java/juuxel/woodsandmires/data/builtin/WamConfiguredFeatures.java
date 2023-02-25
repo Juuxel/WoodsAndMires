@@ -12,11 +12,14 @@ import juuxel.woodsandmires.tree.PineTrunkTreeDecorator;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.tag.BlockTags;
 import net.minecraft.util.collection.DataPool;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.util.registry.RegistryEntryList;
+import net.minecraft.world.gen.blockpredicate.BlockPredicate;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.ConfiguredFeatures;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
@@ -231,8 +234,13 @@ public final class WamConfiguredFeatures {
     static {
         FELL_VEGETATION = register("fell_vegetation", WamFeatures.MEADOW,
             new MeadowFeatureConfig(
-                new WeightedBlockStateProvider(DataPool.<BlockState>builder().add(Blocks.GRASS.getDefaultState(), 1)),
-                0.3f
+                new WeightedBlockStateProvider(
+                    DataPool.<BlockState>builder()
+                        .add(Blocks.GRASS.getDefaultState(), 3)
+                        .add(Blocks.MOSS_CARPET.getDefaultState(), 1)
+                ),
+                0.4f,
+                BlockPredicate.matchingBlockTag(BlockTags.DIRT, new Vec3i(0, -1, 0))
             )
         );
         FELL_BOULDER = register("fell_boulder", Feature.FOREST_ROCK,

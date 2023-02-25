@@ -31,6 +31,8 @@ public class MeadowFeature extends Feature<MeadowFeatureConfig> {
                 int y = world.getTopY(Heightmap.Type.MOTION_BLOCKING, xo, zo);
                 mut.set(xo, y, zo);
 
+                if (!config.allowedPlacement.test(world, mut)) continue;
+
                 BlockState vegetation = config.stateProvider.getBlockState(random, mut);
                 if (world.isAir(mut) && vegetation.canPlaceAt(world, mut)) {
                     setBlockState(world, mut, vegetation);
