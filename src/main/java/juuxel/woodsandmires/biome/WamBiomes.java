@@ -30,7 +30,7 @@ public final class WamBiomes {
     private WamBiomes() {
     }
 
-    public static void init() {
+    public static void register() {
         register(PINE_FOREST, pineForest());
         register(SNOWY_PINE_FOREST, snowyPineForest());
         register(OLD_GROWTH_PINE_FOREST, oldGrowthPineForest());

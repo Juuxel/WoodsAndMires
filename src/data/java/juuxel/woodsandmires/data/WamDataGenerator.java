@@ -11,8 +11,8 @@ public final class WamDataGenerator implements ModInitializer, DataGeneratorEntr
     @Override
     public void onInitialize() {
         WamConfiguredFeatures.register();
-        WamPlacedFeatures.init();
-        WamBiomes.init();
+        WamPlacedFeatures.register();
+        WamBiomes.register();
     }
 
     @Override

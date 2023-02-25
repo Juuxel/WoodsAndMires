@@ -145,18 +145,7 @@ public final class WamPlacedFeatures {
     private WamPlacedFeatures() {
     }
 
-    public static void init() {
-        BiomeModifications.addFeature(
-            context -> context.getBiomeKey() == BiomeKeys.PLAINS,
-            GenerationStep.Feature.VEGETAL_DECORATION,
-            PLAINS_FLOWERS.getKey().get()
-        );
-
-        BiomeModifications.addFeature(
-            context -> context.hasTag(ConventionalBiomeTags.FOREST) && !WoodsAndMires.ID.equals(context.getBiomeKey().getValue().getNamespace()),
-            GenerationStep.Feature.VEGETAL_DECORATION,
-            FOREST_TANSY.getKey().get()
-        );
+    public static void register() {
     }
 
     private static RegistryEntry<PlacedFeature> register(String id, RegistryEntry<? extends ConfiguredFeature<?, ?>> feature, List<PlacementModifier> modifiers) {
