@@ -52,5 +52,7 @@ public final class WamBlockLootTableProvider extends FabricBlockLootTableProvide
         addPottedPlantDrop(WamBlocks.POTTED_TANSY);
         addDrop(WamBlocks.FELL_LICHEN);
         addPottedPlantDrop(WamBlocks.POTTED_FELL_LICHEN);
+        addDrop(WamBlocks.HEATHER);
+        addPottedPlantDrop(WamBlocks.POTTED_HEATHER);
     }
 }

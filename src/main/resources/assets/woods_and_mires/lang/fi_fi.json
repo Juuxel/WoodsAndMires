@@ -9,6 +9,7 @@
 
   "block.woods_and_mires.fell_lichen": "Tunturijäkälä",
   "block.woods_and_mires.fireweed": "Horsma",
+  "block.woods_and_mires.heather": "Kanerva",
   "block.woods_and_mires.pine_button": "Mäntynappi",
   "block.woods_and_mires.pine_fence": "Mäntyaita",
   "block.woods_and_mires.pine_fence_gate": "Mäntyportti",
@@ -25,6 +26,7 @@
   "block.woods_and_mires.pine_stairs": "Mäntyportaat",
   "block.woods_and_mires.pine_wood": "Mäntypuu",
   "block.woods_and_mires.potted_fell_lichen": "Istutettu tunturijäkälä",
+  "block.woods_and_mires.potted_heather": "Istutettu kanerva",
   "block.woods_and_mires.potted_pine_sapling": "Istutettu männyn taimi",
   "block.woods_and_mires.potted_tansy": "Istutettu pietaryrtti",
   "block.woods_and_mires.stripped_pine_log": "Kuorittu mäntyhalko",
