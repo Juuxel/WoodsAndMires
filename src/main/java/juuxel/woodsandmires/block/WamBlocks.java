@@ -62,6 +62,7 @@ public final class WamBlocks {
     public static final Block TANSY = new BigFlowerBlock(StatusEffects.SLOW_FALLING, 10, createFlowerSettings(false));
     public static final Block POTTED_TANSY = new FlowerPotBlock(TANSY, AbstractBlock.Settings.of(Material.DECORATION).breakInstantly());
     public static final Block FELL_LICHEN = new LichenBlock(createFlowerSettings(false).mapColor(MapColor.OFF_WHITE));
+    public static final Block POTTED_FELL_LICHEN = new FlowerPotBlock(FELL_LICHEN, AbstractBlock.Settings.of(Material.DECORATION).breakInstantly());
 
     private WamBlocks() {
     }
@@ -91,6 +92,7 @@ public final class WamBlocks {
         register("tansy", TANSY, ItemGroup.DECORATIONS);
         register("potted_tansy", POTTED_TANSY, (Item) null);
         register("fell_lichen", FELL_LICHEN, ItemGroup.DECORATIONS);
+        register("potted_fell_lichen", POTTED_FELL_LICHEN, (Item) null);
 
         FlammableBlockRegistry fbr = FlammableBlockRegistry.getDefaultInstance();
         fbr.add(PINE_LOG, 5, 5);
@@ -135,7 +137,8 @@ public final class WamBlocks {
             FIREWEED,
             TANSY,
             POTTED_TANSY,
-            FELL_LICHEN
+            FELL_LICHEN,
+            POTTED_FELL_LICHEN
         );
 
         ColorProviderRegistry.BLOCK.register(
