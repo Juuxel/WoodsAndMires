@@ -16,6 +16,7 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 
+// TODO (2.0): Add the scheduled tick change to all waterloggable blocks
 public class ShrubLogBlock extends PillarBlock implements Waterloggable {
     public static final BooleanProperty HAS_LEAVES = BooleanProperty.of("has_leaves");
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
@@ -26,6 +27,7 @@ public class ShrubLogBlock extends PillarBlock implements Waterloggable {
 
     public ShrubLogBlock(Settings settings) {
         super(settings);
+        setDefaultState(getDefaultState().with(HAS_LEAVES, false).with(WATERLOGGED, false));
     }
 
     @Override
