@@ -10,3 +10,6 @@ accessible method net/minecraft/world/gen/surfacebuilder/VanillaSurfaceRules sur
 accessible method net/minecraft/world/gen/surfacebuilder/VanillaSurfaceRules block (Lnet/minecraft/block/Block;)Lnet/minecraft/world/gen/surfacebuilder/MaterialRules$MaterialRule;
 accessible method net/minecraft/world/gen/treedecorator/TreeDecoratorType <init> (Lcom/mojang/serialization/Codec;)V
 accessible method net/minecraft/world/gen/feature/VegetationConfiguredFeatures createRandomPatchFeatureConfig (Lnet/minecraft/world/gen/stateprovider/BlockStateProvider;I)Lnet/minecraft/world/gen/feature/RandomPatchFeatureConfig;
+
+# Data generation
+accessible field net/minecraft/data/server/BlockLootTableGenerator SAPLING_DROP_CHANCE [F
