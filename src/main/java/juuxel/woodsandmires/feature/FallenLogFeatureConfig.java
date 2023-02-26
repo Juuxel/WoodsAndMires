@@ -6,7 +6,6 @@ import net.minecraft.block.Block;
 import net.minecraft.util.math.intprovider.IntProvider;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.feature.FeatureConfig;
-import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 
 public record FallenLogFeatureConfig(Block mainLog, Block groundLog, IntProvider length) implements FeatureConfig {
     public static final Codec<FallenLogFeatureConfig> CODEC = RecordCodecBuilder.create(
