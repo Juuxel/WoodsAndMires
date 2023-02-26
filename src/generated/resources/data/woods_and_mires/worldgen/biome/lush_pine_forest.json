@@ -27,8 +27,7 @@
     ],
     [
       "minecraft:amethyst_geode",
-      "woods_and_mires:pine_forest_boulder",
-      "minecraft:forest_rock"
+      "woods_and_mires:pine_forest_boulder"
     ],
     [
       "minecraft:monster_room",
@@ -79,15 +78,10 @@
       "minecraft:flower_default",
       "woods_and_mires:pine_forest_heather_patch",
       "minecraft:patch_grass_forest",
-      "minecraft:trees_plains",
-      "minecraft:flower_plains",
-      "minecraft:patch_grass_plain",
+      "woods_and_mires:fallen_pine",
       "minecraft:flower_warm",
-      "woods_and_mires:clearing_fallen_pine",
-      "woods_and_mires:clearing_pine_shrub",
-      "woods_and_mires:clearing_snag",
-      "woods_and_mires:clearing_birch",
-      "woods_and_mires:clearing_flowers",
+      "woods_and_mires:lush_pine_forest_trees",
+      "woods_and_mires:lush_pine_forest_flowers",
       "minecraft:brown_mushroom_normal",
       "minecraft:red_mushroom_normal",
       "minecraft:patch_sugar_cane",
@@ -95,8 +89,7 @@
       "minecraft:patch_berry_common"
     ],
     [
-      "minecraft:freeze_top_layer",
-      "woods_and_mires:clearing_meadow"
+      "minecraft:freeze_top_layer"
     ]
   ],
   "spawners": {
@@ -213,5 +206,5 @@
   "precipitation": "rain",
   "temperature": 0.6,
   "downfall": 0.6,
-  "category": "plains"
+  "category": "forest"
 }

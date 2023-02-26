@@ -1,0 +1,56 @@
+{
+  "config": {
+    "features": [
+      {
+        "feature": {
+          "feature": "woods_and_mires:thin_pine_shrub",
+          "placement": [
+            {
+              "predicate": {
+                "state": {
+                  "Properties": {
+                    "stage": "0"
+                  },
+                  "Name": "woods_and_mires:pine_sapling"
+                },
+                "type": "minecraft:would_survive"
+              },
+              "type": "minecraft:block_predicate_filter"
+            }
+          ]
+        },
+        "chance": 0.12
+      },
+      {
+        "feature": "minecraft:birch_bees_0002",
+        "chance": 0.1
+      },
+      {
+        "feature": "minecraft:oak_bees_0002",
+        "chance": 0.1
+      },
+      {
+        "feature": "minecraft:fancy_oak_bees_0002",
+        "chance": 0.1
+      }
+    ],
+    "default": {
+      "feature": "woods_and_mires:less_podzol_pine",
+      "placement": [
+        {
+          "predicate": {
+            "state": {
+              "Properties": {
+                "stage": "0"
+              },
+              "Name": "woods_and_mires:pine_sapling"
+            },
+            "type": "minecraft:would_survive"
+          },
+          "type": "minecraft:block_predicate_filter"
+        }
+      ]
+    }
+  },
+  "type": "minecraft:random_selector"
+}

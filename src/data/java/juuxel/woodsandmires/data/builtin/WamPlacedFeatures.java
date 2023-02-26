@@ -11,7 +11,6 @@ import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.PlacedFeature;
 import net.minecraft.world.gen.feature.PlacedFeatures;
-import net.minecraft.world.gen.feature.TreeConfiguredFeatures;
 import net.minecraft.world.gen.feature.VegetationPlacedFeatures;
 import net.minecraft.world.gen.placementmodifier.BiomePlacementModifier;
 import net.minecraft.world.gen.placementmodifier.CountPlacementModifier;
@@ -51,6 +50,9 @@ public final class WamPlacedFeatures {
     public static final RegistryEntry<PlacedFeature> GIANT_PINE;
     public static final RegistryEntry<PlacedFeature> PINE_FOREST_BOULDER;
     public static final RegistryEntry<PlacedFeature> PINE_FOREST_HEATHER_PATCH;
+    public static final RegistryEntry<PlacedFeature> LUSH_PINE_FOREST_TREES;
+    public static final RegistryEntry<PlacedFeature> LUSH_PINE_FOREST_FLOWERS;
+    public static final RegistryEntry<PlacedFeature> FALLEN_PINE;
 
     static {
         FOREST_PINE = register("forest_pine", WamConfiguredFeatures.PINE, treeModifiersWithWouldSurvive(CountPlacementModifier.of(10), WamBlocks.PINE_SAPLING));
@@ -59,6 +61,9 @@ public final class WamPlacedFeatures {
         GIANT_PINE = register("giant_pine", WamConfiguredFeatures.GIANT_PINE, treeModifiersWithWouldSurvive(CountPlacementModifier.of(2), WamBlocks.PINE_SAPLING));
         PINE_FOREST_BOULDER = register("pine_forest_boulder", WamConfiguredFeatures.PINE_FOREST_BOULDER, chanceModifiers(16));
         PINE_FOREST_HEATHER_PATCH = register("pine_forest_heather_patch", WamConfiguredFeatures.HEATHER_PATCH, chanceModifiers(12));
+        LUSH_PINE_FOREST_TREES = register("lush_pine_forest_trees", WamConfiguredFeatures.LUSH_PINE_FOREST_TREES, treeModifiers(PlacedFeatures.createCountExtraModifier(8, 0.1f, 1)));
+        LUSH_PINE_FOREST_FLOWERS = register("lush_pine_forest_flowers", WamConfiguredFeatures.PLAINS_FLOWERS, chanceModifiers(2));
+        FALLEN_PINE = register("fallen_pine", WamConfiguredFeatures.FALLEN_PINE, chanceModifiers(7));
     }
 
     // Mire
@@ -79,30 +84,6 @@ public final class WamPlacedFeatures {
                 WamBlocks.PINE_SAPLING
             )
         );
-    }
-
-    // Clearings
-    public static final RegistryEntry<PlacedFeature> CLEARING_MEADOW;
-    public static final RegistryEntry<PlacedFeature> CLEARING_BIRCH;
-    public static final RegistryEntry<PlacedFeature> CLEARING_FLOWERS;
-    public static final RegistryEntry<PlacedFeature> CLEARING_SNAG;
-    public static final RegistryEntry<PlacedFeature> CLEARING_PINE_SHRUB;
-    public static final RegistryEntry<PlacedFeature> CLEARING_FALLEN_PINE;
-
-    static {
-        CLEARING_MEADOW = register("clearing_meadow", WamConfiguredFeatures.CLEARING_MEADOW, List.of());
-        CLEARING_BIRCH = register("clearing_birch", TreeConfiguredFeatures.BIRCH_BEES_005,
-            treeModifiersWithWouldSurvive(RarityFilterPlacementModifier.of(3), Blocks.BIRCH_SAPLING)
-        );
-        CLEARING_FLOWERS = register("clearing_flowers", WamConfiguredFeatures.PLAINS_FLOWERS, chanceModifiers(2));
-        CLEARING_SNAG = register("clearing_snag", WamConfiguredFeatures.PINE_SNAG, treeModifiersWithWouldSurvive(RarityFilterPlacementModifier.of(2), WamBlocks.PINE_SAPLING));
-        CLEARING_PINE_SHRUB = register("clearing_pine_shrub", WamConfiguredFeatures.CLEARING_PINE_SHRUB,
-            treeModifiersWithWouldSurvive(
-                PlacedFeatures.createCountExtraModifier(4, 1/3f, 3),
-                WamBlocks.PINE_SAPLING
-            )
-        );
-        CLEARING_FALLEN_PINE = register("clearing_fallen_pine", WamConfiguredFeatures.CLEARING_FALLEN_PINE, chanceModifiers(3));
     }
 
     // Fells

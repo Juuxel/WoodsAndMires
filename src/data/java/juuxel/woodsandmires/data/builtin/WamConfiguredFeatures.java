@@ -28,11 +28,14 @@ import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.FeatureConfig;
 import net.minecraft.world.gen.feature.PlacedFeature;
 import net.minecraft.world.gen.feature.PlacedFeatures;
+import net.minecraft.world.gen.feature.RandomFeatureConfig;
+import net.minecraft.world.gen.feature.RandomFeatureEntry;
 import net.minecraft.world.gen.feature.RandomPatchFeatureConfig;
 import net.minecraft.world.gen.feature.SimpleBlockFeatureConfig;
 import net.minecraft.world.gen.feature.SimpleRandomFeatureConfig;
 import net.minecraft.world.gen.feature.SingleStateFeatureConfig;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
+import net.minecraft.world.gen.feature.TreePlacedFeatures;
 import net.minecraft.world.gen.feature.VegetationConfiguredFeatures;
 import net.minecraft.world.gen.feature.VegetationPatchFeatureConfig;
 import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
@@ -52,14 +55,18 @@ public final class WamConfiguredFeatures {
 
     // General
     public static final RegistryEntry<ConfiguredFeature<ShrubFeatureConfig, ?>> SHORT_PINE_SHRUB;
+    public static final RegistryEntry<ConfiguredFeature<ShrubFeatureConfig, ?>> THIN_PINE_SHRUB;
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> PINE;
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> GIANT_PINE;
-    public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> PINE_SNAG;
+    public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> PINE_SNAG; // TODO: Add these to old growth PFs
     public static final RegistryEntry<ConfiguredFeature<SimpleRandomFeatureConfig, ?>> PLAINS_FLOWERS;
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> PINE_FROM_SAPLING;
     public static final RegistryEntry<ConfiguredFeature<SingleStateFeatureConfig, ?>> PINE_FOREST_BOULDER;
     public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> FOREST_TANSY;
     public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> HEATHER_PATCH;
+    public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> LESS_PODZOL_PINE;
+    public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> LUSH_PINE_FOREST_TREES;
+    public static final RegistryEntry<ConfiguredFeature<FallenLogFeatureConfig, ?>> FALLEN_PINE;
 
     static {
         SHORT_PINE_SHRUB = register("short_pine_shrub", WamFeatures.SHRUB,
@@ -69,19 +76,15 @@ public final class WamConfiguredFeatures {
                 1, 2, 0.6f
             )
         );
-        PINE = register("pine", Feature.TREE,
-            new TreeFeatureConfig.Builder(
-                BlockStateProvider.of(WamBlocks.PINE_LOG.getDefaultState()),
-                new StraightTrunkPlacer(6, 4, 0),
-                BlockStateProvider.of(WamBlocks.PINE_LEAVES.getDefaultState()),
-                new PineFoliagePlacer(
-                    ConstantIntProvider.create(1),
-                    ConstantIntProvider.create(1),
-                    UniformIntProvider.create(3, 5)
-                ),
-                new TwoLayersFeatureSize(2, 0, 2)
+        THIN_PINE_SHRUB = register("thin_pine_shrub", WamFeatures.SHRUB,
+            new ShrubFeatureConfig(
+                WamBlocks.PINE_SHRUB_LOG.getDefaultState(),
+                WamBlocks.PINE_LEAVES.getDefaultState(),
+                1, 2, 0.8f
             )
-                .ignoreVines()
+        );
+        PINE = register("pine", Feature.TREE,
+            pineTree()
                 .decorators(
                     List.of(
                         new PineTrunkTreeDecorator(WamBlocks.GROUND_PINE_LOG),
@@ -169,6 +172,68 @@ public final class WamConfiguredFeatures {
                 Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(BlockStateProvider.of(WamBlocks.HEATHER))
             )
         );
+        LESS_PODZOL_PINE = register("less_podzol_pine", Feature.TREE,
+            pineTree()
+                .decorators(
+                    List.of(
+                        new PineTrunkTreeDecorator(WamBlocks.GROUND_PINE_LOG),
+                        new AlterGroundTreeDecorator(
+                            new WeightedBlockStateProvider(
+                                DataPool.<BlockState>builder()
+                                    .add(Blocks.GRASS_BLOCK.getDefaultState(), 3)
+                                    .add(Blocks.PODZOL.getDefaultState(), 1)
+                            )
+                        )
+                    )
+                )
+                .build()
+        );
+        LUSH_PINE_FOREST_TREES = register("lush_pine_forest_trees", Feature.RANDOM_SELECTOR,
+            new RandomFeatureConfig(
+                List.of(
+                    new RandomFeatureEntry(
+                        PlacedFeatures.createEntry(
+                            THIN_PINE_SHRUB,
+                            PlacedFeatures.wouldSurvive(WamBlocks.PINE_SAPLING)
+                        ),
+                        0.12f
+                    ),
+                    new RandomFeatureEntry(TreePlacedFeatures.BIRCH_BEES_0002, 0.1f),
+                    new RandomFeatureEntry(TreePlacedFeatures.OAK_BEES_0002, 0.1f),
+                    new RandomFeatureEntry(TreePlacedFeatures.FANCY_OAK_BEES_0002, 0.1f)
+                ),
+                PlacedFeatures.createEntry(LESS_PODZOL_PINE, PlacedFeatures.wouldSurvive(WamBlocks.PINE_SAPLING))
+            )
+        );
+        FALLEN_PINE = register("fallen_pine", WamFeatures.FALLEN_LOG,
+            new FallenLogFeatureConfig(
+                WamBlocks.PINE_LOG,
+                WamBlocks.GROUND_PINE_LOG,
+                UniformIntProvider.create(2, 6),
+                new WeightedBlockStateProvider(
+                    DataPool.<BlockState>builder()
+                        .add(Blocks.AIR.getDefaultState(), 3)
+                        .add(Blocks.BROWN_MUSHROOM.getDefaultState(), 1)
+                        .add(Blocks.RED_MUSHROOM.getDefaultState(), 1)
+                        .build()
+                )
+            )
+        );
+    }
+
+    private static TreeFeatureConfig.Builder pineTree() {
+        return new TreeFeatureConfig.Builder(
+            BlockStateProvider.of(WamBlocks.PINE_LOG.getDefaultState()),
+            new StraightTrunkPlacer(6, 4, 0),
+            BlockStateProvider.of(WamBlocks.PINE_LEAVES.getDefaultState()),
+            new PineFoliagePlacer(
+                ConstantIntProvider.create(1),
+                ConstantIntProvider.create(1),
+                UniformIntProvider.create(3, 5)
+            ),
+            new TwoLayersFeatureSize(2, 0, 2)
+        )
+            .ignoreVines();
     }
 
     // Mire
@@ -196,38 +261,6 @@ public final class WamConfiguredFeatures {
                         .add(Blocks.FERN.getDefaultState(), 1)
                 ),
                 0.5f
-            )
-        );
-    }
-
-    // Clearings
-    public static final RegistryEntry<ConfiguredFeature<MeadowFeatureConfig, ?>> CLEARING_MEADOW;
-    public static final RegistryEntry<ConfiguredFeature<ShrubFeatureConfig, ?>> CLEARING_PINE_SHRUB;
-    public static final RegistryEntry<ConfiguredFeature<FallenLogFeatureConfig, ?>> CLEARING_FALLEN_PINE;
-
-    static {
-        CLEARING_MEADOW = register("clearing_meadow", WamFeatures.MEADOW,
-            new MeadowFeatureConfig(
-                new WeightedBlockStateProvider(
-                    DataPool.<BlockState>builder()
-                        .add(Blocks.GRASS.getDefaultState(), 5)
-                        .add(Blocks.FERN.getDefaultState(), 1)
-                ),
-                0.25f
-            )
-        );
-        CLEARING_PINE_SHRUB = register("clearing_pine_shrub", WamFeatures.SHRUB,
-            new ShrubFeatureConfig(
-                WamBlocks.PINE_LOG.getDefaultState(),
-                WamBlocks.PINE_LEAVES.getDefaultState(),
-                1, 2, 1f
-            )
-        );
-        CLEARING_FALLEN_PINE = register("clearing_fallen_pine", WamFeatures.FALLEN_LOG,
-            new FallenLogFeatureConfig(
-                WamBlocks.PINE_LOG,
-                WamBlocks.GROUND_PINE_LOG,
-                UniformIntProvider.create(2, 6)
             )
         );
     }

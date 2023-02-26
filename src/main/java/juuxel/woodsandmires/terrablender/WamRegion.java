@@ -23,7 +23,7 @@ public class WamRegion extends Region {
         addModifiedVanillaOverworldBiomes(mapper, builder -> {
             builder.replaceBiome(BiomeKeys.SWAMP, WamBiomeKeys.PINE_MIRE);
             builder.replaceBiome(BiomeKeys.TAIGA, WamBiomeKeys.PINE_FOREST);
-            builder.replaceBiome(BiomeKeys.FOREST, WamBiomeKeys.PINE_FOREST_CLEARING);
+            builder.replaceBiome(BiomeKeys.FOREST, WamBiomeKeys.LUSH_PINE_FOREST);
             builder.replaceBiome(BiomeKeys.OLD_GROWTH_PINE_TAIGA, WamBiomeKeys.OLD_GROWTH_PINE_FOREST);
             builder.replaceBiome(BiomeKeys.OLD_GROWTH_SPRUCE_TAIGA, WamBiomeKeys.OLD_GROWTH_PINE_FOREST);
             builder.replaceBiome(BiomeKeys.SNOWY_TAIGA, WamBiomeKeys.SNOWY_PINE_FOREST);

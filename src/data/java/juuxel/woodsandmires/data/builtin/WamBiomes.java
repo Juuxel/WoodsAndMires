@@ -27,7 +27,7 @@ public final class WamBiomes {
         register(WamBiomeKeys.PINE_FOREST, pineForest());
         register(WamBiomeKeys.SNOWY_PINE_FOREST, snowyPineForest());
         register(WamBiomeKeys.OLD_GROWTH_PINE_FOREST, oldGrowthPineForest());
-        register(WamBiomeKeys.PINE_FOREST_CLEARING, pineForestClearing());
+        register(WamBiomeKeys.LUSH_PINE_FOREST, lushPineForest());
         register(WamBiomeKeys.PINE_MIRE, pineMire());
         register(WamBiomeKeys.FELL, fell());
         register(WamBiomeKeys.SNOWY_FELL, snowyFell());
@@ -57,6 +57,7 @@ public final class WamBiomes {
                 builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.PINE_FOREST_HEATHER_PATCH);
             }
             DefaultBiomeFeatures.addForestGrass(builder);
+            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.FALLEN_PINE);
 
             // Stone boulders
             builder.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, WamPlacedFeatures.PINE_FOREST_BOULDER);
@@ -117,20 +118,14 @@ public final class WamBiomes {
         });
     }
 
-    private static Biome pineForestClearing() {
-        return pineForest(Biome.Category.PLAINS, Biome.Precipitation.RAIN, 0.6f, builder -> {
+    private static Biome lushPineForest() {
+        return pineForest(Biome.Category.FOREST, Biome.Precipitation.RAIN, 0.6f, builder -> {
             DefaultBiomeFeatures.addSavannaTallGrass(builder);
         }, builder -> {
-            DefaultBiomeFeatures.addMossyRocks(builder);
-            DefaultBiomeFeatures.addPlainsFeatures(builder);
             DefaultBiomeFeatures.addExtraDefaultFlowers(builder);
 
-            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.CLEARING_FALLEN_PINE);
-            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.CLEARING_PINE_SHRUB);
-            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.CLEARING_SNAG);
-            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.CLEARING_BIRCH);
-            builder.feature(GenerationStep.Feature.TOP_LAYER_MODIFICATION, WamPlacedFeatures.CLEARING_MEADOW);
-            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.CLEARING_FLOWERS);
+            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.LUSH_PINE_FOREST_TREES);
+            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.LUSH_PINE_FOREST_FLOWERS);
         });
     }
 

@@ -1,6 +1,6 @@
 {
   "replace": false,
   "values": [
-    "woods_and_mires:lush_pine_forest"
+    "#woods_and_mires:thick_pine_logs"
   ]
 }

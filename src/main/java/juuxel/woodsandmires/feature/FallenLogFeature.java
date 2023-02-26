@@ -12,6 +12,9 @@ import net.minecraft.world.TestableWorld;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.util.FeatureContext;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class FallenLogFeature extends Feature<FallenLogFeatureConfig> {
     public FallenLogFeature(Codec<FallenLogFeatureConfig> configCodec) {
         super(configCodec);
@@ -31,6 +34,7 @@ public class FallenLogFeature extends Feature<FallenLogFeatureConfig> {
         Direction direction = axis == Direction.Axis.X ? Direction.WEST : Direction.SOUTH;
         int length = config.length().get(random);
         int mid = (int) (PineTrunkTreeDecorator.getRandomHeightPoint(random) * length);
+        List<BlockPos.Mutable> trunkPositions = new ArrayList<>();
 
         if (random.nextInt(5) == 0) {
             for (int i = 0; i < length; i++) {
@@ -46,6 +50,7 @@ public class FallenLogFeature extends Feature<FallenLogFeatureConfig> {
                 }
 
                 setBlockState(context.getWorld(), mut, state);
+                trunkPositions.add(mut.mutableCopy());
                 mut.move(direction);
             }
         } else {
@@ -58,7 +63,16 @@ public class FallenLogFeature extends Feature<FallenLogFeatureConfig> {
                 }
 
                 setBlockState(context.getWorld(), mut, state);
+                trunkPositions.add(mut.mutableCopy());
                 mut.move(direction);
+            }
+        }
+
+        for (BlockPos.Mutable pos : trunkPositions) {
+            pos.move(Direction.UP);
+            BlockState state = config.topDecoration().getBlockState(random, pos);
+            if (!state.isAir() && state.canPlaceAt(context.getWorld(), pos)) {
+                setBlockState(context.getWorld(), pos, state);
             }
         }
 

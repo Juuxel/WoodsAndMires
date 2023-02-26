@@ -1,8 +1,8 @@
 {
-  "feature": "woods_and_mires:clearing_fallen_pine",
+  "feature": "woods_and_mires:fallen_pine",
   "placement": [
     {
-      "chance": 3,
+      "chance": 7,
       "type": "minecraft:rarity_filter"
     },
     {
