@@ -59,6 +59,7 @@ public final class WamConfiguredFeatures {
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> PINE_FROM_SAPLING;
     public static final RegistryEntry<ConfiguredFeature<SingleStateFeatureConfig, ?>> PINE_FOREST_BOULDER;
     public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> FOREST_TANSY;
+    public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> HEATHER_PATCH;
 
     static {
         SHORT_PINE_SHRUB = register("short_pine_shrub", WamFeatures.SHRUB,
@@ -161,6 +162,11 @@ public final class WamConfiguredFeatures {
         FOREST_TANSY = register("forest_tansy", Feature.RANDOM_PATCH,
             ConfiguredFeatures.createRandomPatchFeatureConfig(
                 Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(BlockStateProvider.of(WamBlocks.TANSY))
+            )
+        );
+        HEATHER_PATCH = register("heather_patch", Feature.RANDOM_PATCH,
+            ConfiguredFeatures.createRandomPatchFeatureConfig(
+                Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(BlockStateProvider.of(WamBlocks.HEATHER))
             )
         );
     }
@@ -281,8 +287,9 @@ public final class WamConfiguredFeatures {
             new SimpleBlockFeatureConfig(
                 new WeightedBlockStateProvider(
                     new DataPool.Builder<BlockState>()
-                        .add(Blocks.MOSS_CARPET.getDefaultState(), 3)
-                        .add(WamBlocks.FELL_LICHEN.getDefaultState(), 1)
+                        .add(Blocks.MOSS_CARPET.getDefaultState(), 5)
+                        .add(WamBlocks.FELL_LICHEN.getDefaultState(), 2)
+                        .add(WamBlocks.HEATHER.getDefaultState(), 1)
                 )
             )
         );

@@ -1,31 +1,31 @@
 package juuxel.woodsandmires.biome;
 
 import juuxel.woodsandmires.WoodsAndMires;
+import juuxel.woodsandmires.feature.WamPlacedFeatureKeys;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBiomeTags;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.tag.BiomeTags;
 import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.feature.PlacedFeature;
 
 public final class WamBiomeModifications {
     public static void init() {
         BiomeModifications.addFeature(
             context -> context.getBiomeKey() == BiomeKeys.PLAINS,
             GenerationStep.Feature.VEGETAL_DECORATION,
-            placedFeature(WoodsAndMires.id("plains_flowers"))
+            WamPlacedFeatureKeys.PLAINS_FLOWERS
         );
 
         BiomeModifications.addFeature(
             context -> context.hasTag(ConventionalBiomeTags.FOREST) && !WoodsAndMires.ID.equals(context.getBiomeKey().getValue().getNamespace()),
             GenerationStep.Feature.VEGETAL_DECORATION,
-            placedFeature(WoodsAndMires.id("forest_tansy"))
+            WamPlacedFeatureKeys.FOREST_TANSY
         );
-    }
 
-    private static RegistryKey<PlacedFeature> placedFeature(Identifier id) {
-        return RegistryKey.of(Registry.PLACED_FEATURE_KEY, id);
+        BiomeModifications.addFeature(
+            context -> context.hasTag(BiomeTags.IS_TAIGA) && !WoodsAndMires.ID.equals(context.getBiomeKey().getValue().getNamespace()),
+            GenerationStep.Feature.VEGETAL_DECORATION,
+            WamPlacedFeatureKeys.TAIGA_HEATHER_PATCH
+        );
     }
 }

@@ -50,6 +50,7 @@ public final class WamPlacedFeatures {
     public static final RegistryEntry<PlacedFeature> OLD_GROWTH_FOREST_PINE;
     public static final RegistryEntry<PlacedFeature> GIANT_PINE;
     public static final RegistryEntry<PlacedFeature> PINE_FOREST_BOULDER;
+    public static final RegistryEntry<PlacedFeature> PINE_FOREST_HEATHER_PATCH;
 
     static {
         FOREST_PINE = register("forest_pine", WamConfiguredFeatures.PINE, treeModifiersWithWouldSurvive(CountPlacementModifier.of(10), WamBlocks.PINE_SAPLING));
@@ -57,6 +58,7 @@ public final class WamPlacedFeatures {
         OLD_GROWTH_FOREST_PINE = register("old_growth_forest_pine", WamConfiguredFeatures.PINE, treeModifiersWithWouldSurvive(CountPlacementModifier.of(4), WamBlocks.PINE_SAPLING));
         GIANT_PINE = register("giant_pine", WamConfiguredFeatures.GIANT_PINE, treeModifiersWithWouldSurvive(CountPlacementModifier.of(2), WamBlocks.PINE_SAPLING));
         PINE_FOREST_BOULDER = register("pine_forest_boulder", WamConfiguredFeatures.PINE_FOREST_BOULDER, chanceModifiers(16));
+        PINE_FOREST_HEATHER_PATCH = register("pine_forest_heather_patch", WamConfiguredFeatures.HEATHER_PATCH, chanceModifiers(12));
     }
 
     // Mire
@@ -111,6 +113,7 @@ public final class WamPlacedFeatures {
     public static final RegistryEntry<PlacedFeature> FELL_LICHEN;
     public static final RegistryEntry<PlacedFeature> FELL_MOSS_PATCH;
     public static final RegistryEntry<PlacedFeature> FROZEN_TREASURE;
+    public static final RegistryEntry<PlacedFeature> FELL_HEATHER_PATCH;
 
     static {
         FELL_VEGETATION = register("fell_vegetation", WamConfiguredFeatures.FELL_VEGETATION, List.of());
@@ -128,15 +131,23 @@ public final class WamPlacedFeatures {
         FELL_LICHEN = register("fell_lichen", WamConfiguredFeatures.FELL_LICHEN, chanceModifiers(2));
         FELL_MOSS_PATCH = register("fell_moss_patch", WamConfiguredFeatures.FELL_MOSS_PATCH, chanceModifiers(5));
         FROZEN_TREASURE = register("frozen_treasure", WamConfiguredFeatures.FROZEN_TREASURE, chanceModifiers(3));
+        FELL_HEATHER_PATCH = register("fell_heather_patch", WamConfiguredFeatures.HEATHER_PATCH, chanceModifiers(5));
     }
 
     // Vanilla biomes
     public static final RegistryEntry<PlacedFeature> PLAINS_FLOWERS;
     public static final RegistryEntry<PlacedFeature> FOREST_TANSY;
+    public static final RegistryEntry<PlacedFeature> TAIGA_HEATHER_PATCH;
 
     static {
         PLAINS_FLOWERS = register("plains_flowers", WamConfiguredFeatures.PLAINS_FLOWERS, chanceModifiers(20));
         FOREST_TANSY = register("forest_tansy", WamConfiguredFeatures.FOREST_TANSY,
+            cons(
+                CountPlacementModifier.of(ClampedIntProvider.create(UniformIntProvider.create(-4, 1), 0, 1)),
+                chanceModifiers(7)
+            )
+        );
+        TAIGA_HEATHER_PATCH = register("taiga_heather_patch", WamConfiguredFeatures.HEATHER_PATCH,
             cons(
                 CountPlacementModifier.of(ClampedIntProvider.create(UniformIntProvider.create(-4, 1), 0, 1)),
                 chanceModifiers(7)

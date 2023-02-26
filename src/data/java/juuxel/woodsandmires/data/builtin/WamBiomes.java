@@ -54,6 +54,7 @@ public final class WamBiomes {
             DefaultBiomeFeatures.addDefaultDisks(builder);
             if (precipitation != Biome.Precipitation.SNOW) {
                 DefaultBiomeFeatures.addDefaultFlowers(builder);
+                builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.PINE_FOREST_HEATHER_PATCH);
             }
             DefaultBiomeFeatures.addForestGrass(builder);
 
@@ -206,6 +207,7 @@ public final class WamBiomes {
     private static Biome fell() {
         return fell(Biome.Precipitation.RAIN, 0.25f, builder -> {
             DefaultBiomeFeatures.addDefaultFlowers(builder);
+            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.FELL_HEATHER_PATCH);
             DefaultBiomeFeatures.addForestGrass(builder);
             DefaultBiomeFeatures.addDefaultMushrooms(builder);
             DefaultBiomeFeatures.addDefaultVegetation(builder);
