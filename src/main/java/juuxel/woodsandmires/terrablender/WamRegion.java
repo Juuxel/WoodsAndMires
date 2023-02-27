@@ -27,6 +27,7 @@ public class WamRegion extends Region {
             builder.replaceBiome(BiomeKeys.OLD_GROWTH_PINE_TAIGA, WamBiomeKeys.OLD_GROWTH_PINE_FOREST);
             builder.replaceBiome(BiomeKeys.OLD_GROWTH_SPRUCE_TAIGA, WamBiomeKeys.OLD_GROWTH_PINE_FOREST);
             builder.replaceBiome(BiomeKeys.SNOWY_TAIGA, WamBiomeKeys.SNOWY_PINE_FOREST);
+            // TODO: Windswept pine forest?
             builder.replaceBiome(BiomeKeys.WINDSWEPT_FOREST, WamBiomeKeys.SNOWY_PINE_FOREST);
             builder.replaceBiome(BiomeKeys.WINDSWEPT_GRAVELLY_HILLS, WamBiomeKeys.FELL);
             builder.replaceBiome(BiomeKeys.WINDSWEPT_HILLS, WamBiomeKeys.FELL);
