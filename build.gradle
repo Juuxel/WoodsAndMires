@@ -60,6 +60,8 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
     modImplementation "com.github.glitchfiend:TerraBlender-fabric:$project.terrablender_version"
+    implementation libs.typesafe.config
+    include libs.typesafe.config
 
     dataImplementation sourceSets.main.output
 }
