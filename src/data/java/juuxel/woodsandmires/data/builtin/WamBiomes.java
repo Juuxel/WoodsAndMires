@@ -52,11 +52,6 @@ public final class WamBiomes {
             DefaultBiomeFeatures.addLargeFerns(builder);
             DefaultBiomeFeatures.addDefaultOres(builder);
             DefaultBiomeFeatures.addDefaultDisks(builder);
-            if (precipitation != Biome.Precipitation.SNOW) {
-                DefaultBiomeFeatures.addDefaultFlowers(builder);
-                builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.PINE_FOREST_HEATHER_PATCH);
-            }
-            DefaultBiomeFeatures.addForestGrass(builder);
             builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.FALLEN_PINE);
 
             // Stone boulders
@@ -64,6 +59,11 @@ public final class WamBiomes {
 
             generationSettingsConfigurator.accept(builder);
 
+            if (precipitation != Biome.Precipitation.SNOW) {
+                DefaultBiomeFeatures.addDefaultFlowers(builder);
+                builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.PINE_FOREST_HEATHER_PATCH);
+            }
+            DefaultBiomeFeatures.addForestGrass(builder);
             DefaultBiomeFeatures.addDefaultMushrooms(builder);
             DefaultBiomeFeatures.addDefaultVegetation(builder);
             DefaultBiomeFeatures.addSweetBerryBushes(builder);
@@ -113,8 +113,7 @@ public final class WamBiomes {
 
     private static Biome oldGrowthPineForest() {
         return pineForest(Biome.Category.FOREST, Biome.Precipitation.RAIN, 0.4f, builder -> {}, builder -> {
-            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.GIANT_PINE);
-            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.OLD_GROWTH_FOREST_PINE);
+            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.OLD_GROWTH_PINE_FOREST_TREES);
         });
     }
 
@@ -122,10 +121,9 @@ public final class WamBiomes {
         return pineForest(Biome.Category.FOREST, Biome.Precipitation.RAIN, 0.6f, builder -> {
             DefaultBiomeFeatures.addSavannaTallGrass(builder);
         }, builder -> {
-            DefaultBiomeFeatures.addExtraDefaultFlowers(builder);
-
             builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.LUSH_PINE_FOREST_TREES);
             builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.LUSH_PINE_FOREST_FLOWERS);
+            DefaultBiomeFeatures.addExtraDefaultFlowers(builder);
         });
     }
 

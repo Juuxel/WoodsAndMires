@@ -1,0 +1,64 @@
+{
+  "config": {
+    "features": [
+      {
+        "feature": {
+          "feature": "woods_and_mires:pine",
+          "placement": [
+            {
+              "predicate": {
+                "state": {
+                  "Properties": {
+                    "stage": "0"
+                  },
+                  "Name": "woods_and_mires:pine_sapling"
+                },
+                "type": "minecraft:would_survive"
+              },
+              "type": "minecraft:block_predicate_filter"
+            }
+          ]
+        },
+        "chance": 0.15
+      },
+      {
+        "feature": {
+          "feature": "woods_and_mires:pine_snag",
+          "placement": [
+            {
+              "predicate": {
+                "state": {
+                  "Properties": {
+                    "stage": "0"
+                  },
+                  "Name": "woods_and_mires:pine_sapling"
+                },
+                "type": "minecraft:would_survive"
+              },
+              "type": "minecraft:block_predicate_filter"
+            }
+          ]
+        },
+        "chance": 0.1
+      }
+    ],
+    "default": {
+      "feature": "woods_and_mires:giant_pine",
+      "placement": [
+        {
+          "predicate": {
+            "state": {
+              "Properties": {
+                "stage": "0"
+              },
+              "Name": "woods_and_mires:pine_sapling"
+            },
+            "type": "minecraft:would_survive"
+          },
+          "type": "minecraft:block_predicate_filter"
+        }
+      ]
+    }
+  },
+  "type": "minecraft:random_selector"
+}

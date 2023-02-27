@@ -46,8 +46,7 @@ public final class WamPlacedFeatures {
     // Pine forest
     public static final RegistryEntry<PlacedFeature> FOREST_PINE;
     public static final RegistryEntry<PlacedFeature> SNOWY_FOREST_PINE;
-    public static final RegistryEntry<PlacedFeature> OLD_GROWTH_FOREST_PINE;
-    public static final RegistryEntry<PlacedFeature> GIANT_PINE;
+    public static final RegistryEntry<PlacedFeature> OLD_GROWTH_PINE_FOREST_TREES;
     public static final RegistryEntry<PlacedFeature> PINE_FOREST_BOULDER;
     public static final RegistryEntry<PlacedFeature> PINE_FOREST_HEATHER_PATCH;
     public static final RegistryEntry<PlacedFeature> LUSH_PINE_FOREST_TREES;
@@ -57,8 +56,7 @@ public final class WamPlacedFeatures {
     static {
         FOREST_PINE = register("forest_pine", WamConfiguredFeatures.PINE, treeModifiersWithWouldSurvive(CountPlacementModifier.of(10), WamBlocks.PINE_SAPLING));
         SNOWY_FOREST_PINE = register("snowy_forest_pine", WamConfiguredFeatures.PINE, treeModifiersWithWouldSurvive(CountPlacementModifier.of(2), WamBlocks.PINE_SAPLING));
-        OLD_GROWTH_FOREST_PINE = register("old_growth_forest_pine", WamConfiguredFeatures.PINE, treeModifiersWithWouldSurvive(CountPlacementModifier.of(4), WamBlocks.PINE_SAPLING));
-        GIANT_PINE = register("giant_pine", WamConfiguredFeatures.GIANT_PINE, treeModifiersWithWouldSurvive(CountPlacementModifier.of(2), WamBlocks.PINE_SAPLING));
+        OLD_GROWTH_PINE_FOREST_TREES = register("old_growth_pine_forest_trees", WamConfiguredFeatures.OLD_GROWTH_PINE_FOREST_TREES, treeModifiers(PlacedFeatures.createCountExtraModifier(10, 0.1f, 1)));
         PINE_FOREST_BOULDER = register("pine_forest_boulder", WamConfiguredFeatures.PINE_FOREST_BOULDER, chanceModifiers(16));
         PINE_FOREST_HEATHER_PATCH = register("pine_forest_heather_patch", WamConfiguredFeatures.HEATHER_PATCH, chanceModifiers(12));
         LUSH_PINE_FOREST_TREES = register("lush_pine_forest_trees", WamConfiguredFeatures.LUSH_PINE_FOREST_TREES, treeModifiers(PlacedFeatures.createCountExtraModifier(8, 0.1f, 1)));

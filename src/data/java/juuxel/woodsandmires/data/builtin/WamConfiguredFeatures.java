@@ -58,7 +58,7 @@ public final class WamConfiguredFeatures {
     public static final RegistryEntry<ConfiguredFeature<ShrubFeatureConfig, ?>> THIN_PINE_SHRUB;
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> PINE;
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> GIANT_PINE;
-    public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> PINE_SNAG; // TODO: Add these to old growth PFs
+    public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> PINE_SNAG;
     public static final RegistryEntry<ConfiguredFeature<SimpleRandomFeatureConfig, ?>> PLAINS_FLOWERS;
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> PINE_FROM_SAPLING;
     public static final RegistryEntry<ConfiguredFeature<SingleStateFeatureConfig, ?>> PINE_FOREST_BOULDER;
@@ -67,6 +67,7 @@ public final class WamConfiguredFeatures {
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> LESS_PODZOL_PINE;
     public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> LUSH_PINE_FOREST_TREES;
     public static final RegistryEntry<ConfiguredFeature<FallenLogFeatureConfig, ?>> FALLEN_PINE;
+    public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> OLD_GROWTH_PINE_FOREST_TREES;
 
     static {
         SHORT_PINE_SHRUB = register("short_pine_shrub", WamFeatures.SHRUB,
@@ -217,6 +218,27 @@ public final class WamConfiguredFeatures {
                         .add(Blocks.RED_MUSHROOM.getDefaultState(), 1)
                         .build()
                 )
+            )
+        );
+        OLD_GROWTH_PINE_FOREST_TREES = register("old_growth_pine_forest_trees", Feature.RANDOM_SELECTOR,
+            new RandomFeatureConfig(
+                List.of(
+                    new RandomFeatureEntry(
+                        PlacedFeatures.createEntry(
+                            PINE,
+                            PlacedFeatures.wouldSurvive(WamBlocks.PINE_SAPLING)
+                        ),
+                        0.15f
+                    ),
+                    new RandomFeatureEntry(
+                        PlacedFeatures.createEntry(
+                            PINE_SNAG,
+                            PlacedFeatures.wouldSurvive(WamBlocks.PINE_SAPLING)
+                        ),
+                        0.1f
+                    )
+                ),
+                PlacedFeatures.createEntry(GIANT_PINE, PlacedFeatures.wouldSurvive(WamBlocks.PINE_SAPLING))
             )
         );
     }
