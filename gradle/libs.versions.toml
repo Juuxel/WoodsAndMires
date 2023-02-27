@@ -1,5 +1,0 @@
-[versions]
-typesafe-config = "1.4.2"
-
-[libraries]
-typesafe-config = { module = "com.typesafe:config", version.ref = "typesafe-config" }
