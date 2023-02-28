@@ -22,5 +22,6 @@ public final class WamDataGenerator implements ModInitializer, DataGeneratorEntr
         fabricDataGenerator.addProvider(WamBiomeProvider::new);
         fabricDataGenerator.addProvider(WamBlockLootTableProvider::new);
         fabricDataGenerator.addProvider(WamChestLootTableProvider::new);
+        fabricDataGenerator.addProvider(WamBiomeTagProvider::new);
     }
 }

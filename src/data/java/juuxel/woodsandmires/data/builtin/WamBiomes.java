@@ -5,6 +5,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.sound.BiomeMoodSound;
 import net.minecraft.util.registry.BuiltinRegistries;
+import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeEffects;
@@ -18,7 +19,7 @@ import net.minecraft.world.gen.feature.VegetationPlacedFeatures;
 import java.util.function.Consumer;
 
 public final class WamBiomes {
-    public static final RegistryCollector<Biome> BIOMES = new RegistryCollector<>();
+    public static final RegistryCollector<RegistryEntry<Biome>> BIOMES = new RegistryCollector<>();
 
     private WamBiomes() {
     }
@@ -35,8 +36,7 @@ public final class WamBiomes {
     }
 
     private static void register(RegistryKey<Biome> key, Biome biome) {
-        BuiltinRegistries.add(BuiltinRegistries.BIOME, key, biome);
-        BIOMES.add(biome);
+        BIOMES.add(BuiltinRegistries.add(BuiltinRegistries.BIOME, key, biome));
     }
 
     private static int getSkyColor(float temperature) {
