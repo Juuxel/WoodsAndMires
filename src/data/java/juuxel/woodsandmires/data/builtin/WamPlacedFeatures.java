@@ -113,7 +113,7 @@ public final class WamPlacedFeatures {
         );
         FELL_LICHEN = register("fell_lichen", WamConfiguredFeatures.FELL_LICHEN, chanceModifiers(2));
         FELL_MOSS_PATCH = register("fell_moss_patch", WamConfiguredFeatures.FELL_MOSS_PATCH, chanceModifiers(5));
-        FROZEN_TREASURE = register("frozen_treasure", WamConfiguredFeatures.FROZEN_TREASURE, chanceModifiers(3));
+        FROZEN_TREASURE = register("frozen_treasure", WamConfiguredFeatures.FROZEN_TREASURE, countModifiers(2));
         FELL_HEATHER_PATCH = register("fell_heather_patch", WamConfiguredFeatures.HEATHER_PATCH, chanceModifiers(5));
     }
 
