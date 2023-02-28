@@ -12,11 +12,12 @@ import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
+import net.minecraft.world.WorldAccess;
 
-// TODO (2.0): Add the scheduled tick change to all waterloggable blocks
 public class ShrubLogBlock extends PillarBlock implements Waterloggable {
     public static final BooleanProperty HAS_LEAVES = BooleanProperty.of("has_leaves");
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
@@ -63,6 +64,15 @@ public class ShrubLogBlock extends PillarBlock implements Waterloggable {
             default:
                 return Z_SHAPE;
         }
+    }
+
+    @Override
+    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
+        if (state.get(WATERLOGGED)) {
+            world.createAndScheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
+        }
+
+        return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
     }
 
     @Override
