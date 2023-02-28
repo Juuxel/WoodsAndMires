@@ -42,6 +42,10 @@ public final class WamBiomeTagProvider extends FabricTagProvider.DynamicRegistry
             .add(WamBiomeKeys.PINE_FOREST)
             .add(WamBiomeKeys.OLD_GROWTH_PINE_FOREST)
             .add(WamBiomeKeys.SNOWY_PINE_FOREST);
+        generateOverworld(BiomeTags.STRONGHOLD_HAS_STRUCTURE);
+        getOrCreateTagBuilder(BiomeTags.PILLAGER_OUTPOST_HAS_STRUCTURE)
+            .add(WamBiomeKeys.PINE_FOREST)
+            .add(WamBiomeKeys.PINY_GROVE);
 
         // Common tags
         generateOverworld(ConventionalBiomeTags.IN_OVERWORLD);
