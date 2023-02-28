@@ -1,5 +1,6 @@
 package juuxel.woodsandmires.data.builtin;
 
+import com.sun.jna.platform.win32.WinBase;
 import juuxel.woodsandmires.WoodsAndMires;
 import juuxel.woodsandmires.block.WamBlocks;
 import juuxel.woodsandmires.feature.FallenLogFeatureConfig;
@@ -41,13 +42,16 @@ import net.minecraft.world.gen.feature.VegetationPatchFeatureConfig;
 import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
 import net.minecraft.world.gen.foliage.BlobFoliagePlacer;
 import net.minecraft.world.gen.foliage.PineFoliagePlacer;
+import net.minecraft.world.gen.placementmodifier.PlacementModifier;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider;
 import net.minecraft.world.gen.treedecorator.AlterGroundTreeDecorator;
+import net.minecraft.world.gen.treedecorator.TreeDecorator;
 import net.minecraft.world.gen.trunk.ForkingTrunkPlacer;
 import net.minecraft.world.gen.trunk.GiantTrunkPlacer;
 import net.minecraft.world.gen.trunk.StraightTrunkPlacer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public final class WamConfiguredFeatures {
@@ -65,6 +69,7 @@ public final class WamConfiguredFeatures {
     public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> FOREST_TANSY;
     public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> HEATHER_PATCH;
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> LESS_PODZOL_PINE;
+    public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> NO_PODZOL_PINE;
     public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> LUSH_PINE_FOREST_TREES;
     public static final RegistryEntry<ConfiguredFeature<FallenLogFeatureConfig, ?>> FALLEN_PINE;
     public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> OLD_GROWTH_PINE_FOREST_TREES;
@@ -84,22 +89,7 @@ public final class WamConfiguredFeatures {
                 1, 2, 0.8f
             )
         );
-        PINE = register("pine", Feature.TREE,
-            pineTree()
-                .decorators(
-                    List.of(
-                        new PineTrunkTreeDecorator(WamBlocks.GROUND_PINE_LOG),
-                        new AlterGroundTreeDecorator(
-                            new WeightedBlockStateProvider(
-                                DataPool.<BlockState>builder()
-                                    .add(Blocks.GRASS_BLOCK.getDefaultState(), 1)
-                                    .add(Blocks.PODZOL.getDefaultState(), 1)
-                            )
-                        )
-                    )
-                )
-                .build()
-        );
+        PINE = register("pine", Feature.TREE, pineTree(1, 1));
         GIANT_PINE = register("giant_pine", Feature.TREE,
             new TreeFeatureConfig.Builder(
                 BlockStateProvider.of(WamBlocks.PINE_LOG.getDefaultState()),
@@ -173,22 +163,8 @@ public final class WamConfiguredFeatures {
                 Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(BlockStateProvider.of(WamBlocks.HEATHER))
             )
         );
-        LESS_PODZOL_PINE = register("less_podzol_pine", Feature.TREE,
-            pineTree()
-                .decorators(
-                    List.of(
-                        new PineTrunkTreeDecorator(WamBlocks.GROUND_PINE_LOG),
-                        new AlterGroundTreeDecorator(
-                            new WeightedBlockStateProvider(
-                                DataPool.<BlockState>builder()
-                                    .add(Blocks.GRASS_BLOCK.getDefaultState(), 3)
-                                    .add(Blocks.PODZOL.getDefaultState(), 1)
-                            )
-                        )
-                    )
-                )
-                .build()
-        );
+        LESS_PODZOL_PINE = register("less_podzol_pine", Feature.TREE, pineTree(3, 1));
+        NO_PODZOL_PINE = register("no_podzol_pine", Feature.TREE, pineTree(1, 0));
         LUSH_PINE_FOREST_TREES = register("lush_pine_forest_trees", Feature.RANDOM_SELECTOR,
             new RandomFeatureConfig(
                 List.of(
@@ -243,7 +219,22 @@ public final class WamConfiguredFeatures {
         );
     }
 
-    private static TreeFeatureConfig.Builder pineTree() {
+    private static TreeFeatureConfig pineTree(int grassWeight, int podzolWeight) {
+        List<TreeDecorator> decorators = new ArrayList<>();
+        decorators.add(new PineTrunkTreeDecorator(WamBlocks.GROUND_PINE_LOG));
+
+        if (podzolWeight > 0) {
+            decorators.add(
+                new AlterGroundTreeDecorator(
+                    new WeightedBlockStateProvider(
+                        DataPool.<BlockState>builder()
+                            .add(Blocks.GRASS_BLOCK.getDefaultState(), grassWeight)
+                            .add(Blocks.PODZOL.getDefaultState(), podzolWeight)
+                    )
+                )
+            );
+        }
+
         return new TreeFeatureConfig.Builder(
             BlockStateProvider.of(WamBlocks.PINE_LOG.getDefaultState()),
             new StraightTrunkPlacer(6, 4, 0),
@@ -255,7 +246,9 @@ public final class WamConfiguredFeatures {
             ),
             new TwoLayersFeatureSize(2, 0, 2)
         )
-            .ignoreVines();
+            .ignoreVines()
+            .decorators(List.copyOf(decorators))
+            .build();
     }
 
     // Mire
@@ -372,6 +365,21 @@ public final class WamConfiguredFeatures {
                 UniformIntProvider.create(5, 7),
                 ConstantIntProvider.create(2),
                 FROZEN_TREASURE_LOOT_TABLE
+            )
+        );
+    }
+
+    // Groves
+    public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> PINY_GROVE_TREES;
+
+    static {
+        PINY_GROVE_TREES = register("piny_grove_trees", Feature.RANDOM_SELECTOR,
+            new RandomFeatureConfig(
+                List.of(
+                    new RandomFeatureEntry(TreePlacedFeatures.PINE_ON_SNOW, 0.1f),
+                    new RandomFeatureEntry(TreePlacedFeatures.SPRUCE_ON_SNOW, 0.1f)
+                ),
+                PlacedFeatures.createEntry(NO_PODZOL_PINE, TreePlacedFeatures.ON_SNOW_MODIFIERS.toArray(PlacementModifier[]::new))
             )
         );
     }

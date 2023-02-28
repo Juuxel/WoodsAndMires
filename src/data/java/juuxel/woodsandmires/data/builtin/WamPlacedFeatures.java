@@ -31,6 +31,10 @@ public final class WamPlacedFeatures {
         return VegetationPlacedFeatures.modifiers(countModifier);
     }
 
+    private static List<PlacementModifier> countExtraTreeModifiers(int count, float extraChance, int extraCount) {
+        return treeModifiers(PlacedFeatures.createCountExtraModifier(count, extraChance, extraCount));
+    }
+
     private static List<PlacementModifier> treeModifiersWithWouldSurvive(PlacementModifier countModifier, Block block) {
         return VegetationPlacedFeatures.modifiersWithWouldSurvive(countModifier, block);
     }
@@ -56,10 +60,10 @@ public final class WamPlacedFeatures {
     static {
         FOREST_PINE = register("forest_pine", WamConfiguredFeatures.PINE, treeModifiersWithWouldSurvive(CountPlacementModifier.of(10), WamBlocks.PINE_SAPLING));
         SNOWY_FOREST_PINE = register("snowy_forest_pine", WamConfiguredFeatures.PINE, treeModifiersWithWouldSurvive(CountPlacementModifier.of(2), WamBlocks.PINE_SAPLING));
-        OLD_GROWTH_PINE_FOREST_TREES = register("old_growth_pine_forest_trees", WamConfiguredFeatures.OLD_GROWTH_PINE_FOREST_TREES, treeModifiers(PlacedFeatures.createCountExtraModifier(10, 0.1f, 1)));
+        OLD_GROWTH_PINE_FOREST_TREES = register("old_growth_pine_forest_trees", WamConfiguredFeatures.OLD_GROWTH_PINE_FOREST_TREES, countExtraTreeModifiers(10, 0.1f, 1));
         PINE_FOREST_BOULDER = register("pine_forest_boulder", WamConfiguredFeatures.PINE_FOREST_BOULDER, chanceModifiers(16));
         PINE_FOREST_HEATHER_PATCH = register("pine_forest_heather_patch", WamConfiguredFeatures.HEATHER_PATCH, chanceModifiers(12));
-        LUSH_PINE_FOREST_TREES = register("lush_pine_forest_trees", WamConfiguredFeatures.LUSH_PINE_FOREST_TREES, treeModifiers(PlacedFeatures.createCountExtraModifier(8, 0.1f, 1)));
+        LUSH_PINE_FOREST_TREES = register("lush_pine_forest_trees", WamConfiguredFeatures.LUSH_PINE_FOREST_TREES, countExtraTreeModifiers(8, 0.1f, 1));
         LUSH_PINE_FOREST_FLOWERS = register("lush_pine_forest_flowers", WamConfiguredFeatures.PLAINS_FLOWERS, chanceModifiers(2));
         FALLEN_PINE = register("fallen_pine", WamConfiguredFeatures.FALLEN_PINE, chanceModifiers(7));
     }
@@ -111,6 +115,13 @@ public final class WamPlacedFeatures {
         FELL_MOSS_PATCH = register("fell_moss_patch", WamConfiguredFeatures.FELL_MOSS_PATCH, chanceModifiers(5));
         FROZEN_TREASURE = register("frozen_treasure", WamConfiguredFeatures.FROZEN_TREASURE, chanceModifiers(3));
         FELL_HEATHER_PATCH = register("fell_heather_patch", WamConfiguredFeatures.HEATHER_PATCH, chanceModifiers(5));
+    }
+
+    // Groves
+    public static final RegistryEntry<PlacedFeature> PINY_GROVE_TREES;
+
+    static {
+        PINY_GROVE_TREES = register("piny_grove_trees", WamConfiguredFeatures.PINY_GROVE_TREES, countExtraTreeModifiers(10, 0.1f, 1));
     }
 
     // Vanilla biomes

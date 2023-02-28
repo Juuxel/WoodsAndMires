@@ -33,6 +33,7 @@ public class WamRegion extends Region {
             builder.replaceBiome(BiomeKeys.WINDSWEPT_HILLS, WamBiomeKeys.FELL);
             builder.replaceBiome(BiomeKeys.SNOWY_SLOPES, WamBiomeKeys.SNOWY_PINE_FOREST);
             builder.replaceBiome(BiomeKeys.FROZEN_PEAKS, WamBiomeKeys.SNOWY_FELL);
+            builder.replaceBiome(BiomeKeys.GROVE, WamBiomeKeys.PINY_GROVE);
         });
     }
 }

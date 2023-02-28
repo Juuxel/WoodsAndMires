@@ -13,6 +13,7 @@ public final class WamBiomeKeys {
     public static final RegistryKey<Biome> PINE_MIRE = key("pine_mire");
     public static final RegistryKey<Biome> FELL = key("fell");
     public static final RegistryKey<Biome> SNOWY_FELL = key("snowy_fell");
+    public static final RegistryKey<Biome> PINY_GROVE = key("piny_grove");
 
     private WamBiomeKeys() {
     }

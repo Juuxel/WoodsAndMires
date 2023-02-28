@@ -31,6 +31,7 @@ public final class WamBiomes {
         register(WamBiomeKeys.PINE_MIRE, pineMire());
         register(WamBiomeKeys.FELL, fell());
         register(WamBiomeKeys.SNOWY_FELL, snowyFell());
+        register(WamBiomeKeys.PINY_GROVE, pinyGrove());
     }
 
     private static void register(RegistryKey<Biome> key, Biome biome) {
@@ -220,6 +221,43 @@ public final class WamBiomes {
             builder.feature(GenerationStep.Feature.LAKES, WamPlacedFeatures.FELL_POND);
             builder.feature(GenerationStep.Feature.SURFACE_STRUCTURES, WamPlacedFeatures.FROZEN_TREASURE);
         });
+    }
+
+    private static Biome pinyGrove() {
+        GenerationSettings generationSettings = generationSettings(builder -> {
+            OverworldBiomeCreator.addBasicFeatures(builder);
+            DefaultBiomeFeatures.addFrozenLavaSpring(builder);
+            DefaultBiomeFeatures.addDefaultOres(builder);
+            DefaultBiomeFeatures.addDefaultDisks(builder);
+            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.PINY_GROVE_TREES);
+            DefaultBiomeFeatures.addDefaultVegetation(builder);
+            DefaultBiomeFeatures.addEmeraldOre(builder);
+            DefaultBiomeFeatures.addInfestedStone(builder);
+        });
+        SpawnSettings spawnSettings = spawnSettings(builder -> {
+            DefaultBiomeFeatures.addFarmAnimals(builder);
+            builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.WOLF, 8, 4, 4))
+                .spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.RABBIT, 4, 2, 3))
+                .spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.FOX, 8, 2, 4));
+            DefaultBiomeFeatures.addBatsAndMonsters(builder);
+        });
+        return new Biome.Builder()
+            .category(Biome.Category.FOREST)
+            .effects(
+                new BiomeEffects.Builder()
+                    .waterColor(OverworldBiomeCreator.DEFAULT_WATER_COLOR)
+                    .waterFogColor(OverworldBiomeCreator.DEFAULT_WATER_FOG_COLOR)
+                    .fogColor(OverworldBiomeCreator.DEFAULT_FOG_COLOR)
+                    .skyColor(getSkyColor(-0.2f))
+                    .moodSound(BiomeMoodSound.CAVE)
+                    .build()
+            )
+            .precipitation(Biome.Precipitation.SNOW)
+            .downfall(0.8f)
+            .temperature(-0.2f)
+            .generationSettings(generationSettings)
+            .spawnSettings(spawnSettings)
+            .build();
     }
 
     private static GenerationSettings generationSettings(Consumer<GenerationSettings.Builder> configurator) {
