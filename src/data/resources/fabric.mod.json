@@ -3,6 +3,7 @@
   "id": "woods_and_mires_data",
   "version": "1",
 
+  "mixins": ["mixins.woods_and_mires_data.json"],
   "entrypoints": {
     "main": ["juuxel.woodsandmires.data.WamDataGenerator"],
     "fabric-datagen": ["juuxel.woodsandmires.data.WamDataGenerator"]
