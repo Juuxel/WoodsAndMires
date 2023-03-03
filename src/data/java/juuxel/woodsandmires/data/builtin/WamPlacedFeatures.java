@@ -78,7 +78,7 @@ public final class WamPlacedFeatures {
     static {
         MIRE_PONDS = register("mire_ponds", WamConfiguredFeatures.MIRE_PONDS, List.of(BiomePlacementModifier.of()));
         MIRE_FLOWERS = register("mire_flowers", WamConfiguredFeatures.MIRE_FLOWERS, chanceModifiers(2));
-        MIRE_MEADOW = register("mire_meadow", WamConfiguredFeatures.MIRE_MEADOW, List.of());
+        MIRE_MEADOW = register("mire_meadow", WamConfiguredFeatures.MIRE_MEADOW, List.of(BiomePlacementModifier.of()));
         MIRE_PINE_SNAG = register("mire_pine_snag", WamConfiguredFeatures.PINE_SNAG, treeModifiersWithWouldSurvive(RarityFilterPlacementModifier.of(6), WamBlocks.PINE_SAPLING));
         MIRE_PINE_SHRUB = register("mire_pine_shrub", WamConfiguredFeatures.SHORT_PINE_SHRUB,
             treeModifiersWithWouldSurvive(
@@ -99,7 +99,7 @@ public final class WamPlacedFeatures {
     public static final RegistryEntry<PlacedFeature> FELL_HEATHER_PATCH;
 
     static {
-        FELL_VEGETATION = register("fell_vegetation", WamConfiguredFeatures.FELL_VEGETATION, List.of());
+        FELL_VEGETATION = register("fell_vegetation", WamConfiguredFeatures.FELL_VEGETATION, List.of(BiomePlacementModifier.of()));
         FELL_BOULDER = register("fell_boulder", WamConfiguredFeatures.FELL_BOULDER, chanceModifiers(16));
         FELL_POND = register("fell_pond", WamConfiguredFeatures.FELL_POND, chanceModifiers(7));
         FELL_BIRCH_SHRUB = register("fell_birch_shrub", WamConfiguredFeatures.FELL_BIRCH_SHRUB,
