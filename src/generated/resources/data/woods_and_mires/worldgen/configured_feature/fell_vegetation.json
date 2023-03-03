@@ -1,12 +1,12 @@
 {
+  "type": "woods_and_mires:meadow",
   "config": {
+    "chance": 0.3,
     "state_provider": {
+      "type": "minecraft:simple_state_provider",
       "state": {
         "Name": "minecraft:grass"
-      },
-      "type": "minecraft:simple_state_provider"
-    },
-    "chance": 0.3
-  },
-  "type": "woods_and_mires:meadow"
+      }
+    }
+  }
 }

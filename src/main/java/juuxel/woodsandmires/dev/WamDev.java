@@ -9,10 +9,10 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
 import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
 import com.mojang.serialization.JsonOps;
-import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
+import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 
@@ -39,7 +39,7 @@ public final class WamDev {
             throw new UncheckedIOException(e);
         }
 
-        CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> {
+        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
             dispatcher.register(literal("wam")
                 .then(literal("mark").requires(source -> source.hasPermissionLevel(4)).executes(WamDev::mark))
                 .then(literal("recall").requires(source -> source.hasPermissionLevel(4)).executes(WamDev::recall)));
@@ -52,7 +52,7 @@ public final class WamDev {
             JsonElement json = BlockPos.CODEC.encodeStart(JsonOps.INSTANCE, pos)
                 .getOrThrow(false, error -> {});
             Files.writeString(marked, GSON.toJson(json));
-            context.getSource().sendFeedback(new LiteralText("Marked " + pos.toShortString()).formatted(Formatting.GREEN), false);
+            context.getSource().sendFeedback(Text.literal("Marked " + pos.toShortString()).formatted(Formatting.GREEN), false);
         } catch (Exception e) {
             throw EXCEPTION_COMMAND.create(e);
         }
@@ -70,7 +70,7 @@ public final class WamDev {
             BlockPos pos = BlockPos.CODEC.decode(JsonOps.INSTANCE, json)
                 .getOrThrow(false, error -> {})
                 .getFirst();
-            context.getSource().sendFeedback(new LiteralText("Recalling " + pos.toShortString()).formatted(Formatting.GREEN), false);
+            context.getSource().sendFeedback(Text.literal("Recalling " + pos.toShortString()).formatted(Formatting.GREEN), false);
             context.getSource().getPlayer().teleport(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
         } catch (CommandSyntaxException e) {
             throw e;

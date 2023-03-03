@@ -1,64 +1,64 @@
 {
+  "type": "minecraft:random_selector",
   "config": {
-    "features": [
-      {
-        "feature": {
-          "feature": "woods_and_mires:pine",
-          "placement": [
-            {
-              "predicate": {
-                "state": {
-                  "Properties": {
-                    "stage": "0"
-                  },
-                  "Name": "woods_and_mires:pine_sapling"
-                },
-                "type": "minecraft:would_survive"
-              },
-              "type": "minecraft:block_predicate_filter"
-            }
-          ]
-        },
-        "chance": 0.15
-      },
-      {
-        "feature": {
-          "feature": "woods_and_mires:pine_snag",
-          "placement": [
-            {
-              "predicate": {
-                "state": {
-                  "Properties": {
-                    "stage": "0"
-                  },
-                  "Name": "woods_and_mires:pine_sapling"
-                },
-                "type": "minecraft:would_survive"
-              },
-              "type": "minecraft:block_predicate_filter"
-            }
-          ]
-        },
-        "chance": 0.1
-      }
-    ],
     "default": {
       "feature": "woods_and_mires:giant_pine",
       "placement": [
         {
+          "type": "minecraft:block_predicate_filter",
           "predicate": {
+            "type": "minecraft:would_survive",
             "state": {
+              "Name": "woods_and_mires:pine_sapling",
               "Properties": {
                 "stage": "0"
-              },
-              "Name": "woods_and_mires:pine_sapling"
-            },
-            "type": "minecraft:would_survive"
-          },
-          "type": "minecraft:block_predicate_filter"
+              }
+            }
+          }
         }
       ]
-    }
-  },
-  "type": "minecraft:random_selector"
+    },
+    "features": [
+      {
+        "chance": 0.15,
+        "feature": {
+          "feature": "woods_and_mires:pine",
+          "placement": [
+            {
+              "type": "minecraft:block_predicate_filter",
+              "predicate": {
+                "type": "minecraft:would_survive",
+                "state": {
+                  "Name": "woods_and_mires:pine_sapling",
+                  "Properties": {
+                    "stage": "0"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "chance": 0.1,
+        "feature": {
+          "feature": "woods_and_mires:pine_snag",
+          "placement": [
+            {
+              "type": "minecraft:block_predicate_filter",
+              "predicate": {
+                "type": "minecraft:would_survive",
+                "state": {
+                  "Name": "woods_and_mires:pine_sapling",
+                  "Properties": {
+                    "stage": "0"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
 }

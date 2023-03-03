@@ -43,7 +43,7 @@ public final class WamBiomes {
         return OverworldBiomeCreator.getSkyColor(temperature);
     }
 
-    private static Biome pineForest(Biome.Category category, Biome.Precipitation precipitation, float temperature,
+    private static Biome pineForest(Biome.Precipitation precipitation, float temperature,
                                     Consumer<GenerationSettings.Builder> earlyGenerationSettingsConfigurator,
                                     Consumer<GenerationSettings.Builder> generationSettingsConfigurator) {
         GenerationSettings generationSettings = generationSettings(builder -> {
@@ -79,7 +79,6 @@ public final class WamBiomes {
         });
 
         return new Biome.Builder()
-            .category(category)
             .effects(
                 new BiomeEffects.Builder()
                     .waterColor(OverworldBiomeCreator.DEFAULT_WATER_COLOR)
@@ -100,26 +99,26 @@ public final class WamBiomes {
 
     private static Biome pineForest() {
         // noinspection CodeBlock2Expr
-        return pineForest(Biome.Category.FOREST, Biome.Precipitation.RAIN, 0.6f, builder -> {}, builder -> {
+        return pineForest(Biome.Precipitation.RAIN, 0.6f, builder -> {}, builder -> {
             builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.FOREST_PINE);
         });
     }
 
     private static Biome snowyPineForest() {
         // noinspection CodeBlock2Expr
-        return pineForest(Biome.Category.FOREST, Biome.Precipitation.SNOW, 0f, builder -> {}, builder -> {
+        return pineForest(Biome.Precipitation.SNOW, 0f, builder -> {}, builder -> {
             builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.SNOWY_FOREST_PINE);
         });
     }
 
     private static Biome oldGrowthPineForest() {
-        return pineForest(Biome.Category.FOREST, Biome.Precipitation.RAIN, 0.4f, builder -> {}, builder -> {
+        return pineForest(Biome.Precipitation.RAIN, 0.4f, builder -> {}, builder -> {
             builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.OLD_GROWTH_PINE_FOREST_TREES);
         });
     }
 
     private static Biome lushPineForest() {
-        return pineForest(Biome.Category.FOREST, Biome.Precipitation.RAIN, 0.6f, builder -> {
+        return pineForest(Biome.Precipitation.RAIN, 0.6f, builder -> {
             DefaultBiomeFeatures.addSavannaTallGrass(builder);
         }, builder -> {
             builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.LUSH_PINE_FOREST_TREES);
@@ -145,7 +144,6 @@ public final class WamBiomes {
         });
 
         return new Biome.Builder()
-            .category(Biome.Category.SWAMP)
             .effects(
                 new BiomeEffects.Builder()
                     .waterColor(0x7B6D1B)
@@ -180,7 +178,6 @@ public final class WamBiomes {
         });
 
         return new Biome.Builder()
-            .category(Biome.Category.EXTREME_HILLS)
             .effects(
                 new BiomeEffects.Builder()
                     .waterColor(OverworldBiomeCreator.DEFAULT_WATER_COLOR)
@@ -242,7 +239,6 @@ public final class WamBiomes {
             DefaultBiomeFeatures.addBatsAndMonsters(builder);
         });
         return new Biome.Builder()
-            .category(Biome.Category.FOREST)
             .effects(
                 new BiomeEffects.Builder()
                     .waterColor(OverworldBiomeCreator.DEFAULT_WATER_COLOR)

@@ -2,32 +2,32 @@
   "feature": "woods_and_mires:heather_patch",
   "placement": [
     {
+      "type": "minecraft:count",
       "count": {
         "type": "minecraft:clamped",
         "value": {
+          "max_inclusive": 1,
+          "min_inclusive": 0,
           "source": {
             "type": "minecraft:uniform",
             "value": {
-              "min_inclusive": -4,
-              "max_inclusive": 1
+              "max_inclusive": 1,
+              "min_inclusive": -4
             }
-          },
-          "min_inclusive": 0,
-          "max_inclusive": 1
+          }
         }
-      },
-      "type": "minecraft:count"
+      }
     },
     {
-      "chance": 7,
-      "type": "minecraft:rarity_filter"
+      "type": "minecraft:rarity_filter",
+      "chance": 7
     },
     {
       "type": "minecraft:in_square"
     },
     {
-      "heightmap": "WORLD_SURFACE_WG",
-      "type": "minecraft:heightmap"
+      "type": "minecraft:heightmap",
+      "heightmap": "WORLD_SURFACE_WG"
     },
     {
       "type": "minecraft:biome"

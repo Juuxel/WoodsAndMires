@@ -61,7 +61,7 @@ public final class WamBlocks {
     public static final Block FIREWEED = new TallFlowerBlock(createFlowerSettings(true));
     public static final Block TANSY = new BigFlowerBlock(StatusEffects.SLOW_FALLING, 10, createFlowerSettings(false));
     public static final Block POTTED_TANSY = new FlowerPotBlock(TANSY, createFlowerPotSettings());
-    public static final Block FELL_LICHEN = new LichenBlock(createFlowerSettings(false).mapColor(MapColor.OFF_WHITE));
+    public static final Block FELL_LICHEN = new LichenBlock(createFlowerSettings(false).mapColor(MapColor.OFF_WHITE).offsetType(AbstractBlock.OffsetType.XZ));
     public static final Block POTTED_FELL_LICHEN = new FlowerPotBlock(FELL_LICHEN, createFlowerPotSettings());
     public static final Block HEATHER = new HeatherBlock(StatusEffects.REGENERATION, 8, createFlowerSettings(false));
     public static final Block POTTED_HEATHER = new FlowerPotBlock(HEATHER, createFlowerPotSettings());

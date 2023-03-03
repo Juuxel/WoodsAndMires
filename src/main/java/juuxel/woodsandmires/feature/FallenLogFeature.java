@@ -80,7 +80,7 @@ public class FallenLogFeature extends Feature<FallenLogFeatureConfig> {
     }
 
     private static boolean canPlace(TestableWorld world, BlockPos.Mutable mut) {
-        if (!isAir(world, mut)) return false;
+        if (!world.testBlockState(mut, BlockState::isAir)) return false;
         mut.move(0, -1, 0);
         boolean result = isSoil(world, mut);
         mut.move(0, 1, 0);

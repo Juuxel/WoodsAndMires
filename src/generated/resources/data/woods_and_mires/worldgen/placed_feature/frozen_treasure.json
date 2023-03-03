@@ -2,15 +2,15 @@
   "feature": "woods_and_mires:frozen_treasure",
   "placement": [
     {
-      "count": 2,
-      "type": "minecraft:count"
+      "type": "minecraft:count",
+      "count": 2
     },
     {
       "type": "minecraft:in_square"
     },
     {
-      "heightmap": "WORLD_SURFACE_WG",
-      "type": "minecraft:heightmap"
+      "type": "minecraft:heightmap",
+      "heightmap": "WORLD_SURFACE_WG"
     },
     {
       "type": "minecraft:biome"

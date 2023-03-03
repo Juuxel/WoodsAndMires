@@ -9,16 +9,10 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.TestableWorld;
 import net.minecraft.world.gen.treedecorator.TreeDecorator;
 import net.minecraft.world.gen.treedecorator.TreeDecoratorType;
-
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Random;
-import java.util.function.BiConsumer;
 
 public final class PineTrunkTreeDecorator extends TreeDecorator {
     public static final Codec<PineTrunkTreeDecorator> CODEC = RecordCodecBuilder.create(
@@ -44,23 +38,20 @@ public final class PineTrunkTreeDecorator extends TreeDecorator {
     }
 
     @Override
-    public void generate(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, List<BlockPos> logPositions, List<BlockPos> leavesPositions) {
-        var sortedLogPositions = new ArrayList<>(logPositions);
-        sortedLogPositions.sort(Comparator.comparing(BlockPos::getY));
-
+    public void generate(Generator generator) {
         IntSortedSet heights = new IntRBTreeSet();
-        for (BlockPos pos : sortedLogPositions) {
+        for (BlockPos pos : generator.getLogPositions()) {
             heights.add(pos.getY());
         }
-        int midY = (int) MathHelper.lerp(getRandomHeightPoint(random), heights.firstInt(), heights.lastInt());
+        int midY = (int) MathHelper.lerp(getRandomHeightPoint(generator.getRandom()), heights.firstInt(), heights.lastInt());
 
-        for (BlockPos pos : sortedLogPositions) {
+        for (BlockPos pos : generator.getLogPositions()) {
             if (pos.getY() > midY) {
                 break;
             }
 
             BlockState state = log.getDefaultState().with(GroundLogBlock.MID, pos.getY() == midY);
-            replacer.accept(pos, state);
+            generator.replace(pos, state);
         }
     }
 

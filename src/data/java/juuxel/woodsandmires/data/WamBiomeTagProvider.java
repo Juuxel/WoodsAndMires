@@ -7,7 +7,6 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBiomeTags;
 import net.minecraft.tag.BiomeTags;
 import net.minecraft.tag.TagKey;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.util.registry.RegistryKey;
@@ -19,14 +18,13 @@ import java.util.stream.Stream;
 
 public final class WamBiomeTagProvider extends FabricTagProvider.DynamicRegistryTagProvider<Biome> {
     public WamBiomeTagProvider(FabricDataGenerator dataGenerator) {
-        super(dataGenerator, Registry.BIOME_KEY, Registry.BIOME_KEY.getValue().getPath(), "Biome Tags");
+        super(dataGenerator, Registry.BIOME_KEY);
     }
 
     @Override
     protected void generateTags() {
         // Vanilla tags
-        // TODO (MC 1.19): Use vanilla tag key for this
-        generateOverworld(TagKey.of(Registry.BIOME_KEY, new Identifier("is_overworld")));
+        generateOverworld(BiomeTags.IS_OVERWORLD);
         getOrCreateTagBuilder(BiomeTags.IS_FOREST)
             .add(WamBiomeKeys.PINE_FOREST)
             .add(WamBiomeKeys.OLD_GROWTH_PINE_FOREST)

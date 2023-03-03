@@ -1,6 +1,9 @@
 {
+  "type": "woods_and_mires:meadow",
   "config": {
+    "chance": 0.5,
     "state_provider": {
+      "type": "minecraft:weighted_state_provider",
       "entries": [
         {
           "data": {
@@ -14,10 +17,7 @@
           },
           "weight": 1
         }
-      ],
-      "type": "minecraft:weighted_state_provider"
-    },
-    "chance": 0.5
-  },
-  "type": "woods_and_mires:meadow"
+      ]
+    }
+  }
 }

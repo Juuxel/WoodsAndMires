@@ -1,14 +1,12 @@
 package juuxel.woodsandmires.data;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.mojang.serialization.DynamicOps;
 import com.mojang.serialization.Encoder;
 import com.mojang.serialization.JsonOps;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
-import net.minecraft.data.DataCache;
 import net.minecraft.data.DataProvider;
+import net.minecraft.data.DataWriter;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.dynamic.RegistryOps;
@@ -23,7 +21,6 @@ import java.util.function.Function;
 import java.util.stream.Stream;
 
 public abstract class EncoderBasedDataProvider<T> implements DataProvider {
-    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private final FabricDataGenerator dataGenerator;
     private final Encoder<T> encoder;
     private final ResourceType resourceType;
@@ -45,7 +42,7 @@ public abstract class EncoderBasedDataProvider<T> implements DataProvider {
     protected abstract Stream<T> getEntries();
 
     @Override
-    public void run(DataCache cache) throws IOException {
+    public void run(DataWriter writer) throws IOException {
         DynamicRegistryManager drm = BuiltinRegistries.DYNAMIC_REGISTRY_MANAGER;
         DynamicOps<JsonElement> ops = RegistryOps.of(JsonOps.INSTANCE, drm);
 
@@ -57,7 +54,7 @@ public abstract class EncoderBasedDataProvider<T> implements DataProvider {
             Path path = dataGenerator.getOutput().resolve(dataPath);
             JsonElement json = encoder.encodeStart(ops, next)
                 .getOrThrow(false, msg -> {});
-            DataProvider.writeToPath(GSON, cache, json, path);
+            DataProvider.writeToPath(writer, json, path);
         }
     }
 }

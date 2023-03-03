@@ -1,23 +1,24 @@
 {
+  "type": "woods_and_mires:shrub",
   "config": {
     "base_height": 1,
     "extra_height": 2,
     "extra_height_chance": 0.8,
-    "log": {
-      "Properties": {
-        "waterlogged": "false",
-        "has_leaves": "false",
-        "axis": "y"
-      },
-      "Name": "woods_and_mires:pine_shrub_log"
-    },
     "leaves": {
+      "Name": "woods_and_mires:pine_leaves",
       "Properties": {
+        "distance": "7",
         "persistent": "false",
-        "distance": "7"
-      },
-      "Name": "woods_and_mires:pine_leaves"
+        "waterlogged": "false"
+      }
+    },
+    "log": {
+      "Name": "woods_and_mires:pine_shrub_log",
+      "Properties": {
+        "axis": "y",
+        "has_leaves": "false",
+        "waterlogged": "false"
+      }
     }
-  },
-  "type": "woods_and_mires:shrub"
+  }
 }

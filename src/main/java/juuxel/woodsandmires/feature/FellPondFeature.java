@@ -50,7 +50,7 @@ public final class FellPondFeature extends Feature<FellPondFeatureConfig> {
 
             outer: for (int x = -semiMajor; x <= semiMajor; x++) {
                 for (int z = -semiMinor; z <= semiMinor; z++) {
-                    if (isInsideEllipse(x, z, semiMajorSq, semiMinorSq, theta) && isAir(context.getWorld(), mut.set(origin).move(x, 0, z))) {
+                    if (isInsideEllipse(x, z, semiMajorSq, semiMinorSq, theta) && context.getWorld().isAir(mut.set(origin).move(x, 0, z))) {
                         foundAir = true;
                         break outer;
                     }

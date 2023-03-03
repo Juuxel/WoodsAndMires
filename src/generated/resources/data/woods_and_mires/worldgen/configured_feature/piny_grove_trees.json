@@ -1,47 +1,47 @@
 {
+  "type": "minecraft:random_selector",
   "config": {
-    "features": [
-      {
-        "feature": "minecraft:pine_on_snow",
-        "chance": 0.1
-      },
-      {
-        "feature": "minecraft:spruce_on_snow",
-        "chance": 0.1
-      }
-    ],
     "default": {
       "feature": "woods_and_mires:no_podzol_pine",
       "placement": [
         {
+          "type": "minecraft:environment_scan",
           "direction_of_search": "up",
-          "target_condition": {
-            "predicate": {
-              "blocks": "minecraft:powder_snow",
-              "type": "minecraft:matching_blocks"
-            },
-            "type": "minecraft:not"
-          },
           "max_steps": 8,
-          "type": "minecraft:environment_scan"
+          "target_condition": {
+            "type": "minecraft:not",
+            "predicate": {
+              "type": "minecraft:matching_blocks",
+              "blocks": "minecraft:powder_snow"
+            }
+          }
         },
         {
+          "type": "minecraft:block_predicate_filter",
           "predicate": {
-            "offset": [
-              0,
-              -1,
-              0
-            ],
+            "type": "minecraft:matching_blocks",
             "blocks": [
               "minecraft:snow_block",
               "minecraft:powder_snow"
             ],
-            "type": "minecraft:matching_blocks"
-          },
-          "type": "minecraft:block_predicate_filter"
+            "offset": [
+              0,
+              -1,
+              0
+            ]
+          }
         }
       ]
-    }
-  },
-  "type": "minecraft:random_selector"
+    },
+    "features": [
+      {
+        "chance": 0.1,
+        "feature": "minecraft:pine_on_snow"
+      },
+      {
+        "chance": 0.1,
+        "feature": "minecraft:spruce_on_snow"
+      }
+    ]
+  }
 }

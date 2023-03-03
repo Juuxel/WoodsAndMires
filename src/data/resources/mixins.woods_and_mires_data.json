@@ -3,7 +3,6 @@
   "package": "juuxel.woodsandmires.data.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "AbstractTagProviderMixin",
     "DataProviderMixin"
   ],
   "injectors": {
