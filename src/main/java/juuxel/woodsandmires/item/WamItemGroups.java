@@ -1,0 +1,49 @@
+package juuxel.woodsandmires.item;
+
+import juuxel.woodsandmires.block.WamBlocks;
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.minecraft.item.ItemGroups;
+import net.minecraft.item.Items;
+
+public final class WamItemGroups {
+    public static void init() {
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.BUILDING_BLOCKS).register(entries -> {
+            entries.addAfter(Items.WARPED_BUTTON,
+                WamBlocks.PINE_LOG,
+                WamBlocks.GROUND_PINE_LOG,
+                WamBlocks.PINE_SHRUB_LOG,
+                WamBlocks.PINE_WOOD,
+                WamBlocks.GROUND_PINE_WOOD,
+                WamBlocks.STRIPPED_PINE_LOG,
+                WamBlocks.STRIPPED_PINE_WOOD,
+                WamBlocks.PINE_SNAG_LOG,
+                WamBlocks.PINE_SNAG_WOOD,
+                WamBlocks.PINE_PLANKS,
+                WamBlocks.PINE_STAIRS,
+                WamBlocks.PINE_SLAB,
+                WamBlocks.PINE_FENCE,
+                WamBlocks.PINE_FENCE_GATE,
+                WamBlocks.PINE_PRESSURE_PLATE,
+                WamBlocks.PINE_BUTTON
+            );
+        });
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.NATURAL).register(entries -> {
+            entries.addAfter(Items.WARPED_STEM,
+                WamBlocks.PINE_LOG,
+                WamBlocks.GROUND_PINE_LOG,
+                WamBlocks.PINE_SHRUB_LOG,
+                WamBlocks.PINE_SNAG_LOG);
+            entries.addAfter(Items.FLOWERING_AZALEA_LEAVES,
+                WamBlocks.PINE_LEAVES);
+            entries.addAfter(Items.FLOWERING_AZALEA,
+                WamBlocks.PINE_SAPLING);
+            entries.addAfter(Items.LILY_OF_THE_VALLEY,
+                WamBlocks.TANSY,
+                WamBlocks.HEATHER);
+            entries.addAfter(Items.PEONY,
+                WamBlocks.FIREWEED);
+            entries.addBefore(Items.GLOW_LICHEN,
+                WamBlocks.FELL_LICHEN);
+        });
+    }
+}
