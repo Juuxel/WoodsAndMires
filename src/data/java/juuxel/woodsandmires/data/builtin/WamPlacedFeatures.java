@@ -64,7 +64,7 @@ public final class WamPlacedFeatures {
     private static void registerMires(Registerable<PlacedFeature> registerable) {
         register(registerable, WamPlacedFeatureKeys.MIRE_PONDS, WamConfiguredFeatureKeys.MIRE_PONDS, List.of(BiomePlacementModifier.of()));
         register(registerable, WamPlacedFeatureKeys.MIRE_FLOWERS, WamConfiguredFeatureKeys.MIRE_FLOWERS, chanceModifiers(2));
-        register(registerable, WamPlacedFeatureKeys.MIRE_MEADOW, WamConfiguredFeatureKeys.MIRE_MEADOW, List.of());
+        register(registerable, WamPlacedFeatureKeys.MIRE_MEADOW, WamConfiguredFeatureKeys.MIRE_MEADOW, List.of(BiomePlacementModifier.of()));
         register(registerable, WamPlacedFeatureKeys.MIRE_PINE_SNAG, WamConfiguredFeatureKeys.PINE_SNAG, treeModifiersWithWouldSurvive(RarityFilterPlacementModifier.of(6), WamBlocks.PINE_SAPLING));
         register(registerable, WamPlacedFeatureKeys.MIRE_PINE_SHRUB, WamConfiguredFeatureKeys.SHORT_PINE_SHRUB,
             treeModifiersWithWouldSurvive(
@@ -75,7 +75,7 @@ public final class WamPlacedFeatures {
     }
 
     private static void registerFells(Registerable<PlacedFeature> registerable) {
-        register(registerable, WamPlacedFeatureKeys.FELL_VEGETATION, WamConfiguredFeatureKeys.FELL_VEGETATION, List.of());
+        register(registerable, WamPlacedFeatureKeys.FELL_VEGETATION, WamConfiguredFeatureKeys.FELL_VEGETATION, List.of(BiomePlacementModifier.of()));
         register(registerable, WamPlacedFeatureKeys.FELL_BOULDER, WamConfiguredFeatureKeys.FELL_BOULDER, chanceModifiers(16));
         register(registerable, WamPlacedFeatureKeys.FELL_POND, WamConfiguredFeatureKeys.FELL_POND, chanceModifiers(7));
         register(registerable, WamPlacedFeatureKeys.FELL_BIRCH_SHRUB, WamConfiguredFeatureKeys.FELL_BIRCH_SHRUB,
