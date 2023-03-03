@@ -1,4 +1,8 @@
 {
   "feature": "woods_and_mires:fell_vegetation",
-  "placement": []
+  "placement": [
+    {
+      "type": "minecraft:biome"
+    }
+  ]
 }
