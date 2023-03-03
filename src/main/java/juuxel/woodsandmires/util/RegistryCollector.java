@@ -1,4 +1,4 @@
-package juuxel.woodsandmires.data.builtin;
+package juuxel.woodsandmires.util;
 
 import java.util.ArrayList;
 import java.util.List;

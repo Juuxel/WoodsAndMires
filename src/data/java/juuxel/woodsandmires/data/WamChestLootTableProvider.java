@@ -1,7 +1,7 @@
 package juuxel.woodsandmires.data;
 
 import juuxel.woodsandmires.data.builtin.WamConfiguredFeatures;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
 import net.minecraft.item.Items;
@@ -17,8 +17,8 @@ import net.minecraft.util.Identifier;
 import java.util.function.BiConsumer;
 
 public final class WamChestLootTableProvider extends SimpleFabricLootTableProvider {
-    public WamChestLootTableProvider(FabricDataGenerator dataGenerator) {
-        super(dataGenerator, LootContextTypes.CHEST);
+    public WamChestLootTableProvider(FabricDataOutput output) {
+        super(output, LootContextTypes.CHEST);
     }
 
     @Override

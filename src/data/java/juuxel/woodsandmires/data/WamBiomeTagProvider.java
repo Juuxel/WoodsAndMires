@@ -1,28 +1,27 @@
 package juuxel.woodsandmires.data;
 
 import juuxel.woodsandmires.biome.WamBiomeKeys;
-import juuxel.woodsandmires.data.builtin.WamBiomes;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBiomeTags;
-import net.minecraft.tag.BiomeTags;
-import net.minecraft.tag.TagKey;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryEntry;
-import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.registry.tag.BiomeTags;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.world.biome.Biome;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
 
-public final class WamBiomeTagProvider extends FabricTagProvider.DynamicRegistryTagProvider<Biome> {
-    public WamBiomeTagProvider(FabricDataGenerator dataGenerator) {
-        super(dataGenerator, Registry.BIOME_KEY);
+public final class WamBiomeTagProvider extends FabricTagProvider<Biome> {
+    public WamBiomeTagProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+        super(output, RegistryKeys.BIOME, registriesFuture);
     }
 
     @Override
-    protected void generateTags() {
+    protected void configure(RegistryWrapper.WrapperLookup arg) {
         // Vanilla tags
         generateOverworld(BiomeTags.IS_OVERWORLD);
         getOrCreateTagBuilder(BiomeTags.IS_FOREST)
@@ -79,22 +78,18 @@ public final class WamBiomeTagProvider extends FabricTagProvider.DynamicRegistry
     }
 
     private void generateOverworld(TagKey<Biome> tag) {
-        FabricTagBuilder<Biome> tagBuilder = getOrCreateTagBuilder(tag);
-        WamBiomes.BIOMES
-            .stream()
-            .map(RegistryEntry::getKey)
-            .map(Optional::orElseThrow)
-            .forEach(tagBuilder::add);
+        FabricTagBuilder tagBuilder = getOrCreateTagBuilder(tag);
+        WamBiomeKeys.ALL.stream().forEach(tagBuilder::add);
     }
 
     static final class MultiBuilder<T> {
-        private final List<FabricTagProvider<T>.FabricTagBuilder<T>> builders;
+        private final List<FabricTagProvider<T>.FabricTagBuilder> builders;
 
-        private MultiBuilder(List<FabricTagProvider<T>.FabricTagBuilder<T>> builders) {
+        private MultiBuilder(List<FabricTagProvider<T>.FabricTagBuilder> builders) {
             this.builders = builders;
         }
 
-        public MultiBuilder<T> add(RegistryKey<? extends T> key) {
+        public MultiBuilder<T> add(RegistryKey<T> key) {
             for (var builder : builders) {
                 builder.add(key);
             }

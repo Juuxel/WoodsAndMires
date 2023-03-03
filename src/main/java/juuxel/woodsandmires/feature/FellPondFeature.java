@@ -84,14 +84,14 @@ public final class FellPondFeature extends Feature<FellPondFeatureConfig> {
                 for (int z = -semiMinor; z <= semiMinor; z++) {
                     if (isInsideEllipse(x, z, semiMajorSq, semiMinorSq, theta)) {
                         mut.set(origin.getX() + x, origin.getY() - yo, origin.getZ() + z);
-                        setBlockState(context.getWorld(), mut, config.fillBlock().getBlockState(random, mut));
+                        setBlockState(context.getWorld(), mut, config.fillBlock().get(random, mut));
                         filledPositions.add(new BlockPos(mut));
 
                         for (Direction d : BORDER_DIRECTIONS) {
                             mut.move(d);
 
                             if (!filledPositions.contains(mut) && shouldPlaceBorder(context.getWorld(), mut)) {
-                                setBlockState(context.getWorld(), mut, config.border().getBlockState(random, mut));
+                                setBlockState(context.getWorld(), mut, config.border().get(random, mut));
                             }
 
                             mut.move(d.getOpposite());
@@ -99,7 +99,7 @@ public final class FellPondFeature extends Feature<FellPondFeatureConfig> {
 
                         if (random.nextFloat() < config.bottomReplaceChance()) {
                             mut.move(0, -1, 0);
-                            setBlockState(context.getWorld(), mut, config.bottomBlock().getBlockState(random, mut));
+                            setBlockState(context.getWorld(), mut, config.bottomBlock().get(random, mut));
                         }
                     }
                 }

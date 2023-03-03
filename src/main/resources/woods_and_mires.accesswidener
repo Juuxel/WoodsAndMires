@@ -2,13 +2,14 @@ accessWidener v1 named
 
 # Blocks
 accessible method net/minecraft/block/Blocks createLeavesBlock (Lnet/minecraft/sound/BlockSoundGroup;)Lnet/minecraft/block/LeavesBlock;
+accessible method net/minecraft/block/Blocks createWoodenButtonBlock ()Lnet/minecraft/block/ButtonBlock;
 
 # World gen
 accessible field net/minecraft/world/biome/OverworldBiomeCreator DEFAULT_WATER_COLOR I
 accessible field net/minecraft/world/biome/OverworldBiomeCreator DEFAULT_WATER_FOG_COLOR I
 accessible field net/minecraft/world/biome/OverworldBiomeCreator DEFAULT_FOG_COLOR I
 accessible method net/minecraft/world/biome/OverworldBiomeCreator getSkyColor (F)I
-accessible method net/minecraft/world/biome/OverworldBiomeCreator addBasicFeatures (Lnet/minecraft/world/biome/GenerationSettings$Builder;)V
+accessible method net/minecraft/world/biome/OverworldBiomeCreator addBasicFeatures (Lnet/minecraft/world/biome/GenerationSettings$LookupBackedBuilder;)V
 accessible method net/minecraft/world/gen/surfacebuilder/VanillaSurfaceRules surfaceNoiseThreshold (D)Lnet/minecraft/world/gen/surfacebuilder/MaterialRules$MaterialCondition;
 accessible method net/minecraft/world/gen/surfacebuilder/VanillaSurfaceRules block (Lnet/minecraft/block/Block;)Lnet/minecraft/world/gen/surfacebuilder/MaterialRules$MaterialRule;
 accessible method net/minecraft/world/gen/treedecorator/TreeDecoratorType <init> (Lcom/mojang/serialization/Codec;)V

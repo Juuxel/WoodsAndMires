@@ -70,7 +70,7 @@ public class FallenLogFeature extends Feature<FallenLogFeatureConfig> {
 
         for (BlockPos.Mutable pos : trunkPositions) {
             pos.move(Direction.UP);
-            BlockState state = config.topDecoration().getBlockState(random, pos);
+            BlockState state = config.topDecoration().get(random, pos);
             if (!state.isAir() && state.canPlaceAt(context.getWorld(), pos)) {
                 setBlockState(context.getWorld(), pos, state);
             }

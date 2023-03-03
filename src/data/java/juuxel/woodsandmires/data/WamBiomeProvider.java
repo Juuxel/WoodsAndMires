@@ -1,21 +1,23 @@
 package juuxel.woodsandmires.data;
 
-import juuxel.woodsandmires.data.builtin.WamBiomes;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
-import net.minecraft.util.registry.BuiltinRegistries;
-import net.minecraft.util.registry.RegistryEntry;
+import juuxel.woodsandmires.biome.WamBiomeKeys;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.world.biome.Biome;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
 
 public final class WamBiomeProvider extends EncoderBasedDataProvider<Biome> {
-    public WamBiomeProvider(FabricDataGenerator dataGenerator) {
-        super(dataGenerator, Biome.CODEC, BuiltinRegistries.BIOME);
+    public WamBiomeProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+        super(output, registriesFuture, RegistryKeys.BIOME);
     }
 
     @Override
-    protected Stream<Biome> getEntries() {
-        return WamBiomes.BIOMES.stream().map(RegistryEntry::value);
+    protected Stream<RegistryKey<Biome>> getEntries() {
+        return WamBiomeKeys.ALL.stream();
     }
 
     @Override

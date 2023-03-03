@@ -7,17 +7,17 @@ import it.unimi.dsi.fastutil.ints.IntSortedSet;
 import juuxel.woodsandmires.block.GroundLogBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.registry.Registries;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.treedecorator.TreeDecorator;
 import net.minecraft.world.gen.treedecorator.TreeDecoratorType;
 
 public final class PineTrunkTreeDecorator extends TreeDecorator {
     public static final Codec<PineTrunkTreeDecorator> CODEC = RecordCodecBuilder.create(
         instance -> instance.group(
-            Registry.BLOCK.getCodec().fieldOf("log").forGetter(PineTrunkTreeDecorator::getLog)
+            Registries.BLOCK.getCodec().fieldOf("log").forGetter(PineTrunkTreeDecorator::getLog)
         ).apply(instance, PineTrunkTreeDecorator::new)
     );
     private static final float MIN_HEIGHT_POINT = 0.3f;

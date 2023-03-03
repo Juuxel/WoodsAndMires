@@ -1,7 +1,8 @@
 package juuxel.woodsandmires.feature;
 
 import juuxel.woodsandmires.WoodsAndMires;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 
@@ -26,6 +27,6 @@ public final class WamFeatures {
     }
 
     private static void register(String id, Feature<?> feature) {
-        Registry.register(Registry.FEATURE, WoodsAndMires.id(id), feature);
+        Registry.register(Registries.FEATURE, WoodsAndMires.id(id), feature);
     }
 }

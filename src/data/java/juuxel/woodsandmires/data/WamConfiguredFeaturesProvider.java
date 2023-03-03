@@ -1,21 +1,23 @@
 package juuxel.woodsandmires.data;
 
-import juuxel.woodsandmires.data.builtin.WamConfiguredFeatures;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
-import net.minecraft.util.registry.BuiltinRegistries;
-import net.minecraft.util.registry.RegistryEntry;
+import juuxel.woodsandmires.feature.WamConfiguredFeatureKeys;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
 
 public final class WamConfiguredFeaturesProvider extends EncoderBasedDataProvider<ConfiguredFeature<?, ?>> {
-    public WamConfiguredFeaturesProvider(FabricDataGenerator dataGenerator) {
-        super(dataGenerator, ConfiguredFeature.CODEC, BuiltinRegistries.CONFIGURED_FEATURE);
+    public WamConfiguredFeaturesProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+        super(output, registriesFuture, RegistryKeys.CONFIGURED_FEATURE);
     }
 
     @Override
-    protected Stream<ConfiguredFeature<?, ?>> getEntries() {
-        return WamConfiguredFeatures.CONFIGURED_FEATURES.stream().map(RegistryEntry::value);
+    protected Stream<RegistryKey<ConfiguredFeature<?, ?>>> getEntries() {
+        return WamConfiguredFeatureKeys.ALL.stream();
     }
 
     @Override
