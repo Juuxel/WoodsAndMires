@@ -1,4 +1,8 @@
 {
   "feature": "woods_and_mires:mire_meadow",
-  "placement": []
+  "placement": [
+    {
+      "type": "minecraft:biome"
+    }
+  ]
 }
