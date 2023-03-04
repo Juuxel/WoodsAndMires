@@ -186,6 +186,7 @@ public final class WamConfiguredFeatures {
             new FallenLogFeatureConfig(
                 WamBlocks.PINE_LOG,
                 WamBlocks.AGED_PINE_LOG,
+                UniformFloatProvider.create(-0.2f, 1.2f),
                 UniformIntProvider.create(2, 6),
                 new WeightedBlockStateProvider(
                     DataPool.<BlockState>builder()

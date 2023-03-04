@@ -73,9 +73,4 @@ public final class AgedTrunkTreeDecorator extends TreeDecorator {
             replacer.accept(pos, state);
         }
     }
-
-    @Deprecated
-    public static float getRandomHeightPoint(Random random) {
-        return (MAX_HEIGHT_POINT - MIN_HEIGHT_POINT) * random.nextFloat() + MIN_HEIGHT_POINT;
-    }
 }

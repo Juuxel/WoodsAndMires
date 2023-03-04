@@ -2,7 +2,6 @@ package juuxel.woodsandmires.feature;
 
 import com.mojang.serialization.Codec;
 import juuxel.woodsandmires.block.AgedLogBlock;
-import juuxel.woodsandmires.tree.AgedTrunkTreeDecorator;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.PillarBlock;
@@ -33,7 +32,7 @@ public class FallenLogFeature extends Feature<FallenLogFeatureConfig> {
         // We need to correct it so that the "mid" texture will align correctly.
         Direction direction = axis == Direction.Axis.X ? Direction.WEST : Direction.SOUTH;
         int length = config.length().get(random);
-        int mid = (int) (AgedTrunkTreeDecorator.getRandomHeightPoint(random) * length);
+        int mid = (int) (config.agedHeightFraction().get(random) * length);
         List<BlockPos.Mutable> trunkPositions = new ArrayList<>();
 
         if (random.nextInt(5) == 0) {
