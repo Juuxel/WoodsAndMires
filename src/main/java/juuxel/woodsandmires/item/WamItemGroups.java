@@ -29,6 +29,7 @@ public final class WamItemGroups {
                 WamBlocks.PINE_FENCE,
                 WamBlocks.PINE_FENCE_GATE,
                 WamBlocks.PINE_DOOR,
+                WamBlocks.PINE_TRAPDOOR,
                 WamBlocks.PINE_PRESSURE_PLATE,
                 WamBlocks.PINE_BUTTON
             );
