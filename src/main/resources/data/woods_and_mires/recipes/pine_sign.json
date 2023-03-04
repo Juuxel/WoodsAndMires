@@ -1,18 +1,21 @@
 {
   "type": "minecraft:crafting_shaped",
-  "group": "wooden_door",
+  "group": "sign",
   "pattern": [
-    "##",
-    "##",
-    "##"
+    "###",
+    "###",
+    " X "
   ],
   "key": {
     "#": {
       "item": "woods_and_mires:pine_planks"
+    },
+    "X": {
+      "tag": "c:wooden_rods"
     }
   },
   "result": {
-    "item": "minecraft:oak_door",
+    "item": "woods_and_mires:pine_sign",
     "count": 3
   }
 }

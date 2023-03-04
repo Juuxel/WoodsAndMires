@@ -1,5 +1,6 @@
 package juuxel.woodsandmires.block;
 
+import com.google.common.base.Suppliers;
 import juuxel.woodsandmires.WoodsAndMires;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -11,6 +12,7 @@ import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.DoorBlock;
 import net.minecraft.block.FenceBlock;
 import net.minecraft.block.FenceGateBlock;
 import net.minecraft.block.FlowerPotBlock;
@@ -30,12 +32,15 @@ import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.SignItem;
 import net.minecraft.item.TallBlockItem;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvents;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.function.Supplier;
 
 public final class WamBlocks {
     public static final Block PINE_LOG = new PillarBlock(copyWoodSettings(Blocks.OAK_LOG));
@@ -45,8 +50,12 @@ public final class WamBlocks {
     public static final Block PINE_STAIRS = new StairsBlock(PINE_PLANKS.getDefaultState(), copyWoodSettings(Blocks.OAK_STAIRS));
     public static final Block PINE_FENCE = new FenceBlock(copyWoodSettings(Blocks.OAK_FENCE));
     public static final Block PINE_FENCE_GATE = new FenceGateBlock(copyWoodSettings(Blocks.OAK_FENCE_GATE), SoundEvents.BLOCK_FENCE_GATE_CLOSE, SoundEvents.BLOCK_FENCE_GATE_OPEN);
+    public static final Block PINE_DOOR = new DoorBlock(copyWoodSettings(Blocks.OAK_DOOR));
     public static final Block PINE_BUTTON = Blocks.createWoodenButtonBlock();
     public static final Block PINE_PRESSURE_PLATE = new PressurePlateBlock(PressurePlateBlock.ActivationRule.EVERYTHING, copyWoodSettings(Blocks.OAK_PRESSURE_PLATE), SoundEvents.BLOCK_WOODEN_PRESSURE_PLATE_CLICK_OFF, SoundEvents.BLOCK_WOODEN_PRESSURE_PLATE_CLICK_ON);
+    public static final Block PINE_SIGN = new WamSignBlock(copyWoodSettings(Blocks.OAK_SIGN), WamSignTypes.PINE);
+    // We have to evaluate this *after* PINE_SIGN has registered due to the loot table condition.
+    public static final Supplier<Block> PINE_WALL_SIGN = Suppliers.memoize(() -> new WamWallSignBlock(copyWoodSettings(PINE_SIGN).dropsLike(PINE_SIGN), WamSignTypes.PINE));
     public static final Block PINE_LEAVES = Blocks.createLeavesBlock(BlockSoundGroup.GRASS);
     public static final Block PINE_SAPLING = new SaplingBlock(new PineSaplingGenerator(), AbstractBlock.Settings.copy(Blocks.OAK_SAPLING));
     public static final Block POTTED_PINE_SAPLING = new FlowerPotBlock(PINE_SAPLING, createFlowerPotSettings());
@@ -77,8 +86,11 @@ public final class WamBlocks {
         register("pine_stairs", PINE_STAIRS);
         register("pine_fence", PINE_FENCE);
         register("pine_fence_gate", PINE_FENCE_GATE);
+        register("pine_door", PINE_DOOR, new TallBlockItem(PINE_DOOR, new Item.Settings().group(ItemGroup.REDSTONE)));
         register("pine_button", PINE_BUTTON);
         register("pine_pressure_plate", PINE_PRESSURE_PLATE);
+        register("pine_sign", PINE_SIGN, () -> new SignItem(new Item.Settings().maxCount(16).group(ItemGroup.DECORATIONS), PINE_SIGN, PINE_WALL_SIGN.get()));
+        register("pine_wall_sign", PINE_WALL_SIGN.get(), (Item) null);
         register("pine_leaves", PINE_LEAVES);
         register("pine_sapling", PINE_SAPLING);
         register("potted_pine_sapling", POTTED_PINE_SAPLING, (Item) null);
@@ -136,6 +148,7 @@ public final class WamBlocks {
 
         BlockRenderLayerMap.INSTANCE.putBlocks(
             RenderLayer.getCutout(),
+            PINE_DOOR,
             PINE_SAPLING,
             POTTED_PINE_SAPLING,
             FIREWEED,
@@ -176,6 +189,15 @@ public final class WamBlocks {
     private static void register(String id, Block block, @Nullable Item item) {
         Registry.register(Registries.BLOCK, WoodsAndMires.id(id), block);
 
+        if (item != null) {
+            Registry.register(Registry.ITEM, WoodsAndMires.id(id), item);
+        }
+    }
+
+    private static void register(String id, Block block, Supplier<@Nullable Item> itemSupplier) {
+        Registry.register(Registry.BLOCK, WoodsAndMires.id(id), block);
+
+        @Nullable Item item = itemSupplier.get();
         if (item != null) {
             Registry.register(Registries.ITEM, WoodsAndMires.id(id), item);
         }

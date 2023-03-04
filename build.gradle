@@ -48,6 +48,13 @@ repositories {
     maven {
         url = "https://maven.minecraftforge.net"
     }
+
+    maven {
+        url = "https://maven.terraformersmc.com/releases/"
+        content {
+            includeGroup "com.terraformersmc.terraform-api"
+        }
+    }
 }
 
 dependencies {
