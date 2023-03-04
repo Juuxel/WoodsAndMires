@@ -21,7 +21,7 @@ public final class WamBlockLootTableProvider extends FabricBlockLootTableProvide
     @Override
     protected void generateBlockLootTables() {
         addDrop(WamBlocks.PINE_LOG);
-        addDrop(WamBlocks.GROUND_PINE_LOG);
+        addDrop(WamBlocks.AGED_PINE_LOG);
         addDrop(WamBlocks.PINE_PLANKS);
         addDrop(WamBlocks.PINE_SLAB, BlockLootTableGenerator::slabDrops);
         addDrop(WamBlocks.PINE_STAIRS);
@@ -36,7 +36,7 @@ public final class WamBlockLootTableProvider extends FabricBlockLootTableProvide
         addDrop(WamBlocks.PINE_SAPLING);
         addPottedPlantDrop(WamBlocks.POTTED_PINE_SAPLING);
         addDrop(WamBlocks.PINE_WOOD);
-        addDrop(WamBlocks.GROUND_PINE_WOOD);
+        addDrop(WamBlocks.AGED_PINE_WOOD);
         addDrop(WamBlocks.STRIPPED_PINE_LOG);
         addDrop(WamBlocks.STRIPPED_PINE_WOOD);
         addDrop(WamBlocks.PINE_SNAG_LOG);

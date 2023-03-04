@@ -45,7 +45,7 @@ import java.util.function.Supplier;
 
 public final class WamBlocks {
     public static final Block PINE_LOG = new PillarBlock(copyWoodSettings(Blocks.OAK_LOG));
-    public static final Block GROUND_PINE_LOG = new GroundLogBlock(PINE_LOG, AbstractBlock.Settings.copy(PINE_LOG));
+    public static final Block AGED_PINE_LOG = new AgedLogBlock(PINE_LOG, AbstractBlock.Settings.copy(PINE_LOG));
     public static final Block PINE_PLANKS = new Block(copyWoodSettings(Blocks.OAK_PLANKS));
     public static final Block PINE_SLAB = new SlabBlock(copyWoodSettings(Blocks.OAK_SLAB));
     public static final Block PINE_STAIRS = new StairsBlock(PINE_PLANKS.getDefaultState(), copyWoodSettings(Blocks.OAK_STAIRS));
@@ -62,7 +62,7 @@ public final class WamBlocks {
     public static final Block PINE_SAPLING = new SaplingBlock(new PineSaplingGenerator(), AbstractBlock.Settings.copy(Blocks.OAK_SAPLING));
     public static final Block POTTED_PINE_SAPLING = new FlowerPotBlock(PINE_SAPLING, createFlowerPotSettings());
     public static final Block PINE_WOOD = new PillarBlock(copyWoodSettings(Blocks.OAK_WOOD));
-    public static final Block GROUND_PINE_WOOD = new WoodVariantBlock(PINE_WOOD, AbstractBlock.Settings.copy(PINE_WOOD));
+    public static final Block AGED_PINE_WOOD = new WoodVariantBlock(PINE_WOOD, AbstractBlock.Settings.copy(PINE_WOOD));
     public static final Block STRIPPED_PINE_LOG = new PillarBlock(copyWoodSettings(Blocks.STRIPPED_OAK_LOG));
     public static final Block STRIPPED_PINE_WOOD = new PillarBlock(copyWoodSettings(Blocks.STRIPPED_OAK_WOOD));
     public static final Block PINE_SNAG_LOG = new PillarBlock(copyWoodSettings(Blocks.STRIPPED_OAK_LOG));
@@ -82,7 +82,7 @@ public final class WamBlocks {
 
     public static void init() {
         register("pine_log", PINE_LOG);
-        register("ground_pine_log", GROUND_PINE_LOG);
+        register("aged_pine_log", AGED_PINE_LOG);
         register("pine_planks", PINE_PLANKS);
         register("pine_slab", PINE_SLAB);
         register("pine_stairs", PINE_STAIRS);
@@ -98,7 +98,7 @@ public final class WamBlocks {
         register("pine_sapling", PINE_SAPLING, ItemGroup.DECORATIONS);
         register("potted_pine_sapling", POTTED_PINE_SAPLING, (Item) null);
         register("pine_wood", PINE_WOOD);
-        register("ground_pine_wood", GROUND_PINE_WOOD);
+        register("aged_pine_wood", AGED_PINE_WOOD);
         register("stripped_pine_log", STRIPPED_PINE_LOG);
         register("stripped_pine_wood", STRIPPED_PINE_WOOD);
         register("pine_snag_log", PINE_SNAG_LOG);
@@ -115,9 +115,9 @@ public final class WamBlocks {
 
         FlammableBlockRegistry fbr = FlammableBlockRegistry.getDefaultInstance();
         fbr.add(PINE_LOG, 5, 5);
-        fbr.add(GROUND_PINE_LOG, 5, 5);
+        fbr.add(AGED_PINE_LOG, 5, 5);
         fbr.add(PINE_WOOD, 5, 5);
-        fbr.add(GROUND_PINE_WOOD, 5, 5);
+        fbr.add(AGED_PINE_WOOD, 5, 5);
         fbr.add(STRIPPED_PINE_LOG, 5, 5);
         fbr.add(STRIPPED_PINE_WOOD, 5, 5);
         fbr.add(PINE_SNAG_LOG, 5, 5);
@@ -136,9 +136,9 @@ public final class WamBlocks {
         fr.add(PINE_FENCE_GATE, 300);
 
         StrippableBlockRegistry.register(PINE_LOG, STRIPPED_PINE_LOG);
-        StrippableBlockRegistry.register(GROUND_PINE_LOG, STRIPPED_PINE_LOG);
+        StrippableBlockRegistry.register(AGED_PINE_LOG, STRIPPED_PINE_LOG);
         StrippableBlockRegistry.register(PINE_WOOD, STRIPPED_PINE_WOOD);
-        StrippableBlockRegistry.register(GROUND_PINE_WOOD, STRIPPED_PINE_WOOD);
+        StrippableBlockRegistry.register(AGED_PINE_WOOD, STRIPPED_PINE_WOOD);
     }
 
     @Environment(EnvType.CLIENT)
