@@ -1,9 +1,14 @@
 package juuxel.woodsandmires.item;
 
 import juuxel.woodsandmires.block.WamBlocks;
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.item.Items;
+
+import java.util.List;
 
 public final class WamItemGroups {
     public static void init() {
@@ -23,6 +28,7 @@ public final class WamItemGroups {
                 WamBlocks.PINE_SLAB,
                 WamBlocks.PINE_FENCE,
                 WamBlocks.PINE_FENCE_GATE,
+                WamBlocks.PINE_DOOR,
                 WamBlocks.PINE_PRESSURE_PLATE,
                 WamBlocks.PINE_BUTTON
             );
@@ -45,5 +51,17 @@ public final class WamItemGroups {
             entries.addBefore(Items.GLOW_LICHEN,
                 WamBlocks.FELL_LICHEN);
         });
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(entries -> {
+            addAfterFirstEnabled(entries, List.of(Items.WARPED_HANGING_SIGN, Items.WARPED_SIGN),
+                WamBlocks.PINE_SIGN);
+        });
+    }
+
+    private static void addAfterFirstEnabled(FabricItemGroupEntries entries, List<Item> after, ItemConvertible... items) {
+        Item start = after.stream()
+            .filter(item -> item.getRequiredFeatures().isSubsetOf(entries.getEnabledFeatures()))
+            .findFirst()
+            .orElseThrow(() -> new RuntimeException("Could not find any of the items " + after));
+        entries.addAfter(start, items);
     }
 }
