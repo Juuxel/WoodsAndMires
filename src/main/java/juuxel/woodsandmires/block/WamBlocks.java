@@ -15,6 +15,7 @@ import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.DoorBlock;
 import net.minecraft.block.FenceBlock;
 import net.minecraft.block.FenceGateBlock;
 import net.minecraft.block.FlowerPotBlock;
@@ -52,6 +53,7 @@ public final class WamBlocks {
     public static final Block PINE_STAIRS = new StairsBlock(PINE_PLANKS.getDefaultState(), copyWoodSettings(Blocks.OAK_STAIRS));
     public static final Block PINE_FENCE = new FenceBlock(copyWoodSettings(Blocks.OAK_FENCE));
     public static final Block PINE_FENCE_GATE = new FenceGateBlock(copyWoodSettings(Blocks.OAK_FENCE_GATE));
+    public static final Block PINE_DOOR = new DoorBlock(copyWoodSettings(Blocks.OAK_DOOR));
     public static final Block PINE_BUTTON = new WoodenButtonBlock(copyWoodSettings(Blocks.OAK_BUTTON));
     public static final Block PINE_PRESSURE_PLATE = new PressurePlateBlock(PressurePlateBlock.ActivationRule.EVERYTHING, copyWoodSettings(Blocks.OAK_PRESSURE_PLATE));
     public static final Block PINE_SIGN = new TerraformSignBlock(WoodsAndMires.id("entity/signs/pine"), copyWoodSettings(Blocks.OAK_SIGN));
@@ -87,6 +89,7 @@ public final class WamBlocks {
         register("pine_stairs", PINE_STAIRS);
         register("pine_fence", PINE_FENCE, ItemGroup.DECORATIONS);
         register("pine_fence_gate", PINE_FENCE_GATE, ItemGroup.REDSTONE);
+        register("pine_door", PINE_DOOR, new TallBlockItem(PINE_DOOR, new Item.Settings().group(ItemGroup.REDSTONE)));
         register("pine_button", PINE_BUTTON, ItemGroup.REDSTONE);
         register("pine_pressure_plate", PINE_PRESSURE_PLATE, ItemGroup.REDSTONE);
         register("pine_sign", PINE_SIGN, () -> new SignItem(new Item.Settings().maxCount(16).group(ItemGroup.DECORATIONS), PINE_SIGN, PINE_WALL_SIGN.get()));
@@ -148,6 +151,7 @@ public final class WamBlocks {
 
         BlockRenderLayerMap.INSTANCE.putBlocks(
             RenderLayer.getCutout(),
+            PINE_DOOR,
             PINE_SAPLING,
             POTTED_PINE_SAPLING,
             FIREWEED,
