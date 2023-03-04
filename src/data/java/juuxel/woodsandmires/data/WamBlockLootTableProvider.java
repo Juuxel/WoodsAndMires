@@ -31,6 +31,7 @@ public final class WamBlockLootTableProvider extends FabricBlockLootTableProvide
         addDrop(WamBlocks.PINE_PRESSURE_PLATE);
         addDrop(WamBlocks.PINE_SIGN);
         addDrop(WamBlocks.PINE_DOOR, BlockLootTableGenerator::doorDrops);
+        addDrop(WamBlocks.PINE_TRAPDOOR);
         addDrop(WamBlocks.PINE_LEAVES, block -> leavesDrop(block, WamBlocks.PINE_SAPLING, SAPLING_DROP_CHANCE));
         addDrop(WamBlocks.PINE_SAPLING);
         addPottedPlantDrop(WamBlocks.POTTED_PINE_SAPLING);
