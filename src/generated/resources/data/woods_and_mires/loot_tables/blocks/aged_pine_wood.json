@@ -7,7 +7,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "woods_and_mires:ground_pine_wood"
+          "name": "woods_and_mires:aged_pine_wood"
         }
       ],
       "conditions": [

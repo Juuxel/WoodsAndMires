@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:block/cube_bottom_top",
   "textures": {
-    "bottom": "woods_and_mires:block/pine_log_top_ground",
+    "bottom": "woods_and_mires:block/pine_log_top_aged",
     "top": "woods_and_mires:block/pine_log_top",
     "side": "woods_and_mires:block/pine_log_mid"
   }

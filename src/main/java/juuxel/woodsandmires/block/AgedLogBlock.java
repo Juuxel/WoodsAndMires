@@ -6,11 +6,11 @@ import net.minecraft.block.PillarBlock;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 
-public class GroundLogBlock extends PillarBlock {
+public class AgedLogBlock extends PillarBlock {
     public static final BooleanProperty MID = BooleanProperty.of("mid");
     private final Block main;
 
-    public GroundLogBlock(Block main, Settings settings) {
+    public AgedLogBlock(Block main, Settings settings) {
         super(settings);
         this.main = main;
         setDefaultState(getDefaultState().with(MID, false));

@@ -4,7 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.ints.IntRBTreeSet;
 import it.unimi.dsi.fastutil.ints.IntSortedSet;
-import juuxel.woodsandmires.block.GroundLogBlock;
+import juuxel.woodsandmires.block.AgedLogBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
@@ -59,7 +59,7 @@ public final class PineTrunkTreeDecorator extends TreeDecorator {
                 break;
             }
 
-            BlockState state = log.getDefaultState().with(GroundLogBlock.MID, pos.getY() == midY);
+            BlockState state = log.getDefaultState().with(AgedLogBlock.MID, pos.getY() == midY);
             replacer.accept(pos, state);
         }
     }

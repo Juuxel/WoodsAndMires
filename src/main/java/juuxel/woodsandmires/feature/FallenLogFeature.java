@@ -1,7 +1,7 @@
 package juuxel.woodsandmires.feature;
 
 import com.mojang.serialization.Codec;
-import juuxel.woodsandmires.block.GroundLogBlock;
+import juuxel.woodsandmires.block.AgedLogBlock;
 import juuxel.woodsandmires.tree.PineTrunkTreeDecorator;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -42,11 +42,11 @@ public class FallenLogFeature extends Feature<FallenLogFeatureConfig> {
                     break;
                 }
 
-                Block block = i < mid ? config.mainLog() : config.groundLog();
+                Block block = i < mid ? config.mainLog() : config.agedLog();
                 BlockState state = block.getDefaultState().with(PillarBlock.AXIS, axis);
 
                 if (i == mid) {
-                    state = state.with(GroundLogBlock.MID, true);
+                    state = state.with(AgedLogBlock.MID, true);
                 }
 
                 setBlockState(context.getWorld(), mut, state);
@@ -54,7 +54,7 @@ public class FallenLogFeature extends Feature<FallenLogFeatureConfig> {
                 mut.move(direction);
             }
         } else {
-            Block block = random.nextBoolean() ? config.mainLog() : config.groundLog();
+            Block block = random.nextBoolean() ? config.mainLog() : config.agedLog();
             BlockState state = block.getDefaultState().with(PillarBlock.AXIS, axis);
 
             for (int i = 0; i < length; i++) {

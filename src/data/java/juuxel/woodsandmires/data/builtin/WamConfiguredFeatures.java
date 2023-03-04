@@ -1,6 +1,5 @@
 package juuxel.woodsandmires.data.builtin;
 
-import com.sun.jna.platform.win32.WinBase;
 import juuxel.woodsandmires.WoodsAndMires;
 import juuxel.woodsandmires.block.WamBlocks;
 import juuxel.woodsandmires.feature.FallenLogFeatureConfig;
@@ -105,7 +104,7 @@ public final class WamConfiguredFeatures {
                 .ignoreVines()
                 .decorators(
                     List.of(
-                        new PineTrunkTreeDecorator(WamBlocks.GROUND_PINE_LOG),
+                        new PineTrunkTreeDecorator(WamBlocks.AGED_PINE_LOG),
                         new AlterGroundTreeDecorator(
                             new WeightedBlockStateProvider(
                                 DataPool.<BlockState>builder()
@@ -185,7 +184,7 @@ public final class WamConfiguredFeatures {
         FALLEN_PINE = register("fallen_pine", WamFeatures.FALLEN_LOG,
             new FallenLogFeatureConfig(
                 WamBlocks.PINE_LOG,
-                WamBlocks.GROUND_PINE_LOG,
+                WamBlocks.AGED_PINE_LOG,
                 UniformIntProvider.create(2, 6),
                 new WeightedBlockStateProvider(
                     DataPool.<BlockState>builder()
@@ -221,7 +220,7 @@ public final class WamConfiguredFeatures {
 
     private static TreeFeatureConfig pineTree(int grassWeight, int podzolWeight) {
         List<TreeDecorator> decorators = new ArrayList<>();
-        decorators.add(new PineTrunkTreeDecorator(WamBlocks.GROUND_PINE_LOG));
+        decorators.add(new PineTrunkTreeDecorator(WamBlocks.AGED_PINE_LOG));
 
         if (podzolWeight > 0) {
             decorators.add(

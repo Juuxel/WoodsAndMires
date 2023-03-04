@@ -2,7 +2,7 @@
   "config": {
     "decorators": [
       {
-        "log": "woods_and_mires:ground_pine_log",
+        "log": "woods_and_mires:aged_pine_log",
         "type": "woods_and_mires:pine_trunk"
       }
     ],
