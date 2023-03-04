@@ -1,9 +1,6 @@
 package juuxel.woodsandmires.block;
 
 import com.google.common.base.Suppliers;
-import com.terraformersmc.terraform.sign.SpriteIdentifierRegistry;
-import com.terraformersmc.terraform.sign.block.TerraformSignBlock;
-import com.terraformersmc.terraform.sign.block.TerraformWallSignBlock;
 import juuxel.woodsandmires.WoodsAndMires;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -56,9 +53,9 @@ public final class WamBlocks {
     public static final Block PINE_DOOR = new DoorBlock(copyWoodSettings(Blocks.OAK_DOOR));
     public static final Block PINE_BUTTON = new WoodenButtonBlock(copyWoodSettings(Blocks.OAK_BUTTON));
     public static final Block PINE_PRESSURE_PLATE = new PressurePlateBlock(PressurePlateBlock.ActivationRule.EVERYTHING, copyWoodSettings(Blocks.OAK_PRESSURE_PLATE));
-    public static final Block PINE_SIGN = new TerraformSignBlock(WoodsAndMires.id("entity/signs/pine"), copyWoodSettings(Blocks.OAK_SIGN));
+    public static final Block PINE_SIGN = new WamSignBlock(copyWoodSettings(Blocks.OAK_SIGN), WamSignTypes.PINE);
     // We have to evaluate this *after* PINE_SIGN has registered due to the loot table condition.
-    public static final Supplier<Block> PINE_WALL_SIGN = Suppliers.memoize(() -> new TerraformWallSignBlock(WoodsAndMires.id("entity/signs/pine"), copyWoodSettings(PINE_SIGN).dropsLike(PINE_SIGN)));
+    public static final Supplier<Block> PINE_WALL_SIGN = Suppliers.memoize(() -> new WamWallSignBlock(copyWoodSettings(PINE_SIGN).dropsLike(PINE_SIGN), WamSignTypes.PINE));
     public static final Block PINE_LEAVES = Blocks.createLeavesBlock(BlockSoundGroup.GRASS);
     public static final Block PINE_SAPLING = new SaplingBlock(new PineSaplingGenerator(), AbstractBlock.Settings.copy(Blocks.OAK_SAPLING));
     public static final Block POTTED_PINE_SAPLING = new FlowerPotBlock(PINE_SAPLING, createFlowerPotSettings());

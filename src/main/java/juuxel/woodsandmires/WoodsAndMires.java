@@ -2,6 +2,8 @@ package juuxel.woodsandmires;
 
 import juuxel.woodsandmires.biome.WamBiomeModifications;
 import juuxel.woodsandmires.block.WamBlocks;
+import juuxel.woodsandmires.block.WamSignTypes;
+import juuxel.woodsandmires.block.entity.WamBlockEntities;
 import juuxel.woodsandmires.config.WamConfig;
 import juuxel.woodsandmires.dev.WamDev;
 import juuxel.woodsandmires.feature.WamFeatures;
@@ -20,7 +22,9 @@ public final class WoodsAndMires implements ModInitializer {
     @Override
     public void onInitialize() {
         WamConfig.load();
+        WamSignTypes.init();
         WamBlocks.init();
+        WamBlockEntities.register();
         WamTreeDecorators.register();
         WamFeatures.init();
         WamBiomeModifications.init();
