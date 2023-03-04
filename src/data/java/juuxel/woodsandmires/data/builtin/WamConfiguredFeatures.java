@@ -9,7 +9,7 @@ import juuxel.woodsandmires.feature.MeadowFeatureConfig;
 import juuxel.woodsandmires.feature.ShrubFeatureConfig;
 import juuxel.woodsandmires.feature.WamFeatures;
 import juuxel.woodsandmires.tree.BranchTreeDecorator;
-import juuxel.woodsandmires.tree.PineTrunkTreeDecorator;
+import juuxel.woodsandmires.tree.AgedTrunkTreeDecorator;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -17,6 +17,7 @@ import net.minecraft.tag.BlockTags;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DataPool;
 import net.minecraft.util.math.VerticalSurfaceType;
+import net.minecraft.util.math.floatprovider.UniformFloatProvider;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.util.registry.RegistryEntry;
@@ -104,7 +105,7 @@ public final class WamConfiguredFeatures {
                 .ignoreVines()
                 .decorators(
                     List.of(
-                        new PineTrunkTreeDecorator(WamBlocks.AGED_PINE_LOG),
+                        new AgedTrunkTreeDecorator(WamBlocks.AGED_PINE_LOG, UniformFloatProvider.create(0.5f, 0.85f)),
                         new AlterGroundTreeDecorator(
                             new WeightedBlockStateProvider(
                                 DataPool.<BlockState>builder()
@@ -220,7 +221,7 @@ public final class WamConfiguredFeatures {
 
     private static TreeFeatureConfig pineTree(int grassWeight, int podzolWeight) {
         List<TreeDecorator> decorators = new ArrayList<>();
-        decorators.add(new PineTrunkTreeDecorator(WamBlocks.AGED_PINE_LOG));
+        decorators.add(new AgedTrunkTreeDecorator(WamBlocks.AGED_PINE_LOG, UniformFloatProvider.create(0.3f, 0.65f)));
 
         if (podzolWeight > 0) {
             decorators.add(

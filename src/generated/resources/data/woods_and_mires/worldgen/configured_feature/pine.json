@@ -3,7 +3,14 @@
     "decorators": [
       {
         "log": "woods_and_mires:aged_pine_log",
-        "type": "woods_and_mires:pine_trunk"
+        "aged_height_fraction": {
+          "type": "minecraft:uniform",
+          "value": {
+            "min_inclusive": 0.3,
+            "max_exclusive": 0.65
+          }
+        },
+        "type": "woods_and_mires:aged_trunk"
       },
       {
         "provider": {
