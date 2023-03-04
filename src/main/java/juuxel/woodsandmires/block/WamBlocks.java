@@ -24,6 +24,7 @@ import net.minecraft.block.SaplingBlock;
 import net.minecraft.block.SlabBlock;
 import net.minecraft.block.StairsBlock;
 import net.minecraft.block.TallFlowerBlock;
+import net.minecraft.block.TrapdoorBlock;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.color.world.BiomeColors;
@@ -51,6 +52,7 @@ public final class WamBlocks {
     public static final Block PINE_FENCE = new FenceBlock(copyWoodSettings(Blocks.OAK_FENCE));
     public static final Block PINE_FENCE_GATE = new FenceGateBlock(copyWoodSettings(Blocks.OAK_FENCE_GATE), SoundEvents.BLOCK_FENCE_GATE_CLOSE, SoundEvents.BLOCK_FENCE_GATE_OPEN);
     public static final Block PINE_DOOR = new DoorBlock(copyWoodSettings(Blocks.OAK_DOOR), SoundEvents.BLOCK_WOODEN_DOOR_CLOSE, SoundEvents.BLOCK_WOODEN_DOOR_OPEN);
+    public static final Block PINE_TRAPDOOR = new TrapdoorBlock(copyWoodSettings(Blocks.OAK_DOOR));
     public static final Block PINE_BUTTON = Blocks.createWoodenButtonBlock();
     public static final Block PINE_PRESSURE_PLATE = new PressurePlateBlock(PressurePlateBlock.ActivationRule.EVERYTHING, copyWoodSettings(Blocks.OAK_PRESSURE_PLATE), SoundEvents.BLOCK_WOODEN_PRESSURE_PLATE_CLICK_OFF, SoundEvents.BLOCK_WOODEN_PRESSURE_PLATE_CLICK_ON);
     public static final Block PINE_SIGN = new WamSignBlock(copyWoodSettings(Blocks.OAK_SIGN), WamSignTypes.PINE);
@@ -87,6 +89,7 @@ public final class WamBlocks {
         register("pine_fence", PINE_FENCE);
         register("pine_fence_gate", PINE_FENCE_GATE);
         register("pine_door", PINE_DOOR, new TallBlockItem(PINE_DOOR, new Item.Settings()));
+        register("pine_trapdoor", PINE_TRAPDOOR, ItemGroup.REDSTONE);
         register("pine_button", PINE_BUTTON);
         register("pine_pressure_plate", PINE_PRESSURE_PLATE);
         register("pine_sign", PINE_SIGN, () -> new SignItem(new Item.Settings().maxCount(16), PINE_SIGN, PINE_WALL_SIGN.get()));
@@ -149,6 +152,7 @@ public final class WamBlocks {
         BlockRenderLayerMap.INSTANCE.putBlocks(
             RenderLayer.getCutout(),
             PINE_DOOR,
+            PINE_TRAPDOOR,
             PINE_SAPLING,
             POTTED_PINE_SAPLING,
             FIREWEED,
