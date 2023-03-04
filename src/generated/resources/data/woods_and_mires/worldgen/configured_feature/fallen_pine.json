@@ -1,7 +1,14 @@
 {
   "type": "woods_and_mires:fallen_log",
   "config": {
-    "ground_log": "woods_and_mires:ground_pine_log",
+    "aged_height_fraction": {
+      "type": "minecraft:uniform",
+      "value": {
+        "max_exclusive": 1.2,
+        "min_inclusive": -0.2
+      }
+    },
+    "aged_log": "woods_and_mires:aged_pine_log",
     "length": {
       "type": "minecraft:uniform",
       "value": {

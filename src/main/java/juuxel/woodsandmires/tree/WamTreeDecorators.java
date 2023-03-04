@@ -7,11 +7,11 @@ import net.minecraft.world.gen.treedecorator.TreeDecoratorType;
 
 public final class WamTreeDecorators {
     public static final TreeDecoratorType<BranchTreeDecorator> BRANCH = new TreeDecoratorType<>(BranchTreeDecorator.CODEC);
-    public static final TreeDecoratorType<PineTrunkTreeDecorator> PINE_TRUNK = new TreeDecoratorType<>(PineTrunkTreeDecorator.CODEC);
+    public static final TreeDecoratorType<AgedTrunkTreeDecorator> AGED_TRUNK = new TreeDecoratorType<>(AgedTrunkTreeDecorator.CODEC);
 
     public static void register() {
         register("branch", BRANCH);
-        register("pine_trunk", PINE_TRUNK);
+        register("aged_trunk", AGED_TRUNK);
     }
 
     private static void register(String id, TreeDecoratorType<?> type) {

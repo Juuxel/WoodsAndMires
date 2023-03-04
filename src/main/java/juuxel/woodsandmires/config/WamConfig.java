@@ -13,7 +13,7 @@ public final class WamConfig {
     private static final String BIOME_REGION_WEIGHT_KEY = "generation.biome_region_weight";
 
     private static final Config DEFAULT = ConfigBuilder.builder("Defaults")
-        .add(BIOME_REGION_WEIGHT_KEY, 5,
+        .add(BIOME_REGION_WEIGHT_KEY, 3,
             "The weight of the biome region.",
             "A higher weight means the region will be more common.")
         .build();

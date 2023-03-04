@@ -1,8 +1,7 @@
 package juuxel.woodsandmires.feature;
 
 import com.mojang.serialization.Codec;
-import juuxel.woodsandmires.block.GroundLogBlock;
-import juuxel.woodsandmires.tree.PineTrunkTreeDecorator;
+import juuxel.woodsandmires.block.AgedLogBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.PillarBlock;
@@ -33,7 +32,7 @@ public class FallenLogFeature extends Feature<FallenLogFeatureConfig> {
         // We need to correct it so that the "mid" texture will align correctly.
         Direction direction = axis == Direction.Axis.X ? Direction.WEST : Direction.SOUTH;
         int length = config.length().get(random);
-        int mid = (int) (PineTrunkTreeDecorator.getRandomHeightPoint(random) * length);
+        int mid = (int) (config.agedHeightFraction().get(random) * length);
         List<BlockPos.Mutable> trunkPositions = new ArrayList<>();
 
         if (random.nextInt(5) == 0) {
@@ -42,11 +41,11 @@ public class FallenLogFeature extends Feature<FallenLogFeatureConfig> {
                     break;
                 }
 
-                Block block = i < mid ? config.mainLog() : config.groundLog();
+                Block block = i < mid ? config.mainLog() : config.agedLog();
                 BlockState state = block.getDefaultState().with(PillarBlock.AXIS, axis);
 
                 if (i == mid) {
-                    state = state.with(GroundLogBlock.MID, true);
+                    state = state.with(AgedLogBlock.MID, true);
                 }
 
                 setBlockState(context.getWorld(), mut, state);
@@ -54,7 +53,7 @@ public class FallenLogFeature extends Feature<FallenLogFeatureConfig> {
                 mut.move(direction);
             }
         } else {
-            Block block = random.nextBoolean() ? config.mainLog() : config.groundLog();
+            Block block = random.nextBoolean() ? config.mainLog() : config.agedLog();
             BlockState state = block.getDefaultState().with(PillarBlock.AXIS, axis);
 
             for (int i = 0; i < length; i++) {
