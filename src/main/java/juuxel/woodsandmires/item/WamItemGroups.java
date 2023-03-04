@@ -15,10 +15,10 @@ public final class WamItemGroups {
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.BUILDING_BLOCKS).register(entries -> {
             entries.addAfter(Items.WARPED_BUTTON,
                 WamBlocks.PINE_LOG,
-                WamBlocks.GROUND_PINE_LOG,
+                WamBlocks.AGED_PINE_LOG,
                 WamBlocks.PINE_SHRUB_LOG,
                 WamBlocks.PINE_WOOD,
-                WamBlocks.GROUND_PINE_WOOD,
+                WamBlocks.AGED_PINE_WOOD,
                 WamBlocks.STRIPPED_PINE_LOG,
                 WamBlocks.STRIPPED_PINE_WOOD,
                 WamBlocks.PINE_SNAG_LOG,
@@ -37,7 +37,7 @@ public final class WamItemGroups {
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.NATURAL).register(entries -> {
             entries.addAfter(Items.WARPED_STEM,
                 WamBlocks.PINE_LOG,
-                WamBlocks.GROUND_PINE_LOG,
+                WamBlocks.AGED_PINE_LOG,
                 WamBlocks.PINE_SHRUB_LOG,
                 WamBlocks.PINE_SNAG_LOG);
             entries.addAfter(Items.FLOWERING_AZALEA_LEAVES,
