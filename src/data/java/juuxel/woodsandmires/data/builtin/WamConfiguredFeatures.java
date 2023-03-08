@@ -71,7 +71,6 @@ public final class WamConfiguredFeatures {
 
     // Individual features
     private RegistryEntry<ConfiguredFeature<?, ?>> noPodzolPine;
-    public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> SNOWY_PINE_FOREST_TREES;
 
     private WamConfiguredFeatures(Registerable<ConfiguredFeature<?, ?>> registerable) {
         this.registerable = registerable;
@@ -222,12 +221,12 @@ public final class WamConfiguredFeatures {
                 PlacedFeatures.createEntry(giantPine, PlacedFeatures.wouldSurvive(WamBlocks.PINE_SAPLING))
             )
         );
-        SNOWY_PINE_FOREST_TREES = register("snowy_pine_forest_trees", Feature.RANDOM_SELECTOR,
+        register(WamConfiguredFeatureKeys.SNOWY_PINE_FOREST_TREES, Feature.RANDOM_SELECTOR,
             new RandomFeatureConfig(
                 List.of(
-                    new RandomFeatureEntry(TreePlacedFeatures.PINE_ON_SNOW, 0.1f)
+                    new RandomFeatureEntry(placedFeatures.getOrThrow(TreePlacedFeatures.PINE_ON_SNOW), 0.1f)
                 ),
-                PlacedFeatures.createEntry(PINE, getTreeOnSnowPlacementModifiers())
+                PlacedFeatures.createEntry(pine, getTreeOnSnowPlacementModifiers())
             )
         );
     }
@@ -278,7 +277,17 @@ public final class WamConfiguredFeatures {
     }
 
     private static PlacementModifier[] getTreeOnSnowPlacementModifiers() {
-        return TreePlacedFeatures.ON_SNOW_MODIFIERS.toArray(PlacementModifier[]::new);
+        return new PlacementModifier[] {
+            EnvironmentScanPlacementModifier.of(
+                Direction.UP,
+                BlockPredicate.not(BlockPredicate.matchingBlocks(Blocks.POWDER_SNOW)),
+                8
+            ),
+            BlockFilterPlacementModifier.of(
+                BlockPredicate.matchingBlocks(Direction.DOWN.getVector(),
+                    Blocks.SNOW_BLOCK, Blocks.POWDER_SNOW)
+            )
+        };
     }
 
     private void registerMires() {
@@ -387,18 +396,6 @@ public final class WamConfiguredFeatures {
     }
 
     private void registerGroves() {
-        PlacementModifier[] onSnowModifiers = new PlacementModifier[] {
-            EnvironmentScanPlacementModifier.of(
-                Direction.UP,
-                BlockPredicate.not(BlockPredicate.matchingBlocks(Blocks.POWDER_SNOW)),
-                8
-            ),
-            BlockFilterPlacementModifier.of(
-                BlockPredicate.matchingBlocks(Direction.DOWN.getVector(),
-                    Blocks.SNOW_BLOCK, Blocks.POWDER_SNOW)
-            )
-        };
-
         register(WamConfiguredFeatureKeys.PINY_GROVE_TREES, Feature.RANDOM_SELECTOR,
             new RandomFeatureConfig(
                 List.of(

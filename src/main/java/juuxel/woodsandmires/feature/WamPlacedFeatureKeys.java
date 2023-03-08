@@ -11,7 +11,7 @@ public final class WamPlacedFeatureKeys {
 
     // Pine forest
     public static final RegistryKey<PlacedFeature> FOREST_PINE = key("forest_pine");
-    public static final RegistryKey<PlacedFeature> SNOWY_FOREST_PINE = key("snowy_forest_pine");
+    public static final RegistryKey<PlacedFeature> SNOWY_PINE_FOREST_TREES = key("snowy_pine_forest_trees");
     public static final RegistryKey<PlacedFeature> OLD_GROWTH_PINE_FOREST_TREES = key("old_growth_pine_forest_trees");
     public static final RegistryKey<PlacedFeature> PINE_FOREST_BOULDER = key("pine_forest_boulder");
     public static final RegistryKey<PlacedFeature> PINE_FOREST_HEATHER_PATCH = key("pine_forest_heather_patch");

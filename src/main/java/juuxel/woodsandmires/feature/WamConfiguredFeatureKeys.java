@@ -25,6 +25,7 @@ public final class WamConfiguredFeatureKeys {
     public static final RegistryKey<ConfiguredFeature<?, ?>> LUSH_PINE_FOREST_TREES = key("lush_pine_forest_trees");
     public static final RegistryKey<ConfiguredFeature<?, ?>> FALLEN_PINE = key("fallen_pine");
     public static final RegistryKey<ConfiguredFeature<?, ?>> OLD_GROWTH_PINE_FOREST_TREES = key("old_growth_pine_forest_trees");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> SNOWY_PINE_FOREST_TREES = key("snowy_pine_forest_trees");
 
     // Mire
     public static final RegistryKey<ConfiguredFeature<?, ?>> MIRE_PONDS = key("mire_ponds");
