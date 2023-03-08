@@ -12,7 +12,7 @@ import net.minecraft.client.render.block.entity.SignBlockEntityRenderer;
 public final class WoodsAndMiresClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
-        WamBlocks.initClient();
+        WamBlocksClient.init();
         BlockEntityRendererFactories.register(WamBlockEntities.SIGN, SignBlockEntityRenderer::new);
     }
 }
