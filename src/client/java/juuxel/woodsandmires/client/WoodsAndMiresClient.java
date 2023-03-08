@@ -1,6 +1,5 @@
 package juuxel.woodsandmires.client;
 
-import juuxel.woodsandmires.block.WamBlocks;
 import juuxel.woodsandmires.block.entity.WamBlockEntities;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
