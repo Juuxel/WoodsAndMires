@@ -41,9 +41,9 @@ public final class WamConfiguredFeatureKeys {
     public static final RegistryKey<ConfiguredFeature<?, ?>> FELL_MOSS_PATCH_VEGETATION = key("fell_moss_patch_vegetation");
     public static final RegistryKey<ConfiguredFeature<?, ?>> FELL_MOSS_PATCH = key("fell_moss_patch");
     public static final RegistryKey<ConfiguredFeature<?, ?>> FROZEN_TREASURE = key("frozen_treasure");
+
     // Groves
     public static final RegistryKey<ConfiguredFeature<?, ?>> PINY_GROVE_TREES = key("piny_grove_trees");
-
 
     private static RegistryKey<ConfiguredFeature<?, ?>> key(String id) {
         return ALL.add(RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, WoodsAndMires.id(id)));
