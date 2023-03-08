@@ -32,7 +32,7 @@ public final class ReplaceTrunkTreeDecorator extends TreeDecorator {
     @Override
     public void generate(Generator generator) {
         for (BlockPos pos : generator.getLogPositions()) {
-            generator.replace(pos, trunk.getBlockState(generator.getRandom(), pos));
+            generator.replace(pos, trunk.get(generator.getRandom(), pos));
         }
     }
 }
