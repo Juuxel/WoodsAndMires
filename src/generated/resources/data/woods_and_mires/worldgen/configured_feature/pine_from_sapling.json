@@ -1,6 +1,46 @@
 {
   "config": {
-    "decorators": [],
+    "decorators": [
+      {
+        "decorators": [
+          {
+            "data": {
+              "parent": {
+                "log": "woods_and_mires:aged_pine_log",
+                "aged_height_fraction": {
+                  "type": "minecraft:uniform",
+                  "value": {
+                    "min_inclusive": 0.3,
+                    "max_exclusive": 0.65
+                  }
+                },
+                "type": "woods_and_mires:aged_trunk"
+              },
+              "chance": 0.95,
+              "type": "woods_and_mires:chance"
+            },
+            "weight": 14
+          },
+          {
+            "data": {
+              "trunk": {
+                "state": {
+                  "Properties": {
+                    "mid": "false",
+                    "axis": "y"
+                  },
+                  "Name": "woods_and_mires:aged_pine_log"
+                },
+                "type": "minecraft:simple_state_provider"
+              },
+              "type": "woods_and_mires:replace_trunk"
+            },
+            "weight": 1
+          }
+        ],
+        "type": "woods_and_mires:pool"
+      }
+    ],
     "ignore_vines": true,
     "force_dirt": false,
     "dirt_provider": {

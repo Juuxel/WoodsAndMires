@@ -151,7 +151,7 @@ public final class WamConfiguredFeatures {
                     UniformIntProvider.create(3, 5)
                 ),
                 new TwoLayersFeatureSize(2, 0, 2)
-            ).ignoreVines().build()
+            ).ignoreVines().decorators(List.of(createPineTrunkDecorator())).build()
         );
         PINE_FOREST_BOULDER = register("pine_forest_boulder", Feature.FOREST_ROCK,
             new SingleStateFeatureConfig(Blocks.STONE.getDefaultState())
@@ -223,8 +223,7 @@ public final class WamConfiguredFeatures {
         );
     }
 
-    private static TreeFeatureConfig pineTree(int grassWeight, int podzolWeight) {
-        List<TreeDecorator> decorators = new ArrayList<>();
+    private static TreeDecorator createPineTrunkDecorator() {
         DataPool.Builder<TreeDecorator> trunkDecorators = DataPool.builder();
         trunkDecorators.add(
             new ChanceTreeDecorator(
@@ -234,7 +233,12 @@ public final class WamConfiguredFeatures {
             14
         );
         trunkDecorators.add(new ReplaceTrunkTreeDecorator(BlockStateProvider.of(WamBlocks.AGED_PINE_LOG)), 1);
-        decorators.add(new PoolTreeDecorator(trunkDecorators.build()));
+        return new PoolTreeDecorator(trunkDecorators.build());
+    }
+
+    private static TreeFeatureConfig pineTree(int grassWeight, int podzolWeight) {
+        List<TreeDecorator> decorators = new ArrayList<>();
+        decorators.add(createPineTrunkDecorator());
 
         if (podzolWeight > 0) {
             decorators.add(
