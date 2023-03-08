@@ -108,7 +108,7 @@ public final class WamBiomes {
     private static Biome snowyPineForest() {
         // noinspection CodeBlock2Expr
         return pineForest(Biome.Category.FOREST, Biome.Precipitation.SNOW, 0f, builder -> {}, builder -> {
-            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.SNOWY_FOREST_PINE);
+            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.SNOWY_PINE_FOREST_TREES);
         });
     }
 
