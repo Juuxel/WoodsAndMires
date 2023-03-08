@@ -27,9 +27,6 @@
       "juuxel.woodsandmires.terrablender.WoodsAndMiresTb"
     ]
   },
-  "mixins": [
-    "mixins.woods_and_mires.json"
-  ],
   "accessWidener": "woods_and_mires.accesswidener",
 
   "depends": {

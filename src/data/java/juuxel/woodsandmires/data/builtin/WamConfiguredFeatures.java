@@ -76,6 +76,7 @@ public final class WamConfiguredFeatures {
     public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> LUSH_PINE_FOREST_TREES;
     public static final RegistryEntry<ConfiguredFeature<FallenLogFeatureConfig, ?>> FALLEN_PINE;
     public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> OLD_GROWTH_PINE_FOREST_TREES;
+    public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> SNOWY_PINE_FOREST_TREES;
 
     static {
         SHORT_PINE_SHRUB = register("short_pine_shrub", WamFeatures.SHRUB,
@@ -221,6 +222,14 @@ public final class WamConfiguredFeatures {
                 PlacedFeatures.createEntry(GIANT_PINE, PlacedFeatures.wouldSurvive(WamBlocks.PINE_SAPLING))
             )
         );
+        SNOWY_PINE_FOREST_TREES = register("snowy_pine_forest_trees", Feature.RANDOM_SELECTOR,
+            new RandomFeatureConfig(
+                List.of(
+                    new RandomFeatureEntry(TreePlacedFeatures.PINE_ON_SNOW, 0.1f)
+                ),
+                PlacedFeatures.createEntry(PINE, getTreeOnSnowPlacementModifiers())
+            )
+        );
     }
 
     private static TreeDecorator createPineTrunkDecorator() {
@@ -266,6 +275,10 @@ public final class WamConfiguredFeatures {
             .ignoreVines()
             .decorators(List.copyOf(decorators))
             .build();
+    }
+
+    private static PlacementModifier[] getTreeOnSnowPlacementModifiers() {
+        return TreePlacedFeatures.ON_SNOW_MODIFIERS.toArray(PlacementModifier[]::new);
     }
 
     // Mire
@@ -396,7 +409,7 @@ public final class WamConfiguredFeatures {
                     new RandomFeatureEntry(TreePlacedFeatures.PINE_ON_SNOW, 0.1f),
                     new RandomFeatureEntry(TreePlacedFeatures.SPRUCE_ON_SNOW, 0.1f)
                 ),
-                PlacedFeatures.createEntry(NO_PODZOL_PINE, TreePlacedFeatures.ON_SNOW_MODIFIERS.toArray(PlacementModifier[]::new))
+                PlacedFeatures.createEntry(NO_PODZOL_PINE, getTreeOnSnowPlacementModifiers())
             )
         );
     }
