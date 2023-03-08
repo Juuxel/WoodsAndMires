@@ -25,7 +25,6 @@ public final class WamBiomeTagProvider extends FabricTagProvider.DynamicRegistry
     @Override
     protected void generateTags() {
         // Vanilla tags
-        // TODO (MC 1.19): Use vanilla tag key for this
         generateOverworld(TagKey.of(Registry.BIOME_KEY, new Identifier("is_overworld")));
         getOrCreateTagBuilder(BiomeTags.IS_FOREST)
             .add(WamBiomeKeys.PINE_FOREST)
