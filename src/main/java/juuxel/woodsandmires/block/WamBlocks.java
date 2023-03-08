@@ -2,10 +2,6 @@ package juuxel.woodsandmires.block;
 
 import com.google.common.base.Suppliers;
 import juuxel.woodsandmires.WoodsAndMires;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
-import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
@@ -25,11 +21,6 @@ import net.minecraft.block.SlabBlock;
 import net.minecraft.block.StairsBlock;
 import net.minecraft.block.TallFlowerBlock;
 import net.minecraft.block.TrapdoorBlock;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.color.block.BlockColors;
-import net.minecraft.client.color.world.BiomeColors;
-import net.minecraft.client.color.world.FoliageColors;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -139,51 +130,6 @@ public final class WamBlocks {
         StrippableBlockRegistry.register(AGED_PINE_LOG, STRIPPED_PINE_LOG);
         StrippableBlockRegistry.register(PINE_WOOD, STRIPPED_PINE_WOOD);
         StrippableBlockRegistry.register(AGED_PINE_WOOD, STRIPPED_PINE_WOOD);
-    }
-
-    @Environment(EnvType.CLIENT)
-    public static void initClient() {
-        BlockRenderLayerMap.INSTANCE.putBlocks(
-            RenderLayer.getCutoutMipped(),
-            PINE_LEAVES,
-            PINE_SHRUB_LOG
-        );
-
-        BlockRenderLayerMap.INSTANCE.putBlocks(
-            RenderLayer.getCutout(),
-            PINE_DOOR,
-            PINE_TRAPDOOR,
-            PINE_SAPLING,
-            POTTED_PINE_SAPLING,
-            FIREWEED,
-            TANSY,
-            POTTED_TANSY,
-            FELL_LICHEN,
-            POTTED_FELL_LICHEN,
-            HEATHER,
-            POTTED_HEATHER
-        );
-
-        ColorProviderRegistry.BLOCK.register(
-            (state, world, pos, tintIndex) -> {
-                if (world != null && pos != null) {
-                    return BiomeColors.getFoliageColor(world, pos);
-                }
-
-                return FoliageColors.getColor(0.5, 1.0);
-            },
-            FIREWEED, TANSY, POTTED_TANSY, PINE_LEAVES, PINE_SHRUB_LOG
-        );
-
-        ColorProviderRegistry.ITEM.register(
-            (stack, tintIndex) -> {
-                if (tintIndex > 0) return -1;
-
-                BlockColors colors = MinecraftClient.getInstance().getBlockColors();
-                return colors.getColor(((BlockItem) stack.getItem()).getBlock().getDefaultState(), null, null, tintIndex);
-            },
-            FIREWEED, TANSY, PINE_LEAVES
-        );
     }
 
     private static void register(String id, Block block) {

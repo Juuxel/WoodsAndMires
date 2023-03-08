@@ -1,6 +1,5 @@
 package juuxel.woodsandmires.client;
 
-import juuxel.woodsandmires.block.WamBlocks;
 import juuxel.woodsandmires.block.entity.WamBlockEntities;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
@@ -12,7 +11,7 @@ import net.minecraft.client.render.block.entity.SignBlockEntityRenderer;
 public final class WoodsAndMiresClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
-        WamBlocks.initClient();
+        WamBlocksClient.init();
         BlockEntityRendererFactories.register(WamBlockEntities.SIGN, SignBlockEntityRenderer::new);
     }
 }
