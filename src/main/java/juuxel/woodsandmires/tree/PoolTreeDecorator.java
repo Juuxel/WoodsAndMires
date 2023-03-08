@@ -2,16 +2,9 @@ package juuxel.woodsandmires.tree;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.block.BlockState;
 import net.minecraft.util.collection.DataPool;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.TestableWorld;
 import net.minecraft.world.gen.treedecorator.TreeDecorator;
 import net.minecraft.world.gen.treedecorator.TreeDecoratorType;
-
-import java.util.List;
-import java.util.Random;
-import java.util.function.BiConsumer;
 
 public final class PoolTreeDecorator extends TreeDecorator {
     public static final Codec<PoolTreeDecorator> CODEC = RecordCodecBuilder.create(builder ->
@@ -40,9 +33,9 @@ public final class PoolTreeDecorator extends TreeDecorator {
     }
 
     @Override
-    public void generate(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, List<BlockPos> logPositions, List<BlockPos> leavesPositions) {
-        decorators.getDataOrEmpty(random)
+    public void generate(Generator generator) {
+        decorators.getDataOrEmpty(generator.getRandom())
             .orElseThrow(IllegalStateException::new)
-            .generate(world, replacer, random, logPositions, leavesPositions);
+            .generate(generator);
     }
 }
