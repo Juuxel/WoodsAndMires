@@ -104,6 +104,13 @@ jar {
     exclude '.cache'
 }
 
+sourcesJar {
+    from(["COPYING", "COPYING.LESSER"]) {
+        into 'META-INF'
+    }
+    exclude '.cache'
+}
+
 // configure the maven publication
 publishing {
     publications {

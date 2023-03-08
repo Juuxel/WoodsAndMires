@@ -71,6 +71,7 @@ public final class WamConfiguredFeatures {
 
     // Individual features
     private RegistryEntry<ConfiguredFeature<?, ?>> noPodzolPine;
+    public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> SNOWY_PINE_FOREST_TREES;
 
     private WamConfiguredFeatures(Registerable<ConfiguredFeature<?, ?>> registerable) {
         this.registerable = registerable;
@@ -221,6 +222,14 @@ public final class WamConfiguredFeatures {
                 PlacedFeatures.createEntry(giantPine, PlacedFeatures.wouldSurvive(WamBlocks.PINE_SAPLING))
             )
         );
+        SNOWY_PINE_FOREST_TREES = register("snowy_pine_forest_trees", Feature.RANDOM_SELECTOR,
+            new RandomFeatureConfig(
+                List.of(
+                    new RandomFeatureEntry(TreePlacedFeatures.PINE_ON_SNOW, 0.1f)
+                ),
+                PlacedFeatures.createEntry(PINE, getTreeOnSnowPlacementModifiers())
+            )
+        );
     }
 
     private static TreeDecorator createPineTrunkDecorator() {
@@ -266,6 +275,10 @@ public final class WamConfiguredFeatures {
             .ignoreVines()
             .decorators(List.copyOf(decorators))
             .build();
+    }
+
+    private static PlacementModifier[] getTreeOnSnowPlacementModifiers() {
+        return TreePlacedFeatures.ON_SNOW_MODIFIERS.toArray(PlacementModifier[]::new);
     }
 
     private void registerMires() {
@@ -392,7 +405,7 @@ public final class WamConfiguredFeatures {
                     new RandomFeatureEntry(placedFeatures.getOrThrow(TreePlacedFeatures.PINE_ON_SNOW), 0.1f),
                     new RandomFeatureEntry(placedFeatures.getOrThrow(TreePlacedFeatures.SPRUCE_ON_SNOW), 0.1f)
                 ),
-                PlacedFeatures.createEntry(noPodzolPine, onSnowModifiers)
+                PlacedFeatures.createEntry(noPodzolPine, getTreeOnSnowPlacementModifiers())
             )
         );
     }

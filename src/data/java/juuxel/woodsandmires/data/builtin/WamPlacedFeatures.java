@@ -52,7 +52,7 @@ public final class WamPlacedFeatures {
 
     private static void registerPineForests(Registerable<PlacedFeature> registerable) {
         register(registerable, WamPlacedFeatureKeys.FOREST_PINE, WamConfiguredFeatureKeys.PINE, treeModifiersWithWouldSurvive(CountPlacementModifier.of(10), WamBlocks.PINE_SAPLING));
-        register(registerable, WamPlacedFeatureKeys.SNOWY_FOREST_PINE, WamConfiguredFeatureKeys.PINE, treeModifiersWithWouldSurvive(CountPlacementModifier.of(2), WamBlocks.PINE_SAPLING));
+        register(registerable, "snowy_pine_forest_trees", WamConfiguredFeatureKeys.SNOWY_PINE_FOREST_TREES, countExtraTreeModifiers(8, 0.1f, 1));
         register(registerable, WamPlacedFeatureKeys.OLD_GROWTH_PINE_FOREST_TREES, WamConfiguredFeatureKeys.OLD_GROWTH_PINE_FOREST_TREES, countExtraTreeModifiers(10, 0.1f, 1));
         register(registerable, WamPlacedFeatureKeys.PINE_FOREST_BOULDER, WamConfiguredFeatureKeys.PINE_FOREST_BOULDER, chanceModifiers(16));
         register(registerable, WamPlacedFeatureKeys.PINE_FOREST_HEATHER_PATCH, WamConfiguredFeatureKeys.HEATHER_PATCH, chanceModifiers(12));
