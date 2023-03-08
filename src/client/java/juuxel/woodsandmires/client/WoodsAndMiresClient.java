@@ -14,7 +14,7 @@ import net.minecraft.client.util.SpriteIdentifier;
 public final class WoodsAndMiresClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
-        WamBlocks.initClient();
+        WamBlocksClient.init();
         registerSign(WamBlocks.PINE_SIGN);
     }
 

@@ -20,11 +20,13 @@ sourceSets {
 }
 
 loom {
+    splitEnvironmentSourceSets()
     accessWidenerPath = file('src/main/resources/woods_and_mires.accesswidener')
 
     mods {
         woods_and_mires {
             sourceSet 'main'
+            sourceSet 'client'
         }
 
         woods_and_mires_data {
