@@ -29,8 +29,6 @@ public final class AgedTrunkTreeDecorator extends TreeDecorator {
                 .forGetter(AgedTrunkTreeDecorator::getAgedHeightFraction)
         ).apply(instance, AgedTrunkTreeDecorator::new)
     );
-    private static final float MIN_HEIGHT_POINT = 0.3f;
-    private static final float MAX_HEIGHT_POINT = 0.65f;
     private final Block log;
     private final FloatProvider agedHeightFraction;
 
