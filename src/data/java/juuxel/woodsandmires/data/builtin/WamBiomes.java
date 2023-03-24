@@ -23,6 +23,9 @@ import net.minecraft.world.gen.feature.VegetationPlacedFeatures;
 import java.util.function.Consumer;
 
 public final class WamBiomes {
+    // See Biome.doesNotSnow (1.19.4)
+    private static final float WARM_BIOME_MINIMUM_TEMPERATURE = 0.15f;
+
     private final Registerable<Biome> registerable;
 
     private WamBiomes(Registerable<Biome> registerable) {
@@ -52,7 +55,7 @@ public final class WamBiomes {
         return OverworldBiomeCreator.getSkyColor(temperature);
     }
 
-    private Biome pineForest(Biome.Precipitation precipitation, float temperature,
+    private Biome pineForest(float temperature,
                                     Consumer<GenerationSettings.LookupBackedBuilder> earlyGenerationSettingsConfigurator,
                                     Consumer<GenerationSettings.LookupBackedBuilder> generationSettingsConfigurator) {
         GenerationSettings generationSettings = generationSettings(builder -> {
@@ -69,7 +72,7 @@ public final class WamBiomes {
 
             generationSettingsConfigurator.accept(builder);
 
-            if (precipitation != Biome.Precipitation.SNOW) {
+            if (temperature >= WARM_BIOME_MINIMUM_TEMPERATURE) {
                 DefaultBiomeFeatures.addDefaultFlowers(builder);
                 builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatureKeys.PINE_FOREST_HEATHER_PATCH);
             }
@@ -98,7 +101,6 @@ public final class WamBiomes {
                     .moodSound(BiomeMoodSound.CAVE)
                     .build()
             )
-            .precipitation(precipitation)
             .downfall(0.6f)
             .temperature(temperature)
             .generationSettings(generationSettings)
@@ -108,26 +110,26 @@ public final class WamBiomes {
 
     private Biome pineForest() {
         // noinspection CodeBlock2Expr
-        return pineForest(Biome.Precipitation.RAIN, 0.6f, builder -> {}, builder -> {
+        return pineForest(0.6f, builder -> {}, builder -> {
             builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatureKeys.FOREST_PINE);
         });
     }
 
     private Biome snowyPineForest() {
         // noinspection CodeBlock2Expr
-        return pineForest(Biome.Precipitation.SNOW, 0f, builder -> {}, builder -> {
+        return pineForest(0f, builder -> {}, builder -> {
             builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatureKeys.SNOWY_PINE_FOREST_TREES);
         });
     }
 
     private Biome oldGrowthPineForest() {
-        return pineForest(Biome.Precipitation.RAIN, 0.4f, builder -> {}, builder -> {
+        return pineForest(0.4f, builder -> {}, builder -> {
             builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatureKeys.OLD_GROWTH_PINE_FOREST_TREES);
         });
     }
 
     private Biome lushPineForest() {
-        return pineForest(Biome.Precipitation.RAIN, 0.6f, builder -> {
+        return pineForest(0.6f, builder -> {
             DefaultBiomeFeatures.addSavannaTallGrass(builder);
         }, builder -> {
             builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatureKeys.LUSH_PINE_FOREST_TREES);
@@ -164,7 +166,6 @@ public final class WamBiomes {
                     .skyColor(getSkyColor(0.6f))
                     .build()
             )
-            .precipitation(Biome.Precipitation.RAIN)
             .downfall(0.9f)
             .temperature(0.6f)
             .generationSettings(generationSettings)
@@ -172,7 +173,7 @@ public final class WamBiomes {
             .build();
     }
 
-    private Biome fell(Biome.Precipitation precipitation, float temperature, Consumer<GenerationSettings.LookupBackedBuilder> generationSettingsConfigurator) {
+    private Biome fell(float temperature, Consumer<GenerationSettings.LookupBackedBuilder> generationSettingsConfigurator) {
         SpawnSettings spawnSettings = spawnSettings(builder -> {
             DefaultBiomeFeatures.addBatsAndMonsters(builder);
 
@@ -196,7 +197,6 @@ public final class WamBiomes {
                     .moodSound(BiomeMoodSound.CAVE)
                     .build()
             )
-            .precipitation(precipitation)
             .downfall(0.7f)
             .temperature(temperature)
             .generationSettings(generationSettings)
@@ -205,7 +205,7 @@ public final class WamBiomes {
     }
 
     private Biome fell() {
-        return fell(Biome.Precipitation.RAIN, 0.25f, builder -> {
+        return fell(0.25f, builder -> {
             DefaultBiomeFeatures.addDefaultFlowers(builder);
             builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatureKeys.FELL_HEATHER_PATCH);
             DefaultBiomeFeatures.addForestGrass(builder);
@@ -222,7 +222,7 @@ public final class WamBiomes {
     }
 
     private Biome snowyFell() {
-        return fell(Biome.Precipitation.SNOW, 0f, builder -> {
+        return fell(0f, builder -> {
             builder.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, WamPlacedFeatureKeys.FELL_BOULDER);
             builder.feature(GenerationStep.Feature.LAKES, WamPlacedFeatureKeys.FELL_POND);
             builder.feature(GenerationStep.Feature.SURFACE_STRUCTURES, WamPlacedFeatureKeys.FROZEN_TREASURE);
@@ -257,7 +257,6 @@ public final class WamBiomes {
                     .moodSound(BiomeMoodSound.CAVE)
                     .build()
             )
-            .precipitation(Biome.Precipitation.SNOW)
             .downfall(0.8f)
             .temperature(-0.2f)
             .generationSettings(generationSettings)

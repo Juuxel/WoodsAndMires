@@ -10,7 +10,6 @@ import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.math.intprovider.ClampedIntProvider;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
@@ -31,7 +30,7 @@ public final class WamPlacedFeatures {
     }
 
     private static List<PlacementModifier> treeModifiers(PlacementModifier countModifier) {
-        return VegetationPlacedFeatures.modifiers(countModifier);
+        return VegetationPlacedFeatures.treeModifiers(countModifier);
     }
 
     private static List<PlacementModifier> countExtraTreeModifiers(int count, float extraChance, int extraCount) {
@@ -39,7 +38,7 @@ public final class WamPlacedFeatures {
     }
 
     private static List<PlacementModifier> treeModifiersWithWouldSurvive(PlacementModifier countModifier, Block block) {
-        return VegetationPlacedFeatures.modifiersWithWouldSurvive(countModifier, block);
+        return VegetationPlacedFeatures.treeModifiersWithWouldSurvive(countModifier, block);
     }
 
     private static List<PlacementModifier> countModifiers(int count) {

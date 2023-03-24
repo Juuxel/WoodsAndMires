@@ -30,12 +30,12 @@
   "accessWidener": "woods_and_mires.accesswidener",
 
   "depends": {
-    "fabricloader": ">=0.14.6",
-    "fabric": ">=0.75.1",
-    "fabric-biome-api-v1": "^12.1.0",
-    "minecraft": "~1.19.3"
+    "fabricloader": ">=0.14.18",
+    "fabric": ">=0.76.0",
+    "fabric-biome-api-v1": "^13.0.0",
+    "minecraft": "~1.19.4"
   },
   "recommends": {
-    "terrablender": "~2.1"
+    "terrablender": "~2.2"
   }
 }

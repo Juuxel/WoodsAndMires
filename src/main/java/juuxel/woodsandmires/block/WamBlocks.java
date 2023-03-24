@@ -29,7 +29,6 @@ import net.minecraft.item.TallBlockItem;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.sound.SoundEvents;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Supplier;
@@ -41,14 +40,14 @@ public final class WamBlocks {
     public static final Block PINE_SLAB = new SlabBlock(copyWoodSettings(Blocks.OAK_SLAB));
     public static final Block PINE_STAIRS = new StairsBlock(PINE_PLANKS.getDefaultState(), copyWoodSettings(Blocks.OAK_STAIRS));
     public static final Block PINE_FENCE = new FenceBlock(copyWoodSettings(Blocks.OAK_FENCE));
-    public static final Block PINE_FENCE_GATE = new FenceGateBlock(copyWoodSettings(Blocks.OAK_FENCE_GATE), SoundEvents.BLOCK_FENCE_GATE_CLOSE, SoundEvents.BLOCK_FENCE_GATE_OPEN);
-    public static final Block PINE_DOOR = new DoorBlock(copyWoodSettings(Blocks.OAK_DOOR), SoundEvents.BLOCK_WOODEN_DOOR_CLOSE, SoundEvents.BLOCK_WOODEN_DOOR_OPEN);
-    public static final Block PINE_TRAPDOOR = new TrapdoorBlock(copyWoodSettings(Blocks.OAK_DOOR), SoundEvents.BLOCK_WOODEN_TRAPDOOR_CLOSE, SoundEvents.BLOCK_WOODEN_TRAPDOOR_OPEN);
-    public static final Block PINE_BUTTON = Blocks.createWoodenButtonBlock();
-    public static final Block PINE_PRESSURE_PLATE = new PressurePlateBlock(PressurePlateBlock.ActivationRule.EVERYTHING, copyWoodSettings(Blocks.OAK_PRESSURE_PLATE), SoundEvents.BLOCK_WOODEN_PRESSURE_PLATE_CLICK_OFF, SoundEvents.BLOCK_WOODEN_PRESSURE_PLATE_CLICK_ON);
-    public static final Block PINE_SIGN = new WamSignBlock(copyWoodSettings(Blocks.OAK_SIGN), WamSignTypes.PINE);
+    public static final Block PINE_FENCE_GATE = new FenceGateBlock(copyWoodSettings(Blocks.OAK_FENCE_GATE), WamWoodTypes.PINE);
+    public static final Block PINE_DOOR = new DoorBlock(copyWoodSettings(Blocks.OAK_DOOR), WamBlockSetTypes.PINE);
+    public static final Block PINE_TRAPDOOR = new TrapdoorBlock(copyWoodSettings(Blocks.OAK_DOOR), WamBlockSetTypes.PINE);
+    public static final Block PINE_BUTTON = Blocks.createWoodenButtonBlock(WamBlockSetTypes.PINE);
+    public static final Block PINE_PRESSURE_PLATE = new PressurePlateBlock(PressurePlateBlock.ActivationRule.EVERYTHING, copyWoodSettings(Blocks.OAK_PRESSURE_PLATE), WamBlockSetTypes.PINE);
+    public static final Block PINE_SIGN = new WamSignBlock(copyWoodSettings(Blocks.OAK_SIGN), WamWoodTypes.PINE);
     // We have to evaluate this *after* PINE_SIGN has registered due to the loot table condition.
-    public static final Supplier<Block> PINE_WALL_SIGN = Suppliers.memoize(() -> new WamWallSignBlock(copyWoodSettings(PINE_SIGN).dropsLike(PINE_SIGN), WamSignTypes.PINE));
+    public static final Supplier<Block> PINE_WALL_SIGN = Suppliers.memoize(() -> new WamWallSignBlock(copyWoodSettings(PINE_SIGN).dropsLike(PINE_SIGN), WamWoodTypes.PINE));
     public static final Block PINE_LEAVES = Blocks.createLeavesBlock(BlockSoundGroup.GRASS);
     public static final Block PINE_SAPLING = new SaplingBlock(new PineSaplingGenerator(), AbstractBlock.Settings.copy(Blocks.OAK_SAPLING));
     public static final Block POTTED_PINE_SAPLING = new FlowerPotBlock(PINE_SAPLING, createFlowerPotSettings());
@@ -63,7 +62,7 @@ public final class WamBlocks {
     public static final Block FIREWEED = new TallFlowerBlock(createFlowerSettings(true));
     public static final Block TANSY = new BigFlowerBlock(StatusEffects.SLOW_FALLING, 10, createFlowerSettings(false));
     public static final Block POTTED_TANSY = new FlowerPotBlock(TANSY, createFlowerPotSettings());
-    public static final Block FELL_LICHEN = new LichenBlock(createFlowerSettings(false).mapColor(MapColor.OFF_WHITE).offsetType(AbstractBlock.OffsetType.XZ));
+    public static final Block FELL_LICHEN = new LichenBlock(createFlowerSettings(false).mapColor(MapColor.OFF_WHITE).offset(AbstractBlock.OffsetType.XZ));
     public static final Block POTTED_FELL_LICHEN = new FlowerPotBlock(FELL_LICHEN, createFlowerPotSettings());
     public static final Block HEATHER = new HeatherBlock(StatusEffects.REGENERATION, 8, createFlowerSettings(false));
     public static final Block POTTED_HEATHER = new FlowerPotBlock(HEATHER, createFlowerPotSettings());

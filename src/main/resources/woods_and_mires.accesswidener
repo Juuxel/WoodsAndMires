@@ -2,7 +2,7 @@ accessWidener v1 named
 
 # Blocks
 accessible method net/minecraft/block/Blocks createLeavesBlock (Lnet/minecraft/sound/BlockSoundGroup;)Lnet/minecraft/block/LeavesBlock;
-accessible method net/minecraft/block/Blocks createWoodenButtonBlock ()Lnet/minecraft/block/ButtonBlock;
+accessible method net/minecraft/block/Blocks createWoodenButtonBlock (Lnet/minecraft/block/BlockSetType;)Lnet/minecraft/block/ButtonBlock;
 
 # World gen
 accessible field net/minecraft/world/biome/OverworldBiomeCreator DEFAULT_WATER_COLOR I

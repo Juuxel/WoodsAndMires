@@ -65,7 +65,7 @@
       "woods_and_mires:mire_meadow"
     ]
   ],
-  "precipitation": "rain",
+  "has_precipitation": true,
   "spawn_costs": {},
   "spawners": {
     "ambient": [
