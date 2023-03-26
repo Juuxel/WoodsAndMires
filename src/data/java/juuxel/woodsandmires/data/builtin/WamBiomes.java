@@ -70,12 +70,13 @@ public final class WamBiomes {
             // Stone boulders
             builder.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, WamPlacedFeatureKeys.PINE_FOREST_BOULDER);
 
-            generationSettingsConfigurator.accept(builder);
-
             if (temperature >= WARM_BIOME_MINIMUM_TEMPERATURE) {
                 DefaultBiomeFeatures.addDefaultFlowers(builder);
                 builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatureKeys.PINE_FOREST_HEATHER_PATCH);
             }
+
+            generationSettingsConfigurator.accept(builder);
+
             DefaultBiomeFeatures.addForestGrass(builder);
             DefaultBiomeFeatures.addDefaultMushrooms(builder);
             DefaultBiomeFeatures.addDefaultVegetation(builder);
