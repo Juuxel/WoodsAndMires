@@ -58,12 +58,13 @@ public final class WamBiomes {
             // Stone boulders
             builder.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, WamPlacedFeatures.PINE_FOREST_BOULDER);
 
-            generationSettingsConfigurator.accept(builder);
-
             if (precipitation != Biome.Precipitation.SNOW) {
                 DefaultBiomeFeatures.addDefaultFlowers(builder);
                 builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.PINE_FOREST_HEATHER_PATCH);
             }
+
+            generationSettingsConfigurator.accept(builder);
+
             DefaultBiomeFeatures.addForestGrass(builder);
             DefaultBiomeFeatures.addDefaultMushrooms(builder);
             DefaultBiomeFeatures.addDefaultVegetation(builder);
