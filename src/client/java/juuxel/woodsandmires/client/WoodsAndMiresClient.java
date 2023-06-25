@@ -1,6 +1,11 @@
 package juuxel.woodsandmires.client;
 
+import com.terraformersmc.terraform.boat.api.TerraformBoatType;
+import com.terraformersmc.terraform.boat.api.TerraformBoatTypeRegistry;
+import com.terraformersmc.terraform.boat.api.client.TerraformBoatClientHelper;
+import juuxel.woodsandmires.block.WamBlocks;
 import juuxel.woodsandmires.block.entity.WamBlockEntities;
+import juuxel.woodsandmires.item.WamItems;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -13,5 +18,10 @@ public final class WoodsAndMiresClient implements ClientModInitializer {
     public void onInitializeClient() {
         WamBlocksClient.init();
         BlockEntityRendererFactories.register(WamBlockEntities.SIGN, SignBlockEntityRenderer::new);
+        registerBoat(WamItems.PINE_BOAT_TYPE);
+    }
+
+    private static void registerBoat(TerraformBoatType type) {
+        TerraformBoatClientHelper.registerModelLayer(TerraformBoatTypeRegistry.INSTANCE.getId(type));
     }
 }
