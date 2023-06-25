@@ -35,5 +35,7 @@
   "block.woods_and_mires.potted_tansy": "Potted Tansy",
   "block.woods_and_mires.stripped_pine_log": "Stripped Pine Log",
   "block.woods_and_mires.stripped_pine_wood": "Stripped Pine Wood",
-  "block.woods_and_mires.tansy": "Tansy"
+  "block.woods_and_mires.tansy": "Tansy",
+
+  "item.woods_and_mires.pine_boat": "Pine Boat"
 }

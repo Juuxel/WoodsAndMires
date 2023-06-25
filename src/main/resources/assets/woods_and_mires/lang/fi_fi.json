@@ -35,5 +35,7 @@
   "block.woods_and_mires.potted_tansy": "Istutettu pietaryrtti",
   "block.woods_and_mires.stripped_pine_log": "Kuorittu mäntyhalko",
   "block.woods_and_mires.stripped_pine_wood": "Kuorittu mäntypuu",
-  "block.woods_and_mires.tansy": "Pietaryrtti"
+  "block.woods_and_mires.tansy": "Pietaryrtti",
+
+  "item.woods_and_mires.pine_boat": "Mäntyvene"
 }
