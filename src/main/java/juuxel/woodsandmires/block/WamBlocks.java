@@ -11,9 +11,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.DoorBlock;
 import net.minecraft.block.FenceBlock;
 import net.minecraft.block.FenceGateBlock;
-import net.minecraft.block.FlowerPotBlock;
 import net.minecraft.block.MapColor;
-import net.minecraft.block.Material;
 import net.minecraft.block.PillarBlock;
 import net.minecraft.block.PressurePlateBlock;
 import net.minecraft.block.SaplingBlock;
@@ -21,6 +19,7 @@ import net.minecraft.block.SlabBlock;
 import net.minecraft.block.StairsBlock;
 import net.minecraft.block.TallFlowerBlock;
 import net.minecraft.block.TrapdoorBlock;
+import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -50,7 +49,7 @@ public final class WamBlocks {
     public static final Supplier<Block> PINE_WALL_SIGN = Suppliers.memoize(() -> new WamWallSignBlock(copyWoodSettings(PINE_SIGN).dropsLike(PINE_SIGN), WamWoodTypes.PINE));
     public static final Block PINE_LEAVES = Blocks.createLeavesBlock(BlockSoundGroup.GRASS);
     public static final Block PINE_SAPLING = new SaplingBlock(new PineSaplingGenerator(), AbstractBlock.Settings.copy(Blocks.OAK_SAPLING));
-    public static final Block POTTED_PINE_SAPLING = new FlowerPotBlock(PINE_SAPLING, createFlowerPotSettings());
+    public static final Block POTTED_PINE_SAPLING = Blocks.createFlowerPotBlock(PINE_SAPLING);
     public static final Block PINE_WOOD = new PillarBlock(copyWoodSettings(Blocks.OAK_WOOD));
     public static final Block AGED_PINE_WOOD = new WoodVariantBlock(PINE_WOOD, AbstractBlock.Settings.copy(PINE_WOOD));
     public static final Block STRIPPED_PINE_LOG = new PillarBlock(copyWoodSettings(Blocks.STRIPPED_OAK_LOG));
@@ -59,13 +58,13 @@ public final class WamBlocks {
     public static final Block PINE_SNAG_WOOD = new PillarBlock(copyWoodSettings(Blocks.STRIPPED_OAK_WOOD));
     public static final Block PINE_SNAG_BRANCH = new BranchBlock(copyWoodSettings(PINE_SNAG_WOOD));
     public static final Block PINE_SHRUB_LOG = new ShrubLogBlock(copyWoodSettings(PINE_LOG).nonOpaque());
-    public static final Block FIREWEED = new TallFlowerBlock(createFlowerSettings(true));
-    public static final Block TANSY = new BigFlowerBlock(StatusEffects.SLOW_FALLING, 10, createFlowerSettings(false));
-    public static final Block POTTED_TANSY = new FlowerPotBlock(TANSY, createFlowerPotSettings());
-    public static final Block FELL_LICHEN = new LichenBlock(createFlowerSettings(false).mapColor(MapColor.OFF_WHITE).offset(AbstractBlock.OffsetType.XZ));
-    public static final Block POTTED_FELL_LICHEN = new FlowerPotBlock(FELL_LICHEN, createFlowerPotSettings());
-    public static final Block HEATHER = new HeatherBlock(StatusEffects.REGENERATION, 8, createFlowerSettings(false));
-    public static final Block POTTED_HEATHER = new FlowerPotBlock(HEATHER, createFlowerPotSettings());
+    public static final Block FIREWEED = new TallFlowerBlock(createFlowerSettings());
+    public static final Block TANSY = new BigFlowerBlock(StatusEffects.SLOW_FALLING, 10, createFlowerSettings());
+    public static final Block POTTED_TANSY = Blocks.createFlowerPotBlock(TANSY);
+    public static final Block FELL_LICHEN = new LichenBlock(createFlowerSettings().mapColor(MapColor.OFF_WHITE).offset(AbstractBlock.OffsetType.XZ));
+    public static final Block POTTED_FELL_LICHEN = Blocks.createFlowerPotBlock(FELL_LICHEN);
+    public static final Block HEATHER = new HeatherBlock(StatusEffects.REGENERATION, 8, createFlowerSettings());
+    public static final Block POTTED_HEATHER = Blocks.createFlowerPotBlock(HEATHER);
 
     private WamBlocks() {
     }
@@ -156,16 +155,12 @@ public final class WamBlocks {
         return AbstractBlock.Settings.copy(block);
     }
 
-    private static AbstractBlock.Settings createFlowerSettings(boolean tall) {
-        return AbstractBlock.Settings.of(tall ? Material.REPLACEABLE_PLANT : Material.PLANT)
+    private static AbstractBlock.Settings createFlowerSettings() {
+        return AbstractBlock.Settings.create()
+            .mapColor(MapColor.DARK_GREEN)
             .noCollision()
             .breakInstantly()
+            .pistonBehavior(PistonBehavior.DESTROY)
             .sounds(BlockSoundGroup.GRASS);
-    }
-
-    private static AbstractBlock.Settings createFlowerPotSettings() {
-        return AbstractBlock.Settings.of(Material.DECORATION)
-            .breakInstantly()
-            .nonOpaque();
     }
 }
