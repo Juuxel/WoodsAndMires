@@ -28,7 +28,7 @@ public final class WoodsAndMiresTb implements TerraBlenderApi {
             MaterialRules.condition(hasWater, VanillaSurfaceRules.block(Blocks.POWDER_SNOW))
         );
 
-        return MaterialRules.sequence(
+        return MaterialRules.condition(MaterialRules.STONE_DEPTH_FLOOR, MaterialRules.sequence(
             MaterialRules.condition(
                 MaterialRules.biome(WamBiomeKeys.FELL),
                 MaterialRules.condition(VanillaSurfaceRules.surfaceNoiseThreshold(1.75), stone)
@@ -64,6 +64,6 @@ public final class WoodsAndMiresTb implements TerraBlenderApi {
                     MaterialRules.condition(hasWater, snowBlock)
                 )
             )
-        );
+        ));
     }
 }
