@@ -35,11 +35,5 @@
   "block.woods_and_mires.potted_tansy": "Пижмо в горщику",
   "block.woods_and_mires.stripped_pine_log": "Обтесана соснова колода",
   "block.woods_and_mires.stripped_pine_wood": "Обтесана соснова деревина",
-  "block.woods_and_mires.tansy": "Пижмо",
-
-  "item.immersive_weathering.woods_and_mires.pine_bark": "Соснова кора",
-  "block.immersive_weathering.woods_and_mires.pine_leaf_pile": "Купа соснового листя",
-  "item.supplementaries.woods_and_mires.sign_post_pine": "Сосновий вказівник",
-  "block.supplementaries.woods_and_mires.hanging_sign_pine": "Соснова вивіска",
-  "block.suppsquared.woods_and_mires.item_shelf_pine": "Соснова полиця для предметів"
+  "block.woods_and_mires.tansy": "Пижмо"
 }
