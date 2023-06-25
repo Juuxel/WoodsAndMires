@@ -4,6 +4,9 @@ plugins {
     id 'maven-publish'
 }
 
+// TODO: Regen resources, figure out what to do with Terraform as it's not compatible with
+//  servers due to the fabric-rendering dep (can we drop the dep on our end? does it end up on the cp?)
+
 archivesBaseName = project.archives_base_name
 version = "$project.mod_version+$project.minecraft_version"
 group = project.maven_group
@@ -70,6 +73,7 @@ dependencies {
 
     modImplementation "com.github.glitchfiend:TerraBlender-fabric:$project.terrablender_version"
     implementation include("com.typesafe:config:$project.typesafe_config_version")
+    modImplementation include("com.terraformersmc.terraform-api:terraform-wood-api-v1:$project.terraform_version")
 
     dataImplementation sourceSets.main.output
 }

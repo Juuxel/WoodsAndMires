@@ -37,5 +37,6 @@
   "block.woods_and_mires.stripped_pine_wood": "Kuorittu mäntypuu",
   "block.woods_and_mires.tansy": "Pietaryrtti",
 
-  "item.woods_and_mires.pine_boat": "Mäntyvene"
+  "item.woods_and_mires.pine_boat": "Mäntyvene",
+  "item.woods_and_mires.pine_chest_boat": "Mäntyvene arkulla"
 }
