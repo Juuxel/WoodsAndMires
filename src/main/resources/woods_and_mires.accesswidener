@@ -4,6 +4,9 @@ accessWidener v1 named
 accessible method net/minecraft/block/Blocks createLeavesBlock (Lnet/minecraft/sound/BlockSoundGroup;)Lnet/minecraft/block/LeavesBlock;
 accessible method net/minecraft/block/Blocks createWoodenButtonBlock (Lnet/minecraft/block/BlockSetType;)Lnet/minecraft/block/ButtonBlock;
 
+# Items
+extendable method net/minecraft/item/BoatItem createEntity (Lnet/minecraft/world/World;Lnet/minecraft/util/hit/HitResult;)Lnet/minecraft/entity/vehicle/BoatEntity;
+
 # World gen
 accessible field net/minecraft/world/biome/OverworldBiomeCreator DEFAULT_WATER_COLOR I
 accessible field net/minecraft/world/biome/OverworldBiomeCreator DEFAULT_WATER_FOG_COLOR I
@@ -14,3 +17,7 @@ accessible method net/minecraft/world/gen/surfacebuilder/VanillaSurfaceRules sur
 accessible method net/minecraft/world/gen/surfacebuilder/VanillaSurfaceRules block (Lnet/minecraft/block/Block;)Lnet/minecraft/world/gen/surfacebuilder/MaterialRules$MaterialRule;
 accessible method net/minecraft/world/gen/treedecorator/TreeDecoratorType <init> (Lcom/mojang/serialization/Codec;)V
 accessible method net/minecraft/world/gen/feature/VegetationConfiguredFeatures createRandomPatchFeatureConfig (Lnet/minecraft/world/gen/stateprovider/BlockStateProvider;I)Lnet/minecraft/world/gen/feature/RandomPatchFeatureConfig;
+
+# Rendering
+accessible field net/minecraft/client/render/entity/BoatEntityRenderer texturesAndModels Ljava/util/Map;
+mutable field net/minecraft/client/render/entity/BoatEntityRenderer texturesAndModels Ljava/util/Map;

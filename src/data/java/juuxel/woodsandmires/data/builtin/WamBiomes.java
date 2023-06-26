@@ -159,7 +159,7 @@ public final class WamBiomes {
             .effects(
                 new BiomeEffects.Builder()
                     .waterColor(0x7B6D1B)
-                    .waterFogColor(OverworldBiomeCreator.DEFAULT_WATER_FOG_COLOR)
+                    .waterFogColor(0x564C13)
                     .fogColor(OverworldBiomeCreator.DEFAULT_FOG_COLOR)
                     .moodSound(BiomeMoodSound.CAVE)
                     .foliageColor(0xBFA243)
