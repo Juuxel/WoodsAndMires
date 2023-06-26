@@ -8,12 +8,13 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.util.registry.Registry;
 
 public final class WamItems {
-    public static final Item PINE_BOAT = register("pine_boat", new WamBoatItem(WamBoat.PINE, new Item.Settings().group(ItemGroup.TRANSPORTATION)));
-    // TODO: Chest boats
+    public static final Item PINE_BOAT = register("pine_boat", new WamBoatItem(false, WamBoat.PINE, new Item.Settings().group(ItemGroup.TRANSPORTATION)));
+    public static final Item PINE_CHEST_BOAT = register("pine_chest_boat", new WamBoatItem(true, WamBoat.PINE, new Item.Settings().group(ItemGroup.TRANSPORTATION)));
 
     public static void init() {
         for (WamBoat boat : WamBoat.values()) {
-            DispenserBlock.registerBehavior(boat.boat(), new WamBoatDispenserBehavior(boat));
+            DispenserBlock.registerBehavior(boat.boat(), new WamBoatDispenserBehavior(boat, false));
+            DispenserBlock.registerBehavior(boat.chestBoat(), new WamBoatDispenserBehavior(boat, true));
         }
     }
 

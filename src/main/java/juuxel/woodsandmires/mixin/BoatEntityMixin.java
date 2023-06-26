@@ -1,6 +1,6 @@
 package juuxel.woodsandmires.mixin;
 
-import juuxel.woodsandmires.entity.WamBoatEntity;
+import juuxel.woodsandmires.entity.BoatWithWamData;
 import net.minecraft.entity.vehicle.BoatEntity;
 import net.minecraft.item.ItemConvertible;
 import org.spongepowered.asm.mixin.Mixin;
@@ -24,7 +24,7 @@ abstract class BoatEntityMixin {
     )
     private ItemConvertible modifyPlanks(ItemConvertible convertible) {
         // noinspection ConstantConditions
-        if ((Object) this instanceof WamBoatEntity wam) {
+        if ((Object) this instanceof BoatWithWamData wam) {
             return wam.getBoatData().planks();
         }
 

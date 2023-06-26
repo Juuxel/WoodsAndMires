@@ -2,18 +2,20 @@ package juuxel.woodsandmires.entity;
 
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.vehicle.BoatEntity;
+import net.minecraft.entity.vehicle.ChestBoatEntity;
 import net.minecraft.item.Item;
 import net.minecraft.text.Text;
 import net.minecraft.world.World;
 
-public final class WamBoatEntity extends BoatEntity {
+public final class WamBoatEntity extends BoatEntity implements BoatWithWamData {
     private final WamBoat boatData;
 
-    private WamBoatEntity(EntityType<? extends WamBoatEntity> type, World world, WamBoat boatData) {
+    public WamBoatEntity(EntityType<? extends BoatEntity> type, World world, WamBoat boatData) {
         super(type, world);
         this.boatData = boatData;
     }
 
+    @Override
     public WamBoat getBoatData() {
         return boatData;
     }
@@ -37,12 +39,9 @@ public final class WamBoatEntity extends BoatEntity {
         return super.getDefaultName();
     }
 
-    public static WamBoatEntity createPine(EntityType<? extends WamBoatEntity> type, World world) {
-        return new WamBoatEntity(type, world, WamBoat.PINE);
-    }
-
-    public static WamBoatEntity copy(BoatEntity original, WamBoat boatData) {
-        var boat = boatData.factory().create(boatData.entityType(), original.getEntityWorld());
+    public static BoatEntity copy(BoatEntity original, WamBoat boatData) {
+        var chest = original instanceof ChestBoatEntity;
+        var boat = boatData.factory(chest).create(boatData.entityType(chest), original.getEntityWorld());
         boat.updatePosition(original.getX(), original.getY(), original.getZ());
         return boat;
     }

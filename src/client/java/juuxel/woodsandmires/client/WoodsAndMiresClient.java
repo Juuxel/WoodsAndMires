@@ -1,5 +1,6 @@
 package juuxel.woodsandmires.client;
 
+import juuxel.woodsandmires.block.entity.WamBlockEntities;
 import juuxel.woodsandmires.client.renderer.WamBoatEntityRenderer;
 import juuxel.woodsandmires.entity.WamBoat;
 import net.fabricmc.api.ClientModInitializer;
@@ -19,9 +20,15 @@ public final class WoodsAndMiresClient implements ClientModInitializer {
         BlockEntityRendererFactories.register(WamBlockEntities.SIGN, SignBlockEntityRenderer::new);
 
         for (WamBoat boat : WamBoat.values()) {
-            EntityRendererRegistry.register(boat.entityType(), context -> new WamBoatEntityRenderer(context, boat));
-            EntityModelLayerRegistry.registerModelLayer(WamBoatEntityRenderer.getModelLayer(boat),
-                BoatEntityModel::getTexturedModelData);
+            registerBoatModel(true, boat);
+            registerBoatModel(false, boat);
         }
+    }
+
+    private static void registerBoatModel(boolean chest, WamBoat boat) {
+        var type = boat.entityType(chest);
+        EntityRendererRegistry.register(type, context -> new WamBoatEntityRenderer(context, chest, boat));
+        EntityModelLayerRegistry.registerModelLayer(WamBoatEntityRenderer.getModelLayer(boat, chest),
+            () -> BoatEntityModel.getTexturedModelData(chest));
     }
 }

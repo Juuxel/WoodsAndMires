@@ -40,5 +40,6 @@
   "item.woods_and_mires.pine_boat": "Pine Boat",
   "item.woods_and_mires.pine_chest_boat": "Pine Boat with Chest",
 
-  "entity.woods_and_mires.pine_boat": "Pine Boat"
+  "entity.woods_and_mires.pine_boat": "Pine Boat",
+  "entity.woods_and_mires.pine_chest_boat": "Pine Boat with Chest"
 }

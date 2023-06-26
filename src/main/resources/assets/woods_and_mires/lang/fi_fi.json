@@ -40,5 +40,6 @@
   "item.woods_and_mires.pine_boat": "Mäntyvene",
   "item.woods_and_mires.pine_chest_boat": "Mäntyvene arkulla",
 
-  "entity.woods_and_mires.pine_boat": "Mäntyvene"
+  "entity.woods_and_mires.pine_boat": "Mäntyvene",
+  "entity.woods_and_mires.pine_chest_boat": "Mäntyvene arkulla"
 }
