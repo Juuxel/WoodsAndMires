@@ -23,9 +23,7 @@ public final class WoodsAndMiresClient implements ClientModInitializer {
         registerSign(WamBlocks.PINE_SIGN);
 
         for (WamBoat boat : WamBoat.values()) {
-            EntityRendererRegistry.register(boat.entityType(), context -> new WamBoatEntityRenderer(context, boat));
-            EntityModelLayerRegistry.registerModelLayer(WamBoatEntityRenderer.getModelLayer(boat),
-                BoatEntityModel::getTexturedModelData);
+            registerBoatModel(boat);
         }
     }
 
@@ -33,5 +31,12 @@ public final class WoodsAndMiresClient implements ClientModInitializer {
         TerraformSign t = (TerraformSign) sign;
         SpriteIdentifier sprite = new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, t.getTexture());
         SpriteIdentifierRegistry.INSTANCE.addIdentifier(sprite);
+    }
+
+    private static void registerBoatModel(WamBoat boat) {
+        var type = boat.entityType();
+        EntityRendererRegistry.register(type, context -> new WamBoatEntityRenderer(context, boat));
+        EntityModelLayerRegistry.registerModelLayer(WamBoatEntityRenderer.getModelLayer(boat),
+            BoatEntityModel::getTexturedModelData);
     }
 }

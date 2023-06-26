@@ -14,22 +14,19 @@ public enum WamBoat {
         "pine",
         () -> WamBlocks.PINE_PLANKS,
         () -> WamItems.PINE_BOAT,
-        () -> WamEntityTypes.PINE_BOAT,
-        WamBoatEntity::createPine
+        () -> WamEntityTypes.PINE_BOAT
     );
 
     private final String name;
     private final Supplier<ItemConvertible> planks;
     private final Supplier<ItemConvertible> boat;
     private final Supplier<EntityType<WamBoatEntity>> entityType;
-    private final EntityType.EntityFactory<WamBoatEntity> factory;
 
-    WamBoat(String name, Supplier<ItemConvertible> planks, Supplier<ItemConvertible> boat, Supplier<EntityType<WamBoatEntity>> entityType, EntityType.EntityFactory<WamBoatEntity> factory) {
+    WamBoat(String name, Supplier<ItemConvertible> planks, Supplier<ItemConvertible> boat, Supplier<EntityType<WamBoatEntity>> entityType) {
         this.name = name;
         this.planks = planks;
         this.boat = boat;
         this.entityType = entityType;
-        this.factory = factory;
     }
 
     public ItemConvertible planks() {
@@ -45,7 +42,7 @@ public enum WamBoat {
     }
 
     public EntityType.EntityFactory<WamBoatEntity> factory() {
-        return factory;
+        return (type, world) -> new WamBoatEntity(type, world, this);
     }
 
     public Identifier id() {
