@@ -38,5 +38,7 @@
   "block.woods_and_mires.tansy": "Pietaryrtti",
 
   "item.woods_and_mires.pine_boat": "Mäntyvene",
-  "item.woods_and_mires.pine_chest_boat": "Mäntyvene arkulla"
+  "item.woods_and_mires.pine_chest_boat": "Mäntyvene arkulla",
+
+  "entity.woods_and_mires.pine_boat": "Mäntyvene"
 }

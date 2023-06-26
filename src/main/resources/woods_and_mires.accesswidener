@@ -16,3 +16,7 @@ accessible method net/minecraft/world/gen/feature/VegetationConfiguredFeatures c
 
 # Data generation
 accessible field net/minecraft/data/server/BlockLootTableGenerator SAPLING_DROP_CHANCE [F
+
+# Rendering
+accessible field net/minecraft/client/render/entity/BoatEntityRenderer texturesAndModels Ljava/util/Map;
+mutable field net/minecraft/client/render/entity/BoatEntityRenderer texturesAndModels Ljava/util/Map;

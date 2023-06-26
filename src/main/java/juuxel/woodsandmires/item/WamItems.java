@@ -1,32 +1,23 @@
 package juuxel.woodsandmires.item;
 
-import com.terraformersmc.terraform.boat.api.TerraformBoatType;
-import com.terraformersmc.terraform.boat.api.TerraformBoatTypeRegistry;
-import com.terraformersmc.terraform.boat.api.item.TerraformBoatItemHelper;
 import juuxel.woodsandmires.WoodsAndMires;
-import juuxel.woodsandmires.block.WamBlocks;
+import juuxel.woodsandmires.entity.WamBoat;
+import net.minecraft.block.DispenserBlock;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.util.registry.Registry;
 
 public final class WamItems {
-    public static final Item PINE_BOAT = TerraformBoatItemHelper.registerBoatItem(
-        WoodsAndMires.id("pine_boat"),
-        () -> WamItems.PINE_BOAT_TYPE,
-        false);
-    public static final Item PINE_CHEST_BOAT = TerraformBoatItemHelper.registerBoatItem(
-        WoodsAndMires.id("pine_chest_boat"),
-        () -> WamItems.PINE_BOAT_TYPE,
-        true);
-    public static final TerraformBoatType PINE_BOAT_TYPE = Registry.register(
-        TerraformBoatTypeRegistry.INSTANCE,
-        WoodsAndMires.id("pine"),
-        new TerraformBoatType.Builder()
-            .item(PINE_BOAT)
-            .chestItem(PINE_CHEST_BOAT)
-            .planks(WamBlocks.PINE_PLANKS.asItem())
-            .build()
-    );
+    public static final Item PINE_BOAT = register("pine_boat", new WamBoatItem(WamBoat.PINE, new Item.Settings().group(ItemGroup.TRANSPORTATION)));
+    // TODO: Chest boats
 
     public static void init() {
+        for (WamBoat boat : WamBoat.values()) {
+            DispenserBlock.registerBehavior(boat.boat(), new WamBoatDispenserBehavior(boat));
+        }
+    }
+
+    private static <T extends Item> T register(String id, T item) {
+        return Registry.register(Registry.ITEM, WoodsAndMires.id(id), item);
     }
 }
