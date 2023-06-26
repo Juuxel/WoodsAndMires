@@ -53,11 +53,11 @@ public final class WamItemGroups {
                 WamBlocks.FELL_LICHEN);
         });
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(entries -> {
-            addAfterFirstEnabled(entries, List.of(Items.WARPED_HANGING_SIGN, Items.WARPED_SIGN),
+            entries.addAfter(Items.WARPED_HANGING_SIGN,
                 WamBlocks.PINE_SIGN);
         });
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(entries -> {
-            addAfterFirstEnabled(entries, List.of(Items.BAMBOO_CHEST_RAFT, Items.MANGROVE_CHEST_BOAT),
+            entries.addAfter(Items.BAMBOO_CHEST_RAFT,
                 WamItems.PINE_BOAT,
                 WamItems.PINE_CHEST_BOAT);
         });
