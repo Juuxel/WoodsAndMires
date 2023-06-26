@@ -6,7 +6,8 @@ import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.vehicle.BoatEntity;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 
 public final class WamEntityTypes {
     public static final EntityType<BoatEntity> PINE_BOAT = register("pine_boat", createBoatType(false, WamBoat.PINE));
@@ -16,7 +17,7 @@ public final class WamEntityTypes {
     }
 
     private static <T extends EntityType<?>> T register(String id, T type) {
-        return Registry.register(Registry.ENTITY_TYPE, WoodsAndMires.id(id), type);
+        return Registry.register(Registries.ENTITY_TYPE, WoodsAndMires.id(id), type);
     }
 
     private static EntityType<BoatEntity> createBoatType(boolean chest, WamBoat boat) {

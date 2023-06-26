@@ -20,12 +20,12 @@ public final class WamChestBoatEntity extends ChestBoatEntity implements BoatWit
     }
 
     @Override
-    public Type getBoatType() {
+    public Type getVariant() {
         return Type.OAK;
     }
 
     @Override
-    public void setBoatType(Type type) {
+    public void setVariant(Type type) {
     }
 
     @Override

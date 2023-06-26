@@ -11,6 +11,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.block.entity.SignBlockEntityRenderer;
 import net.minecraft.client.render.entity.model.BoatEntityModel;
+import net.minecraft.client.render.entity.model.ChestBoatEntityModel;
 
 @Environment(EnvType.CLIENT)
 public final class WoodsAndMiresClient implements ClientModInitializer {
@@ -29,6 +30,6 @@ public final class WoodsAndMiresClient implements ClientModInitializer {
         var type = boat.entityType(chest);
         EntityRendererRegistry.register(type, context -> new WamBoatEntityRenderer(context, chest, boat));
         EntityModelLayerRegistry.registerModelLayer(WamBoatEntityRenderer.getModelLayer(boat, chest),
-            () -> BoatEntityModel.getTexturedModelData(chest));
+            () -> chest ? ChestBoatEntityModel.getTexturedModelData() : BoatEntityModel.getTexturedModelData());
     }
 }

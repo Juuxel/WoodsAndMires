@@ -21,12 +21,12 @@ public final class WamBoatEntity extends BoatEntity implements BoatWithWamData {
     }
 
     @Override
-    public Type getBoatType() {
+    public Type getVariant() {
         return Type.OAK;
     }
 
     @Override
-    public void setBoatType(Type type) {
+    public void setVariant(Type type) {
     }
 
     @Override

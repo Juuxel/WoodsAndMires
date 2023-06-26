@@ -56,6 +56,11 @@ public final class WamItemGroups {
             addAfterFirstEnabled(entries, List.of(Items.WARPED_HANGING_SIGN, Items.WARPED_SIGN),
                 WamBlocks.PINE_SIGN);
         });
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(entries -> {
+            addAfterFirstEnabled(entries, List.of(Items.BAMBOO_CHEST_RAFT, Items.MANGROVE_CHEST_BOAT),
+                WamItems.PINE_BOAT,
+                WamItems.PINE_CHEST_BOAT);
+        });
     }
 
     private static void addAfterFirstEnabled(FabricItemGroupEntries entries, List<Item> after, ItemConvertible... items) {

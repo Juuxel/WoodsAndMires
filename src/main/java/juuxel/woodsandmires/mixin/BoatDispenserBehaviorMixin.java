@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 abstract class BoatDispenserBehaviorMixin {
     @ModifyVariable(
         method = "dispenseSilently",
-        at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/vehicle/BoatEntity;setBoatType(Lnet/minecraft/entity/vehicle/BoatEntity$Type;)V"),
+        at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/vehicle/BoatEntity;setVariant(Lnet/minecraft/entity/vehicle/BoatEntity$Type;)V"),
         allow = 1
     )
     private BoatEntity modifyBoat(BoatEntity original) {
