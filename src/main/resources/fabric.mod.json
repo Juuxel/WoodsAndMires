@@ -29,6 +29,7 @@
   },
   "accessWidener": "woods_and_mires.accesswidener",
   "mixins": [
+    "mixins.woods_and_mires.json",
     {
       "config": "mixins.woods_and_mires.client.json",
       "environment": "client"
