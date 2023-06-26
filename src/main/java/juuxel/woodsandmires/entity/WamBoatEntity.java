@@ -4,7 +4,6 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.vehicle.BoatEntity;
 import net.minecraft.entity.vehicle.ChestBoatEntity;
 import net.minecraft.item.Item;
-import net.minecraft.text.Text;
 import net.minecraft.world.World;
 
 public final class WamBoatEntity extends BoatEntity implements BoatWithWamData {
@@ -32,11 +31,6 @@ public final class WamBoatEntity extends BoatEntity implements BoatWithWamData {
     @Override
     public Item asItem() {
         return boatData.boat().asItem();
-    }
-
-    @Override
-    protected Text getDefaultName() {
-        return super.getDefaultName();
     }
 
     public static BoatEntity copy(BoatEntity original, WamBoat boatData) {
