@@ -29,16 +29,12 @@
   },
   "accessWidener": "woods_and_mires.accesswidener",
   "mixins": [
-    "mixins.woods_and_mires.json",
-    {
-      "config": "mixins.woods_and_mires.client.json",
-      "environment": "client"
-    }
+    "mixins.woods_and_mires.json"
   ],
 
   "depends": {
     "fabricloader": ">=0.14.21",
-    "fabric": ">=0.84.0",
+    "fabric": ">=0.85.0",
     "fabric-biome-api-v1": "^13.0.0",
     "minecraft": "~1.20.1"
   },

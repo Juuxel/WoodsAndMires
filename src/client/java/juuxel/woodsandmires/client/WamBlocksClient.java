@@ -1,6 +1,8 @@
 package juuxel.woodsandmires.client;
 
+import juuxel.woodsandmires.block.WamBlocks;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.particle.v1.ParticleRenderEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.color.block.BlockColors;
@@ -55,5 +57,10 @@ public final class WamBlocksClient {
             FIREWEED, TANSY, PINE_LEAVES
         );
 
+        ParticleRenderEvents.ALLOW_BLOCK_DUST_TINT.register((state, world, pos) -> {
+            // Prevent tinting shrub log particles.
+            // See https://github.com/Juuxel/WoodsAndMires/issues/5
+            return !state.isOf(WamBlocks.PINE_SHRUB_LOG);
+        });
     }
 }
