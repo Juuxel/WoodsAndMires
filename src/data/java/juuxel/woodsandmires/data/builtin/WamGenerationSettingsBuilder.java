@@ -1,8 +1,10 @@
 package juuxel.woodsandmires.data.builtin;
 
 import juuxel.woodsandmires.data.mixin.GenerationSettingsBuilderAccessor;
+import net.minecraft.registry.RegistryEntryLookup;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.TopologicalSorts;
-import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.world.biome.GenerationSettings;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.carver.ConfiguredCarver;
@@ -16,33 +18,21 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
 
-public class WamGenerationSettingsBuilder extends GenerationSettings.Builder {
+public class WamGenerationSettingsBuilder extends GenerationSettings.LookupBackedBuilder {
     // step -> before -> [after]
     private final Map<GenerationStep.Feature, Map<RegistryEntry<PlacedFeature>, Set<RegistryEntry<PlacedFeature>>>> orderingsByStep =
         new EnumMap<>(GenerationStep.Feature.class);
+    private final RegistryEntryLookup<PlacedFeature> placedFeatureLookup;
 
-    @Override
-    public WamGenerationSettingsBuilder feature(GenerationStep.Feature featureStep, RegistryEntry<PlacedFeature> feature) {
-        super.feature(featureStep, feature);
-        return this;
+    public WamGenerationSettingsBuilder(RegistryEntryLookup<PlacedFeature> placedFeatureLookup, RegistryEntryLookup<ConfiguredCarver<?>> configuredCarverLookup) {
+        super(placedFeatureLookup, configuredCarverLookup);
+        this.placedFeatureLookup = placedFeatureLookup;
     }
 
-    @Override
-    public WamGenerationSettingsBuilder feature(int stepIndex, RegistryEntry<PlacedFeature> featureEntry) {
-        super.feature(stepIndex, featureEntry);
-        return this;
-    }
-
-    @Override
-    public WamGenerationSettingsBuilder carver(GenerationStep.Carver carverStep, RegistryEntry<? extends ConfiguredCarver<?>> carver) {
-        super.carver(carverStep, carver);
-        return this;
-    }
-
-    public WamGenerationSettingsBuilder addOrdering(GenerationStep.Feature step, RegistryEntry<PlacedFeature> before, RegistryEntry<PlacedFeature> after) {
+    public WamGenerationSettingsBuilder addOrdering(GenerationStep.Feature step, RegistryKey<PlacedFeature> before, RegistryKey<PlacedFeature> after) {
         orderingsByStep.computeIfAbsent(step, s -> new HashMap<>())
-            .computeIfAbsent(before, entry -> new HashSet<>())
-            .add(after);
+            .computeIfAbsent(placedFeatureLookup.getOrThrow(before), entry -> new HashSet<>())
+            .add(placedFeatureLookup.getOrThrow(after));
         return this;
     }
 
@@ -55,7 +45,7 @@ public class WamGenerationSettingsBuilder extends GenerationSettings.Builder {
     private void order() {
         orderingsByStep.forEach((step, orderings) -> {
             List<RegistryEntry<PlacedFeature>> features = ((GenerationSettingsBuilderAccessor) this)
-                .getFeatures()
+                .getIndexedFeaturesList()
                 .get(step.ordinal());
 
             Set<RegistryEntry<PlacedFeature>> visited = new HashSet<>();

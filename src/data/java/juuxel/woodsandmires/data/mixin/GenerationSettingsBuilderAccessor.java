@@ -1,6 +1,6 @@
 package juuxel.woodsandmires.data.mixin;
 
-import net.minecraft.util.registry.RegistryEntry;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.world.biome.GenerationSettings;
 import net.minecraft.world.gen.feature.PlacedFeature;
 import org.spongepowered.asm.mixin.Mixin;
@@ -11,5 +11,5 @@ import java.util.List;
 @Mixin(GenerationSettings.Builder.class)
 public interface GenerationSettingsBuilderAccessor {
     @Accessor
-    List<List<RegistryEntry<PlacedFeature>>> getFeatures();
+    List<List<RegistryEntry<PlacedFeature>>> getIndexedFeaturesList();
 }

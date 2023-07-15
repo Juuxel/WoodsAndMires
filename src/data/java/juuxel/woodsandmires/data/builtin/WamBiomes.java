@@ -275,10 +275,10 @@ public final class WamBiomes {
             .build();
     }
 
-    private GenerationSettings generationSettings(Consumer<GenerationSettings.LookupBackedBuilder> configurator) {
+    private GenerationSettings generationSettings(Consumer<WamGenerationSettingsBuilder> configurator) {
         RegistryEntryLookup<PlacedFeature> placedFeatures = registerable.getRegistryLookup(RegistryKeys.PLACED_FEATURE);
         RegistryEntryLookup<ConfiguredCarver<?>> configuredCarvers = registerable.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER);
-        GenerationSettings.LookupBackedBuilder builder = new GenerationSettings.LookupBackedBuilder(placedFeatures, configuredCarvers);
+        WamGenerationSettingsBuilder builder = new WamGenerationSettingsBuilder(placedFeatures, configuredCarvers);
         configurator.accept(builder);
         return builder.build();
     }
