@@ -16,6 +16,7 @@ accessible method net/minecraft/world/gen/feature/VegetationConfiguredFeatures c
 
 # Data generation
 accessible field net/minecraft/data/server/BlockLootTableGenerator SAPLING_DROP_CHANCE [F
+accessible field net/minecraft/data/server/BlockLootTableGenerator WITHOUT_SILK_TOUCH_NOR_SHEARS Lnet/minecraft/loot/condition/LootCondition$Builder;
 
 # Rendering
 accessible field net/minecraft/client/render/entity/BoatEntityRenderer texturesAndModels Ljava/util/Map;

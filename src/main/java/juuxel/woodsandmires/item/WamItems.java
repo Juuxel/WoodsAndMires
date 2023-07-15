@@ -9,6 +9,7 @@ import net.minecraft.util.registry.Registry;
 
 public final class WamItems {
     public static final Item PINE_BOAT = register("pine_boat", new WamBoatItem(WamBoat.PINE, new Item.Settings().group(ItemGroup.TRANSPORTATION)));
+    public static final Item PINE_CONE = register("pine_cone", new Item(new Item.Settings().group(ItemGroup.MATERIALS)));
 
     public static void init() {
         for (WamBoat boat : WamBoat.values()) {

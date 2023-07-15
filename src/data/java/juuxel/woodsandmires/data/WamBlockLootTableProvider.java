@@ -1,6 +1,7 @@
 package juuxel.woodsandmires.data;
 
 import juuxel.woodsandmires.block.WamBlocks;
+import juuxel.woodsandmires.item.WamItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.minecraft.block.TallPlantBlock;
@@ -32,7 +33,15 @@ public final class WamBlockLootTableProvider extends FabricBlockLootTableProvide
         addDrop(WamBlocks.PINE_SIGN);
         addDrop(WamBlocks.PINE_DOOR, BlockLootTableGenerator::addDoorDrop);
         addDrop(WamBlocks.PINE_TRAPDOOR);
-        addDrop(WamBlocks.PINE_LEAVES, block -> leavesDrop(block, WamBlocks.PINE_SAPLING, SAPLING_DROP_CHANCE));
+        addDrop(WamBlocks.PINE_LEAVES,
+            block -> leavesDrop(block, WamBlocks.PINE_SAPLING, SAPLING_DROP_CHANCE)
+                .pool(addSurvivesExplosionCondition(WamItems.PINE_CONE, LootPool.builder()
+                    .conditionally(WITHOUT_SILK_TOUCH_NOR_SHEARS)
+                    .with(ItemEntry.builder(WamItems.PINE_CONE)
+                        .apply(SetCountLootFunction.builder(BinomialLootNumberProvider.create(3, 0.07f)))
+                    )
+                ))
+        );
         addDrop(WamBlocks.PINE_SAPLING);
         addPottedPlantDrop(WamBlocks.POTTED_PINE_SAPLING);
         addDrop(WamBlocks.PINE_WOOD);
