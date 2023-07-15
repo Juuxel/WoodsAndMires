@@ -22,6 +22,7 @@ import net.minecraft.block.TrapdoorBlock;
 import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.BlockItem;
+import net.minecraft.item.HangingSignItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.SignItem;
 import net.minecraft.item.TallBlockItem;
@@ -47,6 +48,9 @@ public final class WamBlocks {
     public static final Block PINE_SIGN = new WamSignBlock(copyWoodSettings(Blocks.OAK_SIGN), WamWoodTypes.PINE);
     // We have to evaluate this *after* PINE_SIGN has registered due to the loot table condition.
     public static final Supplier<Block> PINE_WALL_SIGN = Suppliers.memoize(() -> new WamWallSignBlock(copyWoodSettings(PINE_SIGN).dropsLike(PINE_SIGN), WamWoodTypes.PINE));
+    public static final Block PINE_HANGING_SIGN = new WamHangingSignBlock(copyWoodSettings(Blocks.OAK_HANGING_SIGN), WamWoodTypes.PINE);
+    // Supplier for same reason as above
+    public static final Supplier<Block> PINE_WALL_HANGING_SIGN = Suppliers.memoize(() -> new WamWallHangingSignBlock(copyWoodSettings(PINE_HANGING_SIGN).dropsLike(PINE_HANGING_SIGN), WamWoodTypes.PINE));
     public static final Block PINE_LEAVES = Blocks.createLeavesBlock(BlockSoundGroup.GRASS);
     public static final Block PINE_SAPLING = new SaplingBlock(new PineSaplingGenerator(), AbstractBlock.Settings.copy(Blocks.OAK_SAPLING));
     public static final Block POTTED_PINE_SAPLING = Blocks.createFlowerPotBlock(PINE_SAPLING);
@@ -83,6 +87,8 @@ public final class WamBlocks {
         register("pine_pressure_plate", PINE_PRESSURE_PLATE);
         register("pine_sign", PINE_SIGN, () -> new SignItem(new Item.Settings().maxCount(16), PINE_SIGN, PINE_WALL_SIGN.get()));
         register("pine_wall_sign", PINE_WALL_SIGN.get(), (Item) null);
+        register("pine_hanging_sign", PINE_HANGING_SIGN, () -> new HangingSignItem(PINE_HANGING_SIGN, PINE_WALL_HANGING_SIGN.get(), new Item.Settings().maxCount(16)));
+        register("pine_wall_hanging_sign", PINE_WALL_HANGING_SIGN.get(), (Item) null);
         register("pine_leaves", PINE_LEAVES);
         register("pine_sapling", PINE_SAPLING);
         register("potted_pine_sapling", POTTED_PINE_SAPLING, (Item) null);

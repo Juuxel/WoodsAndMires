@@ -15,6 +15,7 @@
   "block.woods_and_mires.pine_door": "Mäntyovi",
   "block.woods_and_mires.pine_fence": "Mäntyaita",
   "block.woods_and_mires.pine_fence_gate": "Mäntyportti",
+  "block.woods_and_mires.pine_hanging_sign": "Roikkuva mäntykyltti",
   "block.woods_and_mires.pine_leaves": "Männynhavut",
   "block.woods_and_mires.pine_log": "Mäntyhalko",
   "block.woods_and_mires.pine_planks": "Mäntylankut",
@@ -28,6 +29,7 @@
   "block.woods_and_mires.pine_snag_wood": "Mäntykelopuu",
   "block.woods_and_mires.pine_stairs": "Mäntyportaat",
   "block.woods_and_mires.pine_trapdoor": "Mäntyluukku",
+  "block.woods_and_mires.pine_wall_hanging_sign": "Ripustettu roikkuva mäntykyltti",
   "block.woods_and_mires.pine_wood": "Mäntypuu",
   "block.woods_and_mires.potted_fell_lichen": "Istutettu tunturijäkälä",
   "block.woods_and_mires.potted_heather": "Istutettu kanerva",
@@ -41,5 +43,7 @@
   "item.woods_and_mires.pine_chest_boat": "Mäntyvene arkulla",
 
   "entity.woods_and_mires.pine_boat": "Mäntyvene",
-  "entity.woods_and_mires.pine_chest_boat": "Mäntyvene arkulla"
+  "entity.woods_and_mires.pine_chest_boat": "Mäntyvene arkulla",
+
+  "tag.item.c.chains": "Ketjut"
 }

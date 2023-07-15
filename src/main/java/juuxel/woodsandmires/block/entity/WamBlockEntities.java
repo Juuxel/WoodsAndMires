@@ -11,9 +11,14 @@ public final class WamBlockEntities {
         WamBlocks.PINE_SIGN,
         WamBlocks.PINE_WALL_SIGN.get()
     ).build(null);
+    public static final BlockEntityType<WamHangingSignBlockEntity> HANGING_SIGN = BlockEntityType.Builder.create(WamHangingSignBlockEntity::new,
+        WamBlocks.PINE_HANGING_SIGN,
+        WamBlocks.PINE_WALL_HANGING_SIGN.get()
+    ).build(null);
 
     public static void register() {
         register("sign", SIGN);
+        register("hanging_sign", HANGING_SIGN);
     }
 
     private static void register(String id, BlockEntityType<?> type) {

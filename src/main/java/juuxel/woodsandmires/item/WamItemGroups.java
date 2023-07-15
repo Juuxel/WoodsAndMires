@@ -54,7 +54,8 @@ public final class WamItemGroups {
         });
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(entries -> {
             entries.addAfter(Items.WARPED_HANGING_SIGN,
-                WamBlocks.PINE_SIGN);
+                WamBlocks.PINE_SIGN,
+                WamBlocks.PINE_HANGING_SIGN);
         });
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(entries -> {
             entries.addAfter(Items.BAMBOO_CHEST_RAFT,

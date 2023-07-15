@@ -9,6 +9,7 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
+import net.minecraft.client.render.block.entity.HangingSignBlockEntityRenderer;
 import net.minecraft.client.render.block.entity.SignBlockEntityRenderer;
 import net.minecraft.client.render.entity.model.BoatEntityModel;
 import net.minecraft.client.render.entity.model.ChestBoatEntityModel;
@@ -19,6 +20,7 @@ public final class WoodsAndMiresClient implements ClientModInitializer {
     public void onInitializeClient() {
         WamBlocksClient.init();
         BlockEntityRendererFactories.register(WamBlockEntities.SIGN, SignBlockEntityRenderer::new);
+        BlockEntityRendererFactories.register(WamBlockEntities.HANGING_SIGN, HangingSignBlockEntityRenderer::new);
 
         for (WamBoat boat : WamBoat.values()) {
             registerBoatModel(true, boat);
