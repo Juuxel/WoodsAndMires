@@ -44,11 +44,9 @@ public final class WamBiomes {
     }
 
     private static Biome pineForest(Biome.Precipitation precipitation, float temperature,
-                                    Consumer<GenerationSettings.Builder> earlyGenerationSettingsConfigurator,
-                                    Consumer<GenerationSettings.Builder> generationSettingsConfigurator) {
+                                    Consumer<WamGenerationSettingsBuilder> generationSettingsConfigurator) {
         GenerationSettings generationSettings = generationSettings(builder -> {
             OverworldBiomeCreator.addBasicFeatures(builder);
-            earlyGenerationSettingsConfigurator.accept(builder);
             DefaultBiomeFeatures.addForestFlowers(builder);
             DefaultBiomeFeatures.addLargeFerns(builder);
             DefaultBiomeFeatures.addDefaultOres(builder);
@@ -100,20 +98,20 @@ public final class WamBiomes {
 
     private static Biome pineForest() {
         // noinspection CodeBlock2Expr
-        return pineForest(Biome.Precipitation.RAIN, 0.6f, builder -> {}, builder -> {
+        return pineForest(Biome.Precipitation.RAIN, 0.6f, builder -> {
             builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.FOREST_PINE);
         });
     }
 
     private static Biome snowyPineForest() {
         // noinspection CodeBlock2Expr
-        return pineForest(Biome.Precipitation.SNOW, 0f, builder -> {}, builder -> {
+        return pineForest(Biome.Precipitation.SNOW, 0f, builder -> {
             builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.SNOWY_PINE_FOREST_TREES);
         });
     }
 
     private static Biome oldGrowthPineForest() {
-        return pineForest(Biome.Precipitation.RAIN, 0.4f, builder -> {}, builder -> {
+        return pineForest(Biome.Precipitation.RAIN, 0.4f, builder -> {
             builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.OLD_GROWTH_PINE_FOREST_TREES);
         });
     }
@@ -121,10 +119,23 @@ public final class WamBiomes {
     private static Biome lushPineForest() {
         return pineForest(Biome.Precipitation.RAIN, 0.6f, builder -> {
             DefaultBiomeFeatures.addSavannaTallGrass(builder);
-        }, builder -> {
             builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.LUSH_PINE_FOREST_TREES);
             builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.LUSH_PINE_FOREST_FLOWERS);
             DefaultBiomeFeatures.addExtraDefaultFlowers(builder);
+
+            // Required to keep vanilla order for savanna tall grass
+            builder.addOrdering(
+                GenerationStep.Feature.VEGETAL_DECORATION,
+                VegetationPlacedFeatures.PATCH_TALL_GRASS,
+                VegetationPlacedFeatures.FOREST_FLOWERS
+            );
+
+            // https://github.com/Juuxel/WoodsAndMires/issues/14
+            builder.addOrdering(
+                GenerationStep.Feature.VEGETAL_DECORATION,
+                VegetationPlacedFeatures.PATCH_GRASS_FOREST,
+                VegetationPlacedFeatures.FLOWER_WARM
+            );
         });
     }
 
@@ -257,8 +268,8 @@ public final class WamBiomes {
             .build();
     }
 
-    private static GenerationSettings generationSettings(Consumer<GenerationSettings.Builder> configurator) {
-        GenerationSettings.Builder builder = new GenerationSettings.Builder();
+    private static GenerationSettings generationSettings(Consumer<? super WamGenerationSettingsBuilder> configurator) {
+        WamGenerationSettingsBuilder builder = new WamGenerationSettingsBuilder();
         configurator.accept(builder);
         return builder.build();
     }
