@@ -55,12 +55,9 @@ public final class WamBiomes {
         return OverworldBiomeCreator.getSkyColor(temperature);
     }
 
-    private Biome pineForest(float temperature,
-                                    Consumer<GenerationSettings.LookupBackedBuilder> earlyGenerationSettingsConfigurator,
-                                    Consumer<GenerationSettings.LookupBackedBuilder> generationSettingsConfigurator) {
+    private Biome pineForest(float temperature, Consumer<WamGenerationSettingsBuilder> generationSettingsConfigurator) {
         GenerationSettings generationSettings = generationSettings(builder -> {
             OverworldBiomeCreator.addBasicFeatures(builder);
-            earlyGenerationSettingsConfigurator.accept(builder);
             DefaultBiomeFeatures.addForestFlowers(builder);
             DefaultBiomeFeatures.addLargeFerns(builder);
             DefaultBiomeFeatures.addDefaultOres(builder);
@@ -111,20 +108,20 @@ public final class WamBiomes {
 
     private Biome pineForest() {
         // noinspection CodeBlock2Expr
-        return pineForest(0.6f, builder -> {}, builder -> {
+        return pineForest(0.6f, builder -> {
             builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatureKeys.FOREST_PINE);
         });
     }
 
     private Biome snowyPineForest() {
         // noinspection CodeBlock2Expr
-        return pineForest(0f, builder -> {}, builder -> {
+        return pineForest(0f, builder -> {
             builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatureKeys.SNOWY_PINE_FOREST_TREES);
         });
     }
 
     private Biome oldGrowthPineForest() {
-        return pineForest(0.4f, builder -> {}, builder -> {
+        return pineForest(0.4f, builder -> {
             builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatureKeys.OLD_GROWTH_PINE_FOREST_TREES);
         });
     }
@@ -132,10 +129,23 @@ public final class WamBiomes {
     private Biome lushPineForest() {
         return pineForest(0.6f, builder -> {
             DefaultBiomeFeatures.addSavannaTallGrass(builder);
-        }, builder -> {
             builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatureKeys.LUSH_PINE_FOREST_TREES);
             builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatureKeys.LUSH_PINE_FOREST_FLOWERS);
             DefaultBiomeFeatures.addExtraDefaultFlowers(builder);
+
+            // Required to keep vanilla order for savanna tall grass
+            builder.addOrdering(
+                GenerationStep.Feature.VEGETAL_DECORATION,
+                VegetationPlacedFeatures.PATCH_TALL_GRASS,
+                VegetationPlacedFeatures.FOREST_FLOWERS
+            );
+
+            // https://github.com/Juuxel/WoodsAndMires/issues/14
+            builder.addOrdering(
+                GenerationStep.Feature.VEGETAL_DECORATION,
+                VegetationPlacedFeatures.PATCH_GRASS_FOREST,
+                VegetationPlacedFeatures.FLOWER_WARM
+            );
         });
     }
 
