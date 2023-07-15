@@ -2,16 +2,16 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "woods_and_mires:pine_fence"
+      "woods_and_mires:pine_planks"
     ]
   },
   "criteria": {
-    "has_planks": {
+    "has_logs": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "woods_and_mires:pine_planks"
+            "tag": "woods_and_mires:thick_pine_logs"
           }
         ]
       }
@@ -19,13 +19,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "woods_and_mires:pine_fence"
+        "recipe": "woods_and_mires:pine_planks"
       }
     }
   },
   "requirements": [
     [
-      "has_planks",
+      "has_logs",
       "has_the_recipe"
     ]
   ]

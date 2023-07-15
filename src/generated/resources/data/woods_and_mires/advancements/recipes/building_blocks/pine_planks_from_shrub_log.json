@@ -2,16 +2,18 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "woods_and_mires:pine_door"
+      "woods_and_mires:pine_planks_from_shrub_log"
     ]
   },
   "criteria": {
-    "has_planks": {
+    "has_log": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "woods_and_mires:pine_planks"
+            "items": [
+              "woods_and_mires:pine_shrub_log"
+            ]
           }
         ]
       }
@@ -19,13 +21,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "woods_and_mires:pine_door"
+        "recipe": "woods_and_mires:pine_planks_from_shrub_log"
       }
     }
   },
   "requirements": [
     [
-      "has_planks",
+      "has_log",
       "has_the_recipe"
     ]
   ]

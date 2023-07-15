@@ -2,16 +2,18 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "woods_and_mires:yellow_dye_from_tansy"
+      "woods_and_mires:pine_pressure_plate"
     ]
   },
   "criteria": {
-    "has_yellow_flower": {
+    "has_planks": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "woods_and_mires:tansy"
+            "items": [
+              "woods_and_mires:pine_planks"
+            ]
           }
         ]
       }
@@ -19,13 +21,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "woods_and_mires:yellow_dye_from_tansy"
+        "recipe": "woods_and_mires:pine_pressure_plate"
       }
     }
   },
   "requirements": [
     [
-      "has_yellow_flower",
+      "has_planks",
       "has_the_recipe"
     ]
   ]

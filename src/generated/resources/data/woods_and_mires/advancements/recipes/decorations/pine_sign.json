@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "woods_and_mires:pine_pressure_plate"
+      "woods_and_mires:pine_sign"
     ]
   },
   "criteria": {
@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "woods_and_mires:pine_planks"
+            "items": [
+              "woods_and_mires:pine_planks"
+            ]
           }
         ]
       }
@@ -19,7 +21,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "woods_and_mires:pine_pressure_plate"
+        "recipe": "woods_and_mires:pine_sign"
       }
     }
   },

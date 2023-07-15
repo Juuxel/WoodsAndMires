@@ -2,16 +2,18 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "woods_and_mires:pine_button"
+      "woods_and_mires:magenta_dye_from_fireweed"
     ]
   },
   "criteria": {
-    "has_planks": {
+    "has_fireweed": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "woods_and_mires:pine_planks"
+            "items": [
+              "woods_and_mires:fireweed"
+            ]
           }
         ]
       }
@@ -19,13 +21,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "woods_and_mires:pine_button"
+        "recipe": "woods_and_mires:magenta_dye_from_fireweed"
       }
     }
   },
   "requirements": [
     [
-      "has_planks",
+      "has_fireweed",
       "has_the_recipe"
     ]
   ]
