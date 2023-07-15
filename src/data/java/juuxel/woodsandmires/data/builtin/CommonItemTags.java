@@ -6,6 +6,7 @@ import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 
 public final class CommonItemTags {
+    public static final TagKey<Item> CHAINS = of("chains");
     public static final TagKey<Item> WOODEN_CHESTS = of("wooden_chests");
     public static final TagKey<Item> WOODEN_RODS = of("wooden_rods");
 

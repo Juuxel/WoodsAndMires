@@ -27,6 +27,8 @@ public final class WamItemTagProvider extends FabricTagProvider.ItemTagProvider 
             .add(WamItems.PINE_BOAT);
         builder(ItemTags.CHEST_BOATS)
             .add(WamItems.PINE_CHEST_BOAT);
+        builder(ItemTags.HANGING_SIGNS)
+            .add(WamBlocks.PINE_HANGING_SIGN);
         builder(ItemTags.LEAVES)
             .add(WamBlocks.PINE_LEAVES);
         builder(ItemTags.LOGS_THAT_BURN)
@@ -67,6 +69,8 @@ public final class WamItemTagProvider extends FabricTagProvider.ItemTagProvider 
             .add(WamBlocks.PINE_SNAG_LOG, WamBlocks.PINE_SNAG_WOOD);
 
         // Common tags
+        builder(CommonItemTags.CHAINS)
+            .add(Items.CHAIN);
         builder(CommonItemTags.WOODEN_CHESTS)
             .add(Items.CHEST, Items.TRAPPED_CHEST);
         builder(CommonItemTags.WOODEN_RODS)

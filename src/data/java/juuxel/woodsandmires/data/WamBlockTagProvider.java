@@ -20,6 +20,8 @@ public final class WamBlockTagProvider extends FabricTagProvider.BlockTagProvide
         // Minecraft tags
         getOrCreateTagBuilder(BlockTags.AXE_MINEABLE)
             .add(WamBlocks.PINE_SNAG_BRANCH);
+        getOrCreateTagBuilder(BlockTags.CEILING_HANGING_SIGNS)
+            .add(WamBlocks.PINE_HANGING_SIGN);
         getOrCreateTagBuilder(BlockTags.FENCE_GATES)
             .add(WamBlocks.PINE_FENCE_GATE);
         getOrCreateTagBuilder(BlockTags.FLOWER_POTS)
@@ -43,6 +45,8 @@ public final class WamBlockTagProvider extends FabricTagProvider.BlockTagProvide
             .add(WamBlocks.PINE_SIGN);
         getOrCreateTagBuilder(BlockTags.TALL_FLOWERS)
             .add(WamBlocks.FIREWEED);
+        getOrCreateTagBuilder(BlockTags.WALL_HANGING_SIGNS)
+            .add(WamBlocks.PINE_WALL_HANGING_SIGN.get());
         getOrCreateTagBuilder(BlockTags.WALL_SIGNS)
             .add(WamBlocks.PINE_WALL_SIGN.get());
         getOrCreateTagBuilder(BlockTags.WOODEN_BUTTONS)

@@ -28,5 +28,6 @@
     "recipes": [
       "woods_and_mires:pine_planks"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

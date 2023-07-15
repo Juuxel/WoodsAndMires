@@ -33,4 +33,15 @@ abstract class RecipeProviderMixin {
         }
         return builder.input(input);
     }
+
+    @Redirect(
+        method = "offerHangingSignRecipe",
+        at = @At(value = "INVOKE", target = "Lnet/minecraft/data/server/recipe/ShapedRecipeJsonBuilder;input(Ljava/lang/Character;Lnet/minecraft/item/ItemConvertible;)Lnet/minecraft/data/server/recipe/ShapedRecipeJsonBuilder;")
+    )
+    private static ShapedRecipeJsonBuilder replaceChain(ShapedRecipeJsonBuilder builder, Character c, ItemConvertible item) {
+        if (item.asItem() == Items.CHAIN) {
+            return builder.input(c, CommonItemTags.CHAINS);
+        }
+        return builder.input(c, item);
+    }
 }

@@ -24,5 +24,6 @@
     "recipes": [
       "woods_and_mires:pine_boat"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

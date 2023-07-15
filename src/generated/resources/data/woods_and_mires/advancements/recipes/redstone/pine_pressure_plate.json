@@ -30,5 +30,6 @@
     "recipes": [
       "woods_and_mires:pine_pressure_plate"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }
