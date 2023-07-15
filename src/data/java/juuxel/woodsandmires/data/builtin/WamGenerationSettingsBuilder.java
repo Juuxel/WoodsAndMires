@@ -1,6 +1,5 @@
 package juuxel.woodsandmires.data.builtin;
 
-import juuxel.woodsandmires.data.mixin.GenerationSettingsBuilderAccessor;
 import net.minecraft.util.TopologicalSorts;
 import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.world.biome.GenerationSettings;
@@ -54,9 +53,7 @@ public class WamGenerationSettingsBuilder extends GenerationSettings.Builder {
 
     private void order() {
         orderingsByStep.forEach((step, orderings) -> {
-            List<RegistryEntry<PlacedFeature>> features = ((GenerationSettingsBuilderAccessor) this)
-                .getFeatures()
-                .get(step.ordinal());
+            List<RegistryEntry<PlacedFeature>> features = this.features.get(step.ordinal());
 
             Set<RegistryEntry<PlacedFeature>> visited = new HashSet<>();
             Set<RegistryEntry<PlacedFeature>> visiting = new HashSet<>();

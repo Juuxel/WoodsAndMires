@@ -5,7 +5,6 @@
   "mixins": [
     "AbstractTagProviderMixin",
     "DataProviderMixin",
-    "GenerationSettingsBuilderAccessor",
     "RecipeProviderMixin"
   ],
   "injectors": {
