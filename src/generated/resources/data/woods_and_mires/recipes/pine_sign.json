@@ -1,11 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
   "group": "wooden_sign",
-  "pattern": [
-    "###",
-    "###",
-    " X "
-  ],
   "key": {
     "#": {
       "item": "woods_and_mires:pine_planks"
@@ -14,8 +9,13 @@
       "tag": "c:wooden_rods"
     }
   },
+  "pattern": [
+    "###",
+    "###",
+    " X "
+  ],
   "result": {
-    "item": "woods_and_mires:pine_sign",
-    "count": 3
+    "count": 3,
+    "item": "woods_and_mires:pine_sign"
   }
 }

@@ -50,6 +50,7 @@ public final class WamRecipeProvider extends FabricRecipeProvider {
         offerBarkBlockRecipe(exporter, WamBlocks.PINE_SNAG_WOOD, WamBlocks.PINE_SNAG_LOG);
         offerBarkBlockRecipe(exporter, WamBlocks.STRIPPED_PINE_WOOD, WamBlocks.STRIPPED_PINE_LOG);
         offerBoatRecipe(exporter, WamItems.PINE_BOAT, WamBlocks.PINE_PLANKS);
+        offerChestBoatRecipe(exporter, WamItems.PINE_CHEST_BOAT, WamItems.PINE_BOAT);
 
         // Dyes
         offerShapelessRecipe(exporter, Items.MAGENTA_DYE, WamBlocks.FIREWEED, "magenta_dye", 2);

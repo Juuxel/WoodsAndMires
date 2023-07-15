@@ -1,10 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
   "group": "wooden_fence_gate",
-  "pattern": [
-    "#W#",
-    "#W#"
-  ],
   "key": {
     "#": {
       "tag": "c:wooden_rods"
@@ -13,6 +9,10 @@
       "item": "woods_and_mires:pine_planks"
     }
   },
+  "pattern": [
+    "#W#",
+    "#W#"
+  ],
   "result": {
     "item": "woods_and_mires:pine_fence_gate"
   }

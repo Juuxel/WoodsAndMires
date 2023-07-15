@@ -1,13 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_fireweed": {
+    "has_boat": {
       "conditions": {
         "items": [
           {
-            "items": [
-              "woods_and_mires:fireweed"
-            ]
+            "tag": "minecraft:boats"
           }
         ]
       },
@@ -15,20 +13,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "woods_and_mires:magenta_dye_from_fireweed"
+        "recipe": "woods_and_mires:pine_chest_boat"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_fireweed",
+      "has_boat",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "woods_and_mires:magenta_dye_from_fireweed"
+      "woods_and_mires:pine_chest_boat"
     ]
   }
 }
