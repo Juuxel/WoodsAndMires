@@ -1,7 +1,7 @@
 package juuxel.woodsandmires.data.mixin;
 
 import juuxel.woodsandmires.data.builtin.CommonItemTags;
-import net.minecraft.data.server.RecipeProvider;
+import net.minecraft.data.server.recipe.RecipeProvider;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
 import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder;
 import net.minecraft.item.ItemConvertible;

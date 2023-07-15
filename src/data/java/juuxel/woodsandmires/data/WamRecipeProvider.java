@@ -5,6 +5,7 @@ import juuxel.woodsandmires.block.WamBlocks;
 import juuxel.woodsandmires.item.WamItemTags;
 import juuxel.woodsandmires.item.WamItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.data.family.BlockFamilies;
 import net.minecraft.data.family.BlockFamily;
@@ -12,6 +13,7 @@ import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
+import net.minecraft.recipe.book.RecipeCategory;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Consumer;
@@ -31,16 +33,16 @@ public final class WamRecipeProvider extends FabricRecipeProvider {
         .unlockCriterionName("has_planks")
         .build();
 
-    public WamRecipeProvider(FabricDataGenerator dataGenerator) {
-        super(dataGenerator);
+    public WamRecipeProvider(FabricDataOutput output) {
+        super(output);
     }
 
     @Override
-    protected void generateRecipes(Consumer<RecipeJsonProvider> exporter) {
+    public void generate(Consumer<RecipeJsonProvider> exporter) {
         // Wooden
         generateFamily(exporter, PINE_FAMILY);
-        offerPlanksRecipe(exporter, WamBlocks.PINE_PLANKS, WamItemTags.THICK_PINE_LOGS);
-        ShapelessRecipeJsonBuilder.create(WamBlocks.PINE_PLANKS, 2)
+        offerPlanksRecipe(exporter, WamBlocks.PINE_PLANKS, WamItemTags.THICK_PINE_LOGS, 4);
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, WamBlocks.PINE_PLANKS, 2)
             .input(WamBlocks.PINE_SHRUB_LOG)
             .group("planks")
             .criterion("has_log", conditionsFromItem(WamBlocks.PINE_SHRUB_LOG))
@@ -59,7 +61,7 @@ public final class WamRecipeProvider extends FabricRecipeProvider {
     }
 
     public static void offerShapelessRecipe(Consumer<RecipeJsonProvider> exporter, ItemConvertible output, ItemConvertible input, @Nullable String group, int outputCount) {
-        ShapelessRecipeJsonBuilder.create(output, outputCount)
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, output, outputCount)
             .input(input)
             .group(group)
             .criterion(hasItem(input), conditionsFromItem(input))

@@ -4,21 +4,24 @@ import juuxel.woodsandmires.block.WamBlocks;
 import juuxel.woodsandmires.data.builtin.CommonItemTags;
 import juuxel.woodsandmires.item.WamItemTags;
 import juuxel.woodsandmires.item.WamItems;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
-import net.minecraft.tag.ItemTags;
-import net.minecraft.tag.TagKey;
+import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.registry.tag.TagKey;
+
+import java.util.concurrent.CompletableFuture;
 
 public final class WamItemTagProvider extends FabricTagProvider.ItemTagProvider {
-    public WamItemTagProvider(FabricDataGenerator dataGenerator) {
-        super(dataGenerator);
+    public WamItemTagProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+        super(output, registriesFuture, null);
     }
 
     @Override
-    protected void generateTags() {
+    protected void configure(RegistryWrapper.WrapperLookup arg) {
         // Minecraft tags
         builder(ItemTags.BOATS)
             .add(WamItems.PINE_BOAT);
@@ -75,9 +78,9 @@ public final class WamItemTagProvider extends FabricTagProvider.ItemTagProvider 
     }
 
     private static final class Builder {
-        private final FabricTagProvider<Item>.FabricTagBuilder<Item> parent;
+        private final FabricTagProvider<Item>.FabricTagBuilder parent;
 
-        private Builder(FabricTagProvider<Item>.FabricTagBuilder<Item> parent) {
+        private Builder(FabricTagProvider<Item>.FabricTagBuilder parent) {
             this.parent = parent;
         }
 
