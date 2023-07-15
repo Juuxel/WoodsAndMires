@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "group": "wooden_fence_gate",
+  "key": {
+    "#": {
+      "tag": "c:wooden_rods"
+    },
+    "W": {
+      "item": "woods_and_mires:pine_planks"
+    }
+  },
+  "pattern": [
+    "#W#",
+    "#W#"
+  ],
+  "result": {
+    "item": "woods_and_mires:pine_fence_gate"
+  },
+  "show_notification": true
+}

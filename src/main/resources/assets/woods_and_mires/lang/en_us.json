@@ -45,5 +45,9 @@
   "entity.woods_and_mires.pine_boat": "Pine Boat",
   "entity.woods_and_mires.pine_chest_boat": "Pine Boat with Chest",
 
-  "tag.item.c.chains": "Chains"
+  "tag.item.c.chains": "Chains",
+  "tag.item.c.wooden_chests": "Wooden Chests",
+  "tag.item.c.wooden_rods": "Wooden Rods",
+  "tag.item.woods_and_mires.pine_logs": "Pine Logs",
+  "tag.item.woods_and_mires.thick_pine_logs": "Thick Pine Logs"
 }
