@@ -41,5 +41,9 @@
   "item.woods_and_mires.pine_chest_boat": "Mäntyvene arkulla",
 
   "entity.woods_and_mires.pine_boat": "Mäntyvene",
-  "entity.woods_and_mires.pine_chest_boat": "Mäntyvene arkulla"
+  "entity.woods_and_mires.pine_chest_boat": "Mäntyvene arkulla",
+
+  "tag.item.c.wooden_rods": "Puusauvat",
+  "tag.item.woods_and_mires.pine_logs": "Mäntyhalot",
+  "tag.item.woods_and_mires.thick_pine_logs": "Paksut mäntyhalot"
 }

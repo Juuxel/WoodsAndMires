@@ -1,5 +1,6 @@
 package juuxel.woodsandmires.data;
 
+import juuxel.woodsandmires.WoodsAndMires;
 import juuxel.woodsandmires.data.builtin.WamBiomes;
 import juuxel.woodsandmires.data.builtin.WamConfiguredFeatures;
 import juuxel.woodsandmires.data.builtin.WamPlacedFeatures;
@@ -23,5 +24,13 @@ public final class WamDataGenerator implements ModInitializer, DataGeneratorEntr
         fabricDataGenerator.addProvider(WamBlockLootTableProvider::new);
         fabricDataGenerator.addProvider(WamChestLootTableProvider::new);
         fabricDataGenerator.addProvider(WamBiomeTagProvider::new);
+        fabricDataGenerator.addProvider(WamBlockTagProvider::new);
+        fabricDataGenerator.addProvider(WamItemTagProvider::new);
+        fabricDataGenerator.addProvider(WamRecipeProvider::new);
+    }
+
+    @Override
+    public String getEffectiveModId() {
+        return WoodsAndMires.ID;
     }
 }

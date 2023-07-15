@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "woods_and_mires:magenta_dye_from_fireweed"
+    ]
+  },
+  "criteria": {
+    "has_fireweed": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "woods_and_mires:fireweed"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "woods_and_mires:magenta_dye_from_fireweed"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_fireweed",
+      "has_the_recipe"
+    ]
+  ]
+}

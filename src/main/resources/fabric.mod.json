@@ -38,7 +38,7 @@
 
   "depends": {
     "fabricloader": ">=0.14.6",
-    "fabric": ">=0.75.1",
+    "fabric": ">=0.76.0",
     "fabric-biome-api-v1": "^9.1.0",
     "minecraft": "=1.19.2"
   },
