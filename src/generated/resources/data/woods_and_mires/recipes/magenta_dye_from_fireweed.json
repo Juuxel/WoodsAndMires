@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "magenta_dye",
+  "ingredients": [
+    {
+      "item": "woods_and_mires:fireweed"
+    }
+  ],
+  "result": {
+    "count": 2,
+    "item": "minecraft:magenta_dye"
+  }
+}
