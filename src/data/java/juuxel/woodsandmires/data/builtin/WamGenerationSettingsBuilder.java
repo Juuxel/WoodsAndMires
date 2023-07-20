@@ -76,9 +76,9 @@ public class WamGenerationSettingsBuilder extends GenerationSettings.Builder {
                     int afterIndex = features.indexOf(after);
                     if (beforeIndex <= afterIndex) continue;
 
-                    // Move "after" to be after the "before" entry
-                    features.add(beforeIndex + 1, after);
-                    features.remove(afterIndex);
+                    // Move "before" to be before the "after" entry
+                    features.remove(beforeIndex);
+                    features.add(afterIndex, before);
                 }
             }
         });
