@@ -74,16 +74,16 @@
       "minecraft:glow_lichen",
       "minecraft:forest_flowers",
       "minecraft:patch_large_fern",
-      "woods_and_mires:fallen_pine",
-      "woods_and_mires:old_growth_pine_forest_trees",
       "minecraft:flower_default",
-      "woods_and_mires:pine_forest_heather_patch",
       "minecraft:patch_grass_forest",
       "minecraft:brown_mushroom_normal",
       "minecraft:red_mushroom_normal",
       "minecraft:patch_sugar_cane",
       "minecraft:patch_pumpkin",
-      "minecraft:patch_berry_common"
+      "minecraft:patch_berry_common",
+      "woods_and_mires:fallen_pine",
+      "woods_and_mires:pine_forest_heather_patch",
+      "woods_and_mires:old_growth_pine_forest_trees"
     ],
     [
       "minecraft:freeze_top_layer"

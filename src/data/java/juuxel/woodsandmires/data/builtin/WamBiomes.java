@@ -14,17 +14,24 @@ import net.minecraft.world.biome.OverworldBiomeCreator;
 import net.minecraft.world.biome.SpawnSettings;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
+import net.minecraft.world.gen.feature.PlacedFeature;
 import net.minecraft.world.gen.feature.VegetationPlacedFeatures;
+import org.jgrapht.graph.DefaultEdge;
+import org.jgrapht.graph.DirectedAcyclicGraph;
+import org.jgrapht.graph.GraphCycleProhibitedException;
 
 import java.util.function.Consumer;
 
 public final class WamBiomes {
     public static final RegistryCollector<RegistryEntry<Biome>> BIOMES = new RegistryCollector<>();
+    private static final DirectedAcyclicGraph<RegistryEntry<PlacedFeature>, DefaultEdge> FEATURE_GRAPH =
+        new DirectedAcyclicGraph<>(DefaultEdge.class);
 
     private WamBiomes() {
     }
 
     public static void register() {
+        initGraph();
         register(WamBiomeKeys.PINE_FOREST, pineForest());
         register(WamBiomeKeys.SNOWY_PINE_FOREST, snowyPineForest());
         register(WamBiomeKeys.OLD_GROWTH_PINE_FOREST, oldGrowthPineForest());
@@ -35,8 +42,42 @@ public final class WamBiomes {
         register(WamBiomeKeys.PINY_GROVE, pinyGrove());
     }
 
+    private static void initGraph() {
+        for (var biome : BuiltinRegistries.BIOME) {
+            addBiomeToGraph(biome);
+        }
+    }
+
+    private static void addBiomeToGraph(Biome biome) {
+        for (var features : biome.getGenerationSettings().getFeatures()) {
+            if (features.size() == 0) continue;
+
+            var before = features.get(0);
+            FEATURE_GRAPH.addVertex(before);
+
+            for (int i = 1; i < features.size(); i++) {
+                var after = features.get(i);
+                FEATURE_GRAPH.addVertex(after);
+
+                try {
+                    FEATURE_GRAPH.addEdge(before, after);
+                } catch (GraphCycleProhibitedException e) {
+                    throw new IllegalStateException("Feature order cycle found between " + before.getKey() + " and " + after.getKey(), e);
+                }
+
+                before = after;
+            }
+        }
+    }
+
     private static void register(RegistryKey<Biome> key, Biome biome) {
         BIOMES.add(BuiltinRegistries.add(BuiltinRegistries.BIOME, key, biome));
+
+        try {
+            addBiomeToGraph(biome);
+        } catch (Exception e) {
+            throw new IllegalStateException(e.getMessage() + " [biome=" + key.getValue() + "]", e);
+        }
     }
 
     private static int getSkyColor(float temperature) {
@@ -122,13 +163,6 @@ public final class WamBiomes {
             builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.LUSH_PINE_FOREST_TREES);
             builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatures.LUSH_PINE_FOREST_FLOWERS);
             DefaultBiomeFeatures.addExtraDefaultFlowers(builder);
-
-            // Required to keep vanilla order for savanna tall grass
-            builder.addOrdering(
-                GenerationStep.Feature.VEGETAL_DECORATION,
-                VegetationPlacedFeatures.PATCH_TALL_GRASS,
-                VegetationPlacedFeatures.FOREST_FLOWERS
-            );
 
             // https://github.com/Juuxel/WoodsAndMires/issues/14
             builder.addOrdering(
@@ -274,7 +308,7 @@ public final class WamBiomes {
     private static GenerationSettings generationSettings(Consumer<? super WamGenerationSettingsBuilder> configurator) {
         WamGenerationSettingsBuilder builder = new WamGenerationSettingsBuilder();
         configurator.accept(builder);
-        return builder.build();
+        return builder.build(FEATURE_GRAPH);
     }
 
     private static SpawnSettings spawnSettings(Consumer<SpawnSettings.Builder> configurator) {

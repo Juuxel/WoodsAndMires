@@ -1,19 +1,21 @@
 package juuxel.woodsandmires.data.builtin;
 
-import net.minecraft.util.TopologicalSorts;
 import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.world.biome.GenerationSettings;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.carver.ConfiguredCarver;
 import net.minecraft.world.gen.feature.PlacedFeature;
+import org.jgrapht.Graphs;
+import org.jgrapht.graph.DefaultEdge;
+import org.jgrapht.graph.DirectedAcyclicGraph;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.function.Consumer;
 
 public class WamGenerationSettingsBuilder extends GenerationSettings.Builder {
     // step -> before -> [after]
@@ -45,42 +47,41 @@ public class WamGenerationSettingsBuilder extends GenerationSettings.Builder {
         return this;
     }
 
+    @Deprecated
     @Override
     public GenerationSettings build() {
-        order();
+        throw new UnsupportedOperationException("Use build(DirectedAcyclicGraph) instead");
+    }
+
+    public GenerationSettings build(DirectedAcyclicGraph<RegistryEntry<PlacedFeature>, DefaultEdge> globalGraph) {
+        order(globalGraph);
         return super.build();
     }
 
-    private void order() {
-        orderingsByStep.forEach((step, orderings) -> {
-            List<RegistryEntry<PlacedFeature>> features = this.features.get(step.ordinal());
+    private void order(DirectedAcyclicGraph<RegistryEntry<PlacedFeature>, DefaultEdge> globalGraph) {
+        var steps = GenerationStep.Feature.values();
+        for (int i = 0; i < this.features.size(); i++) {
+            var features = this.features.get(i);
+            var localGraph = new DirectedAcyclicGraph<RegistryEntry<PlacedFeature>, DefaultEdge>(DefaultEdge.class);
+            Graphs.addGraph(localGraph, globalGraph);
 
-            Set<RegistryEntry<PlacedFeature>> visited = new HashSet<>();
-            Set<RegistryEntry<PlacedFeature>> visiting = new HashSet<>();
-            Consumer<RegistryEntry<PlacedFeature>> noopConsumer = x -> {};
-
-            // Iterate over all constraints
-            for (var before : orderings.keySet()) {
-                // Check that the ordering is consistent
-                if (TopologicalSorts.sort(orderings, visited, visiting, noopConsumer, before)) {
-                    throw new IllegalStateException("Found inconsistent order in step " + step + "; cycle starting from " + before);
-                }
-                visited.clear();
-                visiting.clear();
-
-                // Add the order
-                // Note: we won't use the mc toposort here since we want to keep the general order.
-                // It's still useful for checking for cycles.
-                for (var after : orderings.get(before)) {
-                    int beforeIndex = features.indexOf(before);
-                    int afterIndex = features.indexOf(after);
-                    if (beforeIndex <= afterIndex) continue;
-
-                    // Move "before" to be before the "after" entry
-                    features.remove(beforeIndex);
-                    features.add(afterIndex, before);
-                }
+            for (var feature : features) {
+                localGraph.addVertex(feature);
             }
-        });
+
+            var step = steps[i];
+            orderingsByStep.getOrDefault(step, Map.of()).forEach((before, allAfter) -> {
+                for (var after : allAfter) {
+                    localGraph.addEdge(before, after);
+                }
+            });
+
+            var orderProvider = new ArrayList<RegistryEntry<PlacedFeature>>(localGraph.vertexSet().size());
+            for (var feature : localGraph) {
+                orderProvider.add(feature);
+            }
+
+            features.sort(Comparator.comparingInt(orderProvider::indexOf));
+        }
     }
 }

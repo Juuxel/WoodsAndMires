@@ -73,12 +73,12 @@
     [
       "minecraft:glow_lichen",
       "minecraft:flower_default",
-      "woods_and_mires:fell_heather_patch",
       "minecraft:patch_grass_forest",
       "minecraft:brown_mushroom_normal",
       "minecraft:red_mushroom_normal",
       "minecraft:patch_sugar_cane",
       "minecraft:patch_pumpkin",
+      "woods_and_mires:fell_heather_patch",
       "woods_and_mires:fell_lichen",
       "woods_and_mires:fell_moss_patch",
       "woods_and_mires:fell_vegetation",

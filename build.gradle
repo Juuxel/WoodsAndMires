@@ -73,6 +73,8 @@ dependencies {
     modImplementation include("com.terraformersmc.terraform-api:terraform-wood-api-v1:$project.terraform_version")
 
     dataImplementation sourceSets.main.output
+    // Used for sorting features in the data generator
+    dataImplementation "org.jgrapht:jgrapht-core:$project.jgrapht_version"
 }
 
 processResources {

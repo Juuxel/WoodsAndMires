@@ -74,9 +74,9 @@
     ],
     [
       "minecraft:glow_lichen",
-      "woods_and_mires:piny_grove_trees",
       "minecraft:patch_sugar_cane",
-      "minecraft:patch_pumpkin"
+      "minecraft:patch_pumpkin",
+      "woods_and_mires:piny_grove_trees"
     ],
     [
       "minecraft:freeze_top_layer"
