@@ -40,9 +40,14 @@
 
   "item.woods_and_mires.pine_boat": "Pine Boat",
   "item.woods_and_mires.pine_cone": "Pine Cone",
+  "item.woods_and_mires.pine_cone_jam": "Pine Cone Jam",
 
   "entity.woods_and_mires.pine_boat": "Pine Boat",
 
+  "tag.item.c.honey": "Honey",
+  "tag.item.c.jams": "Jams",
+  "tag.item.c.pine_cones": "Pine Cones",
+  "tag.item.c.sugar": "Sugar",
   "tag.item.c.wooden_rods": "Wooden Rods",
   "tag.item.woods_and_mires.pine_logs": "Pine Logs",
   "tag.item.woods_and_mires.thick_pine_logs": "Thick Pine Logs"

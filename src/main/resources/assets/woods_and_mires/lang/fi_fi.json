@@ -40,9 +40,14 @@
 
   "item.woods_and_mires.pine_boat": "Mäntyvene",
   "item.woods_and_mires.pine_cone": "Männynkäpy",
+  "item.woods_and_mires.pine_cone_jam": "Männynkäpyhillo",
 
   "entity.woods_and_mires.pine_boat": "Mäntyvene",
 
+  "tag.item.c.honey": "Hunaja",
+  "tag.item.c.jams": "Hillot",
+  "tag.item.c.pine_cones": "Männynkävyt",
+  "tag.item.c.sugar": "Sokeri",
   "tag.item.c.wooden_rods": "Puusauvat",
   "tag.item.woods_and_mires.pine_logs": "Mäntyhalot",
   "tag.item.woods_and_mires.thick_pine_logs": "Paksut mäntyhalot"

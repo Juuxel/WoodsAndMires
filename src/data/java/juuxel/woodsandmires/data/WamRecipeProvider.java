@@ -2,6 +2,7 @@ package juuxel.woodsandmires.data;
 
 import juuxel.woodsandmires.WoodsAndMires;
 import juuxel.woodsandmires.block.WamBlocks;
+import juuxel.woodsandmires.data.builtin.CommonItemTags;
 import juuxel.woodsandmires.item.WamItemTags;
 import juuxel.woodsandmires.item.WamItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
@@ -12,6 +13,7 @@ import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
+import net.minecraft.recipe.Ingredient;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Consumer;
@@ -55,6 +57,14 @@ public final class WamRecipeProvider extends FabricRecipeProvider {
         offerShapelessRecipe(exporter, Items.MAGENTA_DYE, WamBlocks.FIREWEED, "magenta_dye", 2);
         offerShapelessRecipe(exporter, Items.PINK_DYE, WamBlocks.HEATHER, "pink_dye", 1);
         offerShapelessRecipe(exporter, Items.YELLOW_DYE, WamBlocks.TANSY, "yellow_dye", 1);
+
+        // Other
+        ShapelessRecipeJsonBuilder.create(WamItems.PINE_CONE_JAM)
+            .input(Items.GLASS_BOTTLE)
+            .input(Ingredient.fromTag(CommonItemTags.PINE_CONES), 2)
+            .input(CommonItemTags.SUGAR)
+            .criterion(hasItem(WamItems.PINE_CONE), conditionsFromItem(WamItems.PINE_CONE))
+            .offerTo(exporter);
     }
 
     public static void offerShapelessRecipe(Consumer<RecipeJsonProvider> exporter, ItemConvertible output, ItemConvertible input, @Nullable String group, int outputCount) {
