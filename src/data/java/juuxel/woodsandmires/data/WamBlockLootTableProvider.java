@@ -38,7 +38,7 @@ public final class WamBlockLootTableProvider extends FabricBlockLootTableProvide
                 .pool(addSurvivesExplosionCondition(WamItems.PINE_CONE, LootPool.builder()
                     .conditionally(WITHOUT_SILK_TOUCH_NOR_SHEARS)
                     .with(ItemEntry.builder(WamItems.PINE_CONE)
-                        .apply(SetCountLootFunction.builder(BinomialLootNumberProvider.create(3, 0.07f)))
+                        .apply(SetCountLootFunction.builder(BinomialLootNumberProvider.create(3, 0.04f)))
                     )
                 ))
         );
