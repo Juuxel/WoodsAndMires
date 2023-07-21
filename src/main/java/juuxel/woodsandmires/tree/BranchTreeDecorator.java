@@ -51,6 +51,9 @@ public final class BranchTreeDecorator extends TreeDecorator {
         BlockPos.Mutable mut = new BlockPos.Mutable();
 
         for (BlockPos pos : logPositions) {
+            // Don't replace the dirt underneath the trunk
+            if (world.testBlockState(pos, Feature::isSoil)) continue;
+
             mut.set(pos);
 
             for (Direction side : Direction.Type.HORIZONTAL) {
