@@ -71,6 +71,14 @@ public final class WamItemTagProvider extends FabricTagProvider.ItemTagProvider 
         // Common tags
         builder(CommonItemTags.CHAINS)
             .add(Items.CHAIN);
+        builder(CommonItemTags.HONEY)
+            .add(WamItems.PINE_CONE_JAM);
+        builder(CommonItemTags.JAMS)
+            .add(WamItems.PINE_CONE_JAM);
+        builder(CommonItemTags.PINE_CONES)
+            .add(WamItems.PINE_CONE);
+        builder(CommonItemTags.SUGAR)
+            .add(Items.SUGAR);
         builder(CommonItemTags.WOODEN_CHESTS)
             .add(Items.CHEST, Items.TRAPPED_CHEST);
         builder(CommonItemTags.WOODEN_RODS)

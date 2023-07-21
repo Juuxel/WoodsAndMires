@@ -9,6 +9,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
+import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.treedecorator.TreeDecorator;
 import net.minecraft.world.gen.treedecorator.TreeDecoratorType;
 
@@ -47,6 +48,9 @@ public final class BranchTreeDecorator extends TreeDecorator {
         Random random = generator.getRandom();
 
         for (BlockPos pos : generator.getLogPositions()) {
+            // Don't replace the dirt underneath the trunk
+            if (generator.getWorld().testBlockState(pos, Feature::isSoil)) continue;
+
             mut.set(pos);
 
             for (Direction side : Direction.Type.HORIZONTAL) {

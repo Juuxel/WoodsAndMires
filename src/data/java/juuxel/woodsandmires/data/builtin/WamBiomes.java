@@ -1,16 +1,20 @@
 package juuxel.woodsandmires.data.builtin;
 
+import com.mojang.serialization.Lifecycle;
 import juuxel.woodsandmires.biome.WamBiomeKeys;
 import juuxel.woodsandmires.feature.WamPlacedFeatureKeys;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.registry.Registerable;
+import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.sound.BiomeMoodSound;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeEffects;
+import net.minecraft.world.biome.BuiltinBiomes;
 import net.minecraft.world.biome.GenerationSettings;
 import net.minecraft.world.biome.OverworldBiomeCreator;
 import net.minecraft.world.biome.SpawnSettings;
@@ -19,6 +23,9 @@ import net.minecraft.world.gen.carver.ConfiguredCarver;
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
 import net.minecraft.world.gen.feature.PlacedFeature;
 import net.minecraft.world.gen.feature.VegetationPlacedFeatures;
+import org.jgrapht.graph.DefaultEdge;
+import org.jgrapht.graph.DirectedAcyclicGraph;
+import org.jgrapht.graph.GraphCycleProhibitedException;
 
 import java.util.function.Consumer;
 
@@ -27,9 +34,12 @@ public final class WamBiomes {
     private static final float WARM_BIOME_MINIMUM_TEMPERATURE = 0.15f;
 
     private final Registerable<Biome> registerable;
+    private final DirectedAcyclicGraph<RegistryEntry<PlacedFeature>, DefaultEdge> featureGraph =
+        new DirectedAcyclicGraph<>(DefaultEdge.class);
 
     private WamBiomes(Registerable<Biome> registerable) {
         this.registerable = registerable;
+        initGraph();
     }
 
     public static void register(Registerable<Biome> registerable) {
@@ -47,8 +57,53 @@ public final class WamBiomes {
         register(WamBiomeKeys.PINY_GROVE, pinyGrove());
     }
 
+    private void initGraph() {
+        record CapturingRegisterable<T>(Registerable<?> parent, Consumer<T> sink) implements Registerable<T> {
+            @Override
+            public RegistryEntry.Reference<T> register(RegistryKey<T> key, T value, Lifecycle lifecycle) {
+                sink.accept(value);
+                return null;
+            }
+
+            @Override
+            public <S> RegistryEntryLookup<S> getRegistryLookup(RegistryKey<? extends Registry<? extends S>> registryRef) {
+                return parent.getRegistryLookup(registryRef);
+            }
+        }
+
+        BuiltinBiomes.bootstrap(new CapturingRegisterable<>(registerable, this::addBiomeToGraph));
+    }
+
+    private void addBiomeToGraph(Biome biome) {
+        for (var features : biome.getGenerationSettings().getFeatures()) {
+            if (features.size() == 0) continue;
+
+            var before = features.get(0);
+            featureGraph.addVertex(before);
+
+            for (int i = 1; i < features.size(); i++) {
+                var after = features.get(i);
+                featureGraph.addVertex(after);
+
+                try {
+                    featureGraph.addEdge(before, after);
+                } catch (GraphCycleProhibitedException e) {
+                    throw new IllegalStateException("Feature order cycle found between " + before.getKey() + " and " + after.getKey(), e);
+                }
+
+                before = after;
+            }
+        }
+    }
+
     private void register(RegistryKey<Biome> key, Biome biome) {
         registerable.register(key, biome);
+
+        try {
+            addBiomeToGraph(biome);
+        } catch (Exception e) {
+            throw new IllegalStateException(e.getMessage() + " [biome=" + key.getValue() + "]", e);
+        }
     }
 
     private static int getSkyColor(float temperature) {
@@ -132,13 +187,6 @@ public final class WamBiomes {
             builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatureKeys.LUSH_PINE_FOREST_TREES);
             builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WamPlacedFeatureKeys.LUSH_PINE_FOREST_FLOWERS);
             DefaultBiomeFeatures.addExtraDefaultFlowers(builder);
-
-            // Required to keep vanilla order for savanna tall grass
-            builder.addOrdering(
-                GenerationStep.Feature.VEGETAL_DECORATION,
-                VegetationPlacedFeatures.PATCH_TALL_GRASS,
-                VegetationPlacedFeatures.FOREST_FLOWERS
-            );
 
             // https://github.com/Juuxel/WoodsAndMires/issues/14
             builder.addOrdering(
@@ -280,7 +328,7 @@ public final class WamBiomes {
         RegistryEntryLookup<ConfiguredCarver<?>> configuredCarvers = registerable.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER);
         WamGenerationSettingsBuilder builder = new WamGenerationSettingsBuilder(placedFeatures, configuredCarvers);
         configurator.accept(builder);
-        return builder.build();
+        return builder.build(featureGraph);
     }
 
     private static SpawnSettings spawnSettings(Consumer<SpawnSettings.Builder> configurator) {

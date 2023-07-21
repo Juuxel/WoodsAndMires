@@ -1,10 +1,5 @@
 accessWidener v1 named
 
-# Blocks
-accessible method net/minecraft/block/Blocks createFlowerPotBlock (Lnet/minecraft/block/Block;[Lnet/minecraft/resource/featuretoggle/FeatureFlag;)Lnet/minecraft/block/FlowerPotBlock;
-accessible method net/minecraft/block/Blocks createLeavesBlock (Lnet/minecraft/sound/BlockSoundGroup;)Lnet/minecraft/block/LeavesBlock;
-accessible method net/minecraft/block/Blocks createWoodenButtonBlock (Lnet/minecraft/block/BlockSetType;[Lnet/minecraft/resource/featuretoggle/FeatureFlag;)Lnet/minecraft/block/ButtonBlock;
-
 # Items
 extendable method net/minecraft/item/BoatItem createEntity (Lnet/minecraft/world/World;Lnet/minecraft/util/hit/HitResult;)Lnet/minecraft/entity/vehicle/BoatEntity;
 
@@ -18,6 +13,9 @@ accessible method net/minecraft/world/gen/surfacebuilder/VanillaSurfaceRules sur
 accessible method net/minecraft/world/gen/surfacebuilder/VanillaSurfaceRules block (Lnet/minecraft/block/Block;)Lnet/minecraft/world/gen/surfacebuilder/MaterialRules$MaterialRule;
 accessible method net/minecraft/world/gen/treedecorator/TreeDecoratorType <init> (Lcom/mojang/serialization/Codec;)V
 accessible method net/minecraft/world/gen/feature/VegetationConfiguredFeatures createRandomPatchFeatureConfig (Lnet/minecraft/world/gen/stateprovider/BlockStateProvider;I)Lnet/minecraft/world/gen/feature/RandomPatchFeatureConfig;
+
+# Data generation
+accessible field net/minecraft/world/biome/GenerationSettings$Builder indexedFeaturesList Ljava/util/List;
 
 # Rendering
 accessible field net/minecraft/client/render/entity/BoatEntityRenderer texturesAndModels Ljava/util/Map;
