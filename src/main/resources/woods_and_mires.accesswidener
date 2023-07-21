@@ -18,6 +18,10 @@ accessible method net/minecraft/world/gen/surfacebuilder/VanillaSurfaceRules blo
 accessible method net/minecraft/world/gen/treedecorator/TreeDecoratorType <init> (Lcom/mojang/serialization/Codec;)V
 accessible method net/minecraft/world/gen/feature/VegetationConfiguredFeatures createRandomPatchFeatureConfig (Lnet/minecraft/world/gen/stateprovider/BlockStateProvider;I)Lnet/minecraft/world/gen/feature/RandomPatchFeatureConfig;
 
+# Data generation
+accessible field net/minecraft/data/server/BlockLootTableGenerator WITHOUT_SILK_TOUCH_NOR_SHEARS Lnet/minecraft/loot/condition/LootCondition$Builder;
+accessible field net/minecraft/world/biome/GenerationSettings$Builder features Ljava/util/List;
+
 # Rendering
 accessible field net/minecraft/client/render/entity/BoatEntityRenderer texturesAndModels Ljava/util/Map;
 mutable field net/minecraft/client/render/entity/BoatEntityRenderer texturesAndModels Ljava/util/Map;

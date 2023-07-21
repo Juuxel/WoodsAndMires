@@ -3,6 +3,7 @@ package juuxel.woodsandmires.tree;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import net.minecraft.world.gen.treedecorator.TreeDecorator;
 import net.minecraft.world.gen.treedecorator.TreeDecoratorType;
@@ -32,6 +33,9 @@ public final class ReplaceTrunkTreeDecorator extends TreeDecorator {
     @Override
     public void generate(Generator generator) {
         for (BlockPos pos : generator.getLogPositions()) {
+            // Don't replace the dirt underneath the trunk
+            if (generator.getWorld().testBlockState(pos, Feature::isSoil)) continue;
+
             generator.replace(pos, trunk.get(generator.getRandom(), pos));
         }
     }
