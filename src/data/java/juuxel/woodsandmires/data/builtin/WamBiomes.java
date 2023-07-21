@@ -1,16 +1,20 @@
 package juuxel.woodsandmires.data.builtin;
 
+import com.mojang.serialization.Lifecycle;
 import juuxel.woodsandmires.biome.WamBiomeKeys;
 import juuxel.woodsandmires.feature.WamPlacedFeatureKeys;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.registry.Registerable;
+import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.sound.BiomeMoodSound;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeEffects;
+import net.minecraft.world.biome.BuiltinBiomes;
 import net.minecraft.world.biome.GenerationSettings;
 import net.minecraft.world.biome.OverworldBiomeCreator;
 import net.minecraft.world.biome.SpawnSettings;
@@ -30,7 +34,7 @@ public final class WamBiomes {
     private static final float WARM_BIOME_MINIMUM_TEMPERATURE = 0.15f;
 
     private final Registerable<Biome> registerable;
-    private static final DirectedAcyclicGraph<RegistryEntry<PlacedFeature>, DefaultEdge> FEATURE_GRAPH =
+    private final DirectedAcyclicGraph<RegistryEntry<PlacedFeature>, DefaultEdge> featureGraph =
         new DirectedAcyclicGraph<>(DefaultEdge.class);
 
     private WamBiomes(Registerable<Biome> registerable) {
@@ -53,25 +57,36 @@ public final class WamBiomes {
         register(WamBiomeKeys.PINY_GROVE, pinyGrove());
     }
 
-    private static void initGraph() {
-        for (var biome : BuiltinRegistries.BIOME) {
-            addBiomeToGraph(biome);
+    private void initGraph() {
+        record CapturingRegisterable<T>(Registerable<?> parent, Consumer<T> sink) implements Registerable<T> {
+            @Override
+            public RegistryEntry.Reference<T> register(RegistryKey<T> key, T value, Lifecycle lifecycle) {
+                sink.accept(value);
+                return null;
+            }
+
+            @Override
+            public <S> RegistryEntryLookup<S> getRegistryLookup(RegistryKey<? extends Registry<? extends S>> registryRef) {
+                return parent.getRegistryLookup(registryRef);
+            }
         }
+
+        BuiltinBiomes.bootstrap(new CapturingRegisterable<>(registerable, this::addBiomeToGraph));
     }
 
-    private static void addBiomeToGraph(Biome biome) {
+    private void addBiomeToGraph(Biome biome) {
         for (var features : biome.getGenerationSettings().getFeatures()) {
             if (features.size() == 0) continue;
 
             var before = features.get(0);
-            FEATURE_GRAPH.addVertex(before);
+            featureGraph.addVertex(before);
 
             for (int i = 1; i < features.size(); i++) {
                 var after = features.get(i);
-                FEATURE_GRAPH.addVertex(after);
+                featureGraph.addVertex(after);
 
                 try {
-                    FEATURE_GRAPH.addEdge(before, after);
+                    featureGraph.addEdge(before, after);
                 } catch (GraphCycleProhibitedException e) {
                     throw new IllegalStateException("Feature order cycle found between " + before.getKey() + " and " + after.getKey(), e);
                 }
@@ -313,7 +328,7 @@ public final class WamBiomes {
         RegistryEntryLookup<ConfiguredCarver<?>> configuredCarvers = registerable.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER);
         WamGenerationSettingsBuilder builder = new WamGenerationSettingsBuilder(placedFeatures, configuredCarvers);
         configurator.accept(builder);
-        return builder.build(FEATURE_GRAPH);
+        return builder.build(featureGraph);
     }
 
     private static SpawnSettings spawnSettings(Consumer<SpawnSettings.Builder> configurator) {

@@ -5,7 +5,6 @@ import juuxel.woodsandmires.block.WamBlocks;
 import juuxel.woodsandmires.data.builtin.CommonItemTags;
 import juuxel.woodsandmires.item.WamItemTags;
 import juuxel.woodsandmires.item.WamItems;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.data.family.BlockFamilies;
@@ -62,7 +61,7 @@ public final class WamRecipeProvider extends FabricRecipeProvider {
         offerShapelessRecipe(exporter, Items.YELLOW_DYE, WamBlocks.TANSY, "yellow_dye", 1);
 
         // Other
-        ShapelessRecipeJsonBuilder.create(WamItems.PINE_CONE_JAM)
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.FOOD, WamItems.PINE_CONE_JAM)
             .input(Items.GLASS_BOTTLE)
             .input(Ingredient.fromTag(CommonItemTags.PINE_CONES), 2)
             .input(CommonItemTags.SUGAR)

@@ -50,8 +50,8 @@ public class WamGenerationSettingsBuilder extends GenerationSettings.LookupBacke
 
     private void order(DirectedAcyclicGraph<RegistryEntry<PlacedFeature>, DefaultEdge> globalGraph) {
         var steps = GenerationStep.Feature.values();
-        for (int i = 0; i < this.features.size(); i++) {
-            var features = this.features.get(i);
+        for (int i = 0; i < this.indexedFeaturesList.size(); i++) {
+            var features = this.indexedFeaturesList.get(i);
             var localGraph = new DirectedAcyclicGraph<RegistryEntry<PlacedFeature>, DefaultEdge>(DefaultEdge.class);
             Graphs.addGraph(localGraph, globalGraph);
 
