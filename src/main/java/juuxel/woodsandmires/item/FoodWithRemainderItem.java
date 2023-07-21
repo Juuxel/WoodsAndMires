@@ -13,7 +13,7 @@ public class FoodWithRemainderItem extends Item {
 
     @Override
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
-        var remainder = getRecipeRemainder(stack);
+        var remainder = stack.getRecipeRemainder();
         super.finishUsing(stack, world, user);
 
         // If the slot is empty, we can safely insert the empty bottle there.
