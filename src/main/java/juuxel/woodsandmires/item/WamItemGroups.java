@@ -5,10 +5,14 @@ import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemGroups;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.function.Predicate;
 
 public final class WamItemGroups {
     public static void init() {
@@ -62,6 +66,18 @@ public final class WamItemGroups {
                 WamItems.PINE_BOAT,
                 WamItems.PINE_CHEST_BOAT);
         });
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(entries -> {
+            addBefore(entries, stack -> stack.isOf(Items.ENCHANTED_BOOK),
+                WamItems.PINE_CONE);
+        });
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINK).register(entries -> {
+            entries.add(WamItems.PINE_CONE_JAM);
+        });
+    }
+
+    private static void addBefore(FabricItemGroupEntries entries, Predicate<ItemStack> predicate, ItemConvertible... items) {
+        var stacks = Arrays.stream(items).map(ItemStack::new).toList();
+        entries.addBefore(predicate, stacks, ItemGroup.StackVisibility.PARENT_AND_SEARCH_TABS);
     }
 
     private static void addAfterFirstEnabled(FabricItemGroupEntries entries, List<Item> after, ItemConvertible... items) {
