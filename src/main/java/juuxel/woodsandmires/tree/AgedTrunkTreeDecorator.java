@@ -11,6 +11,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.floatprovider.FloatProvider;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.treedecorator.TreeDecorator;
 import net.minecraft.world.gen.treedecorator.TreeDecoratorType;
 
@@ -55,6 +56,9 @@ public final class AgedTrunkTreeDecorator extends TreeDecorator {
         for (BlockPos pos : generator.getLogPositions()) {
             if (pos.getY() > midY) {
                 break;
+            } else if (generator.getWorld().testBlockState(pos, Feature::isSoil)) {
+                // Don't replace the dirt underneath the trunk
+                continue;
             }
 
             BlockState state = log.getDefaultState().with(AgedLogBlock.MID, pos.getY() == midY);

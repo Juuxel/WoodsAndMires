@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "woods_and_mires:item/pine_cone"
+  }
+}
