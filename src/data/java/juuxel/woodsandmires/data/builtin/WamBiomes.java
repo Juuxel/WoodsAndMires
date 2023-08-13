@@ -194,6 +194,18 @@ public final class WamBiomes {
                 VegetationPlacedFeatures.PATCH_GRASS_FOREST,
                 VegetationPlacedFeatures.FLOWER_WARM
             );
+
+            // https://github.com/Juuxel/WoodsAndMires/issues/22
+            builder.addOrdering(
+                GenerationStep.Feature.VEGETAL_DECORATION,
+                VegetationPlacedFeatures.PATCH_TALL_GRASS,
+                VegetationPlacedFeatures.FLOWER_DEFAULT
+            );
+            builder.addOrdering(
+                GenerationStep.Feature.VEGETAL_DECORATION,
+                VegetationPlacedFeatures.PATCH_TALL_GRASS,
+                VegetationPlacedFeatures.PATCH_LARGE_FERN
+            );
         });
     }
 
